@@ -10,13 +10,13 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    View/finestrainiziale.cpp
 
 HEADERS += \
-    mainwindow.h
+    View/Header/finestrainiziale.h
 
-FORMS += \
-    mainwindow.ui
+
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
