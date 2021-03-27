@@ -6,6 +6,7 @@
 
 class MainWindow: public QWidget
 {
+    Q_OBJECT
 public:
     /**
      * @brief MainWindow: costruttore default
@@ -14,6 +15,7 @@ public:
     MainWindow(QWidget *parent=nullptr);
 
 private:
+
     /**
      * @brief startGame: bottone inizio gioco
      */
@@ -22,6 +24,13 @@ private:
      * @brief Settings: bottone impostazioni
      */
     QPushButton* settings;
+
+public slots:
+    /**
+    * @brief OpenSettings
+    */
+    void OpenSettings() const;
+
 };
 
 #endif // MAINWINDOW_H

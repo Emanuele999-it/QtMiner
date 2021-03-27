@@ -1,5 +1,5 @@
 #include <QApplication>
-#include "View/Header/controller.h"
+#include "Controller/Header/controller.h"
 
 
 int main(int argc, char *argv[])
@@ -9,5 +9,5 @@ int main(int argc, char *argv[])
     Controller c;
     c.ShowMainWindow();
 
-    a.exec();
+    return a.exec();
 }

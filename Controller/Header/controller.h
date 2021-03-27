@@ -27,6 +27,8 @@ public:
      * @brief ShowMainWindow: metodo usato per visualizzare la finestra
      */
     void ShowMainWindow() const;
+
+
 };
 
 #endif // CONTROLLER_H
