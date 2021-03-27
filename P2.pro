@@ -10,10 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    View/finestrainiziale.cpp
+    View\controller.cpp \
+    View\mainwindow.cpp
 
 HEADERS += \
-    View/Header/finestrainiziale.h
+    View\Header\controller.h \
+    View\Header\mainwindow.h
 
 
 

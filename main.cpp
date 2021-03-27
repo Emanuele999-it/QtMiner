@@ -1,11 +1,13 @@
-#include "View/Header/finestrainiziale.h"
+#include <QApplication>
+#include "View/Header/controller.h"
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    FinestraIniziale b;
-    //a.add(b);
-    b.visualizza();
+    Controller c;
+    c.ShowMainWindow();
+
     a.exec();
 }
