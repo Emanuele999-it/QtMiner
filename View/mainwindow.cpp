@@ -12,7 +12,10 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     setMinimumSize(350,300);
 
     startGame = new QPushButton(tr("Inizia a giocare!"), this);
-    settings = new QPushButton(tr("Impostazioni"),this);
+
+    settings = new QPushButton(this);
+    settings->setIcon(QIcon(":/Img/settings.png"));
+    settings->setIconSize(QSize(65, 65));
     settings->setFixedSize(70,70);
 
     QVBoxLayout *Vl= new QVBoxLayout(this);

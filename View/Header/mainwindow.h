@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QPushButton>
 
+#include <QSize>
+#include <QIcon>
+
 class MainWindow: public QWidget
 {
     Q_OBJECT
@@ -24,6 +27,7 @@ private:
      * @brief Settings: bottone impostazioni
      */
     QPushButton* settings;
+
 
 public slots:
     /**
