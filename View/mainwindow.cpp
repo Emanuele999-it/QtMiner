@@ -3,9 +3,7 @@
 //test
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QFile>
-#include <QMessageBox>
-#include <QTextStream>
+
 
 MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     //settaggio proprietà finestra
@@ -36,14 +34,9 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     Hl2->addWidget(startGame);
     Hl2->setAlignment(Qt::AlignCenter);
 
-    connect(settings, SIGNAL(clicked()), this, SLOT(OpenSettings()));
+    connect(settings, SIGNAL(clicked()), this, SIGNAL(OpenSettingsRequest()));
 
 }
-
-void MainWindow::OpenSettings() const{
-    QFile file("readme2.txt");
-    if(!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, "error", file.errorString());
-    }
-    file.close();
+void MainWindow::OpenSettingsWindow(){
+    settWindow = new MainSettingsWindow(this);
 }

@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QPushButton>
 
+#include "mainsettingswindow.h"
+
 #include <QSize>
 #include <QIcon>
 
@@ -28,13 +30,20 @@ private:
      */
     QPushButton* settings;
 
+    MainSettingsWindow *settWindow;
+
+signals:
+    /**
+    * @brief OpenSettings: segnale per aprire finestra impostazioni
+    */
+    void OpenSettingsRequest() const;
 
 public slots:
     /**
-    * @brief OpenSettings
-    */
-    void OpenSettings() const;
-
+     * @brief OpenSettingsWindow: slot che crea e
+     *                            rende visibile impostazioni
+     */
+    void OpenSettingsWindow();
 };
 
 #endif // MAINWINDOW_H

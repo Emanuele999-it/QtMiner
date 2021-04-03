@@ -10,12 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    Controller\controller.cpp \
-    View\mainwindow.cpp
+    Controller/controller.cpp \
+    View/mainwindow.cpp \
+    View/mainsettingswindow.cpp
 
 HEADERS += \
-    Controller\Header\controller.h \
-    View\Header\mainwindow.h
+    Controller/Header/controller.h \
+    View/Header/mainwindow.h \
+    View/Header/mainsettingswindow.h
 
 
 

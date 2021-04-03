@@ -28,7 +28,12 @@ public:
      */
     void ShowMainWindow() const;
 
-
+protected slots:
+    /**
+     * @brief openSettings: sloto collegamento tra mainwindow
+     *                      e finestra impostazioni
+     */
+    void openSettings();
 };
 
 #endif // CONTROLLER_H
