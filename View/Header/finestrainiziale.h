@@ -5,10 +5,17 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QMainWindow>
+#include <QLabel>
+#include <QLCDNumber>
+#include "View/Header/board.h"
 
-class FinestraIniziale : public QMainWindow{
+class FinestraIniziale : public QWidget{
 public:
-    FinestraIniziale();
+    FinestraIniziale(QWidget *parent = nullptr);
+private:
+    QLabel *label(const QString &text);
+    Board *b;
+    QLCDNumber *mosse;
     void visualizza();
 };
 
