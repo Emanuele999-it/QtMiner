@@ -1,2 +1,2 @@
 # QtMiner
-![GitHub Logo](Schema Generale.png)
+![Screenshot](Schema Generale.png)
