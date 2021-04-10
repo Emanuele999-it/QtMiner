@@ -11,7 +11,7 @@ FinestraIniziale:: FinestraIniziale(QWidget *p) : QWidget(p), b(new Board) //Lo 
     mosse->setSegmentStyle(QLCDNumber::Filled);
 
     QGridLayout *layout = new QGridLayout;
-    layout->addWidget(End, 4, 0);
+    //layout->addWidget(End, 4, 0);
     layout->addWidget(b, 0, 1, 6, 1); //la cosa che voglio io, la board
     setLayout(layout);
 

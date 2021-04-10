@@ -16,6 +16,7 @@ private:
     QLabel *label(const QString &text);
     Board *b;
     QLCDNumber *mosse;
+public:
     void visualizza();
 };
 
