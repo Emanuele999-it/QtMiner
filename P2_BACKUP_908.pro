@@ -14,17 +14,18 @@ SOURCES += \
     main.cpp \
     Controller/controller.cpp \
     View/mainwindow.cpp \
-    View/mainsettingswindow.cpp \
-    View/finestrainiziale.cpp
+    View/mainsettingswindow.cpp
 
 HEADERS += \
+<<<<<<< HEAD
     View/Header/board.h \
     View/Header/casella.h \
-    View/Header/finestrainiziale.h \
+    View/Header/finestrainiziale.h
+=======
     Controller/Header/controller.h \
     View/Header/mainwindow.h \
     View/Header/mainsettingswindow.h
-
+>>>>>>> ema
 
 
 

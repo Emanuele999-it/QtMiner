@@ -12,19 +12,12 @@ SOURCES += \
     View/board.cpp \
     View/casella.cpp \
     main.cpp \
-    Controller/controller.cpp \
-    View/mainwindow.cpp \
-    View/mainsettingswindow.cpp \
     View/finestrainiziale.cpp
 
 HEADERS += \
     View/Header/board.h \
     View/Header/casella.h \
-    View/Header/finestrainiziale.h \
-    Controller/Header/controller.h \
-    View/Header/mainwindow.h \
-    View/Header/mainsettingswindow.h
-
+    View/Header/finestrainiziale.h
 
 
 
@@ -33,6 +26,3 @@ HEADERS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-RESOURCES += \
-    resources.qrc

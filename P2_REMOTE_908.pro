@@ -9,22 +9,15 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    View/board.cpp \
-    View/casella.cpp \
     main.cpp \
     Controller/controller.cpp \
     View/mainwindow.cpp \
-    View/mainsettingswindow.cpp \
-    View/finestrainiziale.cpp
+    View/mainsettingswindow.cpp
 
 HEADERS += \
-    View/Header/board.h \
-    View/Header/casella.h \
-    View/Header/finestrainiziale.h \
     Controller/Header/controller.h \
     View/Header/mainwindow.h \
     View/Header/mainsettingswindow.h
-
 
 
 
