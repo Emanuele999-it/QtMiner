@@ -1,2 +1,2 @@
 # QtMiner
-![Screenshot](Schema Generale.png)
+![](Schema%20Generale.png)
