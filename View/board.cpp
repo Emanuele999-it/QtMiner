@@ -1,5 +1,4 @@
 #include "View/Header/board.h"
-#include "View/Header/casella.h"
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QWidget>
