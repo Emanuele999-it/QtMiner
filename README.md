@@ -1,5 +1,6 @@
 # QtMiner
-![GitHub Logo](Schema Generale.png)
+
+![](Schema%20Generale.png)
 
 ##Carta
 #disruttore
