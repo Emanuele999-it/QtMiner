@@ -15,15 +15,15 @@ SOURCES += \
     Controller/controller.cpp \
     View/mainwindow.cpp \
     View/mainsettingswindow.cpp \
-    View/finestrainiziale.cpp
+    View/boardwindow.cpp
 
 HEADERS += \
     View/Header/board.h \
     View/Header/casella.h \
-    View/Header/finestrainiziale.h \
     Controller/Header/controller.h \
     View/Header/mainwindow.h \
-    View/Header/mainsettingswindow.h
+    View/Header/mainsettingswindow.h \
+    View/Header/boardwindow.h
 
 
 
