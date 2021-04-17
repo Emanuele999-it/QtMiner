@@ -28,7 +28,6 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 
     Hl1->addWidget(settings);
     Hl1->setAlignment(Qt::AlignRight | Qt::AlignTop);
-    Hl1->setMargin(15);
 
 
     Hl2->addWidget(startGame);

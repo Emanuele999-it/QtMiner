@@ -4,6 +4,8 @@
 
 class Casella : public QWidget{
 private:
+    bool Cardinali[3]; // Nord, Est, Sud, Ovest
+    /*
     class TipoCarta{
         private:
             bool Nord;
@@ -20,11 +22,33 @@ private:
     };
 
     TipoCarta tipo; //TipoCarta è se è una strada o altro (Se vuota null)
-    void posizione();
+    */
+    int posizione=0;
 public:
+    void getPosizione();
     Casella();
-    void cartaRandom();
-    void tipoCarta();
+   // virtual ~Casella() {};
+    //virtual void targetCasella();
+    //virtual bool tipoCarta();
 };
+
+class Ostacolo : public Casella{
+public:
+    //bool tipoCarta() override;// Questa ci serve per la chiamata polimorfa
+};
+
+class Blocco : public Ostacolo{
+public:
+    //bool tipoCarta() override;
+};
+
+class Crollo : public Blocco{
+public:
+    //void targetCasella() override;
+    //~Crollo(){};
+};
+
+
+
 
 
