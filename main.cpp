@@ -7,9 +7,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     //a.add(b);
-    FinestraIniziale b;
-    b.visualizza();
-    a.exec();
+    //FinestraIniziale b;
+    //b.visualizza();
+    //a.exec();
     Controller c;
     c.ShowMainWindow();
 

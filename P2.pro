@@ -23,7 +23,8 @@ HEADERS += \
     View/Header/finestrainiziale.h \
     Controller/Header/controller.h \
     View/Header/mainwindow.h \
-    View/Header/mainsettingswindow.h
+    View/Header/mainsettingswindow.h \
+    Entities/Headers/cvector.h
 
 
 
