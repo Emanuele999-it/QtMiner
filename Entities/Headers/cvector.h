@@ -1,168 +1,144 @@
 #ifndef CVECTOR_H
 #define CVECTOR_H
 
+#include <iostream>
 
 template <class T>
 class CVector {
+
 private:
-    T* a;
+    T*array;
     unsigned int size;
-    unsigned int used;
+    T* copy() const ;
 
 public:
-
-    /**
-     * @brief CVector: costruttore del vettore
-     * @param s: parametro che indica la grandezza iniziale del vettore
-     */
-    CVector(unsigned int s =0);
-
-    /**
-     * @brief CVector: costruttore di copia
-     * @param v: vettore da copiare
-     */
-    CVector(const CVector& v);
-
-
+    CVector();
+    CVector(unsigned int s=0);
+    //CVector(const CVector &v){}
+    CVector& operator=(const CVector& );
     ~CVector();
 
-/*
-    Funzionalità da controllare/aggiungere
-*/
-    class iterator {
-            friend class CVector<T>;
-            friend class constIterator;
 
-           private:
-            T* _ptr;
-            iterator(T* n);
-
-           public:
-            iterator();
-            T& operator*() const;
-            T* operator->() const;
-            iterator& operator++();
-            iterator& operator--();
-            bool operator==(const iterator& x) const;
-            bool operator!=(const iterator& x) const;
-        };
-
-
-    class constIterator {
+    class ConstIterator{
         friend class CVector<T>;
+        //da togliere
+        //friend std::ostream& operator<<(std::ostream &os, const ConstIterator &c);
 
-        private:
-            T* _array;
-            constIterator(T* n);
+      private:
+        T* _array;
+        ConstIterator(T* a);
+    public:
+        ConstIterator();
+        T* operator++() const ;
+        T* operator--() const ;
+        T* operator++(int) const ;
+        T* operator--(int) const ;
+        const T& operator*() ;
+        const T* operator->() ;
+        bool operator==(const T& a) const ;
+        bool operator!=(const T& a) const ;
 
-        public:
-            constIterator();
-            CVector<T>& operator=(const CVector<T>& vec);
-            constIterator& operator++();
-            constIterator& operator--();
-            bool operator==(const constIterator& x) const;
-            bool operator!=(const constIterator& x) const;
-            int& operator[](unsigned int i) const;
-            const T& operator*() const;
-            const T* operator->() const;
-        };
+    };
 
-    iterator begin() const;
-    iterator end() const;
+    ConstIterator begin() const;
 
-    constIterator cbegin() const;
-    constIterator cend() const;
+    ConstIterator end() const;
+
+    ConstIterator operator[](unsigned int i) const;
+
+
+
+
 };
 
+template <class T>
+CVector<T>::CVector() : array(0), size(0){}
 
-template<class T>
-CVector<T>::CVector(){
-    arr = new T[1];
-    capacity = 1;
-    current = 0;
-}
+template <class T>
+CVector<T>::CVector(unsigned int s): array(s>0 ? new T[s]: 0), size(s){}
 
-//non va!
-template<class T>
-CVector<T>::CVector(const CVector<T>& vec){
-    //for (int i = 0; i < vec.current; i++) { push(T(vec[i])); }
-}
-
-template<class T>
-CVector<T>& CVector<T>::operator=(const CVector<T>& vec){
-    if(&vec != this){
-        delete[] arr;
-        arr = new T[1];
-        current=0;
-        capacity=1;
-        for (int i = 0; i < vec.current; i++) { push(T(vec[i])); }
+template <class T>
+typename CVector<T>::CVector& CVector<T>::operator=(const CVector& v) {
+    if(this != &v){
+        delete[] array;
+        array = v.copy();
+        size = v.size;
+        }
+    return *this;
     }
-    return *this;
-}
 
-template<class T>
-CVector<T>::~CVector(){
-    delete[] a;
-}
 
 template <class T>
-CVector<T>::iterator::iterator() : _ptr(nullptr){}
+CVector<T>::~CVector() { delete[] array;}
 
 template <class T>
-CVector<T>::iterator::iterator(T*n) : _ptr(n){}
-
-template <class T>
-T& CVector<T>::iterator::operator*() const {
-    return _ptr->a;
-}
-
-template <class T>
-T* CVector<T>::iterator::operator*() const {
-    return &(_ptr->a);
-}
-
-template <class T>
-typename CVector<T>::iterator& CVector<T>::iterator::operator++() {
-    if (_ptr != nullptr) {
-        if (used < size) {
-                ptr++;
-            }
-        }
-    return *this;
-}
-
-template <class T>
-typename CVector<T>::iterator& CVector<T>::iterator::operator--() {
-    if (_ptr != nullptr) {
-        if (used <= size && used > 0) {
-                ptr--;
-            }
-        }
-    return *this;
-}
-
-template <class T>
-bool CVector<T>::iterator::operator==(const iterator& x) const {
-    return _ptr == x._ptr;
-}
-
-template <class T>
-bool CVector<T>::iterator::operator!=(const iterator& x) const {
-    return _ptr != x._ptr;
-}
-
-template <class T>
-typename CVector<T>::iterator CVector<T>::begin() {
-    return a;
-}
-
-template <class T>
-typename CVector<T>::iterator CVector<T>::end() {
-    return a;
+T* CVector<T>::copy() const {
+    if(array->size == 0) return nullptr;
+    T* x = new T[array->size];
+    for(unsigned int i=0; i<array->size; ++i) x[i]=array[i];
+    return x;
 }
 
 
 template <class T>
-CVector<T>::constIterator::constIterator(): _array(nullptr) {}
+CVector<T>::ConstIterator::ConstIterator(T*a): _array(a) {}
+
 template <class T>
-CVector<T>::constIterator::constIterator(const CVector<T>& vec) {}
+CVector<T>::ConstIterator::ConstIterator(): _array(0) {}
+
+template <class T>
+T* CVector<T>::ConstIterator::operator++() const {
+    ++_array; return *this;
+}
+
+template <class T>
+T* CVector<T>::ConstIterator::operator--() const {
+    _array--; return *this;
+}
+
+template <class T>
+T* CVector<T>::ConstIterator::operator++(int) const {
+    ConstIterator tmp = *this; ++(*this); return tmp;
+}
+
+template <class T>
+T* CVector<T>::ConstIterator::operator--(int) const {
+    ConstIterator tmp = *this; ++(*this); return tmp;
+}
+
+template <class T>
+const T& CVector<T>::ConstIterator::operator*() {return *_array;}
+
+template <class T>
+const T* CVector<T>::ConstIterator::operator->() {return _array;}
+
+template <class T>
+bool CVector<T>::ConstIterator::operator==(const T& a) const {return _array==a;}
+
+template <class T>
+bool CVector<T>::ConstIterator::operator!=(const T& a) const {return _array!=a;}
+
+template <class T>
+typename  CVector<T>::ConstIterator  CVector<T>::begin() const{
+    return  ConstIterator(array);
+}
+
+template <class T>
+typename  CVector<T>::ConstIterator  CVector<T>::end() const{
+    return  ConstIterator(array + size);
+}
+
+template <class T>
+typename  CVector<T>::ConstIterator  CVector<T>::operator[](unsigned int i) const{
+    return  ConstIterator(array + i);
+}
+/*
+//da togliere
+template <class T>
+std::ostream& CVector<T>::ConstIterator::operator<<(std::ostream &os, const ConstIterator &c)
+{
+    os << c->_array << " : ";
+    return os;
+}
+*/
+#endif
