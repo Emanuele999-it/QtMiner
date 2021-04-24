@@ -77,6 +77,7 @@ public:
 
     iterator end() const;
 
+
 /*-----------Iteratore costante-----------*/
 
     class const_iterator {
@@ -99,6 +100,7 @@ public:
     const_iterator cbegin() const;
 
     const_iterator cend() const;
+
 
 /*-----------Elementi-----------*/
 
@@ -324,12 +326,12 @@ bool CVector<T>::const_iterator::operator!=(const const_iterator& it) const
 
 template <class T>
 typename CVector<T>::const_iterator CVector<T>::cbegin() const{
-    return CVector<T>::const_iterator(&arr[0]);
+    return CVector<T>::const_iterator(CVector<T>::iterator(&arr[0]));
 }
 
 template <class T>
 typename CVector<T>::const_iterator CVector<T>::cend() const{
-    return CVector<T>::const_iterator(&arr[space]);
+    return CVector<T>::const_iterator(CVector<T>::iterator(&arr[space]));
 }
 
 /*-----------Elementi-----------*/
