@@ -14,9 +14,6 @@ int main(int argc, char *argv[])
     //b.visualizza();
     //a.exec();
 
-    CVector<char> v(33);
-    //for(int i=0;i<33;i++)
-    //{cout<<v[i]<<" ";}
 
     Controller c;
     c.ShowMainWindow();
