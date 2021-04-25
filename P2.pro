@@ -15,7 +15,8 @@ SOURCES += \
     Controller/controller.cpp \
     View/mainwindow.cpp \
     View/mainsettingswindow.cpp \
-    View/finestrainiziale.cpp
+    View/finestrainiziale.cpp \
+    Entities/unique_ptr.cpp
 
 HEADERS += \
     View/Header/board.h \
@@ -24,7 +25,8 @@ HEADERS += \
     Controller/Header/controller.h \
     View/Header/mainwindow.h \
     View/Header/mainsettingswindow.h \
-    Entities/Headers/cvector.h
+    Entities/Headers/cvector.h \
+    Entities/Headers/unique_ptr.h
 
 
 

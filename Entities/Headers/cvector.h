@@ -12,6 +12,7 @@ class CVector {
 private:
 
     T* arr;
+
     /**
      * @brief space: spazio totale= spazio usato + spazio non usato
      */
@@ -135,12 +136,18 @@ public:
      */
     T& operator[](nat) const;
 
+
 /*-----------Inserimento-----------*/
+
     void push_back(const T& d);
 
+
 /*-----------Stampa-----------*/
+
     static void display_vector(T&);
 };
+
+
 
 
 /*-----------Costruttori-----------*/
@@ -389,10 +396,12 @@ inline void CVector<T>::push_back(const T& d){
 }
 
 
+/*-----------Stampa-----------*/
+
 template <class T>
-void display_vector(T& v)
+void display_vector(CVector<T>& v)
 {
-    for (typename T::const_iterator ptr = v.begin(); ptr != v.end(); ptr++) {
+    for (typename CVector<T>::const_iterator ptr = v.begin(); ptr != v.end(); ptr++) {
         std::cout << *ptr << " ";
     }
     std::cout << '\n';
