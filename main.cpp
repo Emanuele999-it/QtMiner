@@ -2,6 +2,7 @@
 #include "Controller/Header/controller.h"
 
 #include "Entities/Headers/cvector.h"
+#include "Entities/Headers/unique_ptr.h"
 #include <iostream>
 using namespace std;
 

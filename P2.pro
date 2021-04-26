@@ -15,8 +15,7 @@ SOURCES += \
     Controller/controller.cpp \
     View/mainwindow.cpp \
     View/mainsettingswindow.cpp \
-    View/finestrainiziale.cpp \
-    Entities/unique_ptr.cpp
+    View/finestrainiziale.cpp
 
 HEADERS += \
     View/Header/board.h \

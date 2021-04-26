@@ -144,9 +144,8 @@ public:
 
 /*-----------Stampa-----------*/
 
-    static void display_vector(T&);
+    void display_vector(const CVector&);
 };
-
 
 
 
@@ -156,9 +155,7 @@ template <class T>
 CVector<T>::CVector(): arr(0), space(0), size(0) {}
 
 template <class T>
-CVector<T>::CVector(unsigned int l): space(l), arr(new T[l]), size(0) {
-    for(unsigned int j=0; j<l; ++j) arr[j]=T();
-}
+CVector<T>::CVector(nat l): space(l), arr(new T[l]), size(0) {}
 
 template <class T>
 CVector<T>::CVector(const CVector & a)
@@ -204,6 +201,7 @@ CVector<T>::~CVector()
 {
     delete[] arr;
 }
+
 
 /*-----------Iteratore-----------*/
 
@@ -276,9 +274,9 @@ typename CVector<T>::iterator CVector<T>::end() const
 }
 
 
-
 /*-----------Iteratore costante-----------*/
 
+//costruisce iteratore chiamando classe iterator (non costante)
 template <class T>
 CVector<T>::const_iterator::const_iterator(){}
 
@@ -341,6 +339,7 @@ typename CVector<T>::const_iterator CVector<T>::cend() const{
     return CVector<T>::const_iterator(CVector<T>::iterator(&arr[space]));
 }
 
+
 /*-----------Elementi-----------*/
 
 template <class T>
@@ -372,7 +371,6 @@ void CVector<T>::resize(nat newSize){
     arr = p;
     space = newSize;
 }
-
 
 
 /*-----------Accesso-----------*/
