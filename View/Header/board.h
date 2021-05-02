@@ -3,13 +3,16 @@
 #include <QFrame>
 #include <QGridLayout>
 #include <QBasicTimer>
-#include "View\Header\casella.h"
+
+//per ora solo grafica
+
+#include <QLabel>
 
 class Board : public QFrame
 {
 private:
     int numeroCaselle = 64;
-    QVector<Casella*> casellaVettore; //vettore caselle
+    //QVector<Casella*> casellaVettore; //vettore caselle
     QLabel *createLabel(const QString &text);
 
 public:
@@ -35,7 +38,7 @@ private:
     bool Pausa; //vogliamo implemetare la pausa?
     int Carte; //carte giocate
     bool trovato; // suppongo che questa sia la vittoria
-    QVector<Casella*> Mano; //Queste sono le carte in mano
+    //QVector<Casella*> Mano; //Queste sono le carte in mano
 };
 
 

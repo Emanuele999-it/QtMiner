@@ -10,22 +10,24 @@ CONFIG += c++11
 
 SOURCES += \
     View/board.cpp \
-    View/casella.cpp \
     main.cpp \
     Controller/controller.cpp \
     View/mainwindow.cpp \
     View/mainsettingswindow.cpp \
-    View/finestrainiziale.cpp
+    View/finestrainiziale.cpp \
+    Entities/card.cpp \
+    Entities/tunnel.cpp
 
 HEADERS += \
     View/Header/board.h \
-    View/Header/casella.h \
     View/Header/finestrainiziale.h \
     Controller/Header/controller.h \
     View/Header/mainwindow.h \
     View/Header/mainsettingswindow.h \
-    Entities/Headers/cvector.h \
-    Entities/Headers/unique_ptr.h
+    Entities/Header/cvector.h \
+    Entities/Header/unique_ptr.h \
+    Entities/Header/card.h \
+    Entities/Header/tunnel.h
 
 
 

@@ -1,20 +1,13 @@
 #include <QApplication>
 #include "Controller/Header/controller.h"
 
-#include "Entities/Headers/cvector.h"
-#include "Entities/Headers/unique_ptr.h"
-#include <iostream>
-using namespace std;
+#include "Entities/Header/cvector.h"
+#include "Entities/Header/unique_ptr.h"
+
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-    //a.add(b);
-    //FinestraIniziale b;
-    //b.visualizza();
-    //a.exec();
-
 
     Controller c;
     c.ShowMainWindow();
@@ -22,3 +15,17 @@ int main(int argc, char *argv[])
     return a.exec();
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
