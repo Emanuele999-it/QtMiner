@@ -1,4 +1,4 @@
-#ifndef UNIQUE_PTR_H
+﻿#ifndef UNIQUE_PTR_H
 #define UNIQUE_PTR_H
 
 #include <ostream>
@@ -17,7 +17,7 @@ public:
 
 /*----------Costruttori----------*/
 
-    unique_ptr(T* obj=nullptr);
+    unique_ptr(T *obj=nullptr);
 
     explicit unique_ptr(const unique_ptr<T>&);
 
@@ -72,7 +72,7 @@ public:
 /*------Swap-----*/
 template<class T>
 void unique_ptr<T>::swap(T* up){
-    T*temp=up;
+    T* temp=up;
 
     up=ptr;
     ptr=temp;
@@ -87,12 +87,11 @@ unique_ptr<T>::unique_ptr(T* obj) : ptr(obj) {}
 template<class T>
 unique_ptr<T>::~unique_ptr(){
     delete ptr;
+    ptr=nullptr;
 }
 
 template<class T>
-unique_ptr<T>::unique_ptr(const unique_ptr<T>& up){
-    up.swap_ptr(*this);
-}
+unique_ptr<T>::unique_ptr(const unique_ptr<T>& up): ptr(up.ptr){}
 
 
 /*----------Operator----------*/
@@ -125,7 +124,8 @@ unique_ptr<T>::operator bool() const{
 
 template<class T>
 unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr<T>& up){
-    swap(up.ptr);
+    if(this != &up)
+        ptr=up.ptr;
     return *this;
 }
 
@@ -140,7 +140,7 @@ T* unique_ptr<T>::release(){
 }
 
 template<class T>
-void unique_ptr<T>::swap_ptr(unique_ptr& p){
+void unique_ptr<T>::swap_ptr(unique_ptr<T>& p){
     swap(p.ptr);
 }
 
