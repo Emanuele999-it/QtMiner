@@ -1,39 +1,24 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <QObject>
-#include "View/Header/mainwindow.h"
+#include <QGraphicsScene>
+#include "Controller/Header/scenes.h" //per le diverse scene
+#include "Model/Header/game.h" //Questo serve per il gioco
 
-class Controller: public QObject
-{
-    /**
-     * @brief Q_OBJECT: macro per signal/slot
-     */
+namespace controller{
+
+class Controller : public QObject {
     Q_OBJECT
-
-private:
-    /**
-     * @brief MainW: finestra iniziale
-     */
-    MainWindow* MainW =nullptr;
-
+/*
+ * Qui va l'oggetto "game" che serve per gestire tutto
+ */
 public:
-    /**
-     * @brief Controller: costruttore di default
-     * @param parent: parent di Controller
-     */
-    Controller(QObject* parent = nullptr);
-    /**
-     * @brief ShowMainWindow: metodo usato per visualizzare la finestra
-     */
-    void ShowMainWindow() const;
+    virtual QGraphicsScene* getScene() const = 0;
 
-protected slots:
-    /**
-     * @brief openSettings: sloto collegamento tra mainwindow
-     *                      e finestra impostazioni
-     */
-    void openSettings();
+signals:
+    void goTo (controller::Scenes scene); //Essenzialmente serve a cmbiare scena
+
 };
 
+}
 #endif // CONTROLLER_H

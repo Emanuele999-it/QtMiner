@@ -15,18 +15,36 @@ SOURCES += \
     Controller/controller.cpp \
     View/mainwindow.cpp \
     View/mainsettingswindow.cpp \
-    View/finestrainiziale.cpp
+    View/boardwindow.cpp
 
 HEADERS += \
-    View/Header/board.h \
-    View/Header/casella.h \
-    View/Header/finestrainiziale.h \
+    Controller/Header/scenes.h \
     Controller/Header/controller.h \
+    Controller/Header/gameScreenController.h \
+    Controller/Header/initialScreenController.h \
+    Controller/Header/mapScreenController.h \
+    Controller/Header/tutorialScreenController.h \
+    View/Header/hud/iconButton.h \
     View/Header/mainwindow.h \
-    View/Header/mainsettingswindow.h
-
-
-
+    View/Header/mainsettingswindow.h \
+    View/Header/boardwindow.h \
+    View/Header/hud/infoBox.h \
+    View/Header/screens/gameScreen/Board/board.h \
+    View/Header/screens/gameScreen/Board/casella.h \
+    View/Header/screens/gameScreen/Modal/gameOver.h \
+    View/Header/screens/gameScreen/Modal/pause.h \
+    View/Header/screens/gameScreen/gameScene.h \
+    View/Header/screens/initialScreen/initialScreen.h \
+    View/Header/screens/boardScreen/mapScreen.h \
+    View/Header/screens/boardScreen/setBoard.h \
+    View/Header/screens/tutorial/scene.h \
+    View/Header/screens/tutorial/content.h \
+    Model/Header/game.h \
+    Model/Header/carta/blocco.h \
+    Model/Header/carta/carta.h \
+    Model/Header/carta/crollo.h \
+    Model/Header/carta/ostacolo.h \
+    Model/Header/carta/tunnel.h \
 
 
 # Default rules for deployment.

@@ -1,6 +1,6 @@
 #include <QApplication>
 #include "Controller/Header/controller.h"
-#include "View/Header/finestrainiziale.h"
+#include "View/Header/boardwindow.h"
 
 int main(int argc, char *argv[])
 {
