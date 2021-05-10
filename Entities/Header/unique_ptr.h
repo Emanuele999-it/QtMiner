@@ -6,6 +6,7 @@
 template <class T>
 class unique_ptr{
 private:
+public:
     /**
      * @brief ptr: puntatore all'oggetto
      */
@@ -57,7 +58,7 @@ public:
      */
     T* get();
 
-    const T*get() const;
+    const T*get_const() const;
 
     /**
      * @brief reset: rimuove oggetto punatato
@@ -119,13 +120,13 @@ const T* unique_ptr<T>::operator->() const{
 
 template<class T>
 unique_ptr<T>::operator bool() const{
-    return ptr != nullptr;
+    return (ptr != nullptr) ? true : false;
 }
 
 template<class T>
 unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr<T>& up){
     if(this != &up)
-        ptr=up.ptr;
+        *ptr=*(up.ptr);
     return *this;
 }
 
@@ -146,19 +147,18 @@ void unique_ptr<T>::swap_ptr(unique_ptr<T>& p){
 
 template<class T>
 T* unique_ptr<T>::get(){
-    return ptr;
+    return (ptr != nullptr) ? ptr : nullptr;
 }
 
 template<class T>
-const T* unique_ptr<T>::get() const {
-    return ptr;
+const T* unique_ptr<T>::get_const() const {
+    return (ptr != nullptr) ? ptr : nullptr;
 }
 
 template<class T>
 void unique_ptr<T>::reset() {
     T* temp=release();
     delete temp;
-
 }
 
 
