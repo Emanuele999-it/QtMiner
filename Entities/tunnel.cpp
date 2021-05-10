@@ -1,16 +1,32 @@
 ﻿#include "Header/tunnel.h"
 
-Tunnel::Tunnel(bool North, bool East, bool South, bool West){
-    arr[0]={North};
-    arr[1]={East};
-    arr[2]={South};
-    arr[3]={West};
+Tunnel::Tunnel(bool North, bool East, bool South, bool West): Card() {
+    arr[0]=North;
+    arr[1]=East;
+    arr[2]=South;
+    arr[3]=West;
 }
 
 Tunnel::~Tunnel(){
     delete[] arr;
 }
 
-Card& Tunnel::clone(){
-    //return Tunnel(arr[0],arr[1],arr[2],arr[3]);
+Tunnel* Tunnel::clone() const {
+    return new Tunnel(*this);
 }
+
+void Tunnel::copia(const bool* a){
+    for(int i=0;i<4;i++){
+        arr[i]=a[i];
+    }
+}
+
+Tunnel::Tunnel(const Tunnel &t){
+    copia(t.arr);
+}
+
+Tunnel& Tunnel::operator =(const Tunnel& t){
+    copia(t.arr);
+    return *this;
+}
+

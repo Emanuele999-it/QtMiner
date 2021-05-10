@@ -1,4 +1,4 @@
-#ifndef CVECTOR_H
+﻿#ifndef CVECTOR_H
 #define CVECTOR_H
 
 #include <iostream>
@@ -155,12 +155,13 @@ template <class T>
 CVector<T>::CVector(): arr(0), space(0), size(0) {}
 
 template <class T>
-CVector<T>::CVector(nat l): space(l), arr(new T[l]), size(0) {}
+CVector<T>::CVector(nat l): space(l), arr(new T[l]), size(0) {
+    for(nat i=0;i<l;i++) arr[i]=T();
+}
 
 template <class T>
 CVector<T>::CVector(const CVector & a)
-    :space(a.space), arr(new T[a.space])
-{
+    :space(a.space), arr(new T[a.space]), size(0){
     for (unsigned int i = 0; i < a.capacity; i++) {
         arr[i] = a.arr[i];
     }

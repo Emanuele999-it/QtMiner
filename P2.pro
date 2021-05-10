@@ -16,7 +16,11 @@ SOURCES += \
     View/mainsettingswindow.cpp \
     View/finestrainiziale.cpp \
     Entities/card.cpp \
-    Entities/tunnel.cpp
+    Entities/tunnel.cpp \
+    Entities/clonecards.cpp \
+    Entities/obstruction.cpp \
+    Entities/blocco.cpp \
+    Entities/crollo.cpp
 
 HEADERS += \
     View/Header/board.h \
@@ -56,6 +60,13 @@ HEADERS += \
     Model/Header/carta/crollo.h \
     Model/Header/carta/ostacolo.h \
     Model/Header/carta/tunnel.h \
+
+    Entities/Header/tunnel.h \
+    Entities/Header/clonecards.h \
+    Entities/Header/obstruction.h \
+    Enums/obstructiontype.h \
+    Entities/Header/blocco.h \
+    Entities/Header/crollo.h
 
 
 

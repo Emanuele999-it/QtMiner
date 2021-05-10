@@ -1,6 +1,6 @@
 ﻿#include "Header/card.h"
 
-Card::Card(): canBeUsed(false) {}
+Card::Card(bool n) : canBeUsed(n) {}
 
 bool Card::get_canBeUsed(){return canBeUsed;}
 

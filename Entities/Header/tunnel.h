@@ -7,18 +7,24 @@ class Tunnel : public Card
 {
 
 private:
+public:
     /**
      * @brief arr: array che indica le direzioni del percorso della carta
      */
-    bool *arr;
+    bool arr[4];
 
+    /**
+     * @brief copia: metodo che permette di copiare array
+     */
+    void copia(const bool *);
+
+public:
     /**
      * @brief clone: metodo che clona la carta Tunnel
      * @return: oggetto clonato
      */
-    virtual Card& clone() override;
+    virtual Tunnel* clone() const override;
 
-public:
     /**
      * @brief Tunnel: costruttore
      */
