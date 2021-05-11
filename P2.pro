@@ -14,20 +14,17 @@ SOURCES += \
     Controller/controller.cpp \
     View/mainwindow.cpp \
     View/mainsettingswindow.cpp \
-    View/finestrainiziale.cpp \
-    Entities/card.cpp \
-    Entities/tunnel.cpp \
-    Entities/clonecards.cpp \
-    Entities/obstruction.cpp \
-    Entities/blocco.cpp \
-    Entities/crollo.cpp
+    Model/carta/blocco.cpp \
+    Model/carta/card.cpp \
+    Model/carta/clonecards.cpp \
+    Model/carta/crollo.cpp \
+    Model/carta/obstruction.cpp \
+    Model/carta/tunnel.cpp \
+
 
 HEADERS += \
     View/Header/board.h \
-    View/Header/finestrainiziale.h \
-    View/boardwindow.cpp
-
-HEADERS += \
+    View/boardwindow.cpp \
     Controller/Header/scenes.h \
     Controller/Header/controller.h \
     Controller/Header/gameScreenController.h \
@@ -39,9 +36,6 @@ HEADERS += \
     View/Header/mainsettingswindow.h \
     Entities/Header/cvector.h \
     Entities/Header/unique_ptr.h \
-    Entities/Header/card.h \
-    Entities/Header/tunnel.h
-	
     View/Header/boardwindow.h \
     View/Header/hud/infoBox.h \
     View/Header/screens/gameScreen/Board/board.h \
@@ -56,18 +50,11 @@ HEADERS += \
     View/Header/screens/tutorial/content.h \
     Model/Header/game.h \
     Model/Header/carta/blocco.h \
-    Model/Header/carta/carta.h \
+    Model/Header/carta/card.h \
+    Model/Header/carta/clonecards.h \
     Model/Header/carta/crollo.h \
-    Model/Header/carta/ostacolo.h \
+    Model/Header/carta/obstruction.h \
     Model/Header/carta/tunnel.h \
-
-    Entities/Header/tunnel.h \
-    Entities/Header/clonecards.h \
-    Entities/Header/obstruction.h \
-    Enums/obstructiontype.h \
-    Entities/Header/blocco.h \
-    Entities/Header/crollo.h
-
 
 
 # Default rules for deployment.
