@@ -1,7 +1,6 @@
-#include "Header/controller.h"
+﻿#include "Header/controller.h"
 
-
-Controller::Controller(QObject* parent): QObject(parent){
+controller::Controller::Controller(QObject* parent): QObject(parent){
     //costruire controller
     MainW = new MainWindow();
 
@@ -12,9 +11,9 @@ Controller::Controller(QObject* parent): QObject(parent){
     connect(MainW, &MainWindow::OpenSettingsRequest, this, &Controller::openSettings);
 }
 
-void Controller::ShowMainWindow() const {MainW->show();}
+void controller::Controller::ShowMainWindow() const {MainW->show();}
 
 
-void Controller::openSettings(){
+void controller::Controller::openSettings(){
     emit MainW->OpenSettingsWindow();
 }

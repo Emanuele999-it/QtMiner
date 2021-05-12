@@ -1,4 +1,4 @@
-#ifndef CONTROLLER_H
+﻿#ifndef CONTROLLER_H
 #define CONTROLLER_H
 
 #include <QGraphicsScene>
@@ -13,6 +13,8 @@ class Controller : public QObject {
  * Qui va l'oggetto "game" che serve per gestire tutto
  */
 public:
+    Controller(QObject* parent= nullptr);
+
     virtual QGraphicsScene* getScene() const = 0;
 
 signals:

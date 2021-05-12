@@ -1,11 +1,11 @@
-#include "Header\mainwindow.h"
+﻿#include "Header\mainwindow.h"
 
 //test
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-
 MainWindow::MainWindow(QWidget *parent): QWidget(parent){
+
     //settaggio proprietà finestra
     setWindowTitle ("QtMiner");
     setMinimumSize(350,300);
