@@ -24,6 +24,7 @@ SOURCES += \
 
 HEADERS += \
     View/Header/board.h \
+    View/Header/screens/gameScreen/Board/setBoard.h \
     View/boardwindow.cpp \
     Controller/Header/scenes.h \
     Controller/Header/controller.h \
@@ -39,7 +40,6 @@ HEADERS += \
     View/Header/boardwindow.h \
     View/Header/hud/infoBox.h \
     View/Header/screens/gameScreen/Board/board.h \
-    View/Header/screens/gameScreen/Board/casella.h \
     View/Header/screens/gameScreen/Modal/gameOver.h \
     View/Header/screens/gameScreen/Modal/pause.h \
     View/Header/screens/gameScreen/gameScene.h \
