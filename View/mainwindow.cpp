@@ -36,6 +36,13 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     connect(settings, SIGNAL(clicked()), this, SIGNAL(OpenSettingsRequest()));
 
 }
+
+void MainWindow::OpenSettingsRequest(){
+    emit OpenSettingsWindow();
+}
+
+
 void MainWindow::OpenSettingsWindow(){
     settWindow = new MainSettingsWindow(this);
+    settWindow->show();
 }

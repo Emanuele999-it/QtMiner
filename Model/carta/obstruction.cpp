@@ -1,3 +1,3 @@
-﻿#include "Header/obstruction.h"
+﻿#include "../Header/carta/obstruction.h"
 
 Obstruction::Obstruction(){}

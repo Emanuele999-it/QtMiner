@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QWidget>
@@ -36,7 +36,7 @@ signals:
     /**
     * @brief OpenSettings: segnale per aprire finestra impostazioni
     */
-    void OpenSettingsRequest() const;
+    void OpenSettingsRequest();
 
 public slots:
     /**

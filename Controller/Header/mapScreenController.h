@@ -1,10 +1,10 @@
-#ifndef MAP_SCREEN_CONTROLLER_H
+﻿#ifndef MAP_SCREEN_CONTROLLER_H
 #define MAP_SCREEN_CONTROLLER_H
 
 #include <QObject>
 #include "View/Header/mainwindow.h"
 
-class Controller: public QObject
+class MapScreenController: public QObject
 {
     /**
      * @brief Q_OBJECT: macro per signal/slot
@@ -22,18 +22,18 @@ public:
      * @brief Controller: costruttore di default
      * @param parent: parent di Controller
      */
-    Controller(QObject* parent = nullptr);
+    MapScreenController(QObject* parent = nullptr);
     /**
      * @brief ShowMainWindow: metodo usato per visualizzare la finestra
      */
-    void ShowMainWindow() const;
+    //void ShowMainWindow() const;
 
 protected slots:
     /**
      * @brief openSettings: sloto collegamento tra mainwindow
      *                      e finestra impostazioni
      */
-    void openSettings();
+    //void openSettings();
 };
 
 #endif // CONTROLLER_H

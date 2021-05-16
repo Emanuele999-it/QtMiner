@@ -1,4 +1,4 @@
-#include "View/Header/finestrainiziale.h"
+﻿//#include "View/Header/finestrainiziale.h"
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QWidget>
