@@ -37,12 +37,12 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 
 }
 
-void MainWindow::OpenSettingsRequest(){
-    emit OpenSettingsWindow();
-}
+//void MainWindow::OpenSettingsRequest(){
+//    emit OpenSettingsWindow();
+//}
 
 
-void MainWindow::OpenSettingsWindow(){
-    settWindow = new MainSettingsWindow(this);
-    settWindow->show();
-}
+//void MainWindow::OpenSettingsWindow(){
+//    settWindow = new MainSettingsWindow(this);
+//    settWindow->show();
+//}

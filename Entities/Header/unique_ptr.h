@@ -92,7 +92,7 @@ unique_ptr<T>::~unique_ptr(){
 }
 
 template<class T>
-unique_ptr<T>::unique_ptr(const unique_ptr<T>& up): ptr(up.ptr){}
+unique_ptr<T>::unique_ptr(const unique_ptr<T>& up): ptr(new T(*(up.ptr))){}
 
 
 /*----------Operator----------*/
@@ -126,7 +126,8 @@ unique_ptr<T>::operator bool() const{
 template<class T>
 unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr<T>& up){
     if(this != &up)
-        *ptr=*(up.ptr);
+        delete ptr;
+        ptr = new T(*(up.ptr));
     return *this;
 }
 

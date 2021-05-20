@@ -30,20 +30,20 @@ private:
      */
     QPushButton* settings;
 
-    MainSettingsWindow *settWindow;
+    //MainSettingsWindow *settWindow;
 
 signals:
     /**
     * @brief OpenSettings: segnale per aprire finestra impostazioni
     */
-    void OpenSettingsRequest();
+    //void OpenSettingsRequest();
 
 public slots:
     /**
      * @brief OpenSettingsWindow: slot che crea e
      *                            rende visibile impostazioni
      */
-    void OpenSettingsWindow();
+    //void OpenSettingsWindow();
 };
 
 #endif // MAINWINDOW_H
