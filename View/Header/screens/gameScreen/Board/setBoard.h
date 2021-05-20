@@ -1,5 +1,5 @@
-#ifndef BOARD
-#define BOARD
+#ifndef SET_BOARD
+#define SET_BOARD
 
 #include <QGraphicsItem>
 #include <vector>
@@ -13,7 +13,13 @@ using std::vector;
 
 namespace view {
 
+class SetBoard : public QObject , public QGraphicsItem {
+    Q_OBJECT
+    Q_INTERFACES(QGraphicsItem)
 
+private:
+    QSize _size;
+    }
 
 }
 #endif

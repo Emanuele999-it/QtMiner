@@ -9,7 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    View/board.cpp \
+    View/gameScreen.cpp \
     main.cpp \
     Controller/controller.cpp \
     View/mainwindow.cpp \
@@ -23,9 +23,7 @@ SOURCES += \
 
 
 HEADERS += \
-    View/Header/board.h \
-    View/Header/screens/gameScreen/Board/setBoard.h \
-    View/boardwindow.cpp \
+    View/Header/screens/gameScreen/mano.h \
     Controller/Header/scenes.h \
     Controller/Header/controller.h \
     Controller/Header/gameScreenController.h \
@@ -37,7 +35,6 @@ HEADERS += \
     View/Header/mainsettingswindow.h \
     Entities/Header/cvector.h \
     Entities/Header/unique_ptr.h \
-    View/Header/boardwindow.h \
     View/Header/hud/infoBox.h \
     View/Header/screens/gameScreen/Board/board.h \
     View/Header/screens/gameScreen/Modal/gameOver.h \

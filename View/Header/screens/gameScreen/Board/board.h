@@ -30,6 +30,7 @@ private:
 
 public:
     Board (const QSize &size, const vector <unique_ptr<Card>*> &baseVector, const vector <unique_ptr<Blocco>*> &blocco);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     void turn();
 public slots:
 

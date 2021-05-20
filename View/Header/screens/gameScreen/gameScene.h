@@ -4,12 +4,63 @@
 #include <QGraphicsScene>
 #include <vector>
 #include "Model/Header/game.h"
+#include "View\Header\screens\gameScreen\Board\board.h"
+#include "View\Header\screens\gameScreen\mano.h"
 
 namespace view {
 
-class gameScene : public QGraphicsScene {
+class GameScene : public QGraphicsScene {
   Q_OBJECT
+private:
+    Board* board;
+    Mano* mano;
+    //InfoBox* stuff;
+    //IconButton* pauseButton;
+    vector <unique_ptr<Card>*> baseVector;
 
+public:
+    /**
+     * @brief costruttore, niente di speciale
+     */
+    GameScene();
+
+public slots:
+    /**
+     * @brief prendiDallaMano semplicemente dal vettore mano prende una carta e la salva
+     * @attention non so se mettere questo metodo su mano o sulla scena
+     */
+    void prendiDallaMano(const vector <unique_ptr<Card>*> &mano);
+    /**
+     * @brief pesca ha un concetto simile, aggiunge una carta alla mano
+     */
+    void pesca(const vector <unique_ptr<Card>*> &mano);
+    /**
+     * @brief prossimoTurno necessario per il bot faccia la mossa
+     */
+    void prossimoTurno();
+    /**
+     * @brief pausa cambia la modal, vedremo se e come implementarlo
+     */
+    void pausa();
+
+signals:
+    /**
+     * @brief pausaGioco necessario segnale per mettere in pausa
+     */
+    void pausaGioco();
+    /**
+     * @brief reset resetta le carte sul terreno e in mano e azzera il punteggio
+     * @warning potrebbe risultare inutile
+     */
+    void reset();
+    /**
+     * @brief next serve per il segnale del bot per eseguire il suo turno
+     */
+    void next();
+    /**
+     * @brief menu torna alla schermata di menu
+     */
+    void menu();
 };
 }
 
