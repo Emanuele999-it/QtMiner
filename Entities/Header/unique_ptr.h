@@ -83,7 +83,7 @@ void unique_ptr<T>::swap(T* up){
 /*----------Costruttori----------*/
 
 template<class T>
-unique_ptr<T>::unique_ptr(T* obj) : ptr(obj) {}
+unique_ptr<T>::unique_ptr(T* obj) : ptr(new T(*obj)) {}
 
 template<class T>
 unique_ptr<T>::~unique_ptr(){
