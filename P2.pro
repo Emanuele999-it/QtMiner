@@ -9,9 +9,9 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    View/board.cpp \
+    #View/board.cpp \
     main.cpp \
-    Controller/controller.cpp \
+    #Controller/controller.cpp \
     View/mainwindow.cpp \
     View/mainsettingswindow.cpp \
     Model/carta/blocco.cpp \
@@ -23,33 +23,33 @@ SOURCES += \
 
 
 HEADERS += \
-    View/Header/board.h \
-    View/boardwindow.cpp \
-    Controller/Header/scenes.h \
-    Controller/Header/controller.h \
-    Controller/Header/gameScreenController.h \
-    Controller/Header/initialScreenController.h \
-    Controller/Header/mapScreenController.h \
-    Controller/Header/tutorialScreenController.h \
-    View/Header/hud/iconButton.h \
+    #View/Header/board.h \
+    #View/boardwindow.cpp \
+    #Controller/Header/scenes.h \
+    #Controller/Header/controller.h \
+    #Controller/Header/gameScreenController.h \
+    #Controller/Header/initialScreenController.h \
+    #Controller/Header/mapScreenController.h \
+    #Controller/Header/tutorialScreenController.h \
+    #View/Header/hud/iconButton.h \
     View/Header/mainwindow.h \
     Enums/obstructiontype.h \
     View/Header/mainsettingswindow.h \
     Entities/Header/cvector.h \
     Entities/Header/unique_ptr.h \
-    View/Header/boardwindow.h \
-    View/Header/hud/infoBox.h \
-    View/Header/screens/gameScreen/Board/board.h \
-    View/Header/screens/gameScreen/Board/casella.h \
-    View/Header/screens/gameScreen/Modal/gameOver.h \
-    View/Header/screens/gameScreen/Modal/pause.h \
-    View/Header/screens/gameScreen/gameScene.h \
-    View/Header/screens/initialScreen/initialScreen.h \
-    View/Header/screens/boardScreen/mapScreen.h \
-    View/Header/screens/boardScreen/setBoard.h \
-    View/Header/screens/tutorial/scene.h \
-    View/Header/screens/tutorial/content.h \
-    Model/Header/game.h \
+    #View/Header/boardwindow.h \
+    #View/Header/hud/infoBox.h \
+    #View/Header/screens/gameScreen/Board/board.h \
+    #View/Header/screens/gameScreen/Board/casella.h \
+    #View/Header/screens/gameScreen/Modal/gameOver.h \
+    #View/Header/screens/gameScreen/Modal/pause.h \
+    #View/Header/screens/gameScreen/gameScene.h \
+    #View/Header/screens/initialScreen/initialScreen.h \
+    #View/Header/screens/boardScreen/mapScreen.h \
+    #View/Header/screens/boardScreen/setBoard.h \
+    #View/Header/screens/tutorial/scene.h \
+    #View/Header/screens/tutorial/content.h \
+    #Model/Header/game.h \
     Model/Header/carta/blocco.h \
     Model/Header/carta/card.h \
     Model/Header/carta/clonecards.h \
