@@ -33,16 +33,16 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     Hl2->addWidget(startGame);
     Hl2->setAlignment(Qt::AlignCenter);
 
-    connect(settings, SIGNAL(clicked()), this, SIGNAL(OpenSettingsRequest()));
+    connect(settings,&QPushButton::clicked, this, &MainWindow::OpenSettingsRequest);
 
 }
 
-//void MainWindow::OpenSettingsRequest(){
-//    emit OpenSettingsWindow();
-//}
+void MainWindow::OpenSettingsRequest(){
+    emit OpenSettingsWindow();
+}
 
 
-//void MainWindow::OpenSettingsWindow(){
-//    settWindow = new MainSettingsWindow(this);
-//    settWindow->show();
-//}
+void MainWindow::OpenSettingsWindow(){
+    settWindow = new MainSettingsWindow(this);
+    settWindow->show();
+}

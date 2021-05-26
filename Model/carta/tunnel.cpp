@@ -22,7 +22,7 @@ void Tunnel::copia(const bool* a){
 }
 
 Tunnel::Tunnel(const Tunnel &t){
-    copia(t.arr);
+   copia(t.arr);
 }
 
 Tunnel& Tunnel::operator =(const Tunnel& t){

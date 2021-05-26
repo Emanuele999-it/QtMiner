@@ -5,7 +5,7 @@
 #include <QLCDNumber>
 #include "View/Header/board.h"
 
-FinestraIniziale:: FinestraIniziale(QWidget *p) : QWidget(p), b(new Board) //Lo devo creare sullo stack o sparisce
+FinestraIniziale::FinestraIniziale(QWidget *p) : QWidget(p), b(new Board) //Lo devo creare sullo stack o sparisce
 {
     mosse = new QLCDNumber(5);
     mosse->setSegmentStyle(QLCDNumber::Filled);

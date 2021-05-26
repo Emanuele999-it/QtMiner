@@ -33,6 +33,7 @@ HEADERS += \
     Controller/Header/tutorialScreenController.h \
     View/Header/hud/iconButton.h \
     View/Header/mainwindow.h \
+    Enums/obstructiontype.h \
     View/Header/mainsettingswindow.h \
     Entities/Header/cvector.h \
     Entities/Header/unique_ptr.h \

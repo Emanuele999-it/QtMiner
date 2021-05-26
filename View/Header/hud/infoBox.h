@@ -1,13 +1,13 @@
-#ifndef BOARD
+﻿#ifndef BOARD
 #define BOARD
 #include <QFrame>
 #include <QGridLayout>
 #include <QBasicTimer>
-#include "View\Header\casella.h"
+//#include "View\Header\casella.h"
 
 class Board : public QFrame
 {
-private:
+/*private:
     int numeroCaselle = 64;
     QVector<Casella*> casellaVettore; //vettore caselle
     QLabel *createLabel(const QString &text);
@@ -36,6 +36,7 @@ private:
     int Carte; //carte giocate
     bool trovato; // suppongo che questa sia la vittoria
     QVector<Casella*> Mano; //Queste sono le carte in mano
+*/
 };
 
 
