@@ -6,7 +6,7 @@
 #include "Entities/Header/unique_ptr.h"
 
 //prova
-#include "View/Header/mainwindow.h"
+#include "Controller/Header/controller.h"
 
 
 
@@ -14,8 +14,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    MainWindow c;
-    c.show();
+    Controller c;
 
     return a.exec();
 
