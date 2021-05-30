@@ -1,14 +1,5 @@
 ﻿#include "Header/tutorialwindow.h"
 
-#include <QHBoxLayout>
-
-#include <QFile>
-#include <QTextStream>
-
-#include <QFileDialog>
-#include <QString>
-#include <QTextStream>
-
 
 Tutorialwindow::Tutorialwindow(QWidget*parent): QDialog(parent)
 {
@@ -31,20 +22,24 @@ Tutorialwindow::Tutorialwindow(QWidget*parent): QDialog(parent)
     h->addWidget(avanti);
     h->addWidget(menu);
 
+    TotLine=0;
     QFile file(":/readme2.txt");
-    QString line;
+    QString line="";
     if (file.open(QIODevice::ReadOnly)){
         QTextStream stream(&file);
-        while (!stream.atEnd()){
-            line.append(stream.readLine()+"\n");
+        line.append(stream.readLine());
+        page=0;
+        text->setText(line);
+        QString mock;
+        while(! stream.atEnd()){
+            mock=stream.readLine();
+            TotLine+=1;
         }
-       text->setText(line);
     }
     else{
-        this->close();
+        close();
     }
     file.close();
-
 
 
     h->addWidget(indietro);
@@ -53,8 +48,57 @@ Tutorialwindow::Tutorialwindow(QWidget*parent): QDialog(parent)
 
 
     connect(menu,&QPushButton::clicked,this,&Tutorialwindow::CloseWindow);
+    connect(avanti,&QPushButton::clicked,this,&Tutorialwindow::ContinueTutorial);
+    connect(indietro,&QPushButton::clicked,this,&Tutorialwindow::GoBackTutorial);
+    indietro->setDisabled(true);
 }
 
 void Tutorialwindow::CloseWindow(){
     close();
+}
+
+void Tutorialwindow::ContinueTutorial(){
+    if(page < TotLine){
+        page++;
+        if(page >= 1){
+            indietro->setDisabled(false);
+        }
+        emit displayTxt(page);
+    }
+    if(page==TotLine)
+        avanti->setDisabled(true);
+}
+
+void Tutorialwindow::GoBackTutorial(){
+    if(page==1){
+        indietro->setDisabled(true);
+    }
+
+    if(page>=1){
+        page--;
+        if(page <= TotLine){
+            avanti->setDisabled(false);
+        }
+        emit displayTxt(page);
+
+    }
+}
+
+
+void Tutorialwindow::displayTxt(int page){
+    QString result;
+    QFile file(":/readme2.txt");
+    if( file.open( QIODevice::ReadOnly | QIODevice::Text ) ) {
+       QTextStream in( &file );
+       int counter = 0;
+       while( ! in.atEnd() ) {
+          QString line( in.readLine() );
+          if( counter == page ) {
+             result = line;
+             break;
+          }
+          counter += 1;
+       }
+    }
+    text->setText(result);
 }
