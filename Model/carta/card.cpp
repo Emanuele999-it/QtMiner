@@ -1,4 +1,4 @@
-﻿#include "Header/card.h"
+﻿#include "Model\Header\carta\card.h"
 
 Card::Card(bool n) : canBeUsed(n) {}
 

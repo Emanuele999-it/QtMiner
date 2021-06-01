@@ -5,9 +5,6 @@ namespace model {
 
 class Game {
 private:
-    /*
-     * Ok qui ci va il vettore di puntatori alle singole carte
-     */
     void win();
 public:
     enum State {

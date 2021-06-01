@@ -26,7 +26,7 @@ public:
 
     /*~Tunnel();
 
-    /**
+    / **
      * @brief operator = :operatore di assegnazione, usa metodo clone
      * @param t : carta tunnel passata per riferimento
      * @return : ritorna un riferimento a Tunnel

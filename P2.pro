@@ -9,7 +9,9 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    View/gameScreen.cpp \
+    View/board.cpp \
+    View/casella.cpp \
+    View/gameScene.cpp \
     main.cpp \
     Controller/controller.cpp \
     View/mainwindow.cpp \
@@ -23,6 +25,7 @@ SOURCES += \
 
 
 HEADERS += \
+    View/Header/screens/gameScreen/Board/casella.h \
     View/Header/screens/gameScreen/mano.h \
     Controller/Header/scenes.h \
     Controller/Header/controller.h \
@@ -51,7 +54,7 @@ HEADERS += \
     Model/Header/carta/clonecards.h \
     Model/Header/carta/crollo.h \
     Model/Header/carta/obstruction.h \
-    Model/Header/carta/tunnel.h \
+    Model/Header/carta/tunnel.h
 
 
 # Default rules for deployment.

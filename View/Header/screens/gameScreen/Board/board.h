@@ -8,7 +8,7 @@
 #include "Entities/Header/cvector.h"
 #include "Model/Header/carta/card.h"
 #include "Model/Header/carta/blocco.h"
-
+#include "Model/Header/carta/tunnel.h"
 using std::vector;
 
 namespace view {
@@ -18,19 +18,20 @@ class Board : public QGraphicsItem, public QObject{
     Q_INTERFACES(QGraphicsItem)
 
 private:
-    QSize size; //Grandezza Board
+    /**
+     * @brief dimensione è al grandezza della board, si costruisce con QSize(Width,Height)
+     */
+    QSize dimensione;
     //Ok ora mi serve un vettore per ricordare dove sono le cose
-    vector <unique_ptr<Card>*> baseVector;
+    vector <unique_ptr<Card>*> celle;
     //Sperimentiamo con dei blocchi
-    vector <unique_ptr<Blocco>*> blocchi;
-    //Ci teniamo una carta in memoria quando la selezioniamo
     Card* selezione;
 
     void createBoard();
 
 public:
-    Board (const QSize &size, const vector <unique_ptr<Card>*> &baseVector, const vector <unique_ptr<Blocco>*> &blocco);
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    Board (const QSize &size, const vector <unique_ptr<Card>*> &cells);
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void turn();
 public slots:
 

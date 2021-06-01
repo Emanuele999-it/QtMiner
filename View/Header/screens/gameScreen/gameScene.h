@@ -3,26 +3,33 @@
 
 #include <QGraphicsScene>
 #include <vector>
+
 #include "Model/Header/game.h"
 #include "View\Header\screens\gameScreen\Board\board.h"
 #include "View\Header\screens\gameScreen\mano.h"
+#include "Model\Header\game.h"
 
 namespace view {
 
 class GameScene : public QGraphicsScene {
   Q_OBJECT
 private:
+    const model::Game gioco;
+    /**
+     * @brief board oggetto principale
+     */
     Board* board;
+    /**
+     * @brief mano non troppo dissimile dalla board
+     */
     Mano* mano;
-    //InfoBox* stuff;
-    //IconButton* pauseButton;
     vector <unique_ptr<Card>*> baseVector;
 
 public:
     /**
      * @brief costruttore, niente di speciale
      */
-    GameScene();
+    GameScene(const model::Game& game);
 
 public slots:
     /**

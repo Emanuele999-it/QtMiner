@@ -1,4 +1,4 @@
-﻿#include "Header/tunnel.h"
+﻿#include "Model\Header\carta\tunnel.h"
 
 Tunnel::Tunnel(bool North, bool East, bool South, bool West): Card() {
     arr[0]=North;
