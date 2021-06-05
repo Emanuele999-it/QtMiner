@@ -1,4 +1,4 @@
-ifndef FINESTRAINIZIALE_H
+#ifndef FINESTRAINIZIALE_H
 #define FINESTRAINIZIALE_H
 
 #include <QApplication>

@@ -24,9 +24,9 @@ public:
      */
     virtual ObstructionType getType() const = 0;
 
-    /*~Tunnel();
+    virtual ~Obstruction()=0;
 
-    / **
+    /**
      * @brief operator = :operatore di assegnazione, usa metodo clone
      * @param t : carta tunnel passata per riferimento
      * @return : ritorna un riferimento a Tunnel

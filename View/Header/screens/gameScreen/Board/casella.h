@@ -18,7 +18,8 @@ class Casella : public QObject, public QGraphicsItem {
 private:
     int _position;
     qreal _size;
-    vector<bool> _tipo {false, false, false, false};
+    Card * _carta;
+    //vector<bool> _tipo {false, false, false, false, false};
     bool _selected;
 
     void updateCursor();
@@ -33,17 +34,17 @@ public:
             QGraphicsItem *i,
             int position,
             qreal size,
-            vector<bool> tipo
+            Card * carta
+           // vector<bool> tipo,
     );
 
-    QRectF rect();
+    QRectF rect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     bool returnSelected() const;
     void cambiaSelected(bool s);
 
-    bool returnTipo() const;
-    void cambiaTipo(vector<bool> tipo);
+    Card* returnTipo() const;
 
     int returnPosizione();
 

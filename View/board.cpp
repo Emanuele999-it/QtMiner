@@ -2,6 +2,7 @@
 #include "Model/Header/carta/card.h"
 #include "Model/Header/carta/blocco.h"
 #include "Model/Header/carta/tunnel.h"
+#include "View\casella.cpp"
 
 #include <QGraphicsScene>
 
@@ -9,11 +10,10 @@ using std::vector;
 
 namespace view {
 
-Board::Board(const QSize &size, const vector <unique_ptr<Card>*> &cells) :
-    dimensione(size),
-    celle(cells){
+Board::Board(const QSize &size,  vector <Casella*> caselle) :
+    _dimensione(size),
+    _caselle(caselle){
 
-    createBoard();
 }
 
 /**
@@ -22,13 +22,15 @@ Board::Board(const QSize &size, const vector <unique_ptr<Card>*> &cells) :
  */
 void Board::createBoard() {
     for (auto i = celle.begin(); i != celle.end(); i++){
+        Casella *casella;
 
     }
 }
 
 void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    Q_UNUSED(option);
     Q_UNUSED(widget);
-
+    Q_UNUSED(painter);
 
 }
 /**

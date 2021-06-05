@@ -30,3 +30,7 @@ Tunnel& Tunnel::operator =(const Tunnel& t){
     return *this;
 }
 
+bool* Tunnel::getArr(){
+    return arr;
+};
+

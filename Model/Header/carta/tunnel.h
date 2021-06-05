@@ -48,6 +48,11 @@ public:
      */
     Tunnel& operator =(const Tunnel& t);
 
+    /**
+     * @brief getArr mi prende arr
+     * @return
+     */
+    bool* getArr();
 
 };
 

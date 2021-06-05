@@ -25,6 +25,7 @@ SOURCES += \
 
 
 HEADERS += \
+    Model/Header/modelBoard.h \
     View/Header/screens/gameScreen/Board/casella.h \
     View/Header/screens/gameScreen/mano.h \
     Controller/Header/scenes.h \

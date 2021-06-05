@@ -9,6 +9,7 @@
 #include "Model/Header/carta/card.h"
 #include "Model/Header/carta/blocco.h"
 #include "Model/Header/carta/tunnel.h"
+#include "View\Header\screens\gameScreen\Board\casella.h"
 using std::vector;
 
 namespace view {
@@ -21,18 +22,15 @@ private:
     /**
      * @brief dimensione è al grandezza della board, si costruisce con QSize(Width,Height)
      */
-    QSize dimensione;
+    QSize _dimensione;
     //Ok ora mi serve un vettore per ricordare dove sono le cose
-    vector <unique_ptr<Card>*> celle;
-    //Sperimentiamo con dei blocchi
-    Card* selezione;
-
-    void createBoard();
+    vector <Casella*> _caselle;
 
 public:
-    Board (const QSize &size, const vector <unique_ptr<Card>*> &cells);
+    Board (const QSize &size, vector <Casella*> caselle);
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    void turn();
+    //void turn();
+
 public slots:
 
     signals:
@@ -54,6 +52,9 @@ public slots:
     void hoverCard(QGraphicsScene *stuff);
 };
 
+class Mano :  public QGraphicsItem, public QObject {
+
+};
 }
 #endif
 
