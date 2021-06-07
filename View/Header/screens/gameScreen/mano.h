@@ -18,9 +18,12 @@ class Mano : public QObject, public QGraphicsItem {
   Q_INTERFACES(QGraphicsItem)
 
 private:
-    vector <unique_ptr<Card>*> mano;
+    vector <unique_ptr<Card>*> _mano;
 
 public:
+    Mano (
+            vector <unique_ptr<Card>*> mano
+            );
     void paint(QPainter *p, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 signals:

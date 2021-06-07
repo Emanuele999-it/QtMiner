@@ -22,7 +22,7 @@ private:
     /**
      * @brief mano non troppo dissimile dalla board
      */
-    Mano* mano;
+    Mano* inMano;
     vector <unique_ptr<Card>*> baseVector;
 
 public:
@@ -69,6 +69,7 @@ signals:
      */
     void menu();
 };
-}
+
+};
 
 #endif

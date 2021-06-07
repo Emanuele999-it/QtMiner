@@ -1,21 +1,22 @@
 #ifndef MODEL_BOARD_H_
 #define MODEL_BOARD_H_
-
 #include "Entities/Header/cvector.h"
 #include "Entities/Header/unique_ptr.h"
 #include "Model\Header\carta\card.h"
+
+using std::vector;
 
 namespace model {
 
 class ModelBoard {
 private:
-    CVector <unique_ptr<Card>*> _boardStuff(unsigned int b);
-    CVector <unique_ptr<Card>*> _handStuff(unsigned int h);
-    int nMano;
+    vector <unique_ptr<Card>*> _boardStuff(unsigned int);
+    vector <unique_ptr<Card>*> _handStuff(unsigned int);
+    int _nMano;
 public:
         ModelBoard(
-            CVector <unique_ptr<Card>*> boardStuff(unsigned int b),
-            CVector <unique_ptr<Card>*> handStuff(unsigned int h),
+            vector <unique_ptr<Card>*> boardStuff(unsigned int b),
+            vector <unique_ptr<Card>*> handStuff(unsigned int h),
             int nMano
                 );
 
@@ -35,6 +36,7 @@ Card* getCard(unsigned int posizione)const;
  */
 Card* posiziona(unsigned int posizioneMano,unsigned int posizioneBoard);
 };
+
 }
 
-#endif
+#endif //end ModelBoard

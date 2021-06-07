@@ -16,16 +16,6 @@ Board::Board(const QSize &size,  vector <Casella*> caselle) :
 
 }
 
-/**
- * @brief Board::createBoard il mio scopo è di creare un vettore che contenga inizio, i
- * tre finali e le occasionali carte che piazzero'
- */
-void Board::createBoard() {
-    for (auto i = celle.begin(); i != celle.end(); i++){
-        Casella *casella;
-
-    }
-}
 
 void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     Q_UNUSED(option);
@@ -33,11 +23,6 @@ void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     Q_UNUSED(painter);
 
 }
-/**
- * @brief Board::tick la logica del tutto è integrata in tick
- */
-void Board::turn(){
 
-}
 
 }
