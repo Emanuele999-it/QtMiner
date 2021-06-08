@@ -10,13 +10,14 @@ namespace model {
 
 class ModelBoard {
 private:
-    vector <unique_ptr<Card>*> _boardStuff(unsigned int);
-    vector <unique_ptr<Card>*> _handStuff(unsigned int);
-    int _nMano;
+    CVector <unique_ptr<Card>*> _boardStuff ;
+    CVector <unique_ptr<Card>*> _handStuff ;
+    int _nMano; // posizione della carta toccata dalla mano
+    int _nBoard; // posizione della carta toccata dalla mano
 public:
         ModelBoard(
-            vector <unique_ptr<Card>*> boardStuff(unsigned int b),
-            vector <unique_ptr<Card>*> handStuff(unsigned int h),
+            CVector <unique_ptr<Card>*> boardStuff ,
+            CVector <unique_ptr<Card>*> handStuff ,
             int nMano
                 );
 
@@ -28,15 +29,36 @@ public:
 Card* getCard(unsigned int posizione)const;
 
 /**
+ * @brief getSelezioneBoard questa mi serve per vedere che carta ho selezionata sulla Board
+ * @return
+ */
+int getSelezioneBoard()const;
+/**
+ * @brief cambiaSelezioneBoard cambia quale carta è selezionata Board
+ * @return
+ */
+void cambiaSelezioneBoard(int b);
+/**
+ * @brief getSelezioneHand questa mi serve per vedere quale ho selezionato sulla mano
+ * @return
+ */
+int getSelezioneMano()const;
+
+/**
+ * @brief cambiaSelezioneMano cambia quale carta è selezionata sulla mano
+ * @return
+ */
+void cambiaSelezioneMano(int m);
+/**
  * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
  * posizioneMano
  * @param posizioneMano
  * @param posizioneBoard
  * @return
  */
-Card* posiziona(unsigned int posizioneMano,unsigned int posizioneBoard);
+void posiziona(unsigned int posizioneMano,unsigned int posizioneBoard);
 };
 
-}
+};
 
 #endif //end ModelBoard

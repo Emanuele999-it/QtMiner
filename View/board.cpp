@@ -1,8 +1,4 @@
 #include "View\Header\screens\gameScreen\Board\board.h"
-#include "Model/Header/carta/card.h"
-#include "Model/Header/carta/blocco.h"
-#include "Model/Header/carta/tunnel.h"
-#include "View\casella.cpp"
 
 #include <QGraphicsScene>
 
@@ -10,11 +6,12 @@ using std::vector;
 
 namespace view {
 
-Board::Board(const QSize &size,  vector <Casella*> caselle) :
+Board::Board(const QSize &size,  model::ModelBoard caselle) :
     _dimensione(size),
     _caselle(caselle){
 
-}
+
+};
 
 
 void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
@@ -24,5 +21,9 @@ void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
 }
 
+void Board::selectCard(const Card*){
+    //allora si fa il for di tutto l'array e se si trova la card nell'array si mette true
+    for(_caselle.)
+}
 
 }
