@@ -21,13 +21,18 @@ public:
             int nMano
                 );
 
-  /**
- * @brief getCard data la posizione restituisce la carta a scopo di informazioni
+/**
+ * @brief getCardBoard data la posizione restituisce la carta a scopo di informazioni
  * @param posizione
  * @return
  */
-Card* getCard(unsigned int posizione)const;
-
+Card* getCardBoard(unsigned int posizione)const;
+/**
+ * @brief getCardHand data posizione torna la carta
+ * @param posizione
+ * @return
+ */
+Card* getCardMano(unsigned int posizione)const;
 /**
  * @brief getSelezioneBoard questa mi serve per vedere che carta ho selezionata sulla Board
  * @return

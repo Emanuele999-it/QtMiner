@@ -40,6 +40,10 @@ public slots:
      */
     void selectCardBoard(const Card*);
     /**
+     * @brief selectCardHand permette di selezionare la carta in mano
+     */
+    void selectCardHand(const Card*);
+    /**
      * @brief hoverCard serve un metodo simile con (QGraphicsScene *a)
      * che fa roba
      */

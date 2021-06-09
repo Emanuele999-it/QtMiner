@@ -13,8 +13,13 @@ ModelBoard::ModelBoard(CVector <unique_ptr<Card>*> boardStuff,
         _handStuff.push_back(new unique_ptr <Card>);
 };
 
-Card* ModelBoard::getCard(unsigned int posizione) const{
+Card* ModelBoard::getCardBoard(unsigned int posizione) const{
     return _boardStuff[posizione]->get();
+};
+
+
+Card* ModelBoard::getCardMano(unsigned int posizione) const{
+    return _handStuff[posizione]->get();
 };
 
 void ModelBoard::posiziona(unsigned int posizioneMano,unsigned int posizioneBoard){
