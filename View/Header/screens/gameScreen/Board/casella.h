@@ -15,37 +15,21 @@ class Casella : public QPushButton {
     Q_OBJECT
 
 private:
-    int _position;
-    qreal _size;
-    bool _selected;
-
-    void updateCursor();
-
+    nat pos;
 protected:
+
     void mouseClick(QGraphicsSceneMouseEvent *event);
     void mouseHover(QGraphicsSceneMouseEvent *event);
     void mouseNonHover(QGraphicsSceneMouseEvent *event);
 
 public:
-    Casella(QPushButton*pushbutton=nullptr);
-
-    /**
-     * @brief rect:resize
-     * @return
-     */
-    void rect(int , int ) const {};
-
-    bool returnSelected() const;
-    void cambiaSelected(bool s);
-
-    Card* returnTipo() const;
-
-    int returnPosizione();
+    Casella(nat p=0,QPushButton*pushbutton=nullptr);
+    void cambiaImmagine(QString i);
 
 signals:
-    void click(Casella *casella);
-    void mouseHover();
-    void mouseNonHover();
+    void casellaCliccata(nat p);
+    //void mouseHover();
+    //void mouseNonHover();
 };
 
 }

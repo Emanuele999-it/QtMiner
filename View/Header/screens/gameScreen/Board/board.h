@@ -28,7 +28,7 @@ protected:
     model::ModelBoard _caselle;
 
 public:
-    Board (const unsigned int, model::ModelBoard caselle);
+    Board (const unsigned int);
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     //void turn();
 

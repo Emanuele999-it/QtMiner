@@ -10,6 +10,7 @@ Board::Board(const int& i,  model::ModelBoard caselle) :
     _dimensione(i),
     _caselle(caselle){
 
+    connect(Casella,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
 
 };
 

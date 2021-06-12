@@ -5,7 +5,7 @@ using std::vector;
 
 namespace view {
 
-GameScene::GameScene(const model::Game& game): gioco(game){
+GameScene::GameScene(){
     setItemIndexMethod(QGraphicsScene::NoIndex);
 
     setSceneRect(0,0,1280,720);
