@@ -14,7 +14,14 @@ SOURCES += \
     View/gameScene.cpp \
     main.cpp \
     Controller/controller.cpp \
+    Model/carta/blocco.cpp \
+    Model/carta/card.cpp \
+    Model/carta/clonecards.cpp \
+    Model/carta/crollo.cpp \
+    Model/carta/obstruction.cpp \
+    Model/carta/tunnel.cpp \
     View/mainwindow.cpp \
+
     View/mainsettingswindow.cpp \
     Model/carta/blocco.cpp \
     Model/carta/card.cpp \
@@ -22,6 +29,9 @@ SOURCES += \
     Model/carta/crollo.cpp \
     Model/carta/obstruction.cpp \
     Model/carta/tunnel.cpp \
+    View/tutorialwindow.cpp \
+    View/settingswindow.cpp
+
 
 
 HEADERS += \
@@ -56,6 +66,18 @@ HEADERS += \
     Model/Header/carta/crollo.h \
     Model/Header/carta/obstruction.h \
     Model/Header/carta/tunnel.h
+    Enums/obstructiontype.h \
+    View/Header/settingswindow.h \
+    Entities/Header/cvector.h \
+    Entities/Header/unique_ptr.h \
+    Model/Header/carta/blocco.h \
+    Model/Header/carta/card.h \
+    Model/Header/carta/clonecards.h \
+    Model/Header/carta/crollo.h \
+    Model/Header/carta/obstruction.h \
+    Model/Header/carta/tunnel.h \
+    View/Header/mainwindow.h \
+    View/Header/tutorialwindow.h
 
 
 # Default rules for deployment.

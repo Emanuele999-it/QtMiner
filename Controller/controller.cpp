@@ -1,20 +1,21 @@
-#include "Header/controller.h"
+﻿#include "Header/controller.h"
 
-
-Controller::Controller(QObject* parent): QObject(parent){
+Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()) {
     //costruire controller
-    MainW = new MainWindow();
-
+    MainW->show();
     /*
      * -Vecchio modo connessione segnali, funziona ma se possibile da evitare
      * connect(MainW, SIGNAL(OpenSettingsRequest()), this, SLOT(openSettings()));
      * -nuova modalità connessione qt5, consigliata*/
-    connect(MainW, &MainWindow::OpenSettingsRequest, this, &Controller::openSettings);
+    connect(MainW, &MainWindow::SettingsRequest, this, &Controller::openSettings);
+    connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
+
 }
 
-void Controller::ShowMainWindow() const {MainW->show();}
-
-
-void Controller::openSettings(){
+void Controller::openSettings() {
     emit MainW->OpenSettingsWindow();
+}
+
+void Controller::openTutorial(){
+    emit MainW->OpenTutorialWindow();
 }

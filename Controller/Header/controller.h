@@ -1,39 +1,31 @@
-#ifndef CONTROLLER_H
+﻿#ifndef CONTROLLER_H
 #define CONTROLLER_H
 
 #include <QObject>
-#include "View/Header/mainwindow.h"
+#include "../../View/Header/mainwindow.h"
 
-class Controller: public QObject
-{
-    /**
-     * @brief Q_OBJECT: macro per signal/slot
-     */
+class Controller : public QObject {
     Q_OBJECT
 
 private:
-    /**
-     * @brief MainW: finestra iniziale
-     */
-    MainWindow* MainW =nullptr;
+    MainWindow* MainW;
+
+
 
 public:
-    /**
-     * @brief Controller: costruttore di default
-     * @param parent: parent di Controller
-     */
-    Controller(QObject* parent = nullptr);
-    /**
-     * @brief ShowMainWindow: metodo usato per visualizzare la finestra
-     */
-    void ShowMainWindow() const;
+    Controller(QObject* parent= nullptr);
 
-protected slots:
+public slots:
     /**
-     * @brief openSettings: sloto collegamento tra mainwindow
-     *                      e finestra impostazioni
+     * @brief openSettings: permette di aprire la finestra delle impostazioni
      */
     void openSettings();
+
+    /**
+     * @brief openTutorial: permette di aprire finestra del tutorial
+     */
+    void openTutorial();
+
 };
 
 #endif // CONTROLLER_H
