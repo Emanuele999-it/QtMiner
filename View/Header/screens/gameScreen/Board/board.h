@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Model/Header/modelBoard.h"
+#include "View\Header\screens\gameScreen\Board\casella.h"
 
 using std::vector;
 
@@ -18,7 +19,7 @@ private:
     /**
      * @brief dimensione è al grandezza della board, si costruisce con QSize(Width,Height)
      */
-    QSize _dimensione;
+    vector<Casella*> vettoreCaselle;
 
 protected:
     /**
@@ -27,7 +28,7 @@ protected:
     model::ModelBoard _caselle;
 
 public:
-    Board (const QSize &size, model::ModelBoard caselle);
+    Board (const unsigned int, model::ModelBoard caselle);
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     //void turn();
 
@@ -50,16 +51,17 @@ public slots:
     void hoverCard(QGraphicsScene *stuff);
 };
 
+/*
 class Mano: public Board{
     /**
      * @brief _dimensioneMano è la grandezza della mano
-     */
+
     QSize _dimensioneMano;
 public:
     Mano (const QSize &size, model::ModelBoard caselle);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 };
-
+*/
 }
 #endif
 

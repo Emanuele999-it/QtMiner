@@ -18,9 +18,15 @@ public:
         ModelBoard(
             CVector <unique_ptr<Card>*> boardStuff ,
             CVector <unique_ptr<Card>*> handStuff ,
-            int nMano
+            int nMano ,
+            int nBoard
                 );
-
+ /**
+ * @brief getImage data posizione ritorna QString file immagine
+ * @param i
+ * @return
+ */
+QString getImage(int i)const;
 /**
  * @brief getCardBoard data la posizione restituisce la carta a scopo di informazioni
  * @param posizione

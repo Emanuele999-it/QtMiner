@@ -13,11 +13,13 @@ class GameScene : public QGraphicsScene {
   Q_OBJECT
 private:
     Board* _board;
+    Board* _mano;
+
 
     void drawBackground();
     void createHUD();
 public:
-    GameScene();
+    GameScene(Board * board);
     /**
      * @brief costruttore, niente di speciale
      */

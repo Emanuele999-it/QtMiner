@@ -5,21 +5,18 @@
 #include "Entities/Header/unique_ptr.h"
 #include "Entities/Header/cvector.h"
 #include "Model/Header/carta/card.h"
-
+#include <QPushButton>
 using std::vector;
 
 namespace view {
 
 
-class Casella : public QObject, public QGraphicsItem {
+class Casella : public QPushButton {
     Q_OBJECT
-    Q_INTERFACES(QGraphicsItem)
 
 private:
     int _position;
     qreal _size;
-    Card * _carta;
-    //vector<bool> _tipo {false, false, false, false, false};
     bool _selected;
 
     void updateCursor();
@@ -30,16 +27,13 @@ protected:
     void mouseNonHover(QGraphicsSceneMouseEvent *event);
 
 public:
-    Casella(
-            QGraphicsItem *i,
-            int position,
-            qreal size,
-            Card * carta
-           // vector<bool> tipo,
-    );
+    Casella(QPushButton*pushbutton=nullptr);
 
-    QRectF rect() const;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    /**
+     * @brief rect:resize
+     * @return
+     */
+    void rect(int , int ) const {};
 
     bool returnSelected() const;
     void cambiaSelected(bool s);

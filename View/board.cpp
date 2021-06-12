@@ -6,8 +6,8 @@ using std::vector;
 
 namespace view {
 
-Board::Board(const QSize &size,  model::ModelBoard caselle) :
-    _dimensione(size),
+Board::Board(const int& i,  model::ModelBoard caselle) :
+    _dimensione(i),
     _caselle(caselle){
 
 
