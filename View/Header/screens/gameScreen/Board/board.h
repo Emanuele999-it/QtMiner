@@ -1,4 +1,4 @@
-#ifndef BOARD
+﻿#ifndef BOARD
 #define BOARD
 
 #include <QGraphicsItem>
@@ -21,11 +21,6 @@ private:
      */
     vector<Casella*> vettoreCaselle;
 
-protected:
-    /**
-     * @brief _caselle è essenzialmente dove sta tutto
-     */
-    model::ModelBoard _caselle;
 
 public:
     Board (const unsigned int);

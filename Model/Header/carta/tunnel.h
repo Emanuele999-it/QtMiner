@@ -48,6 +48,11 @@ public:
      */
     Tunnel& operator =(const Tunnel& t);
 
+    /**
+     * @brief getArr: metodo che restituisce l'array di bool
+     * @return
+     */
+    bool* getArr();
 
 };
 

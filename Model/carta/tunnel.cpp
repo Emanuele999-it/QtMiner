@@ -32,5 +32,5 @@ Tunnel& Tunnel::operator =(const Tunnel& t){
 
 bool* Tunnel::getArr(){
     return arr;
-};
+}
 

@@ -1,4 +1,4 @@
-#include "View\Header\screens\gameScreen\Board\board.h"
+﻿#include "View\Header\screens\gameScreen\Board\board.h"
 
 #include <QGraphicsScene>
 
@@ -6,13 +6,13 @@ using std::vector;
 
 namespace view {
 
-Board::Board(const int& i,  model::ModelBoard caselle) :
-    _dimensione(i),
-    _caselle(caselle){
+Board(const unsigned int& i) :
+    _dimensione(i){
 
-    connect(Casella,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
 
-};
+    //connect(Casella,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
+
+}
 
 
 void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
