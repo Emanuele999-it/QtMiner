@@ -3,6 +3,7 @@
 #include "Model\Header\carta\blocco.h"
 #include "Model\Header\carta\tunnel.h"
 #include "Model\Header\carta\clonecards.h"
+#include "Model\Header\modelBoard.h"
 
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
@@ -10,49 +11,32 @@
 
 namespace view {
 
-Casella::Casella(QGraphicsItem *i, int position, qreal size, Card* carta)
-    :QGraphicsItem(i), _position(position), _size(size), _carta(carta){}
+/*
+ * cosa voglio: casella invia segnale con la propria posizione
+ *              che verrà ricevuto da board, che a sua volta
+ *              interrogherà model board per ottenere l'immagine che infine verrà
+ *              assegnata a casella
+*/
+Casella::Casella(nat p, QPushButton*pushbutton):QPushButton(pushbutton), pos(p) {
 
-QRectF Casella::rect() const {
-    return QRectF(0, 0, _size, _size);;
+    setIcon(QIcon(":/Img/sr.png"));
+    connect(this,&QPushButton::clicked, this, &Casella::casellaCliccata(pos));
 }
 
-void Casella::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+void Casella::cambiaImmagine(QString i){
+    setIcon(QIcon(i));
+}
+
+/*
+void Casella::paint(QPainter *painter, QPushButton *pushbutton): QPushButton()  {
     Q_UNUSED(widget);
-    Q_UNUSED(option);
+    Q_UNUSED(pushbutton);
 
-    QString immagine;
-
-    if (dynamic_cast<Obstruction*>(_carta)) {
-        if(dynamic_cast<Blocco*>(_carta))
-            immagine= ":/Img/╬(blocco).jpg";
-        else
-            immagine= ":/Img/r.jpg";
-    }else if (dynamic_cast<CloneCards*>(_carta)){
-            immagine= ":/Img/sr.jpg";
-    }else{
-        bool *a = dynamic_cast<Tunnel*>(_carta)->getArr();
-        if(a[0]==true && a[1]==true && a[2]==true && a[3]==true)
-            immagine= ":/Img/╬(0).jpg";
-        else if(a[0]==false && a[1]==true && a[2]==false && a[3]==true)
-            immagine= ":/Img/═(0).jpg";
-        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==false)
-            immagine= ":/Img/║(0).jpg";
-        else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false)
-            immagine= ":/Img/╔(2).jpg";
-        else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true)
-            immagine= ":/Img/╗(0).jpg";
-        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false)
-            immagine= ":/Img/╚(0).jpg";
-        else if(a[0]==true && a[1]==true && a[2]==true && a[3]==false)
-            immagine= ":/Img/╠(0).jpg";
-        else
-            immagine= ":/Img/╦(0).jpg";
-    }
 
 
     QPixmap pixmap = QPixmap(immagine);
     painter->drawPixmap(QRect(0,0,_size,_size),pixmap);
+    */
 }
 
 /**

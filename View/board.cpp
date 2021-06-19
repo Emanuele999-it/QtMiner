@@ -1,8 +1,4 @@
 #include "View\Header\screens\gameScreen\Board\board.h"
-#include "Model/Header/carta/card.h"
-#include "Model/Header/carta/blocco.h"
-#include "Model/Header/carta/tunnel.h"
-#include "View\casella.cpp"
 
 #include <QGraphicsScene>
 
@@ -10,11 +6,13 @@ using std::vector;
 
 namespace view {
 
-Board::Board(const QSize &size,  vector <Casella*> caselle) :
-    _dimensione(size),
+Board::Board(const int& i,  model::ModelBoard caselle) :
+    _dimensione(i),
     _caselle(caselle){
 
-}
+    connect(Casella,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
+
+};
 
 
 void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
@@ -24,5 +22,22 @@ void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
 }
 
+void Board::selectCardBoard(const Card* confronto){
+    //allora si fa il for di tutto l'array e se si trova la card nell'array si mette true
+    for(int i=0; i<40;i++){
+        if(_caselle.getCardBoard(i) == confronto){ //conftonto i loro L-valori per evitare FP
+            _caselle.cambiaSelezioneBoard(i);
+        }
+    }
+}
+
+void Board::selectCardHand(const Card* confronto){
+    //allora si fa il for di tutto l'array e se si trova la card nell'array si mette true
+    for(int i=0; i<7;i++){
+        if(_caselle.getCardMano(i) == confronto){ //conftonto i loro L-valori per evitare FP
+            _caselle.cambiaSelezioneMano(i);
+        }
+    }
+}
 
 }

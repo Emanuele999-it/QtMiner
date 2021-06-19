@@ -29,12 +29,7 @@ HEADERS += \
     Model/Header/modelBoard.h \
     View/Header/screens/gameScreen/Board/casella.h \
     View/Header/screens/gameScreen/mano.h \
-    Controller/Header/scenes.h \
     Controller/Header/controller.h \
-    Controller/Header/gameScreenController.h \
-    Controller/Header/initialScreenController.h \
-    Controller/Header/mapScreenController.h \
-    Controller/Header/tutorialScreenController.h \
     View/Header/hud/iconButton.h \
     View/Header/mainwindow.h \
     View/Header/mainsettingswindow.h \
