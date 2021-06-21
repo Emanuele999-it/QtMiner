@@ -21,7 +21,6 @@ SOURCES += \
     Model/carta/obstruction.cpp \
     Model/carta/tunnel.cpp \
     View/mainwindow.cpp \
-
     View/mainsettingswindow.cpp \
     Model/carta/blocco.cpp \
     Model/carta/card.cpp \
@@ -35,6 +34,8 @@ SOURCES += \
 
 
 HEADERS += \
+    Entities/Header/cvector.h \
+    Entities/Header/unique_ptr.h \
     Model/Header/modelBoard.h \
     View/Header/screens/gameScreen/Board/casella.h \
     View/Header/screens/gameScreen/mano.h \
@@ -47,8 +48,6 @@ HEADERS += \
     View/Header/hud/iconButton.h \
     View/Header/mainwindow.h \
     View/Header/mainsettingswindow.h \
-    Entities/Header/cvector.h \
-    Entities/Header/unique_ptr.h \
     View/Header/hud/infoBox.h \
     View/Header/screens/gameScreen/Board/board.h \
     View/Header/screens/gameScreen/Modal/gameOver.h \
