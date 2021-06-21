@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Model/carta/modelBoard.cpp \
     View/board.cpp \
     View/casella.cpp \
     View/gameScene.cpp \
@@ -34,20 +35,27 @@ SOURCES += \
 
 
 HEADERS += \
+<<<<<<< HEAD
     Entities/Header/cvector.h \
     Entities/Header/unique_ptr.h \
     Model/Header/modelBoard.h \
     View/Header/screens/gameScreen/Board/casella.h \
     View/Header/screens/gameScreen/mano.h \
     Controller/Header/scenes.h \
+=======
+    Model/Header/modelBoard.h \
+    View/Header/screens/gameScreen/Board/casella.h \
+    View/Header/screens/gameScreen/mano.h \
+>>>>>>> ale
     Controller/Header/controller.h \
-    Controller/Header/gameScreenController.h \
-    Controller/Header/initialScreenController.h \
-    Controller/Header/mapScreenController.h \
-    Controller/Header/tutorialScreenController.h \
     View/Header/hud/iconButton.h \
     View/Header/mainwindow.h \
     View/Header/mainsettingswindow.h \
+<<<<<<< HEAD
+=======
+    Entities/Header/cvector.h \
+    Entities/Header/unique_ptr.h \
+>>>>>>> ale
     View/Header/hud/infoBox.h \
     View/Header/screens/gameScreen/Board/board.h \
     View/Header/screens/gameScreen/Modal/gameOver.h \
@@ -65,6 +73,7 @@ HEADERS += \
     Model/Header/carta/crollo.h \
     Model/Header/carta/obstruction.h \
     Model/Header/carta/tunnel.h
+<<<<<<< HEAD
     Enums/obstructiontype.h \
     View/Header/settingswindow.h \
     Entities/Header/cvector.h \
@@ -77,6 +86,8 @@ HEADERS += \
     Model/Header/carta/tunnel.h \
     View/Header/mainwindow.h \
     View/Header/tutorialwindow.h
+=======
+>>>>>>> ale
 
 
 # Default rules for deployment.

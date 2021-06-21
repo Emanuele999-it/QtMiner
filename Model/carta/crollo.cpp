@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿#include "../Header/carta/crollo.h"
+=======
+﻿#include "Model\Header\carta\crollo.h"
+>>>>>>> ale
 
 Crollo::Crollo() :type(ObstructionType::crollo){}
 

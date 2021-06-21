@@ -162,7 +162,7 @@ CVector<T>::CVector(nat l): space(l), arr(new T[l]), size(0) {
 template <class T>
 CVector<T>::CVector(const CVector & a)
     :space(a.space), arr(new T[a.space]), size(0){
-    for (unsigned int i = 0; i < a.capacity; i++) {
+    for (unsigned int i = 0; i<a.capacity(); i++) {
         arr[i] = a.arr[i];
     }
     size=a.size;

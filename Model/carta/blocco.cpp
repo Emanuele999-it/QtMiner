@@ -1,4 +1,5 @@
-﻿#include "../Header/carta/blocco.h"
+﻿#include "Model\Header\carta\blocco.h"
+
 
 Blocco::Blocco() :type(ObstructionType::blocco){}
 
