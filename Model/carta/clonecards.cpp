@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-﻿#include "../Header/carta/clonecards.h"
-=======
 ﻿#include "Model\Header\carta\clonecards.h"
->>>>>>> ale
+
 
 CloneCards::CloneCards(){}
 

@@ -1,5 +1,5 @@
 #include "View\Header\screens\gameScreen\gameScene.h"
-#include "Model\Header\game.h"
+// non c'è #include "Model\Header\game.h"
 
 using std::vector;
 

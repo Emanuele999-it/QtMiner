@@ -6,7 +6,6 @@
 template <class T>
 class unique_ptr{
 private:
-public:
     /**
      * @brief ptr: puntatore all'oggetto
      */
@@ -14,13 +13,15 @@ public:
 
     void swap(T*);
 
+
+
 public:
 
 /*----------Costruttori----------*/
 
     unique_ptr(T *obj=nullptr);
 
-    explicit unique_ptr(const unique_ptr<T>&);
+    //explicit unique_ptr(const unique_ptr<T>&);
 
     ~unique_ptr();
 
@@ -63,7 +64,7 @@ public:
     /**
      * @brief reset: rimuove oggetto punatato
      */
-    void reset();
+    void reset(T*p);
 };
 
 
@@ -83,17 +84,20 @@ void unique_ptr<T>::swap(T* up){
 /*----------Costruttori----------*/
 
 template<class T>
-unique_ptr<T>::unique_ptr(T* obj) : ptr(new T(*obj)) {}
+unique_ptr<T>::unique_ptr(T* obj) : ptr(obj) {}
 
 template<class T>
 unique_ptr<T>::~unique_ptr(){
-    delete ptr;
-    ptr=nullptr;
+    if(ptr){
+        delete ptr;
+        ptr=nullptr;
+    }
 }
 
+/*
 template<class T>
 unique_ptr<T>::unique_ptr(const unique_ptr<T>& up): ptr(new T(*(up.ptr))){}
-
+*/
 
 /*----------Operator----------*/
 
@@ -110,24 +114,23 @@ T* unique_ptr<T>::operator->(){
 
 template<class T>
 const T& unique_ptr<T>::operator*() const{
-    return *ptr;
+    return &(*ptr);
 }
 
 template<class T>
 const T* unique_ptr<T>::operator->() const{
-    return ptr;
+    return &(*ptr);
 }
 
 template<class T>
 unique_ptr<T>::operator bool() const{
-    return (ptr != nullptr) ? true : false;
+    return ptr != nullptr;
 }
 
 template<class T>
 unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr<T>& up){
     if(this != &up)
-        delete ptr;
-        ptr = new T(*(up.ptr));
+        swap_ptr(up);
     return *this;
 }
 
@@ -136,8 +139,8 @@ unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr<T>& up){
 
 template<class T>
 T* unique_ptr<T>::release(){
-    T* res = nullptr;
-    swap(res);
+    T* res = ptr;
+    ptr=nullptr;
     return res;
 }
 
@@ -157,9 +160,10 @@ const T* unique_ptr<T>::get_const() const {
 }
 
 template<class T>
-void unique_ptr<T>::reset() {
-    T* temp=release();
-    delete temp;
+void unique_ptr<T>::reset(T *p) {
+    if(ptr)
+        delete ptr;
+    ptr=p;
 }
 
 

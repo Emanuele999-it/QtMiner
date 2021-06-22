@@ -20,6 +20,11 @@ public:
      */
     virtual Card* clone() const = 0;
 
+    /**
+     * @brief Card:
+     * @param c
+     */
+    Card(const Card& c)=default;
 
     /**
      * @brief Card: costruttore

@@ -10,14 +10,14 @@ namespace model {
 
 class ModelBoard {
 private:
-    CVector <unique_ptr<Card>*> _boardStuff ;
-    CVector <unique_ptr<Card>*> _handStuff ;
+    CVector <unique_ptr<Card>> _boardStuff ;
+    CVector <unique_ptr<Card>> _handStuff ;
     int _nMano; // posizione della carta toccata dalla mano
     int _nBoard; // posizione della carta toccata dalla mano
 public:
         ModelBoard(
-            CVector <unique_ptr<Card>*> boardStuff ,
-            CVector <unique_ptr<Card>*> handStuff ,
+            CVector <unique_ptr<Card>> boardStuff ,
+            CVector <unique_ptr<Card>> handStuff ,
             int nMano ,
             int nBoard
                 );

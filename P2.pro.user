@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<<<<<<< HEAD
-<!-- Written by QtCreator 4.5.2, 2021-06-19T10:59:46. -->
-=======
-<!-- Written by QtCreator 4.5.2, 2021-06-19T09:24:05. -->
->>>>>>> ale
+<!-- Written by QtCreator 4.5.2, 2021-06-21T12:03:17. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -296,7 +292,7 @@
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">P2.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
-    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default"></value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory.default">E:/File dischi vecchi/500 gb, vecchio pc/emanuele/UNIV/p2/progetto 2020_2021/codice/build-P2-Desktop_Qt_5_9_5_MinGW_32bit-Debug</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>

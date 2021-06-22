@@ -139,7 +139,7 @@ public:
 
 /*-----------Inserimento-----------*/
 
-    void push_back(const T& d);
+    void push_back(T &d);
 
 
 /*-----------Stampa-----------*/
@@ -384,7 +384,7 @@ T& CVector<T>::operator[](nat i) const {
 /*-----------Inserimento-----------*/
 
 template<class T>
-inline void CVector<T>::push_back(const T& d){
+inline void CVector<T>::push_back(T& d){
     if (space == 0)
         resize(8);
     else if (size == space)

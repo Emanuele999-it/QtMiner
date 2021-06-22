@@ -4,7 +4,7 @@
 Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()) {
     //costruire controller
     MainW->show();
-=======
+
     //MainW = new MainWindow();
 
     /*
@@ -16,13 +16,11 @@ Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()
     connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
 
     //connect(MainW, &MainWindow::OpenSettingsRequest, this, &Controller::openSettings);
+
+    //void controller::Controller::ShowMainWindow() const {MainW->show();}
+
 }
 
-//void controller::Controller::ShowMainWindow() const {MainW->show();}
-
-}
-
-<<<<<<< HEAD
 void Controller::openSettings() {
     emit MainW->OpenSettingsWindow();
 }
@@ -30,8 +28,8 @@ void Controller::openSettings() {
 void Controller::openTutorial(){
     emit MainW->OpenTutorialWindow();
 }
-=======
+
 //void controller::Controller::openSettings(){
     //emit MainW->OpenSettingsWindow();
 //}
->>>>>>> ale
+
