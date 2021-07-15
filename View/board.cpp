@@ -6,8 +6,7 @@ using std::vector;
 
 namespace view {
 
-Board(const unsigned int& i) :
-    _dimensione(i){
+Board(const unsigned int& i){
 
 
     //connect(Casella,&QPushButton::clicked, this, &MainWindow::TutorialRequest);

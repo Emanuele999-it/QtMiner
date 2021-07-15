@@ -66,6 +66,8 @@ void ModelBoard::posiziona(unsigned int posizioneMano,unsigned int posizioneBoar
 
     _boardStuff[posizioneBoard].~unique_ptr();
     _boardStuff[posizioneBoard] = *(new unique_ptr<Card>(selezione));
+
+    selezione.~unique_ptr();
 }
 
 int ModelBoard::getSelezioneBoard() const{
