@@ -16,18 +16,19 @@ class Casella : public QPushButton {
 
 private:
     nat pos;
-protected:
 
-    void mouseClick(QGraphicsSceneMouseEvent *event);
-    void mouseHover(QGraphicsSceneMouseEvent *event);
-    void mouseNonHover(QGraphicsSceneMouseEvent *event);
+protected:
+    //void mouseClick(QGraphicsSceneMouseEvent *event);
+    //void mouseHover(QGraphicsSceneMouseEvent *event);
 
 public:
     Casella(nat p=0,QPushButton*pushbutton=nullptr);
     void cambiaImmagine(QString i);
 
 signals:
-    void casellaCliccata(nat p);
+    //void casellaCliccata(nat p);
+    //void mouseNonHover(QGraphicsSceneMouseEvent *event);
+
     //void mouseHover();
     //void mouseNonHover();
 };

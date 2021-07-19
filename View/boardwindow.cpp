@@ -1,10 +1,14 @@
-include "View/Header/finestrainiziale.h"
+/*#include "View/Header/finestrainiziale.h"
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QWidget>
 #include <QLCDNumber>
-#include "View/Header/board.h"
+#include "View/Header/screens/gameScreen/Board/board.h"
 
+/*
+    finestraIniziale -> mainWindow
+*/
+/*
 FinestraIniziale:: FinestraIniziale(QWidget *p) : QWidget(p), b(new Board) //Lo devo creare sullo stack o sparisce
 {
     mosse = new QLCDNumber(5);
@@ -23,3 +27,4 @@ FinestraIniziale:: FinestraIniziale(QWidget *p) : QWidget(p), b(new Board) //Lo 
 void FinestraIniziale::visualizza(){
 
 }
+*/

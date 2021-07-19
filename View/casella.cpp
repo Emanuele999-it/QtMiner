@@ -20,12 +20,17 @@ namespace view {
 Casella::Casella(nat p, QPushButton*pushbutton):QPushButton(pushbutton), pos(p) {
 
     setIcon(QIcon(":/Img/sr.png"));
-    connect(this,&QPushButton::clicked, this, &Casella::casellaCliccata(pos));
+    //connect(this,&QPushButton::clicked, this, &Casella::casellaCliccata);
+
+    //creare segnale di supposto per emettere casellaCliccata con la posizione!!!
+
 }
 
 void Casella::cambiaImmagine(QString i){
     setIcon(QIcon(i));
 }
+
+//void Casella::casellaCliccata(pos);
 
 /*
 void Casella::paint(QPainter *painter, QPushButton *pushbutton): QPushButton()  {
@@ -36,54 +41,52 @@ void Casella::paint(QPainter *painter, QPushButton *pushbutton): QPushButton()  
 
     QPixmap pixmap = QPixmap(immagine);
     painter->drawPixmap(QRect(0,0,_size,_size),pixmap);
-    */
+
 }
+*/
 
 /**
  * @brief Casella::mouseNonHover evento quando non si va sopra una carta/casella
  * @param event
  */
+/*
 void Casella::mouseNonHover(QGraphicsSceneMouseEvent *event) {
     Q_UNUSED(event);
 
-    emit mouseNonHover();
+    emit mouseNonHover(event);
 }
 
 /**
  * @brief Casella::mouseHover evento quando si va sopra una carta/casella
  * @param event
  */
+/*
 void Casella::mouseHover(QGraphicsSceneMouseEvent *event) {
     Q_UNUSED(event);
 
-    emit mouseHover();
+    emit mouseHover(event);
 }
 
 void Casella::mouseClick(QGraphicsSceneMouseEvent *event) {
     Q_UNUSED(event);
 
-    emit click(this);
+    emit clicked(this);
 }
 
+/*
 bool Casella::returnSelected() const{
     return _selected;
 }
 
+
 void Casella::cambiaSelected(bool s){
     _selected = s;
 }
-
-/**
- * @brief Casella::returnTipo torna la carta
- * @return
- */
-Card* Casella::returnTipo() const {
-    return _carta;
-}
+*/
 
 
-int Casella::returnPosizione(){
+/*int Casella::returnPosizione(){
     return _position;
 }
-
+*/
 }
