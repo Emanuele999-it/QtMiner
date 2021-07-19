@@ -9,6 +9,8 @@
 
 namespace view {
 
+//GameScene: racchiude tutto ciò che è visibile
+
 class GameScene : public QGraphicsScene {
   Q_OBJECT
 private:
@@ -19,7 +21,7 @@ private:
     void drawBackground();
     void createHUD();
 public:
-    GameScene(Board * board);
+    GameScene();
     /**
      * @brief costruttore, niente di speciale
      */
@@ -48,6 +50,6 @@ signals:
     void menu();
 };
 
-};
+}
 
 #endif

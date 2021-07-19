@@ -10,10 +10,15 @@ namespace model {
 
 class ModelBoard {
 private:
+
+
+    // vedere se <unique_ptr<Card> va con la * o meno
+
+
     CVector <unique_ptr<Card>> _boardStuff ;
     CVector <unique_ptr<Card>> _handStuff ;
-    int _nMano; // posizione della carta toccata dalla mano
-    int _nBoard; // posizione della carta toccata dalla mano
+    unsigned int _nMano; // posizione della carta toccata dalla mano
+    unsigned int _nBoard; // posizione della carta toccata dalla mano
 public:
         ModelBoard(
             CVector <unique_ptr<Card>> boardStuff ,
@@ -27,28 +32,33 @@ public:
  * @return
  */
 QString getImage(int i)const;
+
 /**
  * @brief getCardBoard data la posizione restituisce la carta a scopo di informazioni
  * @param posizione
  * @return
  */
 Card* getCardBoard(unsigned int posizione)const;
+
 /**
  * @brief getCardHand data posizione torna la carta
  * @param posizione
  * @return
  */
 Card* getCardMano(unsigned int posizione)const;
+
 /**
  * @brief getSelezioneBoard questa mi serve per vedere che carta ho selezionata sulla Board
  * @return
  */
 int getSelezioneBoard()const;
+
 /**
  * @brief cambiaSelezioneBoard cambia quale carta è selezionata Board
  * @return
  */
 void cambiaSelezioneBoard(int b);
+
 /**
  * @brief getSelezioneHand questa mi serve per vedere quale ho selezionato sulla mano
  * @return
@@ -60,6 +70,7 @@ int getSelezioneMano()const;
  * @return
  */
 void cambiaSelezioneMano(int m);
+
 /**
  * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
  * posizioneMano
@@ -70,6 +81,6 @@ void cambiaSelezioneMano(int m);
 void posiziona(unsigned int posizioneMano,unsigned int posizioneBoard);
 };
 
-};
+}
 
 #endif //end ModelBoard

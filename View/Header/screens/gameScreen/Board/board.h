@@ -11,9 +11,9 @@ using std::vector;
 
 namespace view {
 
-class Board : public QGraphicsItem, public QObject{
+class Board : public QObject{
     Q_OBJECT
-    Q_INTERFACES(QGraphicsItem)
+    //Q_INTERFACE(QGraphicsItem);
 
 private:
     /**
@@ -23,8 +23,8 @@ private:
 
 
 public:
-    Board (const unsigned int);
-    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    Board(const unsigned int&);
+    //virtual void paint(/*QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget*/);
     //void turn();
 
 public slots:
@@ -48,7 +48,7 @@ public slots:
 
 /*
 class Mano: public Board{
-    /**
+    /*
      * @brief _dimensioneMano è la grandezza della mano
 
     QSize _dimensioneMano;

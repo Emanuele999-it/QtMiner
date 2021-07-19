@@ -42,7 +42,6 @@ HEADERS += \
     Model/Header/carta/tunnel.h	\	
     View/Header/screens/gameScreen/Board/casella.h \
     View/Header/screens/gameScreen/Board/board.h \
-    View/Header/screens/gameScreen/Board/setBoard \
     View/Header/screens/gameScreen/mano.h \
     View/Header/screens/gameScreen/gameScene.h \
     View/Header/mainwindow.h \
