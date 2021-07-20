@@ -16,21 +16,36 @@ class Casella : public QPushButton {
 
 private:
     nat pos;
+    QIcon onhover;
+    QIcon IconStd;
 
 protected:
-    //void mouseClick(QGraphicsSceneMouseEvent *event);
-    //void mouseHover(QGraphicsSceneMouseEvent *event);
+    /**
+     * @brief enterEvent: Metodo chiamato quando il mouse entra dentro il widget
+     * @param event: Evento generato
+     */
+    virtual void enterEvent(QEvent *event);
+
+    /**
+     * @brief leaveEvent: Metodo chiamato quando il mouse esce dal widget
+     * @param event: Evento generato
+     */
+    virtual void leaveEvent(QEvent *event);
 
 public:
     Casella(nat p=0,QPushButton*pushbutton=nullptr);
     void cambiaImmagine(QString i);
 
 signals:
-    //void casellaCliccata(nat p);
-    //void mouseNonHover(QGraphicsSceneMouseEvent *event);
+    void casellaCliccata(nat p);
 
-    //void mouseHover();
-    //void mouseNonHover();
+
+private slots:
+    /**
+     * @brief supportoCasellaCliccata: slot supporto per emissione segnale casellaCliccata
+     */
+    void supportCasellaCliccata();
+
 };
 
 }

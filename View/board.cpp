@@ -8,8 +8,10 @@ namespace view {
 
 Board::Board(const unsigned int& i){
 
-    // moficare costruttore per avere numero casella corretto
     vector<Casella*> vettoreCaselle;
+    for(nat counter=0; counter<i; counter++){
+        vettoreCaselle.push_back(new Casella(counter));
+    }
 
     //connect(Casella,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
 

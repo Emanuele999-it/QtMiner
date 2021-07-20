@@ -9,20 +9,17 @@ using std::vector;
 namespace model {
 
 class ModelBoard {
+
 private:
-
-
-    // vedere se <unique_ptr<Card> va con la * o meno
-
-
-    CVector <unique_ptr<Card>> _boardStuff ;
-    CVector <unique_ptr<Card>> _handStuff ;
+    CVector <unique_ptr<Card>*> _boardStuff ;
+    CVector <unique_ptr<Card>*> _handStuff ;
     unsigned int _nMano; // posizione della carta toccata dalla mano
-    unsigned int _nBoard; // posizione della carta toccata dalla mano
+    unsigned int _nBoard; // posizione della carta toccata dalla board
+
 public:
         ModelBoard(
-            CVector <unique_ptr<Card>> boardStuff ,
-            CVector <unique_ptr<Card>> handStuff ,
+            CVector <unique_ptr<Card>*> boardStuff ,
+            CVector <unique_ptr<Card>*> handStuff ,
             int nMano ,
             int nBoard
                 );

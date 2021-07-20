@@ -7,8 +7,8 @@
 #include "Model/Header/carta/clonecards.h"
 
 namespace model{
-ModelBoard::ModelBoard(CVector <unique_ptr<Card>> boardStuff,
-                       CVector <unique_ptr<Card>> handStuff,
+ModelBoard::ModelBoard(CVector <unique_ptr<Card>*> boardStuff,
+                       CVector <unique_ptr<Card>*> handStuff,
                        int nMano = -1, int nBoard = -1):
                        _boardStuff(boardStuff), _handStuff(handStuff), _nMano(nMano), _nBoard(nBoard)
 {
