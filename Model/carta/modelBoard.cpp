@@ -14,10 +14,10 @@ ModelBoard::ModelBoard(CVector <unique_ptr<Card>*> boardStuff,
 {
     //sistemare riempimento automatico
     for (int i = 0; i< 40; i++)
-        _boardStuff.push_back(*(new unique_ptr<Card>));
+        _boardStuff.push_back(new unique_ptr<Card>);
 
     for (int i = 0; i< 7; i++)
-        _handStuff.push_back(*(new unique_ptr <Card>));
+        _handStuff.push_back(new unique_ptr<Card>);
 }
 
 Card* ModelBoard::getCardBoard(unsigned int posizione) const{
@@ -61,11 +61,11 @@ Card* ModelBoard::getCardMano(unsigned int posizione) const{
 
 void ModelBoard::posiziona(unsigned int posizioneMano,unsigned int posizioneBoard){
 
-    unique_ptr<Card> selezione = *(new unique_ptr<Card>(
-                    _handStuff[posizioneMano].get()->clone()));
+    unique_ptr<Card>* selezione = new unique_ptr<Card>(
+                    _handStuff[posizioneMano].get()->clone());
 
     _boardStuff[posizioneBoard].~unique_ptr();
-    _boardStuff[posizioneBoard] = *(new unique_ptr<Card>(selezione));
+    _boardStuff[posizioneBoard] = new unique_ptr<Card>(selezione);
 
     selezione.~unique_ptr();
 }
