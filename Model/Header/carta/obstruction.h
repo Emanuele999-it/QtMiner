@@ -24,7 +24,7 @@ public:
      */
     virtual ObstructionType getType() const = 0;
 
-    virtual ~Obstruction()=0;
+    virtual ~Obstruction();
 
     /**
      * @brief operator = :operatore di assegnazione, usa metodo clone

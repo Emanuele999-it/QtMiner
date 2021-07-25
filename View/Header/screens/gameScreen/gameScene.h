@@ -27,7 +27,12 @@ public:
      */
 
 public slots:
-    void premiBoard(const QPointF& click);
+
+    /*
+     *    Non so cosa sia e da' errore
+     *    void premiBoard(const QPointF& click);
+     *
+*/
 
 
 signals:

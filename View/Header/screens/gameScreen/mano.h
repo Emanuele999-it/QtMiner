@@ -21,10 +21,7 @@ private:
     vector <unique_ptr<Card>*> _mano;
 
 public:
-    Mano (
-            vector <unique_ptr<Card>*> mano
-            );
-    void paint(QPainter *p, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    Mano (vector <unique_ptr<Card>*> mano);
 
 signals:
     /**

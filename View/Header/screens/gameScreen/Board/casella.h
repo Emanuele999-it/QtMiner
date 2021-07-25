@@ -16,8 +16,8 @@ class Casella : public QPushButton {
 
 private:
     nat pos;
-    QIcon onhover;
-    QIcon IconStd;
+    QIcon onHover;
+    QIcon iconStd;
 
 protected:
     /**

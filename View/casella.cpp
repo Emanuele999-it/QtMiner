@@ -20,18 +20,22 @@ namespace view {
 Casella::Casella(nat p, QPushButton*pushbutton):QPushButton(pushbutton), pos(p) {
 
 
-    IconStd=QIcon(":/Img/sr.jpg");
-    onhover=QIcon(":/Img/r.jpg");
-    setIcon(IconStd);
+    iconStd=QIcon(":/Img/sr.jpg");
+    onHover=QIcon(":/Img/r.jpg");
+    setIcon(iconStd);
     connect(this,&QPushButton::clicked, this, &Casella::supportCasellaCliccata);
 
     //creare segnale di supposto per emettere casellaCliccata con la posizione!!!
 
 }
 
+/*
+ * PROBLEMA: capire come modificare contemporaneamente IconStd e onHover
+*/
+
 void Casella::cambiaImmagine(QString i){
-    IconStd=QIcon(i);
-    setIcon(IconStd);
+    iconStd=QIcon(i);
+    setIcon(iconStd);
 }
 
 void Casella::supportCasellaCliccata(){
@@ -44,11 +48,11 @@ void Casella::supportCasellaCliccata(){
 */
 
 void Casella::enterEvent(QEvent *event){
-  setIcon(onOver);
+  setIcon(onHover);
 }
 
 void Casella::leaveEvent(QEvent *event){
-  setIcon(IconStd);
+  setIcon(iconStd);
 }
 
 }
