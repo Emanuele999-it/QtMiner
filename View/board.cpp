@@ -6,14 +6,14 @@ using std::vector;
 
 namespace view {
 
-Board::Board(const unsigned int& i){
+Board::Board(const unsigned int& i): posizione(0){
 
     vector<Casella*> vettoreCaselle;
     for(nat counter=0; counter<i; counter++){
         vettoreCaselle.push_back(new Casella(counter));
     }
 
-    //connect(Casella,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
+    connect(Casella,&Casella::casellaCliccata, this, &Board::numCasellaCliccata);
 
 }
 
@@ -30,18 +30,9 @@ Board::Board(const unsigned int& i){
 
 */
 
-void Board::selectCardBoard(nat ...){
-    //allora si fa il for di tutto l'array e se si trova la card nell'array si mette true
-
-    /*for(int i=0; i<40;i++){
-                // se si controlla in vettoreCaselle si deve usare "vettoreCaselle.capacity()
-                // al posto di 40 "
-        if(_caselle.getCardBoard(i) == confronto){ //conftonto i loro L-valori per evitare FP
-            _caselle.cambiaSelezioneBoard(i);
-        }
-    }*/
-
-    emit pincopallino();
+void Board::selectCardBoard(nat r){
+    posizione=r;
+    emit numCasellaCliccata(r);
 }
 
 /*

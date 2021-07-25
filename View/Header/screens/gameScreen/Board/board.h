@@ -21,29 +21,40 @@ private:
      */
     vector<Casella*> vettoreCaselle;
 
+    nat posizione;
+
 
 public:
     Board(const unsigned int&);
-    //virtual void paint(/*QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget*/);
-    //void turn();
 
 public slots:
-
-    signals:
     /**
-     * @brief possiamo fare che si selezionano due carte, si preme GIOCA e avviene lo scambio
-     * le due carte selezionate, una sulla board e una sulla mano e avviene il turno
+     * @brief selectCardBoard: slot che permette di salvare la posizione della carta cliccata
+     *                         e la emette al model tramite numCasellaCliccata(nat)
      */
     void selectCardBoard(const Card*);
+
+
+
+    signals:
+
     /**
      * @brief selectCardHand permette di selezionare la carta in mano
-     */
+
     void selectCardHand(const Card*);
+    */
+
     /**
      * @brief hoverCard serve un metodo simile con (QGraphicsScene *a)
      * che fa roba
      */
     void hoverCard(QGraphicsScene *stuff);
+
+    /**
+     * @brief numCasellaCliccata: invio segnale a model posizione casella cliccata
+     */
+    void numCasellaCliccata(nat);
+
 };
 
 /*
