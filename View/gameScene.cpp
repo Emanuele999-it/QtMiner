@@ -13,7 +13,8 @@ GameScene::GameScene(){
     drawBackground();
     createHUD();
 
-};
+}
+
 }
 
 //implementazione drawBackground e createUHD;

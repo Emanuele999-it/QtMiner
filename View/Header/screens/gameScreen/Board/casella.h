@@ -37,6 +37,10 @@ public:
     void cambiaImmagine(QString i);
 
 signals:
+    /**
+     * @brief casellaCliccata: invio segnale casella cliccata
+     * @param p: id casella cliccata (quindi la sua posizione)
+     */
     void casellaCliccata(nat p);
 
 

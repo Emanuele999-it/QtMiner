@@ -7,32 +7,31 @@
 #include "Model/Header/modelBoard.h"
 #include "View\Header\screens\gameScreen\Board\casella.h"
 
-using std::vector;
+#include <QVector>
 
 namespace view {
 
 class Board : public QObject{
     Q_OBJECT
-    //Q_INTERFACE(QGraphicsItem);
 
 private:
     /**
      * @brief dimensione è al grandezza della board, si costruisce con QSize(Width,Height)
      */
-    vector<Casella*> vettoreCaselle;
+    QVector<Casella*> vettoreCaselle;
 
     nat posizione;
 
 
 public:
-    Board(const unsigned int&);
+    Board(const nat&);
 
 public slots:
     /**
      * @brief selectCardBoard: slot che permette di salvare la posizione della carta cliccata
      *                         e la emette al model tramite numCasellaCliccata(nat)
      */
-    void selectCardBoard(const Card*);
+    void selectCardBoard(nat);
 
 
 
