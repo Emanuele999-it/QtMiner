@@ -1,5 +1,5 @@
-#ifndef FINESTRAINIZIALE_H
-#define FINESTRAINIZIALE_H
+#ifndef BOARDWINDOW_H
+#define BOARDWINDOW_H
 
 #include <QApplication>
 #include <QGraphicsScene>
@@ -7,17 +7,21 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QLCDNumber>
-#include "View/Header/board.h"
+#include "View/Header/screens/gameScreen/gameScene.h"
 
-class FinestraIniziale : public QWidget{
+class BoardWindow : public QWidget{
+
 public:
-    FinestraIniziale(QWidget *parent = nullptr);
+    BoardWindow(QWidget *parent = nullptr, nat num=7);
+
 private:
     QLabel *label(const QString &text);
-    Board *b;
+    view::Board *b;
     QLCDNumber *mosse;
+    nat celle;
+
 public:
     void visualizza();
 };
 
-#endif // FINESTRAINIZIALE_H
+#endif // BOARDWINDOW_H

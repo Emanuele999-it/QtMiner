@@ -5,6 +5,7 @@ Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()
     //costruire controller
     MainW->show();
 
+
     //MainW = new MainWindow();
 
     /*
@@ -14,10 +15,7 @@ Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()
 
     connect(MainW, &MainWindow::SettingsRequest, this, &Controller::openSettings);
     connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
-
-    //connect(MainW, &MainWindow::OpenSettingsRequest, this, &Controller::openSettings);
-
-    //void controller::Controller::ShowMainWindow() const {MainW->show();}
+    connect(MainW, &MainWindow::GameRequest, this, &Controller::openBoardWindow);
 
 }
 
@@ -28,6 +26,16 @@ void Controller::openSettings() {
 void Controller::openTutorial(){
     emit MainW->OpenTutorialWindow();
 }
+
+void Controller::openBoardWindow(){
+    emit MainW->OpenGameWindow();
+}
+
+void Controller::cambiaCellaSelezionata(nat y){
+    //interazione con model
+}
+
+
 
 //void controller::Controller::openSettings(){
     //emit MainW->OpenSettingsWindow();

@@ -1,30 +1,29 @@
-/*#include "View/Header/finestrainiziale.h"
+#include "View/Header/boardwindow.h"
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QWidget>
 #include <QLCDNumber>
 #include "View/Header/screens/gameScreen/Board/board.h"
 
-/*
-    finestraIniziale -> mainWindow
-*/
-/*
-FinestraIniziale:: FinestraIniziale(QWidget *p) : QWidget(p), b(new Board) //Lo devo creare sullo stack o sparisce
+
+BoardWindow:: BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
 {
-    mosse = new QLCDNumber(5);
+
+    b=new view::Board(celle);
+    mosse = new QLCDNumber(3);
     mosse->setSegmentStyle(QLCDNumber::Filled);
 
     QGridLayout *layout = new QGridLayout;
     //layout->addWidget(End, 4, 0);
-    layout->addWidget(b, 0, 1, 6, 1); //la cosa che voglio io, la board
+    //layout->addWidget(b, 0, 1, 6, 1); //la cosa che voglio io, la board
     setLayout(layout);
 
     setWindowTitle(tr("Qtminer"));
-    resize(1920, 720);
+    resize(1280, 720);
 
 }
 
-void FinestraIniziale::visualizza(){
+void BoardWindow::visualizza(){
 
 }
-*/
+

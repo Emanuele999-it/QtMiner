@@ -18,7 +18,7 @@ private:
 
 
 public:
-    ModelBoard(nat nMano ,nat nBoard);
+    ModelBoard(nat nMano = 7,nat nBoard = 40);
      /**
      * @brief getImage data posizione ritorna QString file immagine
      * @param i

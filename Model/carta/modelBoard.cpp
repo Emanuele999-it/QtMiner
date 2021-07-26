@@ -8,25 +8,26 @@
 
 #include <iostream>
 
-namespace model{
-ModelBoard::ModelBoard(nat nMano = 0, nat nBoard = 0): _nMano(nMano), _nBoard(nBoard),
-    _handStuff(CVector<unique_ptr<Card>*>(nMano)),
-    _boardStuff(CVector<unique_ptr<Card>*>(nBoard)){
 
-/*  sistemare riempimento automatico
+namespace model{
+ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), _nBoard(nBoard),
+    _handStuff(CVector<unique_ptr<Card>*>(nMano)),
+    _boardStuff(CVector<unique_ptr<Card>*>(nBoard))
+{
     for (nat i = 0; i< nBoard; i++)
         _boardStuff.push_back(nullptr);
 
     for (nat i = 0; i< nMano; i++)
         _handStuff.push_back(nullptr);
+
+
+/*
+      if(_handStuff[nMano] != nullptr)
+            std::cout<<" ok funzia";
+
+      if(_boardStuff[nMano] == nullptr)
+            std::cout<<"non funzia";
 */
-    // vec mano e board costruiti nx e ny elementi ed inizializzati
-    // inizializzando puntatore <unique_ptr<Card>*> a nullptr
-    // quindi in sostanza abbiano nx e ny nullptr
-    // CONTROLLARE QUANDO COMPILA COME SI COMPORTA
-
-
-
 }
 
 Card* ModelBoard::getCardBoard(unsigned int posizione) const{
