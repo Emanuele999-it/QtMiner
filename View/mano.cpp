@@ -5,6 +5,6 @@
 using std::vector;
 
 namespace view {
-Mano::Mano(vector <unique_ptr<Card>*> mano) : _mano(mano){};
+Mano::Mano(vector <unique_ptr<Card>*> mano) : _mano(mano){}
 
 }

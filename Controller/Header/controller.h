@@ -8,8 +8,10 @@ class Controller : public QObject {
     Q_OBJECT
 
 private:
+    /**
+     * @brief MainW: ptr finestra principale
+     */
     MainWindow* MainW;
-
 
 
 public:
@@ -25,6 +27,25 @@ public slots:
      * @brief openTutorial: permette di aprire finestra del tutorial
      */
     void openTutorial();
+
+    /**
+     * @brief openBoardWindow: permette di aprire finestra gioco
+     */
+    void openBoardWindow();
+
+
+    /**
+     * @brief cambiaCellaSelezionata: slot che permette di cambiare
+     *                  la della slezionata nella board/mano
+     */
+    void cambiaCellaSelezionata(nat);
+
+signals:
+    /**
+     * @brief cambiaCellaModel: segnale modifica cella selezionata
+     *                      per il modello modelBoard
+     */
+    void cambiaCellaModel(nat);
 
 };
 

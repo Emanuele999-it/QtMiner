@@ -2,3 +2,5 @@
 
 
 Obstruction::Obstruction(){}
+
+Obstruction::~Obstruction(){}

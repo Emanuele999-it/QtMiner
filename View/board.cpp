@@ -2,18 +2,23 @@
 
 #include <QGraphicsScene>
 
-using std::vector;
 
 namespace view {
 
-Board::Board(const unsigned int& i){
+Board::Board(const nat &i): posizione(0){
 
-    // moficare costruttore per avere numero casella corretto
-    vector<Casella*> vettoreCaselle;
-
-    //connect(Casella,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
+    QVector<Casella*> vettoreCaselle;
+    for(nat counter=0; counter<i; counter++){
+        vettoreCaselle.push_back(new Casella(counter));
+        connect(vettoreCaselle[counter],SIGNAL(casellaCliccata(nat)), this, SLOT(selectCardBoard(nat)));
+    }
+    /*
+     * creazione vettore delle caselle + connessione di ciascuna casella con lo slot selectCardBoard
+     *
+    */
 
 }
+
 
 
 /*void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
@@ -31,20 +36,8 @@ Board::Board(const unsigned int& i){
 /*
 void Board::selectCardBoard(nat ...){
     emit pincopallino();
+
 }
 */
 
-/*
- * Questo metodo dovrebbe essere della mano, ma siccome creiamo 2 oggetti Board,
- * 1 per la mano ed 1 per il campo il metodo è lo stesso
- *
-void Board::selectCardHand(const Card* confronto){
-    //allora si fa il for di tutto l'array e se si trova la card nell'array si mette true
-    for(int i=0; i<vettoreCaselle.capacity();i++){
-        if(_caselle.getCardMano(i) == confronto){ //conftonto i loro L-valori per evitare FP
-            _caselle.cambiaSelezioneMano(i);
-        }
-    }
-}
-*/
 }

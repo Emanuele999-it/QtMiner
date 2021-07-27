@@ -14,79 +14,45 @@ namespace view {
 /*
  * cosa voglio: casella invia segnale con la propria posizione
  *              che verrà ricevuto da board, che a sua volta
- *              interrogherà model board per ottenere l'immagine che infine verrà
+ *              interrogherà modelBoard per ottenere l'immagine che infine verrà
  *              assegnata a casella
 */
 Casella::Casella(nat p, QPushButton*pushbutton):QPushButton(pushbutton), pos(p) {
 
-    setIcon(QIcon(":/Img/sr.png"));
-    //connect(this,&QPushButton::clicked, this, &Casella::casellaCliccata);
+
+    iconStd=QIcon(":/Img/sr.jpg");
+    onHover=QIcon(":/Img/r.jpg");
+    setIcon(iconStd);
+    connect(this,&QPushButton::clicked, this, &Casella::supportCasellaCliccata);
 
     //creare segnale di supposto per emettere casellaCliccata con la posizione!!!
 
 }
 
+/*
+ * PROBLEMA: capire come modificare contemporaneamente IconStd e onHover
+*/
+
 void Casella::cambiaImmagine(QString i){
-    setIcon(QIcon(i));
+    iconStd=QIcon(i);
+    setIcon(iconStd);
 }
 
-//void Casella::casellaCliccata(pos);
+void Casella::supportCasellaCliccata(){
+    emit casellaCliccata(pos);
+}
 
 /*
-void Casella::paint(QPainter *painter, QPushButton *pushbutton): QPushButton()  {
-    Q_UNUSED(widget);
-    Q_UNUSED(pushbutton);
-
-
-
-    QPixmap pixmap = QPixmap(immagine);
-    painter->drawPixmap(QRect(0,0,_size,_size),pixmap);
-
-}
+ * ATTENZIONE: l'hover sostituisce l'immagine con una nuova immagine:
+ *              al momento per semplificare le cose l'immagine hover non centra nulla
 */
 
-/**
- * @brief Casella::mouseNonHover evento quando non si va sopra una carta/casella
- * @param event
- */
-/*
-void Casella::mouseNonHover(QGraphicsSceneMouseEvent *event) {
-    Q_UNUSED(event);
-
-    emit mouseNonHover(event);
+void Casella::enterEvent(QEvent *event){
+  setIcon(onHover);
 }
 
-/**
- * @brief Casella::mouseHover evento quando si va sopra una carta/casella
- * @param event
- */
-/*
-void Casella::mouseHover(QGraphicsSceneMouseEvent *event) {
-    Q_UNUSED(event);
-
-    emit mouseHover(event);
+void Casella::leaveEvent(QEvent *event){
+  setIcon(iconStd);
 }
 
-void Casella::mouseClick(QGraphicsSceneMouseEvent *event) {
-    Q_UNUSED(event);
-
-    emit clicked(this);
-}
-
-/*
-bool Casella::returnSelected() const{
-    return _selected;
-}
-
-
-void Casella::cambiaSelected(bool s){
-    _selected = s;
-}
-*/
-
-
-/*int Casella::returnPosizione(){
-    return _position;
-}
-*/
 }

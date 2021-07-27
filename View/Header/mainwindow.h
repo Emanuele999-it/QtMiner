@@ -8,6 +8,7 @@
 
 #include "settingswindow.h"
 #include "tutorialwindow.h"
+#include "boardwindow.h"
 
 #include <QSize>
 #include <QIcon>
@@ -26,10 +27,7 @@ private:
 
     QStackedWidget* stackedWidget;
 
-    /**
-     * @brief startGame: bottone inizio gioco
-     */
-    QPushButton* startGame;
+
 /****************** Settings ************************************/
     /**
      * @brief Settings: bottone impostazioni
@@ -53,8 +51,20 @@ private:
     Tutorialwindow *tWindow;
 
 
-/****************** Tutorial ************************************/
+/****************** Game ************************************/
 
+    /**
+     * @brief startGame: bottone inizio gioco
+     */
+    QPushButton* startGame;
+
+    /**
+     * @brief boardWindoW: finestra gioco
+     */
+    BoardWindow* boardWindoW;
+
+
+/****************** Last Game ************************************/
     /**
      * @brief lastGame: bottone finestra lastGame
      */
@@ -62,7 +72,7 @@ private:
 
     //da mettere lastGame
 
-
+/****************** Layout ************************************/
     /**
      * @brief Vl: layout principale finestra
      */
@@ -84,6 +94,12 @@ signals:
      */
     void TutorialRequest();
 
+    /**
+     * @brief GameRequest: segnale per aprire finestra gioco,
+     *                  caturato dal controller
+     */
+    void GameRequest();
+
 
 public slots:
     /**
@@ -96,6 +112,11 @@ public slots:
      */
     void OpenTutorialWindow();
 
+
+    /**
+     * @brief OpenGameRequest: slot per creare boardwindow
+     */
+    void OpenGameWindow();
 };
 
 #endif // MAINWINDOW_H

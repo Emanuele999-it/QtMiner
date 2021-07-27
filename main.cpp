@@ -5,6 +5,7 @@
 #include "Entities/Header/cvector.h"
 #include "Entities/Header/unique_ptr.h"
 
+#include "Model/Header/modelBoard.h"
 //prova
 #include "Controller/Header/controller.h"
 

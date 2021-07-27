@@ -6,22 +6,32 @@
 
 #include "Model/Header/carta/clonecards.h"
 
-namespace model{
-ModelBoard::ModelBoard(CVector <unique_ptr<Card>> boardStuff,
-                       CVector <unique_ptr<Card>> handStuff,
-                       int nMano = -1, int nBoard = -1):
-                       _boardStuff(boardStuff), _handStuff(handStuff), _nMano(nMano), _nBoard(nBoard)
-{
-    //sistemare riempimento automatico
-    for (int i = 0; i< 40; i++)
-        _boardStuff.push_back(*(new unique_ptr<Card>));
+#include <iostream>
 
-    for (int i = 0; i< 7; i++)
-        _handStuff.push_back(*(new unique_ptr <Card>));
+
+namespace model{
+ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), _nBoard(nBoard),
+    _handStuff(CVector<unique_ptr<Card>*>(nMano)),
+    _boardStuff(CVector<unique_ptr<Card>*>(nBoard))
+{
+    for (nat i = 0; i< nBoard; i++)
+        _boardStuff.push_back(nullptr);
+
+    for (nat i = 0; i< nMano; i++)
+        _handStuff.push_back(nullptr);
+
+
+/*
+      if(_handStuff[nMano] != nullptr)
+            std::cout<<" ok funzia";
+
+      if(_boardStuff[nMano] == nullptr)
+            std::cout<<"non funzia";
+*/
 }
 
 Card* ModelBoard::getCardBoard(unsigned int posizione) const{
-    return _boardStuff[posizione].get();
+    return _boardStuff[posizione]->get();
 }
 
 QString ModelBoard::getImage(int i)const{
@@ -56,18 +66,18 @@ QString ModelBoard::getImage(int i)const{
 }
 
 Card* ModelBoard::getCardMano(unsigned int posizione) const{
-    return _handStuff[posizione].get();
+    return _handStuff[posizione]->get();
 }
 
 void ModelBoard::posiziona(unsigned int posizioneMano,unsigned int posizioneBoard){
 
-    unique_ptr<Card> selezione = *(new unique_ptr<Card>(
-                    _handStuff[posizioneMano].get()->clone()));
+    unique_ptr<Card>* selezione = new unique_ptr<Card>(
+                    _handStuff[posizioneMano]->get()->clone());
 
-    _boardStuff[posizioneBoard].~unique_ptr();
-    _boardStuff[posizioneBoard] = *(new unique_ptr<Card>(selezione));
+    _boardStuff[posizioneBoard]->~unique_ptr();
+    _boardStuff[posizioneBoard] = new unique_ptr<Card>(selezione->get()->clone());
 
-    selezione.~unique_ptr();
+    selezione->~unique_ptr();
 }
 
 int ModelBoard::getSelezioneBoard() const{

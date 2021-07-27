@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 
     connect(settings,&QPushButton::clicked, this, &MainWindow::SettingsRequest);
     connect(tutorial,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
+    connect(startGame,&QPushButton::clicked, this, &MainWindow::GameRequest);
 }
 
 
@@ -54,3 +55,7 @@ void MainWindow::OpenTutorialWindow(){
     tWindow->exec();
 }
 
+void MainWindow::OpenGameWindow(){
+    boardWindoW= new BoardWindow();
+    boardWindoW->show();
+}
