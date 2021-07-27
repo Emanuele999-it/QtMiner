@@ -20,6 +20,10 @@ private:
      */
     QVector<Casella*> vettoreCaselle;
 
+
+    /**
+     * @brief posizione: cella selezionata
+     */
     nat posizione;
 
 

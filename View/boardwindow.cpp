@@ -9,7 +9,7 @@
 BoardWindow:: BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
 {
 
-    b=new view::Board(celle);
+    b = new view::Board(celle);
     mosse = new QLCDNumber(3);
     mosse->setSegmentStyle(QLCDNumber::Filled);
 
