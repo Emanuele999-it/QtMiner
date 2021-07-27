@@ -17,7 +17,7 @@ Board::Board(const unsigned int& i){
 
 
 /*void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-   /* Q_UNUSED(option);
+    Q_UNUSED(option);
     Q_UNUSED(widget);
     Q_UNUSED(painter);
 
@@ -28,19 +28,11 @@ Board::Board(const unsigned int& i){
 
 */
 
+/*
 void Board::selectCardBoard(nat ...){
-    //allora si fa il for di tutto l'array e se si trova la card nell'array si mette true
-
-    /*for(int i=0; i<40;i++){
-                // se si controlla in vettoreCaselle si deve usare "vettoreCaselle.capacity()
-                // al posto di 40 "
-        if(_caselle.getCardBoard(i) == confronto){ //conftonto i loro L-valori per evitare FP
-            _caselle.cambiaSelezioneBoard(i);
-        }
-    }*/
-
     emit pincopallino();
 }
+*/
 
 /*
  * Questo metodo dovrebbe essere della mano, ma siccome creiamo 2 oggetti Board,
