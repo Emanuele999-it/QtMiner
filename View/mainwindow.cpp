@@ -57,5 +57,8 @@ void MainWindow::OpenTutorialWindow(){
 
 void MainWindow::OpenGameWindow(){
     boardWindoW= new BoardWindow();
+    connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard,this,MainWindow::casellaBoardSelezionata);
+    connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataMano,this,MainWindow::casellaManoSelezionata);
+
     boardWindoW->show();
 }

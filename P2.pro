@@ -20,9 +20,7 @@ SOURCES += \
     View/board.cpp \
     View/boardwindow.cpp \
     View/casella.cpp \
-    View/gameScene.cpp \
     View/mainwindow.cpp \
-    View/mano.cpp \
     View/tutorialwindow.cpp \
     View/settingswindow.cpp \
     main.cpp 
@@ -42,8 +40,6 @@ HEADERS += \
     Model/Header/carta/tunnel.h	\	
     View/Header/screens/gameScreen/Board/casella.h \
     View/Header/screens/gameScreen/Board/board.h \
-    View/Header/screens/gameScreen/mano.h \
-    View/Header/screens/gameScreen/gameScene.h \
     View/Header/mainwindow.h \
     View/Header/tutorialwindow.h \
     View/Header/settingswindow.h \

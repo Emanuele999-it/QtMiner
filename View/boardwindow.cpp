@@ -10,6 +10,10 @@ BoardWindow:: BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
 {
 
     b = new view::Board(celle);
+    m = new view::Mano(7);
+    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard);
+    connect(m, &view::Mano::numCasellaCliccataMano, this, &BoardWindow::rimbalzoSegnaleCasellaSelezionataMano);
+
     mosse = new QLCDNumber(3);
     mosse->setSegmentStyle(QLCDNumber::Filled);
 

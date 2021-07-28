@@ -34,11 +34,19 @@ Casella::Casella(nat p, QPushButton*pushbutton):QPushButton(pushbutton), pos(p) 
 */
 
 void Casella::cambiaImmagine(QString i){
-    iconStd=QIcon(i);
+
+    // path imagine standard
+    iconStd=QIcon(":/Img/"+i+".jpg");
+
+    // path immagine hover
+    onHover=QIcon(":/Img/"+i+"h.jpg");
     setIcon(iconStd);
 }
 
 void Casella::supportCasellaCliccata(){
+
+    //mettere cambio icona std
+
     emit casellaCliccata(pos);
 }
 

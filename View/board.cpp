@@ -5,12 +5,14 @@
 
 namespace view {
 
-Board::Board(const nat &i): posizione(0){
+/*********************** Board ******************************************************************/
 
-    QVector<Casella*> vettoreCaselle;
+Board::Board(const nat &i): posizioneBoard(0){
+
+    QVector<Casella*> vettoreCaselleBoard;
     for(nat counter=0; counter<i; counter++){
-        vettoreCaselle.push_back(new Casella(counter));
-        connect(vettoreCaselle[counter],SIGNAL(casellaCliccata(nat)), this, SLOT(selectCardBoard(nat)));
+        vettoreCaselleBoard.push_back(new Casella(counter));
+        connect(vettoreCaselleBoard[counter],SIGNAL(casellaCliccata(nat)), this, SLOT(selectCardBoard(nat)));
     }
     /*
      * creazione vettore delle caselle + connessione di ciascuna casella con lo slot selectCardBoard
@@ -19,10 +21,24 @@ Board::Board(const nat &i): posizione(0){
 
 }
 
-
 void Board::selectCardBoard(nat r){
-    posizione=r;
-    emit numCasellaCliccata(r);
+    posizioneBoard=r;
+    emit numCasellaCliccataBoard(r);
+}
+
+/*********************** Mano ******************************************************************/
+
+Mano::Mano(const nat &i) : posizioneMano(0){
+    QVector<Casella*> vettoreCaselleMano;
+    for(nat counter=0; counter<i; counter++){
+        vettoreCaselleMano.push_back(new Casella(counter));
+        connect(vettoreCaselleMano[counter],SIGNAL(casellaCliccata(nat)), this, SLOT(selectCardMano(nat)));
+    }
+}
+
+void Mano::selectCardMano(nat r){
+    posizioneMano=r;
+    emit numCasellaCliccataMano(r);
 }
 
 }

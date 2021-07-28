@@ -24,45 +24,21 @@ public:
      * @param i
      * @return
      */
-    QString getImage(int i)const;
+    QString getImage(int i) const;
 
     /**
      * @brief getCardBoard data la posizione restituisce la carta a scopo di informazioni
      * @param posizione
      * @return
      */
-    Card* getCardBoard(unsigned int posizione)const;
+   Card* getCardBoard(unsigned int posizione) const;
 
     /**
      * @brief getCardHand data posizione torna la carta
      * @param posizione
      * @return
      */
-    Card* getCardMano(unsigned int posizione)const;
-
-    /**
-     * @brief getSelezioneBoard questa mi serve per vedere che carta ho selezionata sulla Board
-     * @return
-     */
-    int getSelezioneBoard()const;
-
-    /**
-     * @brief cambiaSelezioneBoard cambia quale carta è selezionata Board
-     * @return
-     */
-    void cambiaSelezioneBoard(int b);
-
-    /**
-     * @brief getSelezioneHand questa mi serve per vedere quale ho selezionato sulla mano
-     * @return
-     */
-    int getSelezioneMano()const;
-
-    /**
-     * @brief cambiaSelezioneMano cambia quale carta è selezionata sulla mano
-     * @return
-     */
-    void cambiaSelezioneMano(int m);
+    Card* getCardMano(unsigned int posizione) const;
 
     /**
      * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
@@ -72,6 +48,19 @@ public:
      * @return
      */
     void posiziona(unsigned int posizioneMano,unsigned int posizioneBoard);
+
+
+public slots:
+    /**
+     * @brief evidenziaCartaBoard: slot per modificare quale cella è selezionata nella board
+     */
+    void evidenziaCellaBoard(nat p);
+
+    /**
+     * @brief evidenziaCellaMano: slot per modificare cella selezionata nella mano
+     */
+    void evidenziaCellaMano(nat p);
+
 };
 
 }

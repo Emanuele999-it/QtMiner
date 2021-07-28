@@ -365,7 +365,7 @@ void CVector<T>::resize(nat newSize){
     if (newSize <= space) return;
 
     T* p = new T[newSize];
-    for (int i = 0; i < size; ++i)
+    for (unsigned int i = 0; i < size; ++i)
             p[i] = arr[i];
 
     delete[] arr;

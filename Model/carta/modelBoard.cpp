@@ -30,9 +30,6 @@ ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), _nBoard(nBoard),
 */
 }
 
-Card* ModelBoard::getCardBoard(unsigned int posizione) const{
-    return _boardStuff[posizione]->get();
-}
 
 QString ModelBoard::getImage(int i)const{
     Card* _carta = getCardBoard(i);
@@ -47,13 +44,13 @@ QString ModelBoard::getImage(int i)const{
     }else{
         bool *a = dynamic_cast<Tunnel*>(_carta)->getArr();
         if(a[0]==true && a[1]==true && a[2]==true && a[3]==true)
-            return ":/Img/╬(0).jpg";
+            return "╬(0)";
         else if(a[0]==false && a[1]==true && a[2]==false && a[3]==true)
-            return ":/Img/═(0).jpg";
+            return "═(0)";
         else if(a[0]==true && a[1]==false && a[2]==true && a[3]==false)
-            return ":/Img/║(0).jpg";
+            return "║(0)";
         else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false)
-            return ":/Img/╔(2).jpg";
+            return "╔(2)";
         else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true)
             return ":/Img/╗(0).jpg";
         else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false)
@@ -69,6 +66,10 @@ Card* ModelBoard::getCardMano(unsigned int posizione) const{
     return _handStuff[posizione]->get();
 }
 
+Card* ModelBoard::getCardBoard(unsigned int posizione) const{
+    return _boardStuff[posizione]->get();
+}
+
 void ModelBoard::posiziona(unsigned int posizioneMano,unsigned int posizioneBoard){
 
     unique_ptr<Card>* selezione = new unique_ptr<Card>(
@@ -80,20 +81,14 @@ void ModelBoard::posiziona(unsigned int posizioneMano,unsigned int posizioneBoar
     selezione->~unique_ptr();
 }
 
-int ModelBoard::getSelezioneBoard() const{
-    return _nBoard;
+void ModelBoard::evidenziaCellaBoard(nat p){
+    _nBoard=p;
 }
 
-void ModelBoard::cambiaSelezioneBoard(int b){
-    _nBoard = b;
+void ModelBoard::evidenziaCellaMano(nat p){
+    _nMano=p;
 }
 
-int ModelBoard::getSelezioneMano() const{
-    return _nMano;
-}
 
-void ModelBoard::cambiaSelezioneMano(int m){
-    _nMano = m;
-}
 
 }

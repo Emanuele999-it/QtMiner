@@ -78,7 +78,6 @@ private:
      */
     QVBoxLayout *Vl;
 
-private slots:
 
 signals:
 
@@ -100,6 +99,18 @@ signals:
      */
     void GameRequest();
 
+
+
+/********** Rimbalzo segnale da casella al controller ****************/
+    /**
+     * @brief casellaBoardSelezionata: passa il segnale al controller
+     */
+    void casellaBoardSelezionata(nat);
+
+    /**
+     * @brief casellaManoSelezionata: passa il segnale al controller
+     */
+    void casellaManoSelezionata(nat);
 
 public slots:
     /**

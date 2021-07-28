@@ -5,6 +5,10 @@ Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()
     //costruire controller
     MainW->show();
 
+    // qui in modelBoard possiamo mettere la grandezza della board che si preferisce
+    // e lo si può fare con una variabile data dall'utente dalle impostazioni
+    modelBoard = new model::ModelBoard(7,40);
+
 
     //MainW = new MainWindow();
 
@@ -16,6 +20,9 @@ Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()
     connect(MainW, &MainWindow::SettingsRequest, this, &Controller::openSettings);
     connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
     connect(MainW, &MainWindow::GameRequest, this, &Controller::openBoardWindow);
+    //da controllare potrebbero essere sbagliati
+    connect(MainW, &MainWindow::casellaBoardSelezionata, this, &Controller::cambiaCellaBoard);
+    connect(MainW, &MainWindow::casellaManoSelezionata, this, &Controller::cambiaCellaMano);
 
 }
 
@@ -28,14 +35,16 @@ void Controller::openTutorial(){
 }
 
 void Controller::openBoardWindow(){
-    emit MainW->OpenGameWindow();
+    emit MainW->OpenGameWindow();  
 }
 
-void Controller::cambiaCellaSelezionata(nat y){
-    //interazione con model
+void Controller::cambiaCellaBoard(nat y){
+    emit modelBoard->evidenziaCellaBoard(y);
 }
 
-
+void Controller::cambiaCellaMano(nat y){
+    emit modelBoard->evidenziaCellaMano(y);
+}
 
 //void controller::Controller::openSettings(){
     //emit MainW->OpenSettingsWindow();
