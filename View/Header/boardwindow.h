@@ -22,7 +22,7 @@ private:
     nat celle;
 
 public:
-    void visualizza();
+    void aggiornamentoView(nat posMano, nat PosBoard, Card* CartaBoard, Card* CartaMano);
 
 signals:
     /**

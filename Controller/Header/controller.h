@@ -52,6 +52,14 @@ public slots:
      */
     void cambiaCellaMano(nat);
 
+
+
+    /**
+     * @brief updateView: aggiorna view di boardwindow
+     */
+    void updateView(nat, nat, Card*, Card*);
+
+
 };
 
 #endif // CONTROLLER_H

@@ -128,6 +128,15 @@ public slots:
      * @brief OpenGameRequest: slot per creare boardwindow
      */
     void OpenGameWindow();
+
+    /**
+     * @brief UpdateViewfromModel aggiornamento view dopo scelta carta da mettere in campo
+     * @param a posizione carta mano
+     * @param b posizione carta board
+     * @param c1 carta da mano a board
+     * @param c2 nuova carta
+     */
+    void UpdateViewfromModel(nat a, nat b, Card* c1, Card c2);
 };
 
 #endif // MAINWINDOW_H

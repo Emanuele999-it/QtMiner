@@ -71,7 +71,7 @@ Card* ModelBoard::getCardBoard(unsigned int posizione) const{
     return _boardStuff[posizione]->get();
 }
 
-void ModelBoard::posiziona(unsigned int posizioneMano,unsigned int posizioneBoard){
+void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 
     if(_boardStuff[posizioneBoard] != nullptr && _boardStuff[posizioneBoard]->get() != nullptr){
 
@@ -80,6 +80,19 @@ void ModelBoard::posiziona(unsigned int posizioneMano,unsigned int posizioneBoar
 
         _boardStuff[posizioneBoard]->~unique_ptr();
         _boardStuff[posizioneBoard] = new unique_ptr<Card>(selezione->get()->clone());
+
+        // estrattore casuale per carta mano che non c'è più
+        /*
+         * chiamata funz estrazione casuale
+         * inserimento carta in mano
+         *
+         *
+        */
+
+        //segnale aggiornamento view
+        //invio segnale a view nuova carta
+        emit CambiaPosizioneManoBoard(posizioneMano, posizioneBoard, selezione->get(), _handStuff[posizioneMano]->get()->clone());
+
 
         selezione->~unique_ptr();
     }

@@ -8,7 +8,8 @@ using std::vector;
 
 namespace model {
 
-class ModelBoard {
+class ModelBoard : public QObject{
+    Q_OBJECT
 
 private:
     unsigned int _nMano; // posizione della carta toccata dalla mano
@@ -47,7 +48,7 @@ public:
      * @param posizioneBoard
      * @return
      */
-    void posiziona(unsigned int posizioneMano,unsigned int posizioneBoard);
+    void posiziona(nat posizioneMano,nat posizioneBoard);
 
 
 public slots:
@@ -60,6 +61,14 @@ public slots:
      * @brief evidenziaCellaMano: slot per modificare cella selezionata nella mano
      */
     void evidenziaCellaMano(nat p);
+
+signals:
+    /**
+     * @brief CambiaPosizioneManoBoard: segnale per aggoirnare view
+     *              il primo puntatore serve per mettere la carta nella board
+     *              il secondo puntatore serve per mettere una nuova carta nella mano
+     */
+    void CambiaPosizioneManoBoard(nat, nat, Card*,Card*);
 
 };
 

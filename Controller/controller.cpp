@@ -24,6 +24,8 @@ Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()
     connect(MainW, &MainWindow::casellaBoardSelezionata, this, &Controller::cambiaCellaBoard);
     connect(MainW, &MainWindow::casellaManoSelezionata, this, &Controller::cambiaCellaMano);
 
+    //connessione tra model e view (aggiornamento carta)
+    connect(modelBoard, &model::ModelBoard::CambiaPosizioneManoBoard, MainW, &MainWindow::UpdateViewfromModel);
 }
 
 void Controller::openSettings() {
