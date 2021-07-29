@@ -7,7 +7,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QLCDNumber>
-#include "View/Header/screens/gameScreen/gameScene.h"
+#include "View/Header/screens/gameScreen/Board/board.h"
 
 class BoardWindow : public QWidget{
     Q_OBJECT

@@ -5,6 +5,7 @@
 #include "Model/Header/carta/tunnel.h"
 
 #include "Model/Header/carta/clonecards.h"
+#include <QErrorMessage>
 
 #include <iostream>
 
@@ -72,13 +73,23 @@ Card* ModelBoard::getCardBoard(unsigned int posizione) const{
 
 void ModelBoard::posiziona(unsigned int posizioneMano,unsigned int posizioneBoard){
 
-    unique_ptr<Card>* selezione = new unique_ptr<Card>(
+    if(_boardStuff[posizioneBoard] != nullptr && _boardStuff[posizioneBoard]->get() != nullptr){
+
+        unique_ptr<Card>* selezione = new unique_ptr<Card>(
                     _handStuff[posizioneMano]->get()->clone());
 
-    _boardStuff[posizioneBoard]->~unique_ptr();
-    _boardStuff[posizioneBoard] = new unique_ptr<Card>(selezione->get()->clone());
+        _boardStuff[posizioneBoard]->~unique_ptr();
+        _boardStuff[posizioneBoard] = new unique_ptr<Card>(selezione->get()->clone());
 
-    selezione->~unique_ptr();
+        selezione->~unique_ptr();
+    }
+
+    else{
+        QErrorMessage *q = new QErrorMessage();
+        QString str("Posizione board non valida. Casella occupata");
+        q->showMessage(str);
+        q->setVisible(true);
+    }
 }
 
 void ModelBoard::evidenziaCellaBoard(nat p){
