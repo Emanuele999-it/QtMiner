@@ -64,7 +64,7 @@ void MainWindow::OpenGameWindow(){
 }
 
 
-void MainWindow::UpdateViewfromModel(nat a, nat b, Card *c1, Card c2){
+void MainWindow::UpdateViewfromModel(nat a, nat b, Card *c1, Card *c2){
 
 }
 

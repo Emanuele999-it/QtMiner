@@ -136,7 +136,7 @@ public slots:
      * @param c1 carta da mano a board
      * @param c2 nuova carta
      */
-    void UpdateViewfromModel(nat a, nat b, Card* c1, Card c2);
+    void UpdateViewfromModel(nat a, nat b, Card* c1, Card* c2);
 };
 
 #endif // MAINWINDOW_H
