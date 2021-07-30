@@ -59,13 +59,10 @@ void MainWindow::OpenGameWindow(){
     boardWindoW= new BoardWindow();
     connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard,this,MainWindow::casellaBoardSelezionata);
     connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataMano,this,MainWindow::casellaManoSelezionata);
+    connect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
+
 
     boardWindoW->show();
-}
-
-
-void MainWindow::UpdateViewfromModel(nat a, nat b, Card *c1, Card *c2){
-
 }
 
 

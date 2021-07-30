@@ -32,16 +32,16 @@ ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), _nBoard(nBoard),
 }
 
 
-QString ModelBoard::getImage(int i)const{
-    Card* _carta = getCardBoard(i);
+QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
+    Card* _carta = v[i]->get()->clone();
 
     if (dynamic_cast<Obstruction*>(_carta)) {
         if(dynamic_cast<Blocco*>(_carta))
-            return ":/Img/╬(blocco).jpg";
+            return "╬(blocco)";
         else
-            return ":/Img/r.jpg";
+            return "r";
     }else if (dynamic_cast<CloneCards*>(_carta)){
-            return ":/Img/sr.jpg";
+            return "sr";
     }else{
         bool *a = dynamic_cast<Tunnel*>(_carta)->getArr();
         if(a[0]==true && a[1]==true && a[2]==true && a[3]==true)
@@ -53,27 +53,27 @@ QString ModelBoard::getImage(int i)const{
         else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false)
             return "╔(2)";
         else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true)
-            return ":/Img/╗(0).jpg";
+            return "╗(0)";
         else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false)
-            return ":/Img/╚(0).jpg";
+            return "╚(0)";
         else if(a[0]==true && a[1]==true && a[2]==true && a[3]==false)
-            return ":/Img/╠(0).jpg";
+            return "╠(0)";
         else
-            return ":/Img/╦(0).jpg";
+            return "╦(0)";
     }
 }
 
-Card* ModelBoard::getCardMano(unsigned int posizione) const{
+Card* ModelBoard::getCardMano(nat posizione) const{
     return _handStuff[posizione]->get();
 }
 
-Card* ModelBoard::getCardBoard(unsigned int posizione) const{
+Card* ModelBoard::getCardBoard(nat posizione) const{
     return _boardStuff[posizione]->get();
 }
 
 void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 
-    if(_boardStuff[posizioneBoard] != nullptr && _boardStuff[posizioneBoard]->get() != nullptr){
+    if(_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr){
 
         unique_ptr<Card>* selezione = new unique_ptr<Card>(
                     _handStuff[posizioneMano]->get()->clone());
@@ -86,12 +86,16 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
          * chiamata funz estrazione casuale
          * inserimento carta in mano
          *
+             _handStuff[posizioneMani]->~unique_ptr();
+             _handStuff[posizioneMano] = estrattore casuale
          *
         */
 
         //segnale aggiornamento view
         //invio segnale a view nuova carta
-        emit CambiaPosizioneManoBoard(posizioneMano, posizioneBoard, selezione->get(), _handStuff[posizioneMano]->get()->clone());
+        emit CambiaPosizioneManoBoard(posizioneMano, posizioneBoard,
+                                      getImage(posizioneMano, _handStuff),
+                                      getImage(posizioneBoard, _boardStuff));
 
 
         selezione->~unique_ptr();

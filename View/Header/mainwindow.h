@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QStackedWidget>
 #include <QVBoxLayout>
+#include <QString>
 
 #include "settingswindow.h"
 #include "tutorialwindow.h"
@@ -112,6 +113,17 @@ signals:
      */
     void casellaManoSelezionata(nat);
 
+
+    /**
+     * @brief UpdateViewfromModel aggiornamento view dopo scelta carta da mettere in campo
+     * @param a posizione carta mano
+     * @param b posizione carta board
+     * @param c1 carta da mano a board
+     * @param c2 nuova carta
+     */
+    void UpdateViewfromModel(nat a, nat b, QString c1, QString c2);
+
+
 public slots:
     /**
      * @brief OpenSettingsWindow: slot per creare impostazioni
@@ -129,14 +141,7 @@ public slots:
      */
     void OpenGameWindow();
 
-    /**
-     * @brief UpdateViewfromModel aggiornamento view dopo scelta carta da mettere in campo
-     * @param a posizione carta mano
-     * @param b posizione carta board
-     * @param c1 carta da mano a board
-     * @param c2 nuova carta
-     */
-    void UpdateViewfromModel(nat a, nat b, Card* c1, Card* c2);
+
 };
 
 #endif // MAINWINDOW_H

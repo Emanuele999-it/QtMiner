@@ -27,9 +27,11 @@ BoardWindow:: BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
 
 }
 
-void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, Card *CartaBoard, Card *CartaMano){
+void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaBoard, QString CartaMano){
 
-    // mettere carta CartaBoard in posizione posBoard in b
+    // mettere carta CartaBoard in posizione posBoard in b+ù
+    b->addCardBoard(PosBoard,CartaBoard);
 
     // mettere carta CartaMano in posizione posMano in m
+    m->addCardMano(posMano,CartaMano);
 }

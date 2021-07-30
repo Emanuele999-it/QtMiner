@@ -25,21 +25,21 @@ public:
      * @param i
      * @return
      */
-    QString getImage(int i) const;
+    QString getImage(nat i, CVector<unique_ptr<Card>*> v) const;
 
     /**
      * @brief getCardBoard data la posizione restituisce la carta a scopo di informazioni
      * @param posizione
      * @return
      */
-   Card* getCardBoard(unsigned int posizione) const;
+   Card* getCardBoard(nat posizione) const;
 
     /**
      * @brief getCardHand data posizione torna la carta
      * @param posizione
      * @return
      */
-    Card* getCardMano(unsigned int posizione) const;
+    Card* getCardMano(nat posizione) const;
 
     /**
      * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
@@ -68,7 +68,7 @@ signals:
      *              il primo puntatore serve per mettere la carta nella board
      *              il secondo puntatore serve per mettere una nuova carta nella mano
      */
-    void CambiaPosizioneManoBoard(nat, nat, Card*,Card*);
+    void CambiaPosizioneManoBoard(nat, nat, QString,QString);
 
 };
 

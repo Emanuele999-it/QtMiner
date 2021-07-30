@@ -36,6 +36,13 @@ public slots:
      */
     void selectCardBoard(nat);
 
+    /**
+     * @brief addCard: slot che permette di aggiornare la vista (board) con la carta posizionata
+     *                 dalla mano
+     */
+    void addCardBoard(nat, QString);
+
+
 signals:
     /**
      * @brief numCasellaCliccata: invio segnale a model posizione casella cliccata
@@ -66,6 +73,12 @@ public slots:
      *                         e la emette al model
      */
     void selectCardMano(nat);
+
+    /**
+     * @brief addCardMano: permette di aggiornare la vista (mano) andando ad inserire la nuova
+     *                     carta al posto della vecchia
+     */
+    void addCardMano(nat, QString);
 
 signals:
     /**

@@ -26,6 +26,10 @@ void Board::selectCardBoard(nat r){
     emit numCasellaCliccataBoard(r);
 }
 
+void Board::addCardBoard(nat n, QString c){
+    vettoreCaselleBoard[n]->cambiaImmagine(c);
+}
+
 /*********************** Mano ******************************************************************/
 
 Mano::Mano(const nat &i) : posizioneMano(0){
@@ -40,5 +44,10 @@ void Mano::selectCardMano(nat r){
     posizioneMano=r;
     emit numCasellaCliccataMano(r);
 }
+
+void Mano::addCardMano(nat n, QString c){
+    vettoreCaselleMano[n]->cambiaImmagine(c);
+}
+
 
 }

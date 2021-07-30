@@ -21,8 +21,15 @@ private:
     QLCDNumber *mosse;
     nat celle;
 
-public:
-    void aggiornamentoView(nat posMano, nat PosBoard, Card* CartaBoard, Card* CartaMano);
+public slots:
+    /**
+     * @brief aggiornamentoView: aggiornamento view in seguito al posizionamento di una carta
+     * @param posMano
+     * @param PosBoard
+     * @param CartaBoard    nome immagine da inserire nella board in pos. PosBoard
+     * @param CartaMano     nome immagine da inserire nella mano in pos. CartaMano
+     */
+    void aggiornamentoView(nat posMano, nat PosBoard, QString CartaBoard, QString CartaMano);
 
 signals:
     /**
