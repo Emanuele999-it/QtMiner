@@ -4,7 +4,6 @@
 #include "Entities/Header/unique_ptr.h"
 #include "Model\Header\carta\card.h"
 
-using std::vector;
 
 namespace model {
 
@@ -12,20 +11,29 @@ class ModelBoard : public QObject{
     Q_OBJECT
 
 private:
-    unsigned int _nMano; // posizione della carta toccata dalla mano
-    unsigned int _nBoard; // posizione della carta toccata dalla board
+    nat _nMano; // posizione della carta toccata dalla mano
+    nat _nBoard; // posizione della carta toccata dalla board
     CVector <unique_ptr<Card>*> _handStuff ;
     CVector <unique_ptr<Card>*> _boardStuff ;
+
+    /**
+     * @brief estrattoreCasuale: estrae in maniera casuale una carta
+     * @return: oggetto carta
+     */
+    Card* estrattoreCasuale();
+
+    /**
+    * @brief getImage data posizione ritorna QString file immagine
+    * @param i
+    * @return
+    */
+   QString getImage(nat i, CVector<unique_ptr<Card>*> v) const;
+
 
 
 public:
     ModelBoard(nat nMano = 7,nat nBoard = 40);
-     /**
-     * @brief getImage data posizione ritorna QString file immagine
-     * @param i
-     * @return
-     */
-    QString getImage(nat i, CVector<unique_ptr<Card>*> v) const;
+
 
     /**
      * @brief getCardBoard data la posizione restituisce la carta a scopo di informazioni

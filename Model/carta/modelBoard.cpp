@@ -6,6 +6,7 @@
 
 #include "Model/Header/carta/clonecards.h"
 #include <QErrorMessage>
+#include <cstdlib>
 
 #include <iostream>
 
@@ -72,24 +73,21 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
 }
 
 void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
-
+//modificare comportmento in caso ci sia carta crollo/blocco
     if(_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr){
 
-        unique_ptr<Card>* selezione = new unique_ptr<Card>(
-                    _handStuff[posizioneMano]->get()->clone());
 
-        _boardStuff[posizioneBoard]->~unique_ptr();
-        _boardStuff[posizioneBoard] = new unique_ptr<Card>(selezione->get()->clone());
+        _boardStuff[posizioneBoard] = new unique_ptr<Card>(
+                                _handStuff[posizioneMano]->get()->clone());
 
-        // estrattore casuale per carta mano che non c'è più
         /*
-         * chiamata funz estrazione casuale
-         * inserimento carta in mano
-         *
-             _handStuff[posizioneMani]->~unique_ptr();
-             _handStuff[posizioneMano] = estrattore casuale
+         * Funzione controllo compatibilità carta mano->board
          *
         */
+
+        _handStuff[posizioneMano]->~unique_ptr();
+        _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
+
 
         //segnale aggiornamento view
         //invio segnale a view nuova carta
@@ -117,6 +115,21 @@ void ModelBoard::evidenziaCellaMano(nat p){
     _nMano=p;
 }
 
+Card* ModelBoard::estrattoreCasuale(){
 
+    nat generator= rand() % 11 + 1;
+
+    if(generator == 1) return new Blocco();
+    else if(generator == 2) return new Crollo();
+    else if(generator == 3) return new CloneCards();
+    else if(generator == 4) return new Tunnel(true,true,true,true);
+    else if(generator == 5) return new Tunnel(false,true,false,true);
+    else if(generator == 6) return new Tunnel(true,false,true,false);
+    else if(generator == 7) return new Tunnel(false,true,true,false);
+    else if(generator == 8) return new Tunnel(false,false,true,true);
+    else if(generator == 9) return new Tunnel(true,true,false,false);
+    else if(generator == 10) return new Tunnel(true,true,true,false);
+    else return new Tunnel(false,true,true,true);
+    }
 
 }
