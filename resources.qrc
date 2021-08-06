@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>Img/settings.png</file>
-	<file>readme2.txt</file>
+        <file>readme2.txt</file>
+	<file>Img/settings.png</file>
+	<file>Img/sr.jpg</file>
+	<file>Img/r.jpg</file>
     </qresource>
 </RCC>

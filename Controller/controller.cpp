@@ -37,6 +37,8 @@ void Controller::openTutorial(){
 }
 
 void Controller::openBoardWindow(){
+    //elimina tutte le carte per permettere di giocare una nuova partita
+    modelBoard->deleteAllCards();
     emit MainW->OpenGameWindow();  
 }
 

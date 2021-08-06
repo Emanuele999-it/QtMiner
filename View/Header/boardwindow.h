@@ -10,6 +10,7 @@
 #include "View/Header/screens/gameScreen/Board/board.h"
 
 class BoardWindow : public QWidget{
+
     Q_OBJECT
 public:
     BoardWindow(QWidget *parent = nullptr, nat num=7);
@@ -20,6 +21,11 @@ private:
     view::Mano *m;
     QLCDNumber *mosse;
     nat celle;
+
+    //test
+    QPushButton *p;
+    QVector<QWidget*> q;
+    view::Casella* c;
 
 public slots:
     /**

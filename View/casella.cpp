@@ -5,6 +5,8 @@
 #include "Model\Header\carta\clonecards.h"
 #include "Model\Header\modelBoard.h"
 
+#include "View\Header\screens\gameScreen\Board\casella.h"
+
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
@@ -23,15 +25,11 @@ Casella::Casella(nat p, QPushButton*pushbutton):QPushButton(pushbutton), pos(p) 
     iconStd=QIcon(":/Img/sr.jpg");
     onHover=QIcon(":/Img/r.jpg");
     setIcon(iconStd);
+    setIconSize(QSize(40, 60));
     connect(this,&QPushButton::clicked, this, &Casella::supportCasellaCliccata);
 
     //creare segnale di supposto per emettere casellaCliccata con la posizione!!!
-
 }
-
-/*
- * PROBLEMA: capire come modificare contemporaneamente IconStd e onHover
-*/
 
 void Casella::cambiaImmagine(QString i){
 
@@ -41,6 +39,8 @@ void Casella::cambiaImmagine(QString i){
     // path immagine hover
     onHover=QIcon(":/Img/"+i+"h.jpg");
     setIcon(iconStd);
+
+    setIconSize(QSize(40,50));
 }
 
 void Casella::supportCasellaCliccata(){
@@ -56,11 +56,13 @@ void Casella::supportCasellaCliccata(){
 */
 
 void Casella::enterEvent(QEvent *event){
-  setIcon(onHover);
+    Q_UNUSED(event)
+    setIcon(onHover);
 }
 
 void Casella::leaveEvent(QEvent *event){
-  setIcon(iconStd);
+    Q_UNUSED(event)
+    setIcon(iconStd);
 }
 
 }

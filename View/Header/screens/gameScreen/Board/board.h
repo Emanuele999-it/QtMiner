@@ -16,18 +16,22 @@ class Board : public QObject{
 
 private:
     /**
-     * @brief dimensione è al grandezza della board, si costruisce con QSize(Width,Height)
-     */
-    QVector<Casella*> vettoreCaselleBoard;
-
-
-    /**
      * @brief posizione: cella selezionata
      */
     nat posizioneBoard;
 
 public:
     Board(const nat&);
+
+    /**
+     * @brief dimensione è al grandezza della board, si costruisce con QSize(Width,Height)
+     */
+    QVector<Casella*> vettoreCaselleBoard;
+
+    /**
+     * @brief getCasella: funzione che restituisce la casella in una determinata posizione
+     */
+    Casella* getCasella(nat);
 
 public slots:
     /**
@@ -43,21 +47,24 @@ public slots:
     void addCardBoard(nat, QString);
 
 
+
 signals:
     /**
      * @brief numCasellaCliccata: invio segnale a model posizione casella cliccata
      */
     void numCasellaCliccataBoard(nat);
+
+    /**
+     * @brief cheImmagineHo: segnale per chiedere al model il tipo di carta
+     */
+    void cheImmagineHo(nat);
 };
 
 
 class Mano: public QObject{
     Q_OBJECT
 private:
-    /**
-     * @brief dimensione è al grandezza della board, si costruisce con QSize(Width,Height)
-     */
-    QVector<Casella*> vettoreCaselleMano;
+
 
     /**
      * @brief posizione: cella selezionata
@@ -66,6 +73,16 @@ private:
 
 public:
     Mano(const nat&);
+
+    /**
+     * @brief getCasella: funzione che restituisce la casella in una determinata posizione
+     */
+    Casella* getCasella(nat);
+
+    /**
+     * @brief dimensione è al grandezza della board, si costruisce con QSize(Width,Height)
+     */
+    QVector<Casella*> vettoreCaselleMano;
 
 public slots:
     /**
@@ -85,6 +102,11 @@ signals:
      * @brief numCasellaCliccata: invio segnale a model posizione casella cliccata
      */
     void numCasellaCliccataMano(nat);
+
+    /**
+     * @brief cheImmagineHo: segnale per chiedere al model il tipo di carta
+     */
+    void cheImmagineHo(nat);
 };
 
 }

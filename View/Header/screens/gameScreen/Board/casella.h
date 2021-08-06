@@ -33,8 +33,15 @@ protected:
     virtual void leaveEvent(QEvent *event);
 
 public:
-    Casella(nat p=0,QPushButton*pushbutton=nullptr);
+    Casella(nat p=0,QPushButton*pushbutton = new QPushButton());
+
+    /**
+     * @brief cambiaImmagine: funzione che permette di cambiare immagine alla casella
+     * @param i: nome file immagine
+     */
     void cambiaImmagine(QString i);
+
+
 
 signals:
     /**
@@ -42,6 +49,8 @@ signals:
      * @param p: id casella cliccata (quindi la sua posizione)
      */
     void casellaCliccata(nat p);
+
+
 
 
 private slots:

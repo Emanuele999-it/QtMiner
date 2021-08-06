@@ -7,6 +7,8 @@ namespace view {
 
 /*********************** Board ******************************************************************/
 
+
+
 Board::Board(const nat &i): posizioneBoard(0){
 
     QVector<Casella*> vettoreCaselleBoard;
@@ -30,6 +32,10 @@ void Board::addCardBoard(nat n, QString c){
     vettoreCaselleBoard[n]->cambiaImmagine(c);
 }
 
+Casella* Board::getCasella(nat i){
+    return vettoreCaselleBoard[i];
+}
+
 /*********************** Mano ******************************************************************/
 
 Mano::Mano(const nat &i) : posizioneMano(0){
@@ -49,5 +55,8 @@ void Mano::addCardMano(nat n, QString c){
     vettoreCaselleMano[n]->cambiaImmagine(c);
 }
 
+Casella* Mano::getCasella(nat i){
+    return vettoreCaselleMano[i];
+}
 
 }

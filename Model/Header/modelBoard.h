@@ -58,6 +58,11 @@ public:
      */
     void posiziona(nat posizioneMano,nat posizioneBoard);
 
+    /**
+     * @brief deleteAllCards: funzione che permette di eliminare tutte le carte per
+     *                      giocare una nuova partita
+     */
+    void deleteAllCards();
 
 public slots:
     /**

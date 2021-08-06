@@ -124,6 +124,7 @@ signals:
     void UpdateViewfromModel(nat a, nat b, QString c1, QString c2);
 
 
+
 public slots:
     /**
      * @brief OpenSettingsWindow: slot per creare impostazioni

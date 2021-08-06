@@ -41,9 +41,13 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
             return "╬(blocco)";
         else
             return "r";
-    }else if (dynamic_cast<CloneCards*>(_carta)){
+    }
+
+    else if (dynamic_cast<CloneCards*>(_carta)){
             return "sr";
-    }else{
+    }
+
+    else if (dynamic_cast<Tunnel*>(_carta)){
         bool *a = dynamic_cast<Tunnel*>(_carta)->getArr();
         if(a[0]==true && a[1]==true && a[2]==true && a[3]==true)
             return "╬(0)";
@@ -62,6 +66,8 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
         else
             return "╦(0)";
     }
+    else
+        return "blank";
 }
 
 Card* ModelBoard::getCardMano(nat posizione) const{
@@ -94,9 +100,6 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
         emit CambiaPosizioneManoBoard(posizioneMano, posizioneBoard,
                                       getImage(posizioneMano, _handStuff),
                                       getImage(posizioneBoard, _boardStuff));
-
-
-        selezione->~unique_ptr();
     }
 
     else{
@@ -130,6 +133,16 @@ Card* ModelBoard::estrattoreCasuale(){
     else if(generator == 9) return new Tunnel(true,true,false,false);
     else if(generator == 10) return new Tunnel(true,true,true,false);
     else return new Tunnel(false,true,true,true);
-    }
+}
+
+void ModelBoard::deleteAllCards(){
+    for(nat i=0;i<_nMano;i++)
+        if(_handStuff[i])
+            _handStuff[i]->~unique_ptr();
+
+    for(nat i=0;_boardStuff[i] && i<_nBoard;i++)
+        if(_boardStuff[i])
+            _boardStuff[i]->~unique_ptr();
+}
 
 }
