@@ -13,7 +13,7 @@ class BoardWindow : public QWidget{
 
     Q_OBJECT
 public:
-    BoardWindow(QWidget *parent = nullptr, nat num=7);
+    BoardWindow(QWidget *parent = nullptr, nat num=40);
 
 private:
     QLabel *label(const QString &text);
@@ -24,7 +24,7 @@ private:
 
     //test
     QPushButton *p;
-    QVector<QWidget*> q;
+    QVector<view::Casella*> q;
     view::Casella* c;
 
 public slots:
