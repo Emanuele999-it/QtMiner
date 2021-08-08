@@ -2,7 +2,7 @@
 #define MODEL_BOARD_H_
 #include "Entities/Header/cvector.h"
 #include "Entities/Header/unique_ptr.h"
-#include "Model\Header\carta\card.h"
+#include "Model/Header/carta/card.h"
 
 
 namespace model {

@@ -49,7 +49,7 @@ void Controller::openTutorial(){
 void Controller::openBoardWindow(){
     //elimina tutte le carte per permettere di giocare una nuova partita
     modelBoard->addCardtoVectors();
-    modelBoard->deleteAllCards();
+    //modelBoard->deleteAllCards();  QUESTO CAUSARE SEG. FAULT
     emit MainW->OpenGameWindow();  
 }
 

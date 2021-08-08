@@ -1,4 +1,4 @@
-﻿#include "Model\Header\modelBoard.h"
+﻿#include "Model/Header/modelBoard.h"
 #include "Model/Header/carta/blocco.h"
 #include "Model/Header/carta/crollo.h"
 #include "Model/Header/carta/obstruction.h"
@@ -32,18 +32,18 @@ void ModelBoard::addCardtoVectors() {
 
 QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
     qDebug()<<"Modelboard: sto cercando la stringa da ritornare";
-    Card* _carta = (v[i]->get() != nullptr) ? v[i]->get()->clone() : new Blocco();
+    Card* _carta = v[i]->get()->clone();
     qDebug()<<"Modelboard: creata carta";
 
     if (dynamic_cast<Obstruction*>(_carta)) {
         if(dynamic_cast<Blocco*>(_carta))
             return "╬(blocco)";
         else
-            return "r";
+            return "crollo";
     }
 
     else if (dynamic_cast<CloneCards*>(_carta)){
-            return "sr";
+            return "cloning";
     }
 
     else if (dynamic_cast<Tunnel*>(_carta)){

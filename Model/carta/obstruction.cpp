@@ -1,4 +1,4 @@
-﻿#include "Model\Header\carta\obstruction.h"
+﻿#include "Model/Header/carta/obstruction.h"
 
 
 Obstruction::Obstruction(){}

@@ -13,7 +13,7 @@
 #include <QLabel>
 #include <QWidget>
 #include <QLCDNumber>
-#include "View\Header\screens\gameScreen\Board\casella.h"
+#include "View/Header/screens/gameScreen/Board/casella.h"
 
 
 class BoardWindow : public QWidget{

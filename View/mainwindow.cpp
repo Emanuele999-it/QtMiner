@@ -1,4 +1,4 @@
-﻿#include "Header\mainwindow.h"
+﻿#include "Header/mainwindow.h"
 #include <QHBoxLayout>
 
 #include <QDebug>
@@ -62,8 +62,8 @@ void MainWindow::OpenGameWindow(){
     qDebug()<<"Mainwindow: creazione board gioco";
     boardWindoW= new BoardWindow();
 
-    connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard,this,MainWindow::casellaBoardSelezionata);
-    connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataMano,this,MainWindow::casellaManoSelezionata);
+    //connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard,this,MainWindow::casellaBoardSelezionata);
+    //connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataMano,this,MainWindow::casellaManoSelezionata);
     connect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
     connect(this, &MainWindow::UpdateCardMano, boardWindoW, &BoardWindow::aggiornamentoCartaMano);
     connect(boardWindoW,&BoardWindow::cheImmagineHo,this, &MainWindow::RimbalzoCheImmagineHo);
