@@ -2,7 +2,8 @@
 #define CVECTOR_H
 
 #include <iostream>
-
+//testing
+#include <QDebug>
 
 using nat = unsigned int;
 
@@ -385,6 +386,7 @@ T& CVector<T>::operator[](nat i) const {
 
 template<class T>
 inline void CVector<T>::push_back(const T& d){
+    qDebug()<<"Vector: push_back";
     if (space == 0)
         resize(8);
     else if (size == space)

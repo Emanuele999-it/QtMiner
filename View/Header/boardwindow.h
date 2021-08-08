@@ -8,6 +8,13 @@
 #include <QLabel>
 #include <QLCDNumber>
 #include "View/Header/screens/gameScreen/Board/board.h"
+#include "View/Header/boardwindow.h"
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QWidget>
+#include <QLCDNumber>
+#include "View\Header\screens\gameScreen\Board\casella.h"
+
 
 class BoardWindow : public QWidget{
 
@@ -15,12 +22,21 @@ class BoardWindow : public QWidget{
 public:
     BoardWindow(QWidget *parent = nullptr, nat num=40);
 
+    /**
+     * @brief addElVectors: permette di aggiungere gli elementi ai
+     *                      vettori
+     */
+    void addElVectors();
+
 private:
     QLabel *label(const QString &text);
     view::Board *b;
     view::Mano *m;
     QLCDNumber *mosse;
     nat celle;
+    QGridLayout *GBLayout;
+    //layout mano
+    QGridLayout *GMLayout;
 
     //test
     QPushButton *p;
@@ -37,6 +53,13 @@ public slots:
      */
     void aggiornamentoView(nat posMano, nat PosBoard, QString CartaBoard, QString CartaMano);
 
+    /**
+     * @brief aggiornamentoCartaMano: per modificare le immagini delle carte della mano
+     * @param a: posizione carta
+     * @param c: porzione di stringa da sostituire
+     */
+    void aggiornamentoCartaMano(nat a , QString c);
+
 signals:
     /**
      * @brief rimbalzoSegnaleCasellaSelezionataBoard: prende il segnale casellaCliccataBoard e lo
@@ -49,7 +72,10 @@ signals:
      */
     void rimbalzoSegnaleCasellaSelezionataMano(nat);
 
-
+    /**
+     * @brief cheImmagineHo: segnale per chiedere al model il tipo di carta
+     */
+    void cheImmagineHo(nat);
 };
 
 #endif // BOARDWINDOW_H

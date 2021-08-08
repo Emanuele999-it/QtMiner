@@ -19,11 +19,11 @@ namespace view {
  *              interrogherà modelBoard per ottenere l'immagine che infine verrà
  *              assegnata a casella
 */
-Casella::Casella(nat p, QPushButton*pushbutton):QPushButton(pushbutton), pos(p) {
+Casella::Casella(nat p, QString s, QPushButton*pushbutton):QPushButton(pushbutton), pos(p){
 
 
-    iconStd=QIcon(":/Img/sr.jpg");
-    onHover=QIcon(":/Img/r.jpg");
+    iconStd=QIcon(":/Img/"+s+".jpg");
+    onHover=QIcon(":/Img/"+s+"h.jpg");
     setIcon(iconStd);
     setIconSize(QSize(40, 60));
     connect(this,&QPushButton::clicked, this, &Casella::supportCasellaCliccata);

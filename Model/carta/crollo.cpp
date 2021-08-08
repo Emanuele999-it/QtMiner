@@ -4,6 +4,7 @@
 Crollo::Crollo() :type(ObstructionType::crollo){}
 
 Crollo* Crollo::clone() const{
+    qDebug()<<" clone tunnel";
     return new Crollo(*this);
 }
 

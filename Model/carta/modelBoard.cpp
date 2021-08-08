@@ -8,33 +8,32 @@
 #include <QErrorMessage>
 #include <cstdlib>
 
-#include <iostream>
+#include <QDebug>
 
 
 namespace model{
+
 ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), _nBoard(nBoard),
-    _handStuff(CVector<unique_ptr<Card>*>(nMano)),
-    _boardStuff(CVector<unique_ptr<Card>*>(nBoard))
-{
-    for (nat i = 0; i< nBoard; i++)
-        _boardStuff.push_back(nullptr);
-
-    for (nat i = 0; i< nMano; i++)
-        _handStuff.push_back(nullptr);
+    _handStuff(CVector<unique_ptr<Card>*>(0)),
+    _boardStuff(CVector<unique_ptr<Card>*>(0)){}
 
 
-/*
-      if(_handStuff[nMano] != nullptr)
-            std::cout<<" ok funzia";
+void ModelBoard::addCardtoVectors() {
+    for (nat i = 0; i< _nBoard; ++i)
+        _boardStuff.push_back(new unique_ptr<Card>());
 
-      if(_boardStuff[nMano] == nullptr)
-            std::cout<<"non funzia";
-*/
+
+    for (nat i = 0; i< _nMano; ++i){
+        qDebug()<<"Modelboard: creazione carta mano "<<i;
+        _handStuff.push_back(new unique_ptr<Card>(estrattoreCasuale()));
+        qDebug()<<"Modelboard: creata carta mano "<<i;
+    }
 }
 
-
 QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
-    Card* _carta = v[i]->get()->clone();
+    qDebug()<<"Modelboard: sto cercando la stringa da ritornare";
+    Card* _carta = (v[i]->get() != nullptr) ? v[i]->get()->clone() : new Blocco();
+    qDebug()<<"Modelboard: creata carta";
 
     if (dynamic_cast<Obstruction*>(_carta)) {
         if(dynamic_cast<Blocco*>(_carta))
@@ -66,6 +65,7 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
         else
             return "╦(0)";
     }
+
     else
         return "blank";
 }
@@ -120,8 +120,9 @@ void ModelBoard::evidenziaCellaMano(nat p){
 
 Card* ModelBoard::estrattoreCasuale(){
 
-    nat generator= rand() % 11 + 1;
 
+    nat generator= rand() % 11 + 1;
+    qDebug()<<"Modelboard: randomizzazione carta "<< generator;
     if(generator == 1) return new Blocco();
     else if(generator == 2) return new Crollo();
     else if(generator == 3) return new CloneCards();
@@ -143,6 +144,11 @@ void ModelBoard::deleteAllCards(){
     for(nat i=0;_boardStuff[i] && i<_nBoard;i++)
         if(_boardStuff[i])
             _boardStuff[i]->~unique_ptr();
+}
+
+void ModelBoard::getHandImage(nat pos){
+    qDebug()<<"ModelBoard: arrivato cheImmagineHo";
+    emit CambiaImmagineMano(pos, getImage(pos,_handStuff));
 }
 
 }

@@ -52,6 +52,7 @@ public slots:
      */
     void cambiaCellaMano(nat);
 
+signals:
 
 };
 

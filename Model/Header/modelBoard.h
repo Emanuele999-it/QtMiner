@@ -34,11 +34,15 @@ private:
 public:
     ModelBoard(nat nMano = 7,nat nBoard = 40);
 
+    /**
+     * @brief addCardtoVectors: metodo per inserire gli elementi nei vettori
+     */
+    void addCardtoVectors();
+
 
     /**
      * @brief getCardBoard data la posizione restituisce la carta a scopo di informazioni
      * @param posizione
-     * @return
      */
    Card* getCardBoard(nat posizione) const;
 
@@ -75,6 +79,13 @@ public slots:
      */
     void evidenziaCellaMano(nat p);
 
+    /**
+     * @brief getHandImage: serve per ottenere l'immagine della carta nella mano
+     * @param pos: di posizione pos
+     * @return : parte del nome dell'immagine
+     */
+    void getHandImage(nat pos);
+
 signals:
     /**
      * @brief CambiaPosizioneManoBoard: segnale per aggoirnare view
@@ -82,6 +93,15 @@ signals:
      *              il secondo puntatore serve per mettere una nuova carta nella mano
      */
     void CambiaPosizioneManoBoard(nat, nat, QString,QString);
+
+
+    /**
+     * @brief CambiaImmagineMano: segnale che permette di aggiornare l'immagine
+     *                  della carta della mano
+     */
+    void CambiaImmagineMano(nat,QString);
+
+
 
 };
 

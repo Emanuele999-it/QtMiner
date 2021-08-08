@@ -1,9 +1,12 @@
 ﻿#include "Header\mainwindow.h"
-
-//test
 #include <QHBoxLayout>
 
+#include <QDebug>
+
+
 MainWindow::MainWindow(QWidget *parent): QWidget(parent){
+
+    qDebug()<<"Mainwindow: creazione mainwindow";
 
     //settaggio proprietà finestra
     setWindowTitle ("QtMiner");
@@ -56,14 +59,25 @@ void MainWindow::OpenTutorialWindow(){
 }
 
 void MainWindow::OpenGameWindow(){
+    qDebug()<<"Mainwindow: creazione board gioco";
     boardWindoW= new BoardWindow();
+
     connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard,this,MainWindow::casellaBoardSelezionata);
     connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataMano,this,MainWindow::casellaManoSelezionata);
     connect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
+    connect(this, &MainWindow::UpdateCardMano, boardWindoW, &BoardWindow::aggiornamentoCartaMano);
+    connect(boardWindoW,&BoardWindow::cheImmagineHo,this, &MainWindow::RimbalzoCheImmagineHo);
+    //connect(boardWindoW,&BoardWindow::cheImmagineHo,this, &MainWindow::slotTest);
 
-
-    boardWindoW->show();
+    //boardWindoW->show();
+    qDebug()<<"Mainwindow: aggiunta elementi vettori";
+    boardWindoW->addElVectors();
 }
 
+void MainWindow::slotTest(nat i){
+    qDebug() << "Mainwindow: arrivato allo slotTest"<<i;
+}
 
-
+void MainWindow::createObjVectors(){
+    boardWindoW->addElVectors();
+}

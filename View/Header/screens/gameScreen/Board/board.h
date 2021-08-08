@@ -54,10 +54,7 @@ signals:
      */
     void numCasellaCliccataBoard(nat);
 
-    /**
-     * @brief cheImmagineHo: segnale per chiedere al model il tipo di carta
-     */
-    void cheImmagineHo(nat);
+
 };
 
 
@@ -106,7 +103,7 @@ signals:
     /**
      * @brief cheImmagineHo: segnale per chiedere al model il tipo di carta
      */
-    void cheImmagineHo(nat);
+    //void cheImmagineHo(nat);
 };
 
 }

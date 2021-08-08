@@ -4,6 +4,7 @@
 Blocco::Blocco() :type(ObstructionType::blocco){}
 
 Blocco* Blocco::clone() const{
+    qDebug()<<" clone tunnel";
     return new Blocco(*this);
 }
 

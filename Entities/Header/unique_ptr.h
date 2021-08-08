@@ -3,6 +3,9 @@
 
 #include <ostream>
 
+//testing
+#include <QDebug>
+
 template <class T>
 class unique_ptr{
 private:
@@ -151,6 +154,7 @@ void unique_ptr<T>::swap_ptr(unique_ptr<T>& p){
 
 template<class T>
 T* unique_ptr<T>::get(){
+    qDebug()<<" sto per gettare ptr";
     return (ptr != nullptr) ? ptr : nullptr;
 }
 

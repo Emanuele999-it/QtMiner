@@ -1,13 +1,15 @@
 ﻿
 #include "Header/controller.h"
 
+#include <QDebug>
+
 Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()) {
     //costruire controller
-    MainW->show();
 
     // qui in modelBoard possiamo mettere la grandezza della board che si preferisce
     // e lo si può fare con una variabile data dall'utente dalle impostazioni
     modelBoard = new model::ModelBoard(7,40);
+
 
 
     //MainW = new MainWindow();
@@ -26,6 +28,14 @@ Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()
 
     //connessione tra model e view (aggiornamento carta)
     connect(modelBoard, &model::ModelBoard::CambiaPosizioneManoBoard, MainW, &MainWindow::UpdateViewfromModel);
+    qDebug()<<"Controller: sto per collegare cheImmagineHo nel Controller";
+    connect(MainW, &MainWindow::RimbalzoCheImmagineHo, modelBoard, &model::ModelBoard::getHandImage);
+    qDebug()<<"Controller: collegamento Controller riuscito";
+    connect(modelBoard, &model::ModelBoard::CambiaImmagineMano, MainW, &MainWindow::UpdateCardMano);
+
+    MainW->show();
+    //MainW->createObjVectors();
+    //qDebug()<<"inizializzazione da Controller vettore riuscita";
 }
 
 void Controller::openSettings() {
@@ -38,6 +48,7 @@ void Controller::openTutorial(){
 
 void Controller::openBoardWindow(){
     //elimina tutte le carte per permettere di giocare una nuova partita
+    modelBoard->addCardtoVectors();
     modelBoard->deleteAllCards();
     emit MainW->OpenGameWindow();  
 }

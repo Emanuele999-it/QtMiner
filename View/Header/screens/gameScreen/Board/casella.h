@@ -33,7 +33,7 @@ protected:
     virtual void leaveEvent(QEvent *event);
 
 public:
-    Casella(nat p=0,QPushButton*pushbutton = new QPushButton());
+    Casella(nat p=0, QString s="sr", QPushButton*pushbutton = new QPushButton());
 
     /**
      * @brief cambiaImmagine: funzione che permette di cambiare immagine alla casella

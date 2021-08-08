@@ -24,6 +24,12 @@ public:
      */
     MainWindow(QWidget *parent=nullptr);
 
+    /**
+     * @brief creteObjVectors: funzione che permette di chiamare addElVEctors
+     *                        di boardwindow
+     */
+    void createObjVectors();
+
 private:
 
     QStackedWidget* stackedWidget;
@@ -123,7 +129,18 @@ signals:
      */
     void UpdateViewfromModel(nat a, nat b, QString c1, QString c2);
 
+    /**
+     * @brief UpdateCardMano: aggiorna view mano con la carta corretta
+     * @param a: parametro posizione
+     * @param c: porzione stringa nome carta
+     */
+    void UpdateCardMano(nat a, QString c);
 
+
+    /**
+     * @brief RimbalzoCheImmagineHo: segnale di rimbalzo per
+     */
+    void RimbalzoCheImmagineHo(nat);
 
 public slots:
     /**
@@ -141,6 +158,9 @@ public slots:
      * @brief OpenGameRequest: slot per creare boardwindow
      */
     void OpenGameWindow();
+
+
+    void slotTest(nat);
 
 
 };
