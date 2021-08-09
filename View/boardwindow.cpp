@@ -47,9 +47,12 @@ void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaBoar
     m->addCardMano(posMano,CartaMano);
 }
 
+void BoardWindow::closeEvent(QCloseEvent *event){
+    Q_UNUSED(event)
+    emit chiusuraBoardW();
+}
 
 void BoardWindow::aggiornamentoCartaMano(nat a, QString c){
-    qDebug()<<"BoardWindow: arrivato aggiornamento mano";
     m->addCardMano(a,c);
 }
 
@@ -63,7 +66,6 @@ void BoardWindow::addElVectors(){
     for(nat counter=0; counter<7; counter++){
         connect(m->vettoreCaselleMano[counter],SIGNAL(casellaCliccata(nat)), m, SLOT(selectCardMano(nat)));
         GMLayout->addWidget(m->vettoreCaselleMano[counter],1,counter);
-        qDebug()<<"BoardWindow: sto per emettere il segnale "<<counter;
         emit cheImmagineHo(counter);
     }
 }

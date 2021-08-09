@@ -24,16 +24,12 @@ void ModelBoard::addCardtoVectors() {
 
 
     for (nat i = 0; i< _nMano; ++i){
-        qDebug()<<"Modelboard: creazione carta mano "<<i;
         _handStuff.push_back(new unique_ptr<Card>(estrattoreCasuale()));
-        qDebug()<<"Modelboard: creata carta mano "<<i;
     }
 }
 
 QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
-    qDebug()<<"Modelboard: sto cercando la stringa da ritornare";
     Card* _carta = v[i]->get()->clone();
-    qDebug()<<"Modelboard: creata carta";
 
     if (dynamic_cast<Obstruction*>(_carta)) {
         if(dynamic_cast<Blocco*>(_carta))
@@ -122,7 +118,6 @@ Card* ModelBoard::estrattoreCasuale(){
 
 
     nat generator= rand() % 11 + 1;
-    qDebug()<<"Modelboard: randomizzazione carta "<< generator;
     if(generator == 1) return new Blocco();
     else if(generator == 2) return new Crollo();
     else if(generator == 3) return new CloneCards();
@@ -137,9 +132,13 @@ Card* ModelBoard::estrattoreCasuale(){
 }
 
 void ModelBoard::deleteAllCards(){
+
+    qDebug()<<"sto cancellando vettore";
+
     for(nat i=0;i<_nMano;i++)
-        if(_handStuff[i])
+        if(_handStuff[i] && _handStuff[i]->get() != nullptr){
             _handStuff[i]->~unique_ptr();
+        }
 
     for(nat i=0;_boardStuff[i] && i<_nBoard;i++)
         if(_boardStuff[i])
@@ -147,7 +146,6 @@ void ModelBoard::deleteAllCards(){
 }
 
 void ModelBoard::getHandImage(nat pos){
-    qDebug()<<"ModelBoard: arrivato cheImmagineHo";
     emit CambiaImmagineMano(pos, getImage(pos,_handStuff));
 }
 

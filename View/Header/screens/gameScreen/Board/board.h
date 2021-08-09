@@ -33,6 +33,7 @@ public:
      */
     Casella* getCasella(nat);
 
+
 public slots:
     /**
      * @brief selectCardBoard: slot che permette di salvare la posizione della carta cliccata

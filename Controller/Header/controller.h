@@ -21,6 +21,13 @@ public:
     Controller(QObject* parent= nullptr);
 
 public slots:
+
+    /**
+     * @brief chiusuraGame: slot che intercetta segnale di chiusura della
+     *                  finestra di gioco
+     */
+    void chiusuraGame();
+
 /******************* MainWindow **************************************************************/
     /**
      * @brief openSettings: permette di aprire la finestra delle impostazioni

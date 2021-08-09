@@ -4,6 +4,7 @@
 #include "Entities/Header/unique_ptr.h"
 #include "Model/Header/carta/card.h"
 
+#include <QCloseEvent>
 
 namespace model {
 
@@ -62,11 +63,6 @@ public:
      */
     void posiziona(nat posizioneMano,nat posizioneBoard);
 
-    /**
-     * @brief deleteAllCards: funzione che permette di eliminare tutte le carte per
-     *                      giocare una nuova partita
-     */
-    void deleteAllCards();
 
 public slots:
     /**
@@ -86,6 +82,13 @@ public slots:
      */
     void getHandImage(nat pos);
 
+
+    /**
+     * @brief deleteAllCards: slot che permette di eliminare tutte le carte per
+     *                      giocare una nuova partita
+     */
+    void deleteAllCards();
+
 signals:
     /**
      * @brief CambiaPosizioneManoBoard: segnale per aggoirnare view
@@ -100,7 +103,6 @@ signals:
      *                  della carta della mano
      */
     void CambiaImmagineMano(nat,QString);
-
 
 
 };

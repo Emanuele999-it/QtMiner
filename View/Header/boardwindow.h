@@ -15,6 +15,7 @@
 #include <QLCDNumber>
 #include "View/Header/screens/gameScreen/Board/casella.h"
 
+#include <QCloseEvent>
 
 class BoardWindow : public QWidget{
 
@@ -37,6 +38,12 @@ private:
     QGridLayout *GBLayout;
     //layout mano
     QGridLayout *GMLayout;
+
+    /**
+     * @brief closeEvent: evento chiusura finestra
+     * @param event
+     */
+    void closeEvent(QCloseEvent *event);
 
     //test
     QPushButton *p;
@@ -61,6 +68,11 @@ public slots:
     void aggiornamentoCartaMano(nat a , QString c);
 
 signals:
+    /**
+     * @brief chiusuraBoardW: segnale chiusura boardWindow
+     */
+    void chiusuraBoardW();
+
     /**
      * @brief rimbalzoSegnaleCasellaSelezionataBoard: prende il segnale casellaCliccataBoard e lo
      *                  passa alla classe gerarchicamente superiore

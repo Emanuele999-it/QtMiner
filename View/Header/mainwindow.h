@@ -87,6 +87,7 @@ private:
 
 
 signals:
+    void chiusuraBoardWRimbalzo();
 
     /**
     * @brief Settings: segnale per aprire finestra impostazioni, catturato
@@ -158,9 +159,6 @@ public slots:
      * @brief OpenGameRequest: slot per creare boardwindow
      */
     void OpenGameWindow();
-
-
-    void slotTest(nat);
 
 
 };
