@@ -28,14 +28,13 @@ Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()
 
     //connessione tra model e view (aggiornamento carta)
     connect(modelBoard, &model::ModelBoard::CambiaPosizioneManoBoard, MainW, &MainWindow::UpdateViewfromModel);
-    qDebug()<<"Controller: sto per collegare cheImmagineHo nel Controller";
     connect(MainW, &MainWindow::RimbalzoCheImmagineHo, modelBoard, &model::ModelBoard::getHandImage);
-    qDebug()<<"Controller: collegamento Controller riuscito";
     connect(modelBoard, &model::ModelBoard::CambiaImmagineMano, MainW, &MainWindow::UpdateCardMano);
 
+    //connect(modelBoard, &model::ModelBoard::closeSignal, this, &Controller::chiusuraGame);
+    connect(MainW,&MainWindow::chiusuraBoardWRimbalzo, modelBoard,&model::ModelBoard::deleteAllCards);
     MainW->show();
     //MainW->createObjVectors();
-    //qDebug()<<"inizializzazione da Controller vettore riuscita";
 }
 
 void Controller::openSettings() {
@@ -47,10 +46,13 @@ void Controller::openTutorial(){
 }
 
 void Controller::openBoardWindow(){
-    //elimina tutte le carte per permettere di giocare una nuova partita
     modelBoard->addCardtoVectors();
-    modelBoard->deleteAllCards();
     emit MainW->OpenGameWindow();  
+}
+
+void Controller::chiusuraGame(){
+    //elimina tutte le carte per permettere di giocare una nuova partita
+    modelBoard->deleteAllCards();
 }
 
 void Controller::cambiaCellaBoard(nat y){

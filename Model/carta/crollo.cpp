@@ -1,10 +1,9 @@
-﻿#include "Model\Header\carta\crollo.h"
+﻿#include "Model/Header/carta/crollo.h"
 
 
 Crollo::Crollo() :type(ObstructionType::crollo){}
 
 Crollo* Crollo::clone() const{
-    qDebug()<<" clone tunnel";
     return new Crollo(*this);
 }
 

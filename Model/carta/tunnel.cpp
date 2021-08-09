@@ -1,4 +1,4 @@
-﻿#include "Model\Header\carta\tunnel.h"
+﻿#include "Model/Header/carta/tunnel.h"
 
 
 Tunnel::Tunnel(bool North, bool East, bool South, bool West): Card() {
@@ -13,7 +13,6 @@ Tunnel::~Tunnel(){
 }
 
 Tunnel* Tunnel::clone() const {
-    qDebug()<<" clone tunnel";
     return new Tunnel(*this);
 }
 

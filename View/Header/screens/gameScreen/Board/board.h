@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "Model/Header/modelBoard.h"
-#include "View\Header\screens\gameScreen\Board\casella.h"
+#include "View/Header/screens/gameScreen/Board/casella.h"
 
 #include <QVector>
 
@@ -32,6 +32,7 @@ public:
      * @brief getCasella: funzione che restituisce la casella in una determinata posizione
      */
     Casella* getCasella(nat);
+
 
 public slots:
     /**

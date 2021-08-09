@@ -1,11 +1,11 @@
-#include "View\Header\screens\gameScreen\Board\casella.h"
-#include "Model\Header\carta\obstruction.h"
-#include "Model\Header\carta\blocco.h"
-#include "Model\Header\carta\tunnel.h"
-#include "Model\Header\carta\clonecards.h"
-#include "Model\Header\modelBoard.h"
+#include "View/Header/screens/gameScreen/Board/casella.h"
+#include "Model/Header/carta/obstruction.h"
+#include "Model/Header/carta/blocco.h"
+#include "Model/Header/carta/tunnel.h"
+#include "Model/Header/carta/clonecards.h"
+#include "Model/Header/modelBoard.h"
 
-#include "View\Header\screens\gameScreen\Board\casella.h"
+#include "View/Header/screens/gameScreen/Board/casella.h"
 
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>

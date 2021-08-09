@@ -1,4 +1,4 @@
-﻿#include "View\Header\screens\gameScreen\Board\board.h"
+﻿#include "View/Header/screens/gameScreen/Board/board.h"
 
 #include <QGraphicsScene>
 
