@@ -83,12 +83,6 @@ public slots:
     void getHandImage(nat pos);
 
 
-    /**
-     * @brief deleteAllCards: slot che permette di eliminare tutte le carte per
-     *                      giocare una nuova partita
-     */
-    void deleteAllCards();
-
 signals:
     /**
      * @brief CambiaPosizioneManoBoard: segnale per aggoirnare view

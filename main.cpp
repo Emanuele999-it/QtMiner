@@ -4,20 +4,29 @@
 
 #include "Entities/Header/cvector.h"
 #include "Entities/Header/unique_ptr.h"
-
 #include "Controller/Header/controller.h"
+
+#include <cstdlib>
 
 //test
 
 
+
 int main(int argc, char *argv[])
 {
+    srand(time(0));
+
     QApplication a(argc, argv);
 
     Controller c;
 
     return a.exec();
+/*
+    Tunnel* t= new Tunnel();
+    unique_ptr<Card>* c= new unique_ptr<Card>(t);
 
-
+    delete t;
+    //c->~unique_ptr();
+*/
 
 }

@@ -154,12 +154,12 @@ void unique_ptr<T>::swap_ptr(unique_ptr<T>& p){
 
 template<class T>
 T* unique_ptr<T>::get(){
-    return (ptr != nullptr) ? ptr : nullptr;
+    return  ptr;
 }
 
 template<class T>
 const T* unique_ptr<T>::get_const() const {
-    return (ptr != nullptr) ? ptr : nullptr;
+    return ptr;
 }
 
 template<class T>

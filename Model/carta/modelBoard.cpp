@@ -118,6 +118,7 @@ Card* ModelBoard::estrattoreCasuale(){
 
 
     nat generator= rand() % 11 + 1;
+    qDebug()<<"ModelBoard: numeo scelto: "<<generator;
     if(generator == 1) return new Blocco();
     else if(generator == 2) return new Crollo();
     else if(generator == 3) return new CloneCards();
@@ -129,20 +130,6 @@ Card* ModelBoard::estrattoreCasuale(){
     else if(generator == 9) return new Tunnel(true,true,false,false);
     else if(generator == 10) return new Tunnel(true,true,true,false);
     else return new Tunnel(false,true,true,true);
-}
-
-void ModelBoard::deleteAllCards(){
-
-    qDebug()<<"sto cancellando vettore";
-
-    for(nat i=0;i<_nMano;i++)
-        if(_handStuff[i] && _handStuff[i]->get() != nullptr){
-            _handStuff[i]->~unique_ptr();
-        }
-
-    for(nat i=0;_boardStuff[i] && i<_nBoard;i++)
-        if(_boardStuff[i])
-            _boardStuff[i]->~unique_ptr();
 }
 
 void ModelBoard::getHandImage(nat pos){
