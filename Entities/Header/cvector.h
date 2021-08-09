@@ -202,6 +202,8 @@ template<class T>
 CVector<T>::~CVector()
 {
     delete[] arr;
+    arr = new T[0];
+    size=0;
 }
 
 

@@ -1,7 +1,7 @@
 ﻿#include "Model/Header/carta/tunnel.h"
 
 
-Tunnel::Tunnel(bool North, bool East, bool South, bool West): Card() {
+Tunnel::Tunnel(bool North, bool East, bool South, bool West): Card(), arr(new bool[4]) {
     arr[0]=North;
     arr[1]=East;
     arr[2]=South;
@@ -23,6 +23,7 @@ void Tunnel::copia(const bool* a){
 }
 
 Tunnel::Tunnel(const Tunnel &t){
+   arr = new bool[4];
    copia(t.arr);
 }
 

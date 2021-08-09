@@ -143,6 +143,10 @@ signals:
      */
     void RimbalzoCheImmagineHo(nat);
 
+private slots:
+    void closeGameBoard();
+
+
 public slots:
     /**
      * @brief OpenSettingsWindow: slot per creare impostazioni
