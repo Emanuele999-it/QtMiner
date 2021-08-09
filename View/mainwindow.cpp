@@ -1,7 +1,8 @@
-﻿#include "Header\mainwindow.h"
-
-//test
+﻿#include "Header/mainwindow.h"
 #include <QHBoxLayout>
+
+#include <QDebug>
+
 
 MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 
@@ -57,5 +58,18 @@ void MainWindow::OpenTutorialWindow(){
 
 void MainWindow::OpenGameWindow(){
     boardWindoW= new BoardWindow();
-    boardWindoW->show();
+
+    //connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard,this,MainWindow::casellaBoardSelezionata);
+    //connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataMano,this,MainWindow::casellaManoSelezionata);
+    connect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
+    connect(this, &MainWindow::UpdateCardMano, boardWindoW, &BoardWindow::aggiornamentoCartaMano);
+    connect(boardWindoW,&BoardWindow::cheImmagineHo,this, &MainWindow::RimbalzoCheImmagineHo);
+    connect(boardWindoW,&BoardWindow::chiusuraBoardW, this, &MainWindow::chiusuraBoardWRimbalzo);
+
+    //boardWindoW->show();
+    boardWindoW->addElVectors();
+}
+
+void MainWindow::createObjVectors(){
+    boardWindoW->addElVectors();
 }

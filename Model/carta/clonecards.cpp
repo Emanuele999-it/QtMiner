@@ -1,4 +1,4 @@
-﻿#include "Model\Header\carta\clonecards.h"
+﻿#include "Model/Header/carta/clonecards.h"
 
 
 CloneCards::CloneCards(){}

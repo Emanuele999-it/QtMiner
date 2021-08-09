@@ -1,9 +1,15 @@
 ﻿
 #include "Header/controller.h"
 
+#include <QDebug>
+
 Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()) {
     //costruire controller
-    MainW->show();
+
+    // qui in modelBoard possiamo mettere la grandezza della board che si preferisce
+    // e lo si può fare con una variabile data dall'utente dalle impostazioni
+    modelBoard = new model::ModelBoard(7,40);
+
 
 
     //MainW = new MainWindow();
@@ -16,7 +22,19 @@ Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()
     connect(MainW, &MainWindow::SettingsRequest, this, &Controller::openSettings);
     connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
     connect(MainW, &MainWindow::GameRequest, this, &Controller::openBoardWindow);
+    //da controllare potrebbero essere sbagliati
+    connect(MainW, &MainWindow::casellaBoardSelezionata, this, &Controller::cambiaCellaBoard);
+    connect(MainW, &MainWindow::casellaManoSelezionata, this, &Controller::cambiaCellaMano);
 
+    //connessione tra model e view (aggiornamento carta)
+    connect(modelBoard, &model::ModelBoard::CambiaPosizioneManoBoard, MainW, &MainWindow::UpdateViewfromModel);
+    connect(MainW, &MainWindow::RimbalzoCheImmagineHo, modelBoard, &model::ModelBoard::getHandImage);
+    connect(modelBoard, &model::ModelBoard::CambiaImmagineMano, MainW, &MainWindow::UpdateCardMano);
+
+    //connect(modelBoard, &model::ModelBoard::closeSignal, this, &Controller::chiusuraGame);
+    connect(MainW,&MainWindow::chiusuraBoardWRimbalzo, modelBoard,&model::ModelBoard::deleteAllCards);
+    MainW->show();
+    //MainW->createObjVectors();
 }
 
 void Controller::openSettings() {
@@ -28,14 +46,22 @@ void Controller::openTutorial(){
 }
 
 void Controller::openBoardWindow(){
-    emit MainW->OpenGameWindow();
+    modelBoard->addCardtoVectors();
+    emit MainW->OpenGameWindow();  
 }
 
-void Controller::cambiaCellaSelezionata(nat y){
-    //interazione con model
+void Controller::chiusuraGame(){
+    //elimina tutte le carte per permettere di giocare una nuova partita
+    modelBoard->deleteAllCards();
 }
 
+void Controller::cambiaCellaBoard(nat y){
+    emit modelBoard->evidenziaCellaBoard(y);
+}
 
+void Controller::cambiaCellaMano(nat y){
+    emit modelBoard->evidenziaCellaMano(y);
+}
 
 //void controller::Controller::openSettings(){
     //emit MainW->OpenSettingsWindow();

@@ -6,6 +6,7 @@
 
 class SettingsWindow: public QWidget
 {
+    Q_OBJECT
 public:
     SettingsWindow(QWidget * parent= nullptr);
 };

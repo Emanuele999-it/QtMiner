@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "../../View/Header/mainwindow.h"
+#include "../../Model/Header/modelBoard.h"
 
 class Controller : public QObject {
     Q_OBJECT
@@ -14,10 +15,20 @@ private:
     MainWindow* MainW;
 
 
+    model::ModelBoard* modelBoard;
+
 public:
     Controller(QObject* parent= nullptr);
 
 public slots:
+
+    /**
+     * @brief chiusuraGame: slot che intercetta segnale di chiusura della
+     *                  finestra di gioco
+     */
+    void chiusuraGame();
+
+/******************* MainWindow **************************************************************/
     /**
      * @brief openSettings: permette di aprire la finestra delle impostazioni
      */
@@ -34,18 +45,21 @@ public slots:
     void openBoardWindow();
 
 
+/******************* Casella **************************************************************/
+
     /**
-     * @brief cambiaCellaSelezionata: slot che permette di cambiare
+     * @brief cambiaCellaBoard: slot che permette di cambiare
      *                  la della slezionata nella board/mano
      */
-    void cambiaCellaSelezionata(nat);
+    void cambiaCellaBoard(nat);
 
-signals:
     /**
      * @brief cambiaCellaModel: segnale modifica cella selezionata
      *                      per il modello modelBoard
      */
-    void cambiaCellaModel(nat);
+    void cambiaCellaMano(nat);
+
+signals:
 
 };
 

@@ -1,4 +1,4 @@
-﻿#include "View/Header/screens/gameScreen/Board/board.h"
+#include "View/Header/screens/gameScreen/Board/board.h"
 
 #include <QGraphicsScene>
 
@@ -24,26 +24,6 @@ Board::Board(const nat &i): posizioneBoard(0){
     */
 
 
-
-<<<<<<< HEAD
-
-/*void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-    Q_UNUSED(painter);
-
-}*/
-
-//getCardModel è nel model
-/*
-
-*/
-
-/*
-void Board::selectCardBoard(nat ...){
-    emit pincopallino();
-
-=======
 void Board::selectCardBoard(nat r){
     posizioneBoard=r;
     emit numCasellaCliccataBoard(r);

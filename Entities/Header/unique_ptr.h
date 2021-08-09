@@ -3,6 +3,9 @@
 
 #include <ostream>
 
+//testing
+#include <QDebug>
+
 template <class T>
 class unique_ptr{
 private:
@@ -88,7 +91,7 @@ unique_ptr<T>::unique_ptr(T* obj) : ptr(obj) {}
 
 template<class T>
 unique_ptr<T>::~unique_ptr(){
-    if(ptr){
+    if(ptr != nullptr){
         delete ptr;
         ptr=nullptr;
     }

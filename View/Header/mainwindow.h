@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QStackedWidget>
 #include <QVBoxLayout>
+#include <QString>
 
 #include "settingswindow.h"
 #include "tutorialwindow.h"
@@ -22,6 +23,12 @@ public:
      * @param parent: parent di MainWindow
      */
     MainWindow(QWidget *parent=nullptr);
+
+    /**
+     * @brief creteObjVectors: funzione che permette di chiamare addElVEctors
+     *                        di boardwindow
+     */
+    void createObjVectors();
 
 private:
 
@@ -78,9 +85,9 @@ private:
      */
     QVBoxLayout *Vl;
 
-private slots:
 
 signals:
+    void chiusuraBoardWRimbalzo();
 
     /**
     * @brief Settings: segnale per aprire finestra impostazioni, catturato
@@ -101,6 +108,41 @@ signals:
     void GameRequest();
 
 
+
+/********** Rimbalzo segnale da casella al controller ****************/
+    /**
+     * @brief casellaBoardSelezionata: passa il segnale al controller
+     */
+    void casellaBoardSelezionata(nat);
+
+    /**
+     * @brief casellaManoSelezionata: passa il segnale al controller
+     */
+    void casellaManoSelezionata(nat);
+
+
+    /**
+     * @brief UpdateViewfromModel aggiornamento view dopo scelta carta da mettere in campo
+     * @param a posizione carta mano
+     * @param b posizione carta board
+     * @param c1 carta da mano a board
+     * @param c2 nuova carta
+     */
+    void UpdateViewfromModel(nat a, nat b, QString c1, QString c2);
+
+    /**
+     * @brief UpdateCardMano: aggiorna view mano con la carta corretta
+     * @param a: parametro posizione
+     * @param c: porzione stringa nome carta
+     */
+    void UpdateCardMano(nat a, QString c);
+
+
+    /**
+     * @brief RimbalzoCheImmagineHo: segnale di rimbalzo per
+     */
+    void RimbalzoCheImmagineHo(nat);
+
 public slots:
     /**
      * @brief OpenSettingsWindow: slot per creare impostazioni
@@ -117,6 +159,8 @@ public slots:
      * @brief OpenGameRequest: slot per creare boardwindow
      */
     void OpenGameWindow();
+
+
 };
 
 #endif // MAINWINDOW_H

@@ -5,10 +5,9 @@
 #include "Entities/Header/cvector.h"
 #include "Entities/Header/unique_ptr.h"
 
-#include "Model/Header/modelBoard.h"
-//prova
 #include "Controller/Header/controller.h"
 
+//test
 
 
 int main(int argc, char *argv[])
@@ -18,5 +17,7 @@ int main(int argc, char *argv[])
     Controller c;
 
     return a.exec();
+
+
 
 }
