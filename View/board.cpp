@@ -25,8 +25,6 @@ Board::Board(const nat &i): posizioneBoard(0){
 
 
 
-<<<<<<< HEAD
-
 /*void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -42,8 +40,8 @@ Board::Board(const nat &i): posizioneBoard(0){
 /*
 void Board::selectCardBoard(nat ...){
     emit pincopallino();
+*/
 
-=======
 void Board::selectCardBoard(nat r){
     posizioneBoard=r;
     emit numCasellaCliccataBoard(r);
@@ -80,8 +78,6 @@ void Mano::addCardMano(nat n, QString c){
 
 Casella* Mano::getCasella(nat i){
     return vettoreCaselleMano[i];
->>>>>>> 2be49a2a4fb7586381914f8dcc73050db8a90001
 }
-*/
 
 }
