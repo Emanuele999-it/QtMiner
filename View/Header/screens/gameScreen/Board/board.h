@@ -33,6 +33,12 @@ public:
      */
     Casella* getCasella(nat);
 
+    /**
+     * @brief getPosizione: funzione che permette di far sapere quale posizione è stata
+     *                      selezionata nella board
+     * @return
+     */
+    nat getPosizione() const;
 
 public slots:
     /**
@@ -81,6 +87,14 @@ public:
      * @brief dimensione è al grandezza della board, si costruisce con QSize(Width,Height)
      */
     QVector<Casella*> vettoreCaselleMano;
+
+    /**
+     * @brief getPosizione: funzione che permette di far sapere quale posizione è stata
+     *                      selezionata nella mano
+     * @return
+     */
+    nat getPosizione() const;
+
 
 public slots:
     /**

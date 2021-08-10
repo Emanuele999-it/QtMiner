@@ -54,15 +54,6 @@ public:
      */
     Card* getCardMano(nat posizione) const;
 
-    /**
-     * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
-     * posizioneMano
-     * @param posizioneMano
-     * @param posizioneBoard
-     * @return
-     */
-    void posiziona(nat posizioneMano,nat posizioneBoard);
-
 
 public slots:
     /**
@@ -82,6 +73,14 @@ public slots:
      */
     void getHandImage(nat pos);
 
+    /**
+     * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
+     * posizioneMano
+     * @param posizioneMano
+     * @param posizioneBoard
+     * @return
+     */
+    void posiziona(nat posizioneMano,nat posizioneBoard);
 
 signals:
     /**
