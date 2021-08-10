@@ -82,6 +82,8 @@ void BoardWindow::addElVectors(){
 
     GMLayout->addWidget(scambioMB,1,8);
     connect(scambioMB, &QPushButton::clicked, this ,&BoardWindow::controlloCarteDaScambiare );
+    connect(scambioMB, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
+    connect(scambioMB, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
 }
 
 void BoardWindow::controlloCarteDaScambiare(){

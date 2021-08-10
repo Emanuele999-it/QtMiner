@@ -16,8 +16,14 @@ Board::Board(const nat &i): posizioneBoard(0){
 
 
 void Board::selectCardBoard(nat r){
+    vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
     posizioneBoard=r;
+    vettoreCaselleBoard[r]->setStyleSheet("QPushButton {background-color: green;}");
     emit numCasellaCliccataBoard(r);
+}
+
+void Board::removeStylesheetButton() {
+    vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
 }
 
 void Board::addCardBoard(nat n, QString c){
@@ -40,8 +46,14 @@ Mano::Mano(const nat &i) : posizioneMano(0){
 }
 
 void Mano::selectCardMano(nat r){
+    vettoreCaselleMano[posizioneMano]->setStyleSheet("");
     posizioneMano=r;
+    vettoreCaselleMano[r]->setStyleSheet("QPushButton {background-color: green;}");
     emit numCasellaCliccataMano(r);
+}
+
+void Mano::removeStylesheetButton() const{
+    vettoreCaselleMano[posizioneMano]->setStyleSheet("");
 }
 
 void Mano::addCardMano(nat n, QString c){

@@ -53,6 +53,10 @@ public slots:
      */
     void addCardBoard(nat, QString);
 
+    /**
+     * @brief removeStylesheetButton: rimuove colorazione selezione bottone
+     */
+    void removeStylesheetButton();
 
 
 signals:
@@ -96,6 +100,7 @@ public:
     nat getPosizione() const;
 
 
+
 public slots:
     /**
      * @brief selectCardMano: slot che permette di salvare la posizione della carta cliccata
@@ -109,6 +114,11 @@ public slots:
      */
     void addCardMano(nat, QString);
 
+    /**
+     * @brief removeStylesheetButton: rimuove colorazione selezione bottone
+     */
+    void removeStylesheetButton() const;
+
 signals:
     /**
      * @brief numCasellaCliccata: invio segnale a model posizione casella cliccata
@@ -119,6 +129,9 @@ signals:
      * @brief cheImmagineHo: segnale per chiedere al model il tipo di carta
      */
     //void cheImmagineHo(nat);
+
+
+
 };
 
 }
