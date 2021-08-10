@@ -127,8 +127,9 @@ signals:
      * @param b posizione carta board
      * @param c1 carta da mano a board
      * @param c2 nuova carta
+     * @param behaviour: come lo slot ricevente deve comportarsi
      */
-    void UpdateViewfromModel(nat a, nat b, QString c1, QString c2);
+    void UpdateViewfromModel(nat a, nat b, QString c1, QString c2, nat behaviour);
 
     /**
      * @brief UpdateCardMano: aggiorna view mano con la carta corretta

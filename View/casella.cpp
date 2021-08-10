@@ -21,14 +21,18 @@ namespace view {
 */
 Casella::Casella(nat p, QString s, QPushButton*pushbutton):QPushButton(pushbutton), pos(p){
 
-
-    iconStd=QIcon(":/Img/"+s+".jpg");
-    onHover=QIcon(":/Img/"+s+"h.jpg");
+    def=s;
+    iconStd=QIcon(":/Img/"+def+".jpg");
+    onHover=QIcon(":/Img/"+def+"h.jpg");
     setIcon(iconStd);
     setIconSize(QSize(40, 60));
     connect(this,&QPushButton::clicked, this, &Casella::supportCasellaCliccata);
 
     //creare segnale di supposto per emettere casellaCliccata con la posizione!!!
+}
+
+QString Casella::getDefautImage() const {
+    return def;
 }
 
 void Casella::cambiaImmagine(QString i){

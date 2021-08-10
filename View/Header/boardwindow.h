@@ -51,10 +51,11 @@ public slots:
      * @brief aggiornamentoView: aggiornamento view in seguito al posizionamento di una carta
      * @param posMano
      * @param PosBoard
-     * @param CartaBoard    nome immagine da inserire nella board in pos. PosBoard
-     * @param CartaMano     nome immagine da inserire nella mano in pos. CartaMano
+     * @param CartaBoard: nome immagine da inserire nella board in pos. PosBoard
+     * @param CartaMano: nome immagine da inserire nella mano in pos. CartaMano
+     * @param behaviour: come lo slot deve gestire i dati ricevuti
      */
-    void aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard);
+    void aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard, nat behaviour);
 
     /**
      * @brief aggiornamentoCartaMano: per modificare le immagini delle carte della mano

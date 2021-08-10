@@ -41,13 +41,21 @@ BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
     show();
 }
 
-void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard){
-
-    // mettere carta CartaBoard in posizione posBoard in b+ù
-    b->addCardBoard(PosBoard,CartaBoard);
-
-    // mettere carta CartaMano in posizione posMano in m
-    m->addCardMano(posMano,CartaMano);
+void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard, nat behaviour){
+    // quando riceve carta tunnel o blocco
+    if(behaviour == 0){
+        b->addCardBoard(PosBoard,CartaBoard);
+        m->addCardMano(posMano,CartaMano);
+    }
+    //quando riceve carta CloneCards
+    else if(behaviour == 1){
+        m->addCardMano(posMano,CartaMano);
+    }
+    //quando riceve carta Crollo
+    else{
+        m->addCardMano(posMano,CartaMano);
+        b->addCardBoard(PosBoard,b->vettoreCaselleBoard[0]->getDefautImage());
+    }
 }
 
 void BoardWindow::closeEvent(QCloseEvent *event){
