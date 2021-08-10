@@ -41,8 +41,6 @@ public:
      */
     void cambiaImmagine(QString i);
 
-
-
 signals:
     /**
      * @brief casellaCliccata: invio segnale casella cliccata

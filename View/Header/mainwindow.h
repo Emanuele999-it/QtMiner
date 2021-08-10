@@ -137,13 +137,21 @@ signals:
      */
     void UpdateCardMano(nat a, QString c);
 
-
     /**
      * @brief RimbalzoCheImmagineHo: segnale di rimbalzo per
      */
     void RimbalzoCheImmagineHo(nat);
 
+    /**
+     * @brief rimbalzoScambioCarteMB: segnale che permette di far arrivare il segnale di scambio carte
+     *                                mano->board al controller
+     */
+    void rimbalzoScambioCarteMB(nat, nat);
+
 private slots:
+    /**
+     * @brief closeGameBoard: slot chiusura finestra di gioco
+     */
     void closeGameBoard();
 
 

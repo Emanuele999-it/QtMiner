@@ -9,11 +9,15 @@ BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
 
     b = new view::Board(celle);
     m = new view::Mano(7);
-    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard);
-    connect(m, &view::Mano::numCasellaCliccataMano, this, &BoardWindow::rimbalzoSegnaleCasellaSelezionataMano);
+
+    scambioMB = new QPushButton("Scambia");
 
     mosse = new QLCDNumber(3);
     mosse->setSegmentStyle(QLCDNumber::Filled);
+
+    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard);
+    connect(m, &view::Mano::numCasellaCliccataMano, this, &BoardWindow::rimbalzoSegnaleCasellaSelezionataMano);
+    //connect(scambioMB, &QPushButton::clicked,);
 
 
     //LAYOUT
@@ -26,7 +30,6 @@ BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
     Vlayout->addLayout(GBLayout);
     Vlayout->addLayout(GMLayout);
 
-
     for(nat counter=0; counter<celle; counter++){
         b->vettoreCaselleBoard.push_back(new view::Casella(counter));
     }
@@ -38,7 +41,7 @@ BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
     show();
 }
 
-void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaBoard, QString CartaMano){
+void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard){
 
     // mettere carta CartaBoard in posizione posBoard in b+ù
     b->addCardBoard(PosBoard,CartaBoard);
@@ -68,4 +71,12 @@ void BoardWindow::addElVectors(){
         GMLayout->addWidget(m->vettoreCaselleMano[counter],1,counter);
         emit cheImmagineHo(counter);
     }
+
+    GMLayout->addWidget(scambioMB,1,8);
+    connect(scambioMB, &QPushButton::clicked, this ,&BoardWindow::controlloCarteDaScambiare );
+}
+
+void BoardWindow::controlloCarteDaScambiare(){
+    //controllo che posizione non sia una cella di arrivo
+    emit scambiaScarte(m->getPosizione(),b->getPosizione());
 }

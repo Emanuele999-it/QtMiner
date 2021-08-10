@@ -27,6 +27,7 @@ void Controller::buildAndConnectModelView(){
     modelBoard = new model::ModelBoard(7,40);
     //connessione tra model e view (aggiornamento carta)
     connect(modelBoard, &model::ModelBoard::CambiaPosizioneManoBoard, MainW, &MainWindow::UpdateViewfromModel);
+    connect(MainW, &MainWindow::rimbalzoScambioCarteMB, modelBoard, &model::ModelBoard::posiziona);
     connect(MainW, &MainWindow::RimbalzoCheImmagineHo, modelBoard, &model::ModelBoard::getHandImage);
     connect(modelBoard, &model::ModelBoard::CambiaImmagineMano, MainW, &MainWindow::UpdateCardMano);
 }
@@ -40,7 +41,6 @@ void Controller::openTutorial(){
 }
 
 void Controller::openBoardWindow(){
-    qDebug()<<"Controller: aggiungo carte ai vettori su model";
     modelBoard->addCardtoVectors();
     emit MainW->OpenGameWindow();  
 }
