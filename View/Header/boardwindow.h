@@ -38,6 +38,9 @@ private:
     QGridLayout *GBLayout;
     QGridLayout *GMLayout;
 
+    nat buttonCounter;
+
+
     /**
      * @brief closeEvent: evento chiusura finestra
      * @param event
@@ -69,6 +72,11 @@ public slots:
      *                                  da scambiare
      */
     void controlloCarteDaScambiare();
+
+    /**
+     * @brief activateButton:slot per l'attivazione del bottone scambio
+     */
+    void activateButton(nat);
 
 signals:
     /**

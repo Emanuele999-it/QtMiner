@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
+BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num), buttonCounter(0)
 {
     setWindowTitle(tr("Qtminer"));
     resize(1280, 720);
@@ -11,14 +11,15 @@ BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
     m = new view::Mano(7);
 
     scambioMB = new QPushButton("Scambia");
+    scambioMB->setDisabled(true);
 
     mosse = new QLCDNumber(3);
     mosse->setSegmentStyle(QLCDNumber::Filled);
 
     connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard);
     connect(m, &view::Mano::numCasellaCliccataMano, this, &BoardWindow::rimbalzoSegnaleCasellaSelezionataMano);
-    //connect(scambioMB, &QPushButton::clicked,);
-
+    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
+    connect(m, &view::Mano::numCasellaCliccataMano, this, &BoardWindow::activateButton);
 
     //LAYOUT
     QVBoxLayout *Vlayout = new QVBoxLayout(this);
@@ -41,7 +42,31 @@ BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num)
     show();
 }
 
+/*
+    la connessione e disconnessione ripetuta tra numCasellaCliccataBoard(Mano)
+    con activateButton serve per attivare e disabilitare il bottone scambia
+    al momento giusto
+*/
+
+void BoardWindow::activateButton(nat i){
+    Q_UNUSED(i)
+    buttonCounter++;
+    QObject* obj = sender();
+    if(dynamic_cast<view::Board*>(obj))
+        disconnect( obj, SIGNAL(numCasellaCliccataBoard(nat)), 0, 0 );
+    if(dynamic_cast<view::Mano*>(obj))
+        disconnect( obj, SIGNAL(numCasellaCliccataMano(nat)), 0, 0 );
+    if(buttonCounter > 1)
+        scambioMB->setDisabled(false);
+}
+
+
 void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard, nat behaviour){
+    scambioMB->setDisabled(true);
+    buttonCounter=0;
+    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
+    connect(m, &view::Mano::numCasellaCliccataMano, this, &BoardWindow::activateButton);
+
     // quando riceve carta tunnel o blocco
     if(behaviour == 0){
         b->addCardBoard(PosBoard,CartaBoard);
