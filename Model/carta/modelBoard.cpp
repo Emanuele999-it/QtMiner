@@ -45,42 +45,37 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
     else if (dynamic_cast<Tunnel*>(_carta)){
         bool *a = dynamic_cast<Tunnel*>(_carta)->getArr();
         if(a[0]==true && a[1]==true && a[2]==true && a[3]==true) {
-            qDebug()<<"╬(0)";
             return "╬(0)";
         }
         else if(a[0]==false && a[1]==true && a[2]==false && a[3]==true){
-            qDebug()<<"═(0)";
             return "═(0)";
         }
         else if(a[0]==true && a[1]==false && a[2]==true && a[3]==false){
-            qDebug()<<"║(0)";
             return "║(0)";
         }
         else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false){
-                qDebug()<<"╔(0)";
             return "╔(0)";
         }
-        else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true)
-                qDebug()<<"╬(0)";
+        else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true){
             return "╗(0)";
-        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false)
-                qDebug()<<"╬(0)";
+        }
+        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false){
             return "╚(0)";
-        else if(a[0]==true && a[1]==true && a[2]==true && a[3]==false)
-                qDebug()<<"╬(0)";
+        }
+        else if(a[0]==true && a[1]==true && a[2]==true && a[3]==false){
             return "╠(0)";
-        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==true)
-                qDebug()<<"╬(0)";
+        }
+        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==true){
             return "╩(0)";
-        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==true)
-                qDebug()<<"╬(0)";
+        }
+        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==true){
             return "╣(0)";
-        else if(a[0]==true && a[1]==false && a[2]==false && a[3]==true)
-                qDebug()<<"╬(0)";
+        }
+        else if(a[0]==true && a[1]==false && a[2]==false && a[3]==true){
             return "╝(0)";
+        }
 
         else
-            qDebug()<<"╬(0)";
             return "╦(0)";
     }
 
