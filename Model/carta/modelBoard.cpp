@@ -76,17 +76,17 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
 
 void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 //modificare comportmento in caso ci sia carta crollo/blocco
-    if(_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr){
 
+    Card* temp = _handStuff[posizioneMano]->get()->clone();
 
-        _boardStuff[posizioneBoard] = new unique_ptr<Card>(
-                                _handStuff[posizioneMano]->get()->clone());
+    if((dynamic_cast<Tunnel*>(temp) || dynamic_cast<Blocco*>(temp)) &&
+              (_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr)){
 
+        _boardStuff[posizioneBoard] = new unique_ptr<Card>(temp);
         /*
          * Funzione controllo compatibilità carta mano->board
          *
         */
-
         _handStuff[posizioneMano]->~unique_ptr();
         _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
 
@@ -95,14 +95,31 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
         //invio segnale a view nuova carta
         emit CambiaPosizioneManoBoard(posizioneMano, posizioneBoard,
                                       getImage(posizioneMano, _handStuff),
-                                      getImage(posizioneBoard, _boardStuff));
+                                      getImage(posizioneBoard, _boardStuff),0);
+    }
+
+    else if((dynamic_cast<CloneCards*>(temp) || dynamic_cast<Crollo*>(temp))
+             && (_boardStuff[posizioneBoard] != nullptr && _boardStuff[posizioneBoard]->get() != nullptr)){
+
+        if(dynamic_cast<CloneCards*>(temp)){
+            _handStuff[posizioneMano]->~unique_ptr();
+            _handStuff[posizioneMano] = new unique_ptr<Card>(_boardStuff[posizioneBoard]->get()->clone());
+            emit CambiaPosizioneManoBoard(posizioneMano,0,getImage(posizioneMano, _handStuff),"",1);
+        }
+        //la carta utilizzata è un crollo
+        else{
+            _boardStuff[posizioneBoard]->~unique_ptr();
+            _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
+            emit CambiaPosizioneManoBoard(posizioneMano,posizioneBoard,getImage(posizioneMano, _handStuff),"",2);
+        }
     }
 
     else{
         QErrorMessage *q = new QErrorMessage();
-        QString str("Posizione board non valida. Casella occupata");
+        QString str("Posizione board non valida. Casella occupata, non clonabile oppure non cancellabile");
         q->showMessage(str);
         q->setVisible(true);
+        emit changeCardsfailed();
     }
 }
 
@@ -116,9 +133,7 @@ void ModelBoard::evidenziaCellaMano(nat p){
 
 Card* ModelBoard::estrattoreCasuale(){
 
-
     nat generator= rand() % 11 + 1;
-    qDebug()<<"ModelBoard: numeo scelto: "<<generator;
     if(generator == 1) return new Blocco();
     else if(generator == 2) return new Crollo();
     else if(generator == 3) return new CloneCards();

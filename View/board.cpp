@@ -10,24 +10,20 @@ namespace view {
 
 
 Board::Board(const nat &i): posizioneBoard(0){
-
     QVector<Casella*> vettoreCaselleBoard(i);
-    /*
-        for(nat counter=0; counter<i; counter++){
-        vettoreCaselleBoard[counter]=new Casella(counter);
-        connect(vettoreCaselleBoard[counter],SIGNAL(casellaCliccata(nat)), this, SLOT(selectCardBoard(nat)));
-    }*/
-    }
-    /*
-     * creazione vettore delle caselle + connessione di ciascuna casella con lo slot selectCardBoard
-     *
-    */
 
+}
 
 
 void Board::selectCardBoard(nat r){
+    vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
     posizioneBoard=r;
+    vettoreCaselleBoard[r]->setStyleSheet("QPushButton {background-color: green;}");
     emit numCasellaCliccataBoard(r);
+}
+
+void Board::removeStylesheetButton() {
+    vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
 }
 
 void Board::addCardBoard(nat n, QString c){
@@ -38,21 +34,26 @@ Casella* Board::getCasella(nat i){
     return vettoreCaselleBoard[i];
 }
 
+nat Board::getPosizione() const {
+    return posizioneBoard;
+}
+
 /*********************** Mano ******************************************************************/
 
 Mano::Mano(const nat &i) : posizioneMano(0){
     QVector<Casella*> vettoreCaselleMano(i);
-    /*
-        for(nat counter=0; counter<i; counter++){
-            vettoreCaselleMano[counter]=new Casella(counter);
-            connect(vettoreCaselleMano[counter],SIGNAL(casellaCliccata(nat)), this, SLOT(selectCardMano(nat)));
-        }
-    */
+
 }
 
 void Mano::selectCardMano(nat r){
+    vettoreCaselleMano[posizioneMano]->setStyleSheet("");
     posizioneMano=r;
+    vettoreCaselleMano[r]->setStyleSheet("QPushButton {background-color: green;}");
     emit numCasellaCliccataMano(r);
+}
+
+void Mano::removeStylesheetButton() const{
+    vettoreCaselleMano[posizioneMano]->setStyleSheet("");
 }
 
 void Mano::addCardMano(nat n, QString c){
@@ -61,6 +62,10 @@ void Mano::addCardMano(nat n, QString c){
 
 Casella* Mano::getCasella(nat i){
     return vettoreCaselleMano[i];
+}
+
+nat Mano::getPosizione() const {
+    return posizioneMano;
 }
 
 }

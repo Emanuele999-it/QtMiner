@@ -127,8 +127,9 @@ signals:
      * @param b posizione carta board
      * @param c1 carta da mano a board
      * @param c2 nuova carta
+     * @param behaviour: come lo slot ricevente deve comportarsi
      */
-    void UpdateViewfromModel(nat a, nat b, QString c1, QString c2);
+    void UpdateViewfromModel(nat a, nat b, QString c1, QString c2, nat behaviour);
 
     /**
      * @brief UpdateCardMano: aggiorna view mano con la carta corretta
@@ -137,13 +138,21 @@ signals:
      */
     void UpdateCardMano(nat a, QString c);
 
-
     /**
      * @brief RimbalzoCheImmagineHo: segnale di rimbalzo per
      */
     void RimbalzoCheImmagineHo(nat);
 
+    /**
+     * @brief rimbalzoScambioCarteMB: segnale che permette di far arrivare il segnale di scambio carte
+     *                                mano->board al controller
+     */
+    void rimbalzoScambioCarteMB(nat, nat);
+
 private slots:
+    /**
+     * @brief closeGameBoard: slot chiusura finestra di gioco
+     */
     void closeGameBoard();
 
 
@@ -158,12 +167,15 @@ public slots:
      */
     void OpenTutorialWindow();
 
-
     /**
      * @brief OpenGameRequest: slot per creare boardwindow
      */
     void OpenGameWindow();
 
+    /**
+     * @brief changeCardsFailed: cambio carte fallito
+     */
+    void changeCardsFailed();
 
 };
 

@@ -33,6 +33,12 @@ public:
      */
     Casella* getCasella(nat);
 
+    /**
+     * @brief getPosizione: funzione che permette di far sapere quale posizione è stata
+     *                      selezionata nella board
+     * @return
+     */
+    nat getPosizione() const;
 
 public slots:
     /**
@@ -47,6 +53,10 @@ public slots:
      */
     void addCardBoard(nat, QString);
 
+    /**
+     * @brief removeStylesheetButton: rimuove colorazione selezione bottone
+     */
+    void removeStylesheetButton();
 
 
 signals:
@@ -82,6 +92,15 @@ public:
      */
     QVector<Casella*> vettoreCaselleMano;
 
+    /**
+     * @brief getPosizione: funzione che permette di far sapere quale posizione è stata
+     *                      selezionata nella mano
+     * @return
+     */
+    nat getPosizione() const;
+
+
+
 public slots:
     /**
      * @brief selectCardMano: slot che permette di salvare la posizione della carta cliccata
@@ -95,6 +114,11 @@ public slots:
      */
     void addCardMano(nat, QString);
 
+    /**
+     * @brief removeStylesheetButton: rimuove colorazione selezione bottone
+     */
+    void removeStylesheetButton() const;
+
 signals:
     /**
      * @brief numCasellaCliccata: invio segnale a model posizione casella cliccata
@@ -105,6 +129,9 @@ signals:
      * @brief cheImmagineHo: segnale per chiedere al model il tipo di carta
      */
     //void cheImmagineHo(nat);
+
+
+
 };
 
 }

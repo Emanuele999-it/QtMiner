@@ -18,6 +18,7 @@ private:
     nat pos;
     QIcon onHover;
     QIcon iconStd;
+    QString def;
 
 protected:
     /**
@@ -41,7 +42,11 @@ public:
      */
     void cambiaImmagine(QString i);
 
-
+    /**
+     * @brief getDefautImage: funzione che permette di ritornare l'immagine di defult di casella
+     * @return: qstring immagine default
+     */
+    QString getDefautImage() const;
 
 signals:
     /**

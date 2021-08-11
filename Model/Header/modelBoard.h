@@ -54,15 +54,6 @@ public:
      */
     Card* getCardMano(nat posizione) const;
 
-    /**
-     * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
-     * posizioneMano
-     * @param posizioneMano
-     * @param posizioneBoard
-     * @return
-     */
-    void posiziona(nat posizioneMano,nat posizioneBoard);
-
 
 public slots:
     /**
@@ -82,14 +73,24 @@ public slots:
      */
     void getHandImage(nat pos);
 
+    /**
+     * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
+     * posizioneMano
+     * @param posizioneMano
+     * @param posizioneBoard
+     * @return
+     */
+    void posiziona(nat posizioneMano,nat posizioneBoard);
 
 signals:
     /**
      * @brief CambiaPosizioneManoBoard: segnale per aggoirnare view
      *              il primo puntatore serve per mettere la carta nella board
-     *              il secondo puntatore serve per mettere una nuova carta nella mano
+     *              il secondo puntatore serve per mettere una nuova carta nella mano.
+     *        l'ultimo parametro che passiamo serve a far capire allo slot ricevente come deve gestire
+     *        i dati che gli arrivano
      */
-    void CambiaPosizioneManoBoard(nat, nat, QString,QString);
+    void CambiaPosizioneManoBoard(nat, nat, QString,QString,nat);
 
 
     /**
@@ -98,7 +99,10 @@ signals:
      */
     void CambiaImmagineMano(nat,QString);
 
-
+    /**
+     * @brief changeCardsfailed: emissione segnale scambio carte fallito
+     */
+    void changeCardsfailed();
 };
 
 }

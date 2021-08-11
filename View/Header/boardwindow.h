@@ -36,8 +36,10 @@ private:
     QLCDNumber *mosse;
     nat celle;
     QGridLayout *GBLayout;
-    //layout mano
     QGridLayout *GMLayout;
+
+    nat buttonCounter;
+
 
     /**
      * @brief closeEvent: evento chiusura finestra
@@ -45,20 +47,18 @@ private:
      */
     void closeEvent(QCloseEvent *event);
 
-    //test
-    QPushButton *p;
-    QVector<view::Casella*> q;
-    view::Casella* c;
+    QPushButton *scambioMB;
 
 public slots:
     /**
      * @brief aggiornamentoView: aggiornamento view in seguito al posizionamento di una carta
      * @param posMano
      * @param PosBoard
-     * @param CartaBoard    nome immagine da inserire nella board in pos. PosBoard
-     * @param CartaMano     nome immagine da inserire nella mano in pos. CartaMano
+     * @param CartaBoard: nome immagine da inserire nella board in pos. PosBoard
+     * @param CartaMano: nome immagine da inserire nella mano in pos. CartaMano
+     * @param behaviour: come lo slot deve gestire i dati ricevuti
      */
-    void aggiornamentoView(nat posMano, nat PosBoard, QString CartaBoard, QString CartaMano);
+    void aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard, nat behaviour);
 
     /**
      * @brief aggiornamentoCartaMano: per modificare le immagini delle carte della mano
@@ -66,6 +66,19 @@ public slots:
      * @param c: porzione di stringa da sostituire
      */
     void aggiornamentoCartaMano(nat a , QString c);
+
+    /**
+     * @brief controlloCarteDaScambiare: funzione che controlla se sono state selezionate le carte
+     *                                  da scambiare
+     */
+    void controlloCarteDaScambiare();
+
+    /**
+     * @brief activateButton:slot per l'attivazione del bottone scambio
+     */
+    void activateButton(nat);
+
+    void disableButton();
 
 signals:
     /**
@@ -85,9 +98,17 @@ signals:
     void rimbalzoSegnaleCasellaSelezionataMano(nat);
 
     /**
+     * @brief scambiaScarte: funzione che permette di scambiare le carte da mano a board
+     */
+    void scambiaScarte(nat, nat);
+
+    /**
      * @brief cheImmagineHo: segnale per chiedere al model il tipo di carta
      */
     void cheImmagineHo(nat);
+
+
+
 };
 
 #endif // BOARDWINDOW_H
