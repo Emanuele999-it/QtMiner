@@ -89,6 +89,10 @@ void BoardWindow::controlloCarteDaScambiare(){
 void BoardWindow::avviaMossaAI(){
     //controllo che posizione non sia una cella di arrivo
     mosse->display((mosse->value())+1);
-    emit mossaAI(mosse->value());
+    emit mossaAI();
+}
+
+void BoardWindow::aggiornamentoBoardAI(nat posAI, QString imgAI){
+    b->addCardBoard(posAI,imgAI);
 }
 

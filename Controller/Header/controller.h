@@ -63,6 +63,10 @@ public slots:
      */
     void cambiaCellaMano(nat);
 
+    /**
+     * @brief cambia la carta in una posizione specifica nela board
+     */
+    //void cambiaCellaBoardAI(nat);
 signals:
 
 };

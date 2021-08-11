@@ -148,6 +148,14 @@ signals:
      */
     void rimbalzoScambioCarteMB(nat, nat);
 
+/**********Logica per mossa successiva****************/
+    /**
+     * @brief rimbalzoMossaAI
+     */
+    void rimbalzoMossaAI();
+
+    void updateBoardAI(nat, QString);
+
 private slots:
     /**
      * @brief closeGameBoard: slot chiusura finestra di gioco

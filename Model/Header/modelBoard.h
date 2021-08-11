@@ -88,6 +88,11 @@ public slots:
      */
     void posiziona(nat posizioneMano,nat posizioneBoard);
 
+    /**
+     * @brief posizionaAI posiziona la carta della ia (random) e la mette dove puo'
+     */
+    void posizionaAI();
+
 signals:
     /**
      * @brief CambiaPosizioneManoBoard: segnale per aggoirnare view
@@ -103,6 +108,10 @@ signals:
      */
     void CambiaImmagineMano(nat,QString);
 
+    /**
+     * @brief cambiaCellaBoardAI
+     */
+    void cambiaCellaBoardAI(nat,QString);
 
 };
 

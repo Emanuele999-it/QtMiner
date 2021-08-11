@@ -75,6 +75,13 @@ public slots:
      */
     void avviaMossaAI();
 
+    /**
+     * @brief aggiornamentoBoardAI: aggiornare la view da IA
+     * @param posAI
+     * @param CartaAI
+     */
+    void aggiornamentoBoardAI(nat posAI, QString CartaAI);
+
 signals:
     /**
      * @brief chiusuraBoardW: segnale chiusura boardWindow
@@ -105,7 +112,7 @@ signals:
     /**
      * @brief mossaAI: aggiunge alla board (ove possibile) una carta random
      */
-    void mossaAI(nat);
+    void mossaAI();
 
 };
 
