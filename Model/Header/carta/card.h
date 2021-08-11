@@ -38,7 +38,7 @@ public:
     /**
      * @brief ~Card: distruttore
      */
-     virtual ~Card();
+     virtual ~Card()=0;
 
     /**
      * @brief get_canBeUsed: indica se la carta può essere o meno usata

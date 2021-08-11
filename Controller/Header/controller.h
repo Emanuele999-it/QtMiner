@@ -17,6 +17,10 @@ private:
 
     model::ModelBoard* modelBoard;
 
+
+    void buildAndConnectModelView();
+
+
 public:
     Controller(QObject* parent= nullptr);
 

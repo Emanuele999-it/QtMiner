@@ -57,19 +57,24 @@ void MainWindow::OpenTutorialWindow(){
 }
 
 void MainWindow::OpenGameWindow(){
-    boardWindoW= new BoardWindow();
+    boardWindoW = new BoardWindow();
 
     //connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard,this,MainWindow::casellaBoardSelezionata);
     //connect(boardWindoW,&BoardWindow::rimbalzoSegnaleCasellaSelezionataMano,this,MainWindow::casellaManoSelezionata);
     connect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
     connect(this, &MainWindow::UpdateCardMano, boardWindoW, &BoardWindow::aggiornamentoCartaMano);
     connect(boardWindoW,&BoardWindow::cheImmagineHo,this, &MainWindow::RimbalzoCheImmagineHo);
-    connect(boardWindoW,&BoardWindow::chiusuraBoardW, this, &MainWindow::chiusuraBoardWRimbalzo);
+    connect(boardWindoW,&BoardWindow::chiusuraBoardW, this, &MainWindow::closeGameBoard);
+
+    //connect(boardWindoW,&BoardWindow::chiusuraBoardW, this, &MainWindow::chiusuraBoardWRimbalzo);
 
     //boardWindoW->show();
+    qDebug()<<"MainWindow: aggiungo elementi ai vettori view";
     boardWindoW->addElVectors();
 }
 
-void MainWindow::createObjVectors(){
-    boardWindoW->addElVectors();
+void MainWindow::closeGameBoard(){
+    qDebug()<<"MainWindow: elimino BoardWindow";
+    delete boardWindoW;
+    emit chiusuraBoardWRimbalzo();
 }
