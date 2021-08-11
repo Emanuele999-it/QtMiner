@@ -14,6 +14,12 @@ Board::Board(const nat &i): posizioneBoard(0){
 
 }
 
+void Board::addelVec(nat c){
+    for(nat counter=0; counter<c; counter++){
+        vettoreCaselleBoard.push_back(new view::Casella(counter));
+        connect(vettoreCaselleBoard[counter],SIGNAL(casellaCliccata(nat)), this, SLOT(selectCardBoard(nat)));
+    }
+}
 
 void Board::selectCardBoard(nat r){
     vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
@@ -38,34 +44,13 @@ nat Board::getPosizione() const {
     return posizioneBoard;
 }
 
+QString Board::getImage(nat p) const {
+    return vettoreCaselleBoard[p]->getDefautImage();
+}
+
 /*********************** Mano ******************************************************************/
 
-Mano::Mano(const nat &i) : posizioneMano(0){
-    QVector<Casella*> vettoreCaselleMano(i);
+Mano::Mano(const nat &i) : Board(i){}
 
-}
-
-void Mano::selectCardMano(nat r){
-    vettoreCaselleMano[posizioneMano]->setStyleSheet("");
-    posizioneMano=r;
-    vettoreCaselleMano[r]->setStyleSheet("QPushButton {background-color: green;}");
-    emit numCasellaCliccataMano(r);
-}
-
-void Mano::removeStylesheetButton() const{
-    vettoreCaselleMano[posizioneMano]->setStyleSheet("");
-}
-
-void Mano::addCardMano(nat n, QString c){
-    vettoreCaselleMano[n]->cambiaImmagine(c);
-}
-
-Casella* Mano::getCasella(nat i){
-    return vettoreCaselleMano[i];
-}
-
-nat Mano::getPosizione() const {
-    return posizioneMano;
-}
 
 }

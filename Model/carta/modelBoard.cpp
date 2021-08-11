@@ -140,12 +140,13 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
     }
 }
 
-void ModelBoard::evidenziaCellaBoard(nat p){
-    _nBoard=p;
-}
-
-void ModelBoard::evidenziaCellaMano(nat p){
-    _nMano=p;
+void ModelBoard::evidenziaCellaBoard(nat x, nat y){
+    //se il segnale arriva dalla board
+    if(y==0)
+        _nBoard=x;
+    //se invece il segnale arriva dalla mano
+    else
+        _nMano=x;
 }
 
 Card* ModelBoard::estrattoreCasuale(){

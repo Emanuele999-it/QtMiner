@@ -60,9 +60,10 @@ void MainWindow::OpenGameWindow(){
     boardWindoW = new BoardWindow();
 
     connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
-    connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataMano, this, &MainWindow::casellaManoSelezionata);
+
     connect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
     connect(this, &MainWindow::UpdateCardMano, boardWindoW, &BoardWindow::aggiornamentoCartaMano);
+
     connect(boardWindoW, &BoardWindow::cheImmagineHo, this, &MainWindow::RimbalzoCheImmagineHo);
     connect(boardWindoW, &BoardWindow::chiusuraBoardW, this, &MainWindow::closeGameBoard);
     connect(boardWindoW, &BoardWindow::scambiaScarte, this, &MainWindow::rimbalzoScambioCarteMB);

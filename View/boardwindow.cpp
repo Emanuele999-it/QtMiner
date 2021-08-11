@@ -16,10 +16,10 @@ BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num), buttonCo
     mosse = new QLCDNumber(3);
     mosse->setSegmentStyle(QLCDNumber::Filled);
 
-    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard);
-    connect(m, &view::Mano::numCasellaCliccataMano, this, &BoardWindow::rimbalzoSegnaleCasellaSelezionataMano);
+    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
+    connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
     connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
-    connect(m, &view::Mano::numCasellaCliccataMano, this, &BoardWindow::activateButton);
+    connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
 
     //LAYOUT
     QVBoxLayout *Vlayout = new QVBoxLayout(this);
@@ -31,13 +31,11 @@ BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num), buttonCo
     Vlayout->addLayout(GBLayout);
     Vlayout->addLayout(GMLayout);
 
-    for(nat counter=0; counter<celle; counter++){
-        b->vettoreCaselleBoard.push_back(new view::Casella(counter));
-    }
+    GBLayout->setSpacing(5);
 
-    for(nat counter=0; counter<7; counter++){
-        m->vettoreCaselleMano.push_back(new view::Casella(counter));
-    }
+    b->addelVec(celle);
+
+    m->addelVec(7);
 
     show();
 }
@@ -48,6 +46,17 @@ BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num), buttonCo
     al momento giusto
 */
 
+void BoardWindow::cellaSelezionata(nat p){
+
+    QObject* obj= sender();
+    nat funcSender=0;
+
+    if(dynamic_cast<view::Mano*>(obj)){
+        funcSender=1;
+    }
+    emit rimbalzoSegnaleCasellaSelezionataBoard(p,funcSender);
+}
+
 void BoardWindow::activateButton(nat i){
     Q_UNUSED(i)
     buttonCounter++;
@@ -55,7 +64,7 @@ void BoardWindow::activateButton(nat i){
     if(dynamic_cast<view::Board*>(obj))
         disconnect( obj, SIGNAL(numCasellaCliccataBoard(nat)), 0, 0 );
     if(dynamic_cast<view::Mano*>(obj))
-        disconnect( obj, SIGNAL(numCasellaCliccataMano(nat)), 0, 0 );
+        disconnect( obj, SIGNAL(numCasellaCliccataBoard(nat)), 0, 0 );
     if(buttonCounter > 1)
         scambioMB->setDisabled(false);
 }
@@ -64,7 +73,7 @@ void BoardWindow::disableButton(){
     scambioMB->setDisabled(true);
     buttonCounter=0;
     connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
-    connect(m, &view::Mano::numCasellaCliccataMano, this, &BoardWindow::activateButton);
+    connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
 }
 
 void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard, nat behaviour){
@@ -74,16 +83,16 @@ void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano
     // quando riceve carta tunnel o blocco
     if(behaviour == 0){
         b->addCardBoard(PosBoard,CartaBoard);
-        m->addCardMano(posMano,CartaMano);
+        m->addCardBoard(posMano,CartaMano);
     }
     //quando riceve carta CloneCards
     else if(behaviour == 1){
-        m->addCardMano(posMano,CartaMano);
+        m->addCardBoard(posMano,CartaMano);
     }
     //quando riceve carta Crollo
     else{
-        m->addCardMano(posMano,CartaMano);
-        b->addCardBoard(PosBoard,b->vettoreCaselleBoard[0]->getDefautImage());
+        m->addCardBoard(posMano,CartaMano);
+        b->addCardBoard(PosBoard,b->getImage(PosBoard));
     }
 }
 
@@ -93,19 +102,17 @@ void BoardWindow::closeEvent(QCloseEvent *event){
 }
 
 void BoardWindow::aggiornamentoCartaMano(nat a, QString c){
-    m->addCardMano(a,c);
+    m->addCardBoard(a,c);
 }
 
 void BoardWindow::addElVectors(){
 
     for(nat counter=0; counter<celle; counter++){
-        connect(b->vettoreCaselleBoard[counter],SIGNAL(casellaCliccata(nat)), b, SLOT(selectCardBoard(nat)));
         GBLayout->addWidget(b->vettoreCaselleBoard[counter],counter/5,counter%5);
     }
 
     for(nat counter=0; counter<7; counter++){
-        connect(m->vettoreCaselleMano[counter],SIGNAL(casellaCliccata(nat)), m, SLOT(selectCardMano(nat)));
-        GMLayout->addWidget(m->vettoreCaselleMano[counter],1,counter);
+        GMLayout->addWidget(m->vettoreCaselleBoard[counter],1,counter);
         emit cheImmagineHo(counter);
     }
 

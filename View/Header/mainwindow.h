@@ -113,13 +113,7 @@ signals:
     /**
      * @brief casellaBoardSelezionata: passa il segnale al controller
      */
-    void casellaBoardSelezionata(nat);
-
-    /**
-     * @brief casellaManoSelezionata: passa il segnale al controller
-     */
-    void casellaManoSelezionata(nat);
-
+    void casellaBoardSelezionata(nat, nat);
 
     /**
      * @brief UpdateViewfromModel aggiornamento view dopo scelta carta da mettere in campo

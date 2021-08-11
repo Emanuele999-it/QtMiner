@@ -78,7 +78,18 @@ public slots:
      */
     void activateButton(nat);
 
+    /**
+     * @brief disableButton: slot per disabilitare bottone
+     */
     void disableButton();
+
+
+private slots:
+    /**
+     * @brief cellaSelezionata: slot che permette di differenziare chi ha emesso numCasellaCliccata
+     */
+    void cellaSelezionata(nat);
+
 
 signals:
     /**
@@ -90,12 +101,8 @@ signals:
      * @brief rimbalzoSegnaleCasellaSelezionataBoard: prende il segnale casellaCliccataBoard e lo
      *                  passa alla classe gerarchicamente superiore
      */
-    void rimbalzoSegnaleCasellaSelezionataBoard(nat);
+    void rimbalzoSegnaleCasellaSelezionataBoard(nat, nat);
 
-    /**
-     * @brief rimbalzoSegnaleCasellaSelezionataMano: stessa cosa del precedente
-     */
-    void rimbalzoSegnaleCasellaSelezionataMano(nat);
 
     /**
      * @brief scambiaScarte: funzione che permette di scambiare le carte da mano a board

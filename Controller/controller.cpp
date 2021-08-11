@@ -16,7 +16,6 @@ Controller::Controller(QObject* parent): QObject(parent), MainW(new MainWindow()
     connect(MainW, &MainWindow::GameRequest, this, &Controller::openBoardWindow);
     //da controllare potrebbero essere sbagliati
     connect(MainW, &MainWindow::casellaBoardSelezionata, this, &Controller::cambiaCellaBoard);
-    connect(MainW, &MainWindow::casellaManoSelezionata, this, &Controller::cambiaCellaMano);
 
     connect(MainW,&MainWindow::chiusuraBoardWRimbalzo, this, &Controller::chiusuraGame);
     MainW->show();
@@ -51,13 +50,10 @@ void Controller::chiusuraGame(){
     buildAndConnectModelView();
 }
 
-void Controller::cambiaCellaBoard(nat y){
-    emit modelBoard->evidenziaCellaBoard(y);
+void Controller::cambiaCellaBoard(nat x, nat y){
+    emit modelBoard->evidenziaCellaBoard(x,y);
 }
 
-void Controller::cambiaCellaMano(nat y){
-    emit modelBoard->evidenziaCellaMano(y);
-}
 
 //void controller::Controller::openSettings(){
     //emit MainW->OpenSettingsWindow();

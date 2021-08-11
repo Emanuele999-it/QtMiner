@@ -55,13 +55,8 @@ public slots:
      * @brief cambiaCellaBoard: slot che permette di cambiare
      *                  la della slezionata nella board/mano
      */
-    void cambiaCellaBoard(nat);
+    void cambiaCellaBoard(nat, nat);
 
-    /**
-     * @brief cambiaCellaModel: segnale modifica cella selezionata
-     *                      per il modello modelBoard
-     */
-    void cambiaCellaMano(nat);
 
 signals:
 

@@ -59,12 +59,7 @@ public slots:
     /**
      * @brief evidenziaCartaBoard: slot per modificare quale cella è selezionata nella board
      */
-    void evidenziaCellaBoard(nat p);
-
-    /**
-     * @brief evidenziaCellaMano: slot per modificare cella selezionata nella mano
-     */
-    void evidenziaCellaMano(nat p);
+    void evidenziaCellaBoard(nat x, nat y);
 
     /**
      * @brief getHandImage: serve per ottenere l'immagine della carta nella mano
