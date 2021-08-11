@@ -60,12 +60,16 @@ void BoardWindow::activateButton(nat i){
         scambioMB->setDisabled(false);
 }
 
-
-void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard, nat behaviour){
+void BoardWindow::disableButton(){
     scambioMB->setDisabled(true);
     buttonCounter=0;
     connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
     connect(m, &view::Mano::numCasellaCliccataMano, this, &BoardWindow::activateButton);
+}
+
+void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard, nat behaviour){
+
+    disableButton();
 
     // quando riceve carta tunnel o blocco
     if(behaviour == 0){

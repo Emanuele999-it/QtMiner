@@ -119,6 +119,7 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
         QString str("Posizione board non valida. Casella occupata, non clonabile oppure non cancellabile");
         q->showMessage(str);
         q->setVisible(true);
+        emit changeCardsfailed();
     }
 }
 
@@ -131,7 +132,6 @@ void ModelBoard::evidenziaCellaMano(nat p){
 }
 
 Card* ModelBoard::estrattoreCasuale(){
-
 
     nat generator= rand() % 11 + 1;
     if(generator == 1) return new Blocco();

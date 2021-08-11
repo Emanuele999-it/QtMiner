@@ -99,7 +99,10 @@ signals:
      */
     void CambiaImmagineMano(nat,QString);
 
-
+    /**
+     * @brief changeCardsfailed: emissione segnale scambio carte fallito
+     */
+    void changeCardsfailed();
 };
 
 }

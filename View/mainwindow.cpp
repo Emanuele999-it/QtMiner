@@ -73,3 +73,7 @@ void MainWindow::closeGameBoard(){
     delete boardWindoW;
     emit chiusuraBoardWRimbalzo();
 }
+
+void MainWindow::changeCardsFailed(){
+    boardWindoW->disableButton();
+}

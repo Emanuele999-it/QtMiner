@@ -78,6 +78,8 @@ public slots:
      */
     void activateButton(nat);
 
+    void disableButton();
+
 signals:
     /**
      * @brief chiusuraBoardW: segnale chiusura boardWindow

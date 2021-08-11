@@ -167,12 +167,15 @@ public slots:
      */
     void OpenTutorialWindow();
 
-
     /**
      * @brief OpenGameRequest: slot per creare boardwindow
      */
     void OpenGameWindow();
 
+    /**
+     * @brief changeCardsFailed: cambio carte fallito
+     */
+    void changeCardsFailed();
 
 };
 
