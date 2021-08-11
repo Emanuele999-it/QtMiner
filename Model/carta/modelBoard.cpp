@@ -107,11 +107,12 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 }
 
 void ModelBoard::posizionaAI(){
-    nat size = 20;//Qui ci verrebbe un size della nostra board
+    nat size = 40;//Qui ci verrebbe un size della nostra board
     bool ok = false; //E' una posizione valida?
     //Qui metto un rand, ma è da rivedere da dove si PARTE a fare algo di conseguenza
     nat generator;
     while(!ok){
+        //Qui va in ciclo infinito se non ci sono celle available
         generator = rand() % size;
         if(_boardStuff[generator] == nullptr || _boardStuff[generator]->get() == nullptr){
             _boardStuff[generator] = new unique_ptr<Card>(estrattoreCasuale());
