@@ -44,21 +44,43 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
 
     else if (dynamic_cast<Tunnel*>(_carta)){
         bool *a = dynamic_cast<Tunnel*>(_carta)->getArr();
-        if(a[0]==true && a[1]==true && a[2]==true && a[3]==true)
+        if(a[0]==true && a[1]==true && a[2]==true && a[3]==true) {
+            qDebug()<<"╬(0)";
             return "╬(0)";
-        else if(a[0]==false && a[1]==true && a[2]==false && a[3]==true)
+        }
+        else if(a[0]==false && a[1]==true && a[2]==false && a[3]==true){
+            qDebug()<<"═(0)";
             return "═(0)";
-        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==false)
+        }
+        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==false){
+            qDebug()<<"║(0)";
             return "║(0)";
-        else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false)
-            return "╔(2)";
+        }
+        else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false){
+                qDebug()<<"╔(0)";
+            return "╔(0)";
+        }
         else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true)
+                qDebug()<<"╬(0)";
             return "╗(0)";
         else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false)
+                qDebug()<<"╬(0)";
             return "╚(0)";
         else if(a[0]==true && a[1]==true && a[2]==true && a[3]==false)
+                qDebug()<<"╬(0)";
             return "╠(0)";
+        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==true)
+                qDebug()<<"╬(0)";
+            return "╩(0)";
+        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==true)
+                qDebug()<<"╬(0)";
+            return "╣(0)";
+        else if(a[0]==true && a[1]==false && a[2]==false && a[3]==true)
+                qDebug()<<"╬(0)";
+            return "╝(0)";
+
         else
+            qDebug()<<"╬(0)";
             return "╦(0)";
     }
 
@@ -133,18 +155,21 @@ void ModelBoard::evidenziaCellaMano(nat p){
 
 Card* ModelBoard::estrattoreCasuale(){
 
-    nat generator= rand() % 11 + 1;
+    nat generator= rand() % 14 + 1;
     if(generator == 1) return new Blocco();
     else if(generator == 2) return new Crollo();
     else if(generator == 3) return new CloneCards();
-    else if(generator == 4) return new Tunnel(true,true,true,true);
-    else if(generator == 5) return new Tunnel(false,true,false,true);
-    else if(generator == 6) return new Tunnel(true,false,true,false);
-    else if(generator == 7) return new Tunnel(false,true,true,false);
-    else if(generator == 8) return new Tunnel(false,false,true,true);
-    else if(generator == 9) return new Tunnel(true,true,false,false);
-    else if(generator == 10) return new Tunnel(true,true,true,false);
-    else return new Tunnel(false,true,true,true);
+    else if(generator == 4) return new Tunnel(true,true,true,true);      // ╬
+    else if(generator == 5) return new Tunnel(false,true,false,true);    // ═
+    else if(generator == 6) return new Tunnel(true,false,true,false);    // ║
+    else if(generator == 7) return new Tunnel(false,true,true,false);    // ╔
+    else if(generator == 8) return new Tunnel(false,false,true,true);    // ╗
+    else if(generator == 9) return new Tunnel(true,true,false,true);     // ╩
+    else if(generator == 10) return new Tunnel(true,false,true,true);    // ╣
+    else if(generator == 11) return new Tunnel(true,false,false,true);   // ╝
+    else if(generator == 12) return new Tunnel(true,true,false,false);   // ╚
+    else if(generator == 13) return new Tunnel(true,true,true,false);    // ╠
+    else return new Tunnel(false,true,true,true);                        // ╦
 }
 
 void ModelBoard::getHandImage(nat pos){
