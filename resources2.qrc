@@ -1,0 +1,14 @@
+
+<RCC>
+    <qresource prefix="/">
+	<file>Img/║(0).jpg</file>
+        <file>Img/╗(0).jpg</file>
+        <file>Img/╚(0).jpg</file>
+        <file>Img/╠(0).jpg</file>
+        <file>Img/╦(0).jpg</file>
+        <file>Img/╣(0).jpg</file>
+        <file>Img/╝(0).jpg</file>
+        <file>Img/╩(0).jpg</file>
+	<file>Img/╔(0).jpg</file>
+    </qresource>
+</RCC>
