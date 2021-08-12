@@ -21,7 +21,7 @@ class BoardWindow : public QWidget{
 
     Q_OBJECT
 public:
-    BoardWindow(QWidget *parent = nullptr, nat num=40);
+    BoardWindow(nat num=40, QWidget *parent = nullptr);
 
     /**
      * @brief addElVectors: permette di aggiungere gli elementi ai
@@ -38,6 +38,9 @@ private:
     QGridLayout *GBLayout;
     QGridLayout *GMLayout;
 
+    nat buttonCounter;
+
+
     /**
      * @brief closeEvent: evento chiusura finestra
      * @param event
@@ -51,10 +54,11 @@ public slots:
      * @brief aggiornamentoView: aggiornamento view in seguito al posizionamento di una carta
      * @param posMano
      * @param PosBoard
-     * @param CartaBoard    nome immagine da inserire nella board in pos. PosBoard
-     * @param CartaMano     nome immagine da inserire nella mano in pos. CartaMano
+     * @param CartaBoard: nome immagine da inserire nella board in pos. PosBoard
+     * @param CartaMano: nome immagine da inserire nella mano in pos. CartaMano
+     * @param behaviour: come lo slot deve gestire i dati ricevuti
      */
-    void aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard);
+    void aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard, nat behaviour);
 
     /**
      * @brief aggiornamentoCartaMano: per modificare le immagini delle carte della mano
@@ -70,6 +74,7 @@ public slots:
     void controlloCarteDaScambiare();
 
     /**
+<<<<<<< HEAD
      * @brief avvia la mossa e triggera l'IA
      * @param a il numero da aggiornare
      */
@@ -82,6 +87,24 @@ public slots:
      */
     void aggiornamentoBoardAI(nat posAI, QString CartaAI);
 
+    /*
+     * @brief activateButton:slot per l'attivazione del bottone scambio
+     */
+    void activateButton(nat);
+
+    /**
+     * @brief disableButton: slot per disabilitare bottone
+     */
+    void disableButton();
+
+
+private slots:
+    /**
+     * @brief cellaSelezionata: slot che permette di differenziare chi ha emesso numCasellaCliccata
+     */
+    void cellaSelezionata(nat);
+
+
 signals:
     /**
      * @brief chiusuraBoardW: segnale chiusura boardWindow
@@ -92,12 +115,8 @@ signals:
      * @brief rimbalzoSegnaleCasellaSelezionataBoard: prende il segnale casellaCliccataBoard e lo
      *                  passa alla classe gerarchicamente superiore
      */
-    void rimbalzoSegnaleCasellaSelezionataBoard(nat);
+    void rimbalzoSegnaleCasellaSelezionataBoard(nat, nat);
 
-    /**
-     * @brief rimbalzoSegnaleCasellaSelezionataMano: stessa cosa del precedente
-     */
-    void rimbalzoSegnaleCasellaSelezionataMano(nat);
 
     /**
      * @brief scambiaScarte: funzione che permette di scambiare le carte da mano a board

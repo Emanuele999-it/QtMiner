@@ -17,8 +17,10 @@ ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), _nBoard(nBoard),
     _handStuff(CVector<unique_ptr<Card>*>(0)),
     _boardStuff(CVector<unique_ptr<Card>*>(0)){}
 
-
 void ModelBoard::addCardtoVectors() {
+
+    qDebug()<<"Controller: _nBoard: "<<_nBoard;
+
     for (nat i = 0; i< _nBoard; ++i)
         _boardStuff.push_back(new unique_ptr<Card>());
 
@@ -44,20 +46,37 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
 
     else if (dynamic_cast<Tunnel*>(_carta)){
         bool *a = dynamic_cast<Tunnel*>(_carta)->getArr();
-        if(a[0]==true && a[1]==true && a[2]==true && a[3]==true)
+        if(a[0]==true && a[1]==true && a[2]==true && a[3]==true) {
             return "╬(0)";
-        else if(a[0]==false && a[1]==true && a[2]==false && a[3]==true)
+        }
+        else if(a[0]==false && a[1]==true && a[2]==false && a[3]==true){
             return "═(0)";
-        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==false)
+        }
+        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==false){
             return "║(0)";
-        else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false)
-            return "╔(2)";
-        else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true)
+        }
+        else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false){
+            return "╔(0)";
+        }
+        else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true){
             return "╗(0)";
-        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false)
+        }
+        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false){
             return "╚(0)";
-        else if(a[0]==true && a[1]==true && a[2]==true && a[3]==false)
+        }
+        else if(a[0]==true && a[1]==true && a[2]==true && a[3]==false){
             return "╠(0)";
+        }
+        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==true){
+            return "╩(0)";
+        }
+        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==true){
+            return "╣(0)";
+        }
+        else if(a[0]==true && a[1]==false && a[2]==false && a[3]==true){
+            return "╝(0)";
+        }
+
         else
             return "╦(0)";
     }
@@ -76,17 +95,17 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
 
 void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 //modificare comportmento in caso ci sia carta crollo/blocco
-    if(_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr){
 
+    Card* temp = _handStuff[posizioneMano]->get()->clone();
 
-        _boardStuff[posizioneBoard] = new unique_ptr<Card>(
-                                _handStuff[posizioneMano]->get()->clone());
+    if((dynamic_cast<Tunnel*>(temp) || dynamic_cast<Blocco*>(temp)) &&
+              (_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr)){
 
+        _boardStuff[posizioneBoard] = new unique_ptr<Card>(temp);
         /*
          * Funzione controllo compatibilità carta mano->board
          *
         */
-
         _handStuff[posizioneMano]->~unique_ptr();
         _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
 
@@ -95,16 +114,34 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
         //invio segnale a view nuova carta
         emit CambiaPosizioneManoBoard(posizioneMano, posizioneBoard,
                                       getImage(posizioneMano, _handStuff),
-                                      getImage(posizioneBoard, _boardStuff));
+                                      getImage(posizioneBoard, _boardStuff),0);
+    }
+
+    else if((dynamic_cast<CloneCards*>(temp) || dynamic_cast<Crollo*>(temp))
+             && (_boardStuff[posizioneBoard] != nullptr && _boardStuff[posizioneBoard]->get() != nullptr)){
+
+        if(dynamic_cast<CloneCards*>(temp)){
+            _handStuff[posizioneMano]->~unique_ptr();
+            _handStuff[posizioneMano] = new unique_ptr<Card>(_boardStuff[posizioneBoard]->get()->clone());
+            emit CambiaPosizioneManoBoard(posizioneMano,0,getImage(posizioneMano, _handStuff),"",1);
+        }
+        //la carta utilizzata è un crollo
+        else{
+            _boardStuff[posizioneBoard]->~unique_ptr();
+            _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
+            emit CambiaPosizioneManoBoard(posizioneMano,posizioneBoard,getImage(posizioneMano, _handStuff),"",2);
+        }
     }
 
     else{
         QErrorMessage *q = new QErrorMessage();
-        QString str("Posizione board non valida. Casella occupata");
+        QString str("Posizione board non valida. Casella occupata, non clonabile oppure non cancellabile");
         q->showMessage(str);
         q->setVisible(true);
+        emit changeCardsfailed();
     }
 }
+
 
 void ModelBoard::posizionaAI(){
     nat size = 40;//Qui ci verrebbe un size della nostra board
@@ -123,12 +160,14 @@ void ModelBoard::posizionaAI(){
     emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));
 }
 
-void ModelBoard::evidenziaCellaBoard(nat p){
-    _nBoard=p;
-}
 
-void ModelBoard::evidenziaCellaMano(nat p){
-    _nMano=p;
+void ModelBoard::evidenziaCellaBoard(nat x, nat y){
+    //se il segnale arriva dalla board
+    if(y==0)
+        _nBoard=x;
+    //se invece il segnale arriva dalla mano
+    else
+        _nMano=x;
 }
 
 Card* ModelBoard::estrattoreCasuale(){
@@ -170,7 +209,7 @@ Card* ModelBoard::estrattoreCasuale(){
         return new Tunnel(false,true,true,true);
         break;
     }
-    }
+}
     /*
     if(generator == 1) return new Blocco();
     else if(generator == 2) return new Crollo();

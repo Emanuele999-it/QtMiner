@@ -47,7 +47,8 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 void MainWindow::OpenSettingsWindow(){
     //hide();
     settWindow = new SettingsWindow();
-    settWindow->show();
+    connect(settWindow, &SettingsWindow::newBoardDimension, this, &MainWindow::changeBoardDimension);
+    settWindow->exec();
 }
 
 void MainWindow::OpenTutorialWindow(){
@@ -56,13 +57,14 @@ void MainWindow::OpenTutorialWindow(){
     tWindow->exec();
 }
 
-void MainWindow::OpenGameWindow(){
-    boardWindoW = new BoardWindow();
+void MainWindow::OpenGameWindow(nat dim){
+    boardWindoW = new BoardWindow(dim);
 
     connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
-    connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataMano, this, &MainWindow::casellaManoSelezionata);
+
     connect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
     connect(this, &MainWindow::UpdateCardMano, boardWindoW, &BoardWindow::aggiornamentoCartaMano);
+
     connect(boardWindoW, &BoardWindow::cheImmagineHo, this, &MainWindow::RimbalzoCheImmagineHo);
     connect(boardWindoW, &BoardWindow::chiusuraBoardW, this, &MainWindow::closeGameBoard);
     connect(boardWindoW, &BoardWindow::scambiaScarte, this, &MainWindow::rimbalzoScambioCarteMB);
@@ -76,4 +78,8 @@ void MainWindow::OpenGameWindow(){
 void MainWindow::closeGameBoard(){
     delete boardWindoW;
     emit chiusuraBoardWRimbalzo();
+}
+
+void MainWindow::changeCardsFailed(){
+    boardWindoW->disableButton();
 }

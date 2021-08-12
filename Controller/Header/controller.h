@@ -17,6 +17,7 @@ private:
 
     model::ModelBoard* modelBoard;
 
+    nat boardDimension;
 
     void buildAndConnectModelView();
 
@@ -55,13 +56,12 @@ public slots:
      * @brief cambiaCellaBoard: slot che permette di cambiare
      *                  la della slezionata nella board/mano
      */
-    void cambiaCellaBoard(nat);
+    void cambiaCellaBoard(nat, nat);
 
     /**
-     * @brief cambiaCellaModel: segnale modifica cella selezionata
-     *                      per il modello modelBoard
+     * @brief cambioDimensioniBoard: slot per modifica della dimensione della board
      */
-    void cambiaCellaMano(nat);
+    void cambioDimensioniBoard(nat);
 
     /**
      * @brief cambia la carta in una posizione specifica nela board

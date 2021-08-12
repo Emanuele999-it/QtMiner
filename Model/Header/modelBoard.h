@@ -34,7 +34,7 @@ private:
 
 
 public:
-    ModelBoard(nat nMano = 7,nat nBoard = 40);
+    ModelBoard(nat nMano,nat nBoard);
 
     /**
      * @brief addCardtoVectors: metodo per inserire gli elementi nei vettori
@@ -65,12 +65,7 @@ public slots:
     /**
      * @brief evidenziaCartaBoard: slot per modificare quale cella è selezionata nella board
      */
-    void evidenziaCellaBoard(nat p);
-
-    /**
-     * @brief evidenziaCellaMano: slot per modificare cella selezionata nella mano
-     */
-    void evidenziaCellaMano(nat p);
+    void evidenziaCellaBoard(nat x, nat y);
 
     /**
      * @brief getHandImage: serve per ottenere l'immagine della carta nella mano
@@ -97,9 +92,11 @@ signals:
     /**
      * @brief CambiaPosizioneManoBoard: segnale per aggoirnare view
      *              il primo puntatore serve per mettere la carta nella board
-     *              il secondo puntatore serve per mettere una nuova carta nella mano
+     *              il secondo puntatore serve per mettere una nuova carta nella mano.
+     *        l'ultimo parametro che passiamo serve a far capire allo slot ricevente come deve gestire
+     *        i dati che gli arrivano
      */
-    void CambiaPosizioneManoBoard(nat, nat, QString,QString);
+    void CambiaPosizioneManoBoard(nat, nat, QString,QString,nat);
 
 
     /**
@@ -109,9 +106,15 @@ signals:
     void CambiaImmagineMano(nat,QString);
 
     /**
+
      * @brief cambiaCellaBoardAI
      */
     void cambiaCellaBoardAI(nat,QString);
+
+    /**
+     * @brief changeCardsfailed: emissione segnale scambio carte fallito
+     */
+    void changeCardsfailed();
 
 };
 

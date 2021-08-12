@@ -113,13 +113,7 @@ signals:
     /**
      * @brief casellaBoardSelezionata: passa il segnale al controller
      */
-    void casellaBoardSelezionata(nat);
-
-    /**
-     * @brief casellaManoSelezionata: passa il segnale al controller
-     */
-    void casellaManoSelezionata(nat);
-
+    void casellaBoardSelezionata(nat, nat);
 
     /**
      * @brief UpdateViewfromModel aggiornamento view dopo scelta carta da mettere in campo
@@ -127,8 +121,9 @@ signals:
      * @param b posizione carta board
      * @param c1 carta da mano a board
      * @param c2 nuova carta
+     * @param behaviour: come lo slot ricevente deve comportarsi
      */
-    void UpdateViewfromModel(nat a, nat b, QString c1, QString c2);
+    void UpdateViewfromModel(nat a, nat b, QString c1, QString c2, nat behaviour);
 
     /**
      * @brief UpdateCardMano: aggiorna view mano con la carta corretta
@@ -148,6 +143,13 @@ signals:
      */
     void rimbalzoScambioCarteMB(nat, nat);
 
+    /**
+     * @brief changeBoardDimension: segnale di rimbalzo verso il controller per modificare
+     *                              la grandezza della board
+     */
+    void changeBoardDimension(nat);
+
+
 /**********Logica per mossa successiva****************/
     /**
      * @brief rimbalzoMossaAI
@@ -155,6 +157,7 @@ signals:
     void rimbalzoMossaAI();
 
     void updateBoardAI(nat, QString);
+
 
 private slots:
     /**
@@ -174,11 +177,15 @@ public slots:
      */
     void OpenTutorialWindow();
 
-
     /**
      * @brief OpenGameRequest: slot per creare boardwindow
      */
-    void OpenGameWindow();
+    void OpenGameWindow(nat dim);
+
+    /**
+     * @brief changeCardsFailed: cambio carte fallito
+     */
+    void changeCardsFailed();
 
 
 };
