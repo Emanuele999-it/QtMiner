@@ -11,15 +11,18 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), buttonCo
     m = new view::Mano(7);
 
     scambioMB = new QPushButton("Scambia");
+    prossimo = new QPushButton ("Prossimo Turno");
     scambioMB->setDisabled(true);
 
-    mosse = new QLCDNumber(3);
+
+    mosse = new QLCDNumber();
     mosse->setSegmentStyle(QLCDNumber::Filled);
 
     connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
     connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
     connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
     connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
+
 
     //LAYOUT
     QVBoxLayout *Vlayout = new QVBoxLayout(this);
@@ -125,12 +128,29 @@ void BoardWindow::addElVectors(){
     }
 
     GMLayout->addWidget(scambioMB,1,8);
+    GMLayout->addWidget(prossimo,1,9);
+    GMLayout->addWidget(mosse,2,9);
     connect(scambioMB, &QPushButton::clicked, this ,&BoardWindow::controlloCarteDaScambiare );
+
+    connect(prossimo, &QPushButton::clicked, this, &BoardWindow::avviaMossaAI);
+
     connect(scambioMB, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
     connect(scambioMB, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
+
 }
 
 void BoardWindow::controlloCarteDaScambiare(){
     //controllo che posizione non sia una cella di arrivo
     emit scambiaScarte(m->getPosizione(),b->getPosizione());
 }
+
+void BoardWindow::avviaMossaAI(){
+    //controllo che posizione non sia una cella di arrivo
+    mosse->display((mosse->value())+1);
+    emit mossaAI();
+}
+
+void BoardWindow::aggiornamentoBoardAI(nat posAI, QString imgAI){
+    b->addCardBoard(posAI,imgAI);
+}
+

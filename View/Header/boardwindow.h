@@ -46,8 +46,8 @@ private:
      * @param event
      */
     void closeEvent(QCloseEvent *event);
-
     QPushButton *scambioMB;
+    QPushButton *prossimo;
 
 public slots:
     /**
@@ -74,6 +74,20 @@ public slots:
     void controlloCarteDaScambiare();
 
     /**
+<<<<<<< HEAD
+     * @brief avvia la mossa e triggera l'IA
+     * @param a il numero da aggiornare
+     */
+    void avviaMossaAI();
+
+    /**
+     * @brief aggiornamentoBoardAI: aggiornare la view da IA
+     * @param posAI
+     * @param CartaAI
+     */
+    void aggiornamentoBoardAI(nat posAI, QString CartaAI);
+
+    /*
      * @brief activateButton:slot per l'attivazione del bottone scambio
      */
     void activateButton(nat);
@@ -114,7 +128,10 @@ signals:
      */
     void cheImmagineHo(nat);
 
-
+    /**
+     * @brief mossaAI: aggiunge alla board (ove possibile) una carta random
+     */
+    void mossaAI();
 
 };
 

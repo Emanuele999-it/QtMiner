@@ -18,8 +18,13 @@ Controller::Controller(QObject* parent): QObject(parent) {
     //da controllare potrebbero essere sbagliati
     connect(MainW, &MainWindow::casellaBoardSelezionata, this, &Controller::cambiaCellaBoard);
 
+
+    connect(MainW, &MainWindow::rimbalzoMossaAI, modelBoard, &model::ModelBoard::posizionaAI);
+    connect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);
+
     connect(MainW, &MainWindow::chiusuraBoardWRimbalzo, this, &Controller::chiusuraGame);
     connect(MainW, &MainWindow::changeBoardDimension, this, &Controller::cambioDimensioniBoard);
+
     MainW->show();
     //MainW->createObjVectors();
 }
@@ -32,7 +37,9 @@ void Controller::buildAndConnectModelView(){
     connect(MainW, &MainWindow::rimbalzoScambioCarteMB, modelBoard, &model::ModelBoard::posiziona);
     connect(MainW, &MainWindow::RimbalzoCheImmagineHo, modelBoard, &model::ModelBoard::getHandImage);
     connect(modelBoard, &model::ModelBoard::CambiaImmagineMano, MainW, &MainWindow::UpdateCardMano);
+
     connect(modelBoard, &model::ModelBoard::changeCardsfailed, MainW, &MainWindow::changeCardsFailed);
+
 }
 
 void Controller::openSettings() {

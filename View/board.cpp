@@ -21,6 +21,23 @@ void Board::addelVec(nat c){
     }
 }
 
+/*void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+    Q_UNUSED(painter);
+
+}*/
+
+//getCardModel è nel model
+/*
+
+*/
+
+/*
+void Board::selectCardBoard(nat ...){
+    emit pincopallino();
+*/
+
 void Board::selectCardBoard(nat r){
     vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
     posizioneBoard=r;

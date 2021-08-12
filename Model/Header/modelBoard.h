@@ -14,6 +14,7 @@ class ModelBoard : public QObject{
 private:
     nat _nMano; // posizione della carta toccata dalla mano
     nat _nBoard; // posizione della carta toccata dalla board
+    nat _nMosse; //numero mosse eseguite
     CVector <unique_ptr<Card>*> _handStuff ;
     CVector <unique_ptr<Card>*> _boardStuff ;
 
@@ -54,6 +55,11 @@ public:
      */
     Card* getCardMano(nat posizione) const;
 
+    /**
+     * @brief getMosse questo ci serve per le mosse
+     * @return
+     */
+    nat getMosse()const;
 
 public slots:
     /**
@@ -77,6 +83,11 @@ public slots:
      */
     void posiziona(nat posizioneMano,nat posizioneBoard);
 
+    /**
+     * @brief posizionaAI posiziona la carta della ia (random) e la mette dove puo'
+     */
+    void posizionaAI();
+
 signals:
     /**
      * @brief CambiaPosizioneManoBoard: segnale per aggoirnare view
@@ -95,9 +106,16 @@ signals:
     void CambiaImmagineMano(nat,QString);
 
     /**
+
+     * @brief cambiaCellaBoardAI
+     */
+    void cambiaCellaBoardAI(nat,QString);
+
+    /**
      * @brief changeCardsfailed: emissione segnale scambio carte fallito
      */
     void changeCardsfailed();
+
 };
 
 }

@@ -143,12 +143,21 @@ signals:
      */
     void rimbalzoScambioCarteMB(nat, nat);
 
-
     /**
      * @brief changeBoardDimension: segnale di rimbalzo verso il controller per modificare
      *                              la grandezza della board
      */
     void changeBoardDimension(nat);
+
+
+/**********Logica per mossa successiva****************/
+    /**
+     * @brief rimbalzoMossaAI
+     */
+    void rimbalzoMossaAI();
+
+    void updateBoardAI(nat, QString);
+
 
 private slots:
     /**
