@@ -53,4 +53,5 @@ void SettingsWindow::setDisplayNumber(int i){
 
 void SettingsWindow::emitBoardDimension(){
     emit newBoardDimension(valore);
+    this->close();
 }

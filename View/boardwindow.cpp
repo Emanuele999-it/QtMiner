@@ -107,10 +107,18 @@ void BoardWindow::aggiornamentoCartaMano(nat a, QString c){
 
 void BoardWindow::addElVectors(){
 
-    for(nat counter=0; counter<celle; counter++){   
-        GBLayout->addWidget(b->vettoreCaselleBoard[counter],counter/(celle/10),counter%(celle/10));
+    if(celle==40){
+        for(nat counter=0; counter<celle; counter++){
+            GBLayout->addWidget(b->vettoreCaselleBoard[counter],counter/(celle/10+1),counter%(celle/10+1));
+        }
     }
 
+
+    else{
+        for(nat counter=0; counter<celle; counter++){
+            GBLayout->addWidget(b->vettoreCaselleBoard[counter],counter/(celle/10),counter%(celle/10));
+        }
+    }
     for(nat counter=0; counter<7; counter++){
         GMLayout->addWidget(m->vettoreCaselleBoard[counter],1,counter);
         emit cheImmagineHo(counter);

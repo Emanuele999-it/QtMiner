@@ -9,8 +9,8 @@
         <file>Img/crollo.jpg</file>
         <file>Img/cloning.jpg</file>
         <file>Img/╬(0).jpg</file>
-        <file>Img/═(0).jpg</file>>
-	<file>Img/║(0).jpg</file>
+        <file>Img/═(0).jpg</file>
+        <file>Img/║(0).jpg</file>
         <file>Img/╗(0).jpg</file>
         <file>Img/╚(0).jpg</file>
         <file>Img/╠(0).jpg</file>
@@ -18,6 +18,6 @@
         <file>Img/╣(0).jpg</file>
         <file>Img/╝(0).jpg</file>
         <file>Img/╩(0).jpg</file>
-	<file>Img/╔(0).jpg</file>
+        <file>Img/╔(0).jpg</file>
     </qresource>
 </RCC>
