@@ -47,7 +47,8 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 void MainWindow::OpenSettingsWindow(){
     //hide();
     settWindow = new SettingsWindow();
-    settWindow->show();
+    connect(settWindow, &SettingsWindow::newBoardDimension, this, &MainWindow::changeBoardDimension);
+    settWindow->exec();
 }
 
 void MainWindow::OpenTutorialWindow(){
@@ -56,8 +57,8 @@ void MainWindow::OpenTutorialWindow(){
     tWindow->exec();
 }
 
-void MainWindow::OpenGameWindow(){
-    boardWindoW = new BoardWindow();
+void MainWindow::OpenGameWindow(nat dim){
+    boardWindoW = new BoardWindow(dim);
 
     connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
 

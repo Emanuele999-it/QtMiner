@@ -21,7 +21,7 @@ class BoardWindow : public QWidget{
 
     Q_OBJECT
 public:
-    BoardWindow(QWidget *parent = nullptr, nat num=40);
+    BoardWindow(nat num=40, QWidget *parent = nullptr);
 
     /**
      * @brief addElVectors: permette di aggiungere gli elementi ai

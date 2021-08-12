@@ -17,8 +17,10 @@ ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), _nBoard(nBoard),
     _handStuff(CVector<unique_ptr<Card>*>(0)),
     _boardStuff(CVector<unique_ptr<Card>*>(0)){}
 
-
 void ModelBoard::addCardtoVectors() {
+
+    qDebug()<<"Controller: _nBoard: "<<_nBoard;
+
     for (nat i = 0; i< _nBoard; ++i)
         _boardStuff.push_back(new unique_ptr<Card>());
 

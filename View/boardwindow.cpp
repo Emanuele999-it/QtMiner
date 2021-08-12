@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-BoardWindow::BoardWindow(QWidget *p, nat num) : QWidget(p), celle(num), buttonCounter(0)
+BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), buttonCounter(0)
 {
     setWindowTitle(tr("Qtminer"));
     resize(1280, 720);
@@ -107,8 +107,8 @@ void BoardWindow::aggiornamentoCartaMano(nat a, QString c){
 
 void BoardWindow::addElVectors(){
 
-    for(nat counter=0; counter<celle; counter++){
-        GBLayout->addWidget(b->vettoreCaselleBoard[counter],counter/5,counter%5);
+    for(nat counter=0; counter<celle; counter++){   
+        GBLayout->addWidget(b->vettoreCaselleBoard[counter],counter/(celle/10),counter%(celle/10));
     }
 
     for(nat counter=0; counter<7; counter++){

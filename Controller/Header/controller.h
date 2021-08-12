@@ -17,6 +17,7 @@ private:
 
     model::ModelBoard* modelBoard;
 
+    nat boardDimension;
 
     void buildAndConnectModelView();
 
@@ -57,6 +58,10 @@ public slots:
      */
     void cambiaCellaBoard(nat, nat);
 
+    /**
+     * @brief cambioDimensioniBoard: slot per modifica della dimensione della board
+     */
+    void cambioDimensioniBoard(nat);
 
 signals:
 

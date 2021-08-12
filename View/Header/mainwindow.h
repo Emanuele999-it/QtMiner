@@ -143,6 +143,13 @@ signals:
      */
     void rimbalzoScambioCarteMB(nat, nat);
 
+
+    /**
+     * @brief changeBoardDimension: segnale di rimbalzo verso il controller per modificare
+     *                              la grandezza della board
+     */
+    void changeBoardDimension(nat);
+
 private slots:
     /**
      * @brief closeGameBoard: slot chiusura finestra di gioco
@@ -164,12 +171,13 @@ public slots:
     /**
      * @brief OpenGameRequest: slot per creare boardwindow
      */
-    void OpenGameWindow();
+    void OpenGameWindow(nat dim);
 
     /**
      * @brief changeCardsFailed: cambio carte fallito
      */
     void changeCardsFailed();
+
 
 };
 

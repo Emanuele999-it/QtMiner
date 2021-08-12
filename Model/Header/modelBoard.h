@@ -33,7 +33,7 @@ private:
 
 
 public:
-    ModelBoard(nat nMano = 7,nat nBoard = 40);
+    ModelBoard(nat nMano,nat nBoard);
 
     /**
      * @brief addCardtoVectors: metodo per inserire gli elementi nei vettori

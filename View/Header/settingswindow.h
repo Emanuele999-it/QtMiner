@@ -8,6 +8,9 @@
 #include <QSlider>
 #include <QLCDNumber>
 #include <QDialog>
+#include <QLabel>
+#include <QString>
+#include <QPushButton>
 
 class SettingsWindow: public QDialog
 {
@@ -19,18 +22,29 @@ private:
 
     QSlider* slider;
     QLCDNumber* lcd;
+    QPushButton* confirm;
 
-private slots:
+    int valore;
+
+public slots:
     /**
-     * @brief setValue: imposta valore di lcd
+     * @brief setDisplayNumber: l'invio del numero di caselle scelte per la partita
+     *
      */
-    void setValue(int);
+    void setDisplayNumber(int);
+
+    /**
+     * @brief emitBoardDimension: emissione segnale cambio dimensioni board
+     */
+    void emitBoardDimension();
 
 signals:
     /**
-     * @brief valueChanged: segnale valore cambiato dello slider
+     * @brief newBoardDimension: segnale diretto alla mainWindow
      */
-    void valueChanged(int);
+    void newBoardDimension(unsigned int);
+
+
 
 public:
     SettingsWindow();
