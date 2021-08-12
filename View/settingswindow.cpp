@@ -5,12 +5,25 @@
 #include <QMessageBox>
 #include <QTextStream>
 
-SettingsWindow::SettingsWindow(QWidget*parent): QWidget(parent)
+SettingsWindow::SettingsWindow()
 {
-    QFile file(":/readme2.txt");
-    if(!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, "error", file.errorString());
-        close();
-    }
-    file.close();
+    vLayout = new QVBoxLayout(this);
+    hLayout = new QHBoxLayout();
+
+    lcd = new QLCDNumber(2);
+    slider = new QSlider(Qt::Horizontal);
+    slider->setMinimum(40);
+    slider->setMaximum(80);
+
+    connect(slider, SIGNAL(valueChanged(int)), this, SLOT(setValue(int)));
+
+    vLayout->addLayout(hLayout);
+    hLayout->addWidget(slider);
+    hLayout->addWidget(lcd);
+
+
+}
+
+void QLCDNumber::setValue(int i){
+    slider->setValue(i);
 }

@@ -48,9 +48,8 @@ QString Board::getImage(nat p) const {
     return vettoreCaselleBoard[p]->getDefautImage();
 }
 
-/*********************** Mano ******************************************************************/
+
 
 Mano::Mano(const nat &i) : Board(i){}
-
 
 }

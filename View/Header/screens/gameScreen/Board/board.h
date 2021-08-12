@@ -83,7 +83,7 @@ class Mano: public Board{
     Q_OBJECT
 private:
 public:
-    Mano(const nat&);
+    Mano(const nat& i=7);
 };
 
 }
