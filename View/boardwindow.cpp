@@ -44,7 +44,7 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), buttonCo
 }
 
 /*
-    la connessione e disconnessione ripetuta tra numCasellaCliccataBoard(Mano)
+    la connessione e disconnessione ripetuta tra numCasellaCliccataBoard(/Mano)
     con activateButton serve per attivare e disabilitare il bottone scambia
     al momento giusto
 */
@@ -130,10 +130,9 @@ void BoardWindow::addElVectors(){
     GMLayout->addWidget(scambioMB,1,8);
     GMLayout->addWidget(prossimo,1,9);
     GMLayout->addWidget(mosse,2,9);
+
     connect(scambioMB, &QPushButton::clicked, this ,&BoardWindow::controlloCarteDaScambiare );
-
     connect(prossimo, &QPushButton::clicked, this, &BoardWindow::avviaMossaAI);
-
     connect(scambioMB, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
     connect(scambioMB, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
 
