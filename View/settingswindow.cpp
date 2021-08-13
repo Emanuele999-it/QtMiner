@@ -8,9 +8,10 @@
 #include <QDebug>
 
 
-SettingsWindow::SettingsWindow()
+SettingsWindow::SettingsWindow(unsigned int i)
 {
-    valore=40;
+
+    valore=i;
     setMinimumSize(250,150);
 
     confirm = new QPushButton("conferma");
@@ -20,7 +21,7 @@ SettingsWindow::SettingsWindow()
 
     lcd = new QLCDNumber(2);
     lcd->setSegmentStyle(QLCDNumber::Flat);
-    lcd->display(40);
+    lcd->display(valore);
 
     slider = new QSlider(Qt::Horizontal);
     slider->setSingleStep(1);
@@ -28,7 +29,7 @@ SettingsWindow::SettingsWindow()
     slider->setTickInterval(1);
     slider->setTickPosition(QSlider::TicksAbove);
     slider->setRange(40,44);
-    slider->setValue(40);
+    slider->setValue((i-40)/10+40);
 
 
     vLayout->addLayout(hLayout);
@@ -53,5 +54,5 @@ void SettingsWindow::setDisplayNumber(int i){
 
 void SettingsWindow::emitBoardDimension(){
     emit newBoardDimension(valore);
-    this->close();
+    this->destroy();
 }

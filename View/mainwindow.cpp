@@ -44,9 +44,9 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 }
 
 
-void MainWindow::OpenSettingsWindow(){
+void MainWindow::OpenSettingsWindow(nat i){
     //hide();
-    settWindow = new SettingsWindow();
+    settWindow = new SettingsWindow(i);
     connect(settWindow, &SettingsWindow::newBoardDimension, this, &MainWindow::changeBoardDimension);
     settWindow->exec();
 }

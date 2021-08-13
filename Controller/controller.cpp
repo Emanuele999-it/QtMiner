@@ -26,7 +26,6 @@ Controller::Controller(QObject* parent): QObject(parent) {
 }
 
 void Controller::buildAndConnectModelView(){
-    qDebug()<<"Controller: model con dim: "<<boardDimension;
     modelBoard = new model::ModelBoard(7,boardDimension);
     //connessione tra model e view (aggiornamento carta)
     connect(modelBoard, &model::ModelBoard::CambiaPosizioneManoBoard, MainW, &MainWindow::UpdateViewfromModel);
@@ -40,7 +39,7 @@ void Controller::buildAndConnectModelView(){
 }
 
 void Controller::openSettings() {
-    emit MainW->OpenSettingsWindow();
+    emit MainW->OpenSettingsWindow(boardDimension);
 }
 
 void Controller::openTutorial(){

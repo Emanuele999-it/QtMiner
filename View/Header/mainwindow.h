@@ -170,7 +170,7 @@ public slots:
     /**
      * @brief OpenSettingsWindow: slot per creare impostazioni
      */
-    void OpenSettingsWindow();
+    void OpenSettingsWindow(nat);
 
     /**
      * @brief OpenTutorialWindow: slot per creare tutorial

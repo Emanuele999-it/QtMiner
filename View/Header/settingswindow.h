@@ -47,7 +47,7 @@ signals:
 
 
 public:
-    SettingsWindow();
+    SettingsWindow(unsigned int i);
 };
 
 #endif // MAINSETTINGSWINDOW_H
