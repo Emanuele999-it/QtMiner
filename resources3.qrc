@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Img/╬(blocco).jpg</file>
+        <file>Img/crollo.jpg</file>
+        <file>Img/cloning.jpg</file>
+    </qresource>
+</RCC>
