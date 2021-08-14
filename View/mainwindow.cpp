@@ -59,7 +59,7 @@ void MainWindow::OpenTutorialWindow(){
 
 void MainWindow::OpenGameWindow(nat dim){
     startGame->setDisabled(true);
-    boardWindoW = new BoardWindow(dim);
+    boardWindoW = new BoardWindow(dim, this);
 
     connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
 
@@ -74,12 +74,15 @@ void MainWindow::OpenGameWindow(nat dim){
     connect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
 
     boardWindoW->addElVectors();
+    hide();
+    boardWindoW->exec();
 
 }
 
 void MainWindow::closeGameBoard(){
     //se this non è qdialog
     startGame->setDisabled(false);
+    show();
     delete boardWindoW;
     emit chiusuraBoardWRimbalzo();
 }

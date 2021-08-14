@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), buttonCounter(0)
+BoardWindow::BoardWindow(nat num, QWidget *p) : QDialog(p), celle(num), buttonCounter(0)
 {
     setWindowTitle(tr("Qtminer"));
     resize(1280, 720);

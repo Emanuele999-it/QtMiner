@@ -14,10 +14,11 @@
 #include <QWidget>
 #include <QLCDNumber>
 #include "View/Header/screens/gameScreen/Board/casella.h"
+#include <QDialog>
 
 #include <QCloseEvent>
 
-class BoardWindow : public QWidget{
+class BoardWindow : public QDialog{
 
     Q_OBJECT
 public:
