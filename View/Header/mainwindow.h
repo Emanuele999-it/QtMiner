@@ -130,7 +130,7 @@ signals:
      * @param a: parametro posizione
      * @param c: porzione stringa nome carta
      */
-    void UpdateCardMano(nat a, QString c);
+    void UpdateCardMano(nat a, QString c, nat i);
 
     /**
      * @brief RimbalzoCheImmagineHo: segnale di rimbalzo per
@@ -148,6 +148,11 @@ signals:
      *                              la grandezza della board
      */
     void changeBoardDimension(nat);
+
+    /**
+     * @brief ScartaCartaRimbalzo: slot per sostituzione carta
+     */
+    void ScartaCartaRimbalzo();
 
 
 /**********Logica per mossa successiva****************/

@@ -150,7 +150,7 @@ void ModelBoard::posizionaAI(){
     while(size>0 && !ok){
         generator = rand() % _nBoard;
         if(_boardStuff[generator] == nullptr || _boardStuff[generator]->get() == nullptr){
-            _boardStuff[generator] = new unique_ptr<Card>(estrattoreCasuale());
+            _boardStuff[generator] = new unique_ptr<Card>(estrattoreCasuale(4));
             ok = true;
         }
         size--;
@@ -169,10 +169,10 @@ void ModelBoard::evidenziaCellaBoard(nat x, nat y){
         _nMano=x;
 }
 
-Card* ModelBoard::estrattoreCasuale(){
+Card* ModelBoard::estrattoreCasuale(int i){
 
 
-    nat generator= rand() % 11 + 1;
+    nat generator= rand() % 11 + i;
     switch(generator){
     case 1:
         return new Blocco();
@@ -220,7 +220,13 @@ Card* ModelBoard::estrattoreCasuale(){
 }
 
 void ModelBoard::getHandImage(nat pos){
-    emit CambiaImmagineMano(pos, getImage(pos,_handStuff));
+    emit CambiaImmagineMano(pos, getImage(pos,_handStuff),0);
+}
+
+void ModelBoard::scartaCartaMano(){
+    _handStuff[_nMano]->~unique_ptr();
+    _handStuff[_nMano] = new unique_ptr<Card>(estrattoreCasuale());
+    emit CambiaImmagineMano(_nMano,getImage(_nMano,_handStuff),1);
 }
 
 }

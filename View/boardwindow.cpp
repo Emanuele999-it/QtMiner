@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-BoardWindow::BoardWindow(nat num, QWidget *p) : QDialog(p), celle(num), buttonCounter(0)
+BoardWindow::BoardWindow(nat num, QWidget *p) : QDialog(p), celle(num), mano(false), board(false)
 {
     setWindowTitle(tr("Qtminer"));
     resize(1280, 720);
@@ -11,9 +11,9 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QDialog(p), celle(num), buttonCo
     m = new view::Mano(7);
 
     scambioMB = new QPushButton("Scambia");
-    prossimo = new QPushButton ("Prossimo Turno");
+    scarta = new QPushButton ("Scarta");
     scambioMB->setDisabled(true);
-
+    scarta->setDisabled(true);
 
     mosse = new QLCDNumber();
     mosse->setSegmentStyle(QLCDNumber::Filled);
@@ -41,6 +41,10 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QDialog(p), celle(num), buttonCo
     m->addelVec(7);
 
     show();
+
+
+    v = new QVBoxLayout();
+
 }
 
 /*
@@ -53,7 +57,6 @@ void BoardWindow::cellaSelezionata(nat p){
 
     QObject* obj= sender();
     nat funcSender=0;
-
     if(dynamic_cast<view::Mano*>(obj)){
         funcSender=1;
     }
@@ -62,21 +65,25 @@ void BoardWindow::cellaSelezionata(nat p){
 
 void BoardWindow::activateButton(nat i){
     Q_UNUSED(i)
-    buttonCounter++;
     QObject* obj = sender();
-    if(dynamic_cast<view::Board*>(obj))
-        disconnect( obj, SIGNAL(numCasellaCliccataBoard(nat)), 0, 0 );
-    if(dynamic_cast<view::Mano*>(obj))
-        disconnect( obj, SIGNAL(numCasellaCliccataBoard(nat)), 0, 0 );
-    if(buttonCounter > 1)
+    if(dynamic_cast<view::Mano*>(obj)){
+        mano=true;
+        scarta->setDisabled(false);
+    }
+
+    else{
+        board=true;
+    }
+
+    if(mano && board)
         scambioMB->setDisabled(false);
 }
 
 void BoardWindow::disableButton(){
     scambioMB->setDisabled(true);
-    buttonCounter=0;
-    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
-    connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
+    scarta->setDisabled(true);
+    mano=false;
+    board=false;
 }
 
 void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano, QString CartaBoard, nat behaviour){
@@ -97,6 +104,9 @@ void BoardWindow::aggiornamentoView(nat posMano, nat PosBoard, QString CartaMano
         m->addCardBoard(posMano,CartaMano);
         b->addCardBoard(PosBoard,b->getImage(PosBoard));
     }
+
+    //Turno avversario:
+    avviaMossaAI();
 }
 
 void BoardWindow::closeEvent(QCloseEvent *event){
@@ -104,8 +114,14 @@ void BoardWindow::closeEvent(QCloseEvent *event){
     emit chiusuraBoardW();
 }
 
-void BoardWindow::aggiornamentoCartaMano(nat a, QString c){
+void BoardWindow::aggiornamentoCartaMano(nat a, QString c, nat i){
+    if(i==1){
+        disableButton();
+        //Turno avversario:
+        avviaMossaAI();
+    }
     m->addCardBoard(a,c);
+
 }
 
 void BoardWindow::addElVectors(){
@@ -127,14 +143,17 @@ void BoardWindow::addElVectors(){
         emit cheImmagineHo(counter);
     }
 
-    GMLayout->addWidget(scambioMB,1,8);
-    GMLayout->addWidget(prossimo,1,9);
-    GMLayout->addWidget(mosse,2,9);
+    GMLayout->addLayout(v,1,8);
+    v->addWidget(scambioMB);
+    v->addWidget(scarta);
+    GMLayout->addWidget(mosse,1,9);
 
     connect(scambioMB, &QPushButton::clicked, this ,&BoardWindow::controlloCarteDaScambiare );
-    connect(prossimo, &QPushButton::clicked, this, &BoardWindow::avviaMossaAI);
     connect(scambioMB, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
     connect(scambioMB, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
+    connect(scarta, &QPushButton::clicked, this, &BoardWindow::scartaCarta);
+    connect(scarta, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
+    connect(scarta, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
 
 }
 

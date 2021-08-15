@@ -20,6 +20,7 @@ Controller::Controller(QObject* parent): QObject(parent) {
 
     connect(MainW, &MainWindow::chiusuraBoardWRimbalzo, this, &Controller::chiusuraGame);
     connect(MainW, &MainWindow::changeBoardDimension, this, &Controller::cambioDimensioniBoard);
+    connect(MainW, &MainWindow::ScartaCartaRimbalzo, this, &Controller::scartaCartaDallaMano);
 
     MainW->show();
     //MainW->createObjVectors();
@@ -64,3 +65,6 @@ void Controller::cambioDimensioniBoard(nat i){
     boardDimension=i;
 }
 
+void Controller::scartaCartaDallaMano(){
+    modelBoard->scartaCartaMano();
+}

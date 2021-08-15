@@ -38,8 +38,9 @@ private:
     nat celle;
     QGridLayout *GBLayout;
     QGridLayout *GMLayout;
-
-    nat buttonCounter;
+    QVBoxLayout *v;
+    bool mano;
+    bool board;
 
 
     /**
@@ -48,7 +49,7 @@ private:
      */
     void closeEvent(QCloseEvent *event);
     QPushButton *scambioMB;
-    QPushButton *prossimo;
+    QPushButton *scarta;
 
 public slots:
     /**
@@ -66,7 +67,7 @@ public slots:
      * @param a: posizione carta
      * @param c: porzione di stringa da sostituire
      */
-    void aggiornamentoCartaMano(nat a , QString c);
+    void aggiornamentoCartaMano(nat a , QString c, nat i);
 
     /**
      * @brief controlloCarteDaScambiare: funzione che controlla se sono state selezionate le carte
@@ -75,10 +76,8 @@ public slots:
     void controlloCarteDaScambiare();
 
     /**
-<<<<<<< HEAD
-     * @brief avvia la mossa e triggera l'IA
-     * @param a il numero da aggiornare
-     */
+    * @brief avvia la mossa e triggera l'IA
+    */
     void avviaMossaAI();
 
     /**
@@ -133,6 +132,13 @@ signals:
      * @brief mossaAI: aggiunge alla board (ove possibile) una carta random
      */
     void mossaAI();
+
+    /**
+     * @brief scartaCarta: segnale la cui funzione è quella di sostituire la carta
+     *                     in una certa posizione della mano con una carta estratta
+     *                     casualmente
+     */
+    void scartaCarta();
 
 };
 

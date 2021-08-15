@@ -22,7 +22,7 @@ private:
      * @brief estrattoreCasuale: estrae in maniera casuale una carta
      * @return: oggetto carta
      */
-    Card* estrattoreCasuale();
+    Card* estrattoreCasuale(int i=1);
 
     /**
     * @brief getImage data posizione ritorna QString file immagine
@@ -84,6 +84,12 @@ public slots:
     void posiziona(nat posizioneMano,nat posizioneBoard);
 
     /**
+     * @brief scartaCartaMano: slot che permette di scarte una carta dalla mano per ottenerne una
+     *                         nuova estratta casualmente
+     */
+    void scartaCartaMano();
+
+    /**
      * @brief posizionaAI posiziona la carta della ia (random) e la mette dove puo'
      */
     void posizionaAI();
@@ -103,7 +109,7 @@ signals:
      * @brief CambiaImmagineMano: segnale che permette di aggiornare l'immagine
      *                  della carta della mano
      */
-    void CambiaImmagineMano(nat,QString);
+    void CambiaImmagineMano(nat,QString, nat);
 
     /**
 
