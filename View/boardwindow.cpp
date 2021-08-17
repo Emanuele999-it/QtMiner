@@ -16,7 +16,7 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QDialog(p), celle(num), mano(fal
     scarta->setDisabled(true);
 
     mosse = new QLCDNumber();
-    mosse->setSegmentStyle(QLCDNumber::Filled);
+    //mosse->setSegmentStyle(QLCDNumber::Filled);
 
     connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
     connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
@@ -26,13 +26,25 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QDialog(p), celle(num), mano(fal
 
     //LAYOUT
     QVBoxLayout *Vlayout = new QVBoxLayout(this);
+    QHBoxLayout *h = new QHBoxLayout();
     //layout board
     GBLayout = new QGridLayout();
     //layout mano
     GMLayout = new QGridLayout();
 
-    Vlayout->addLayout(GBLayout);
-    Vlayout->addLayout(GMLayout);
+    Vlayout->addLayout(h);
+
+    QSpacerItem *spaceL=new QSpacerItem(10,0,QSizePolicy::Minimum);
+    h->addItem(spaceL);
+    h->addLayout(GBLayout);
+    QSpacerItem *spaceR=new QSpacerItem(10,0,QSizePolicy::Minimum);
+    h->addItem(spaceR);
+
+    QSpacerItem *spaceH=new QSpacerItem(10,0,QSizePolicy::Minimum);
+    QHBoxLayout *Hh=new QHBoxLayout();
+    Vlayout->addLayout(Hh);
+    Hh->addItem(spaceH);
+    Hh->addLayout(GMLayout);
 
     GBLayout->setSpacing(5);
 
@@ -42,16 +54,18 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QDialog(p), celle(num), mano(fal
 
     show();
 
+    /*
+     * spaceL=new QSpacerItem(500,0,QSizePolicy::Maximum);
+        GBLayout->addItem(spaceL,1,0);
+
+        spaceR=new QSpacerItem(500,20,QSizePolicy::Maximum);
+        GBLayout->addItem(spaceR,1,7);
+    */
+
 
     v = new QVBoxLayout();
 
 }
-
-/*
-    la connessione e disconnessione ripetuta tra numCasellaCliccataBoard(/Mano)
-    con activateButton serve per attivare e disabilitare il bottone scambia
-    al momento giusto
-*/
 
 void BoardWindow::cellaSelezionata(nat p){
 
@@ -127,11 +141,11 @@ void BoardWindow::aggiornamentoCartaMano(nat a, QString c, nat i){
 void BoardWindow::addElVectors(){
 
     if(celle==40){
+
         for(nat counter=0; counter<celle; counter++){
-            GBLayout->addWidget(b->vettoreCaselleBoard[counter],counter/(celle/10+1),counter%(celle/10+1));
+            GBLayout->addWidget(b->vettoreCaselleBoard[counter],(counter/(celle/10+1))+1,(counter%(celle/10+1))+1);
         }
     }
-
 
     else{
         for(nat counter=0; counter<celle; counter++){

@@ -5,7 +5,7 @@
 #include "Model/Header/carta/tunnel.h"
 
 #include "Model/Header/carta/clonecards.h"
-#include <QErrorMessage>
+#include <QMessageBox>
 #include <cstdlib>
 
 #include <QDebug>
@@ -132,17 +132,16 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
     }
 
     else{
-        QErrorMessage *q = new QErrorMessage();
-        QString str("Posizione board non valida. Casella occupata, non clonabile oppure non cancellabile");
-        q->showMessage(str);
+        QMessageBox *q = new QMessageBox();
+        q->setDetailedText("Posizione board non valida. Casella occupata, non clonabile oppure non cancellabile");
         q->setVisible(true);
-        emit changeCardsfailed();
+        //emit changeCardsfailed();
     }
 }
 
 
 void ModelBoard::posizionaAI(){
-    nat size = _nBoard;
+    nat size = _nBoard - _boardStuff.get_size();
     //Qui metto un rand, ma è da rivedere da dove si PARTE a fare algo di conseguenza
     nat generator;
     bool ok=false;
