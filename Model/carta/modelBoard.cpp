@@ -132,10 +132,16 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
     }
 
     else{
-        QMessageBox *q = new QMessageBox();
-        q->setDetailedText("Posizione board non valida. Casella occupata, non clonabile oppure non cancellabile");
-        q->setVisible(true);
-        //emit changeCardsfailed();
+        if(dynamic_cast<Tunnel*>(temp)){
+            emit changeCardsfailed("Posizione board non valida. Non è possibile posizionare una carta Percorso in una casella occupata");
+        }
+
+        else if(dynamic_cast<CloneCards*>(temp)){
+            emit changeCardsfailed("Posizione board non valida. Non è possibile clonare una casella vuota");
+        }
+
+        else
+            emit changeCardsfailed("Posizione board non valida. Non è possibile demolire una casella vuota");
     }
 }
 

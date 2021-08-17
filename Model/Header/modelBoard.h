@@ -120,7 +120,7 @@ signals:
     /**
      * @brief changeCardsfailed: emissione segnale scambio carte fallito
      */
-    void changeCardsfailed();
+    void changeCardsfailed(QString);
 
 };
 

@@ -1,5 +1,6 @@
 ﻿#include "Header/mainwindow.h"
 #include <QHBoxLayout>
+#include <QErrorMessage>
 
 #include <QDebug>
 
@@ -59,7 +60,7 @@ void MainWindow::OpenTutorialWindow(){
 
 void MainWindow::OpenGameWindow(nat dim){
     startGame->setDisabled(true);
-    boardWindoW = new BoardWindow(dim, this);
+    boardWindoW = new BoardWindow(dim);
 
     connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
 
@@ -76,7 +77,8 @@ void MainWindow::OpenGameWindow(nat dim){
 
     boardWindoW->addElVectors();
     hide();
-    boardWindoW->exec();
+
+    boardWindoW->show();
 
 }
 
@@ -88,6 +90,8 @@ void MainWindow::closeGameBoard(){
     emit chiusuraBoardWRimbalzo();
 }
 
-void MainWindow::changeCardsFailed(){
+void MainWindow::changeCardsFailed(QString i){
+    QErrorMessage* error= new QErrorMessage();
+    error->showMessage(i);
     boardWindoW->disableButton();
 }

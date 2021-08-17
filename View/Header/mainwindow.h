@@ -190,7 +190,7 @@ public slots:
     /**
      * @brief changeCardsFailed: cambio carte fallito
      */
-    void changeCardsFailed();
+    void changeCardsFailed(QString i);
 
 
 };

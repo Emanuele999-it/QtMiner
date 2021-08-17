@@ -20,7 +20,7 @@
 
 #include <QCloseEvent>
 
-class BoardWindow : public QDialog{
+class BoardWindow : public QWidget{
 
     Q_OBJECT
 public:
