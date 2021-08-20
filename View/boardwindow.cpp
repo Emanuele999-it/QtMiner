@@ -18,35 +18,22 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), mano(fal
     mosse = new QLCDNumber();
     //mosse->setSegmentStyle(QLCDNumber::Filled);
 
-    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
-    connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
-    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
-    connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
-
-
     //LAYOUT
     QVBoxLayout *Vlayout = new QVBoxLayout(this);
     QHBoxLayout *h = new QHBoxLayout();
-    //layout board
-    GBLayout = new QGridLayout();
-    //layout mano
-    GMLayout = new QGridLayout();
 
     Vlayout->addLayout(h);
 
-    QSpacerItem *spaceL=new QSpacerItem(10,0,QSizePolicy::Minimum);
-    h->addItem(spaceL);
-    h->addLayout(GBLayout);
-    QSpacerItem *spaceR=new QSpacerItem(10,0,QSizePolicy::Minimum);
-    h->addItem(spaceR);
+    h->addWidget(b);
 
-    QSpacerItem *spaceH=new QSpacerItem(10,0,QSizePolicy::Minimum);
     QHBoxLayout *Hh=new QHBoxLayout();
     Vlayout->addLayout(Hh);
-    Hh->addItem(spaceH);
-    Hh->addLayout(GMLayout);
-
-    GBLayout->setSpacing(5);
+    Hh->addWidget(m);
+    v = new QVBoxLayout();
+    Hh->addLayout(v);
+    v->addWidget(scambioMB);
+    v->addWidget(scarta);
+    Hh->addWidget(mosse);
 
     b->addelVec(celle);
 
@@ -54,16 +41,16 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), mano(fal
 
     show();
 
-    /*
-     * spaceL=new QSpacerItem(500,0,QSizePolicy::Maximum);
-        GBLayout->addItem(spaceL,1,0);
-
-        spaceR=new QSpacerItem(500,20,QSizePolicy::Maximum);
-        GBLayout->addItem(spaceR,1,7);
-    */
-
-
-    v = new QVBoxLayout();
+    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
+    connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
+    connect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
+    connect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
+    connect(scambioMB, &QPushButton::clicked, this ,&BoardWindow::controlloCarteDaScambiare );
+    connect(scambioMB, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
+    connect(scambioMB, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
+    connect(scarta, &QPushButton::clicked, this, &BoardWindow::scartaCarta);
+    connect(scarta, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
+    connect(scarta, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
 
 }
 
@@ -140,35 +127,11 @@ void BoardWindow::aggiornamentoCartaMano(nat a, QString c, nat i){
 
 void BoardWindow::addElVectors(){
 
-    if(celle==40){
-
-        for(nat counter=0; counter<celle; counter++){
-            GBLayout->addWidget(b->vettoreCaselleBoard[counter],(counter/(celle/10+1))+1,(counter%(celle/10+1))+1);
-        }
-    }
-
-    else{
-        for(nat counter=0; counter<celle; counter++){
-            GBLayout->addWidget(b->vettoreCaselleBoard[counter],counter/(celle/10),counter%(celle/10));
-        }
-    }
+    b->addElGrid(celle);
+    m->addElGrid(7);
     for(nat counter=0; counter<7; counter++){
-        GMLayout->addWidget(m->vettoreCaselleBoard[counter],1,counter);
         emit cheImmagineHo(counter);
     }
-
-    GMLayout->addLayout(v,1,8);
-    v->addWidget(scambioMB);
-    v->addWidget(scarta);
-    GMLayout->addWidget(mosse,1,9);
-
-    connect(scambioMB, &QPushButton::clicked, this ,&BoardWindow::controlloCarteDaScambiare );
-    connect(scambioMB, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
-    connect(scambioMB, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
-    connect(scarta, &QPushButton::clicked, this, &BoardWindow::scartaCarta);
-    connect(scarta, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
-    connect(scarta, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
-
 }
 
 void BoardWindow::controlloCarteDaScambiare(){

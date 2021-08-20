@@ -5,13 +5,17 @@
 
 namespace view {
 
-/*********************** Board ******************************************************************/
-
-
-
 Board::Board(const nat &i): posizioneBoard(0){
     QVector<Casella*> vettoreCaselleBoard(i);
+    grid= new QGridLayout();
+    QHBoxLayout* h= new QHBoxLayout(this);
+    //h->set
+    spaceR=new QSpacerItem(1,0,QSizePolicy::Minimum);
+    spaceL=new QSpacerItem(1,0,QSizePolicy::Minimum);
 
+    h->addItem(spaceL);
+    h->addLayout(grid);
+    h->addItem(spaceR);
 }
 
 void Board::addelVec(nat c){
@@ -20,23 +24,6 @@ void Board::addelVec(nat c){
         connect(vettoreCaselleBoard[counter],SIGNAL(casellaCliccata(nat)), this, SLOT(selectCardBoard(nat)));
     }
 }
-
-/*void Board::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-    Q_UNUSED(painter);
-
-}*/
-
-//getCardModel è nel model
-/*
-
-*/
-
-/*
-void Board::selectCardBoard(nat ...){
-    emit pincopallino();
-*/
 
 void Board::selectCardBoard(nat r){
     vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
@@ -65,6 +52,26 @@ QString Board::getImage(nat p) const {
     return vettoreCaselleBoard[p]->getDefautImage();
 }
 
+void Board::addElGrid(nat celle){
+
+    if(celle == 7){
+        for(nat counter=0; counter<celle; counter++){
+            grid->addWidget(vettoreCaselleBoard[counter],1,counter,1,1);
+        }
+    }
+
+    else if(celle==40){
+        for(nat counter=0; counter<celle; counter++){
+            grid->addWidget(vettoreCaselleBoard[counter],(counter/(celle/10+1)),(counter%(celle/10+1))+1,1,1);
+        }
+    }
+
+    else{
+        for(nat counter=0; counter<celle; counter++){
+            grid->addWidget(vettoreCaselleBoard[counter],counter/(celle/10),counter%(celle/10),1,1);
+        }
+    }
+}
 
 
 Mano::Mano(const nat &i) : Board(i){}

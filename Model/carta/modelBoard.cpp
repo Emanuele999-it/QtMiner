@@ -132,7 +132,7 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
     }
 
     else{
-        if(dynamic_cast<Tunnel*>(temp)){
+        if(dynamic_cast<Tunnel*>(temp) || dynamic_cast<Blocco*>(temp)){
             emit changeCardsfailed("Posizione board non valida. Non è possibile posizionare una carta Percorso in una casella occupata");
         }
 

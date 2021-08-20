@@ -38,8 +38,6 @@ private:
     view::Mano *m;
     QLCDNumber *mosse;
     nat celle;
-    QGridLayout *GBLayout;
-    QGridLayout *GMLayout;
     QVBoxLayout *v;
     bool mano;
     bool board;
