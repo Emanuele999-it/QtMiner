@@ -24,11 +24,6 @@ signals:
 
 public slots:
     /**
-     * @brief setGame: salvatggio su file dell'ultimo gioco
-     */
-    void saveLastGame();
-
-    /**
      * @brief getLastGame: caricamento e visualizzazione dell'ultima partita
      */
     void getLastGame();
