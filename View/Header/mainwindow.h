@@ -3,13 +3,13 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QString>
 
 #include "settingswindow.h"
 #include "tutorialwindow.h"
 #include "boardwindow.h"
+#include "lastgamewindow.h"
 
 #include <QSize>
 #include <QIcon>
@@ -31,9 +31,6 @@ public:
     void createObjVectors();
 
 private:
-
-    QStackedWidget* stackedWidget;
-
 
 /****************** Settings ************************************/
     /**
@@ -77,7 +74,7 @@ private:
      */
     QPushButton * lastGame;
 
-    //da mettere lastGame
+    LastGameWindow* LGWindow;
 
 /****************** Layout ************************************/
     /**
@@ -107,6 +104,10 @@ signals:
      */
     void GameRequest();
 
+    /**
+     * @brief LasTGameRequest: segnale per aprire la finestra dell'ultimo gioco
+     */
+    void LastGameRequest();
 
 
 /********** Rimbalzo segnale da casella al controller ****************/
@@ -186,6 +187,11 @@ public slots:
      * @brief OpenGameRequest: slot per creare boardwindow
      */
     void OpenGameWindow(nat dim);
+
+    /**
+     * @brief OpenLastGameWindow: slot per creare  lastGameWindow
+     */
+    void OpenLastGameWindow();
 
     /**
      * @brief changeCardsFailed: cambio carte fallito

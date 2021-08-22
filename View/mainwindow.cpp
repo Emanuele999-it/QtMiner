@@ -29,8 +29,6 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     Vl->addLayout(Hl1);
     Vl->addLayout(Hl2);
 
-    stackedWidget = new QStackedWidget(this);
-
     Hl1->addWidget(settings);
     Hl1->setAlignment(Qt::AlignRight | Qt::AlignTop);
 
@@ -42,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     connect(settings,&QPushButton::clicked, this, &MainWindow::SettingsRequest);
     connect(tutorial,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
     connect(startGame,&QPushButton::clicked, this, &MainWindow::GameRequest);
+    connect(lastGame,&QPushButton::clicked, this, &MainWindow::LastGameRequest);
 }
 
 
@@ -79,6 +78,13 @@ void MainWindow::OpenGameWindow(nat dim){
     hide();
 
     boardWindoW->show();
+
+}
+
+void MainWindow::OpenLastGameWindow(){
+    LGWindow = new LastGameWindow();
+    LGWindow->saveLastGame();
+    LGWindow->destroyed();
 
 }
 

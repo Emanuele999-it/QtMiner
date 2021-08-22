@@ -49,6 +49,11 @@ public slots:
      */
     void openBoardWindow();
 
+    /**
+     * @brief openLastGameWindow: permette di creare lastGameWindow
+     */
+    void openLastGameWindow();
+
 
 /******************* Casella **************************************************************/
 

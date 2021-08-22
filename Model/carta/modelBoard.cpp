@@ -11,15 +11,20 @@
 #include <QDebug>
 
 
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
+
+
 namespace model{
 
-ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), _nBoard(nBoard),
+ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), nCaselle(nBoard),
     _handStuff(CVector<unique_ptr<Card>*>(0)),
     _boardStuff(CVector<unique_ptr<Card>*>(0)){}
 
 void ModelBoard::addCardtoVectors() {
 
-    for (nat i = 0; i< _nBoard; ++i)
+    for (nat i = 0; i< nCaselle; ++i)
         _boardStuff.push_back(new unique_ptr<Card>());
 
 
@@ -29,6 +34,10 @@ void ModelBoard::addCardtoVectors() {
 }
 
 QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
+
+    if(v[i] == nullptr || v[i]->get() == nullptr)
+        return "blank";
+
     Card* _carta = v[i]->get()->clone();
 
     if (dynamic_cast<Obstruction*>(_carta)) {
@@ -99,6 +108,7 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
     if((dynamic_cast<Tunnel*>(temp) || dynamic_cast<Blocco*>(temp)) &&
               (_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr)){
 
+        qDebug()<<"ModelBoard: prima di bug: ";
         _boardStuff[posizioneBoard] = new unique_ptr<Card>(temp);
         /*
          * Funzione controllo compatibilità carta mano->board
@@ -147,13 +157,13 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 
 
 void ModelBoard::posizionaAI(){
-    nat size = _nBoard - _boardStuff.get_size();
+    nat size =_boardStuff.get_size();
     //Qui metto un rand, ma è da rivedere da dove si PARTE a fare algo di conseguenza
     nat generator;
     bool ok=false;
 
     while(size>0 && !ok){
-        generator = rand() % _nBoard;
+        generator = rand() % nCaselle + 1;
         if(_boardStuff[generator] == nullptr || _boardStuff[generator]->get() == nullptr){
             _boardStuff[generator] = new unique_ptr<Card>(estrattoreCasuale(4));
             ok = true;
@@ -232,6 +242,73 @@ void ModelBoard::scartaCartaMano(){
     _handStuff[_nMano]->~unique_ptr();
     _handStuff[_nMano] = new unique_ptr<Card>(estrattoreCasuale());
     emit CambiaImmagineMano(_nMano,getImage(_nMano,_handStuff),1);
+}
+
+void ModelBoard::saveLastGame(){
+    //perndo vettore _boardStuff e lo dovrei copiare in un json per poi passarlo al controller
+
+    QFile file("lastgameboard.json");
+    //file.open(QIODevice::ReadWrite);
+    if(!file.open(QIODevice::ReadWrite)) {
+        qDebug() << "File open error";
+    } else {
+        qDebug() <<"JSONTest2 File open!";
+    }
+
+    // Clear the original content in the file
+    file.resize(0);
+
+    // Add a value using QJsonArray and write to the file
+    QJsonArray jsonArray;
+
+    if(nCaselle == 40){
+        for(int i = 0; i < 8; i++) {
+            QJsonObject jsonObject;
+            jsonObject.insert("Riga",QJsonArray() << i << getImage(0+ i*5, _boardStuff)<< getImage(1+i*5, _boardStuff)<< getImage(2+i*5, _boardStuff)
+                              << getImage(3+i*5, _boardStuff) << getImage(4+i*5, _boardStuff));
+            jsonArray.append(jsonObject);
+        }
+    }
+    else if (nCaselle==50){
+        for(int i = 0; i < 10; i++) {
+            QJsonObject jsonObject;
+            jsonObject.insert("Riga",QJsonArray() << i << getImage(0+ i*5, _boardStuff)<< getImage(1+i*5, _boardStuff)<< getImage(2+i*5, _boardStuff)
+                              << getImage(3+i*5, _boardStuff) << getImage(4+i*5, _boardStuff));
+            jsonArray.append(jsonObject);
+        }
+    }
+    else if (nCaselle==60){
+        for(int i = 0; i < 10; i++) {
+            QJsonObject jsonObject;
+            jsonObject.insert("Riga",QJsonArray() << i << getImage(0+ i*6, _boardStuff)<< getImage(1+i*6, _boardStuff)<< getImage(2+i*6, _boardStuff)
+                              << getImage(3+i*6, _boardStuff) << getImage(4+i*6, _boardStuff)<< getImage(5+i*6, _boardStuff));
+            jsonArray.append(jsonObject);
+        }
+    }
+    else if (nCaselle==70){
+        for(int i = 0; i < 10; i++) {
+            QJsonObject jsonObject;
+            jsonObject.insert("Riga",QJsonArray() << i << getImage(0+ i*7, _boardStuff)<< getImage(1+i*7, _boardStuff)<< getImage(2+i*7, _boardStuff)
+                              << getImage(3+i*7, _boardStuff) << getImage(4+i*7, _boardStuff) << getImage(5+i*7, _boardStuff) << getImage(6+i*7, _boardStuff));
+            jsonArray.append(jsonObject);
+        }
+    }
+    else{
+        for(int i = 0; i < 10; i++) {
+            QJsonObject jsonObject;
+            jsonObject.insert("Riga",QJsonArray() << i << getImage(0+ i*8, _boardStuff)<< getImage(1+i*8, _boardStuff)<< getImage(2+i*8, _boardStuff)
+                              << getImage(3+i*8, _boardStuff)  << getImage(4+i*8, _boardStuff) << getImage(5+i*8, _boardStuff) << getImage(6+i*8, _boardStuff) << getImage(7+i*8, _boardStuff));
+            jsonArray.append(jsonObject);
+        }
+    }
+
+      QJsonDocument jsonDoc;
+      jsonDoc.setArray(jsonArray);
+      file.write(jsonDoc.toJson());
+      file.close();
+      qDebug() << "Write to file";
+
+
 }
 
 }

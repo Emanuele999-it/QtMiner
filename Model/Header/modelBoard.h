@@ -14,6 +14,7 @@ class ModelBoard : public QObject{
 private:
     nat _nMano; // posizione della carta toccata dalla mano
     nat _nBoard; // posizione della carta toccata dalla board
+    nat nCaselle;//numero caselle board
     nat _nMosse; //numero mosse eseguite
     CVector <unique_ptr<Card>*> _handStuff ;
     CVector <unique_ptr<Card>*> _boardStuff ;
@@ -93,6 +94,11 @@ public slots:
      * @brief posizionaAI posiziona la carta della ia (random) e la mette dove puo'
      */
     void posizionaAI();
+
+    /**
+     * @brief saveLastGame: salvatiaggio untima partita
+     */
+    void saveLastGame();
 
 signals:
     /**

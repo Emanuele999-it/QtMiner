@@ -10,7 +10,7 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), mano(fal
     b = new view::Board(celle);
     m = new view::Mano(7);
 
-    scambioMB = new QPushButton("Scambia");
+    scambioMB = new QPushButton("Posiziona");
     scarta = new QPushButton ("Scarta");
     scambioMB->setDisabled(true);
     scarta->setDisabled(true);
