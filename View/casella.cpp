@@ -26,10 +26,12 @@ Casella::Casella(nat p, QString s, QPushButton*pushbutton):QPushButton(pushbutto
     onHover=QIcon(":/Img/"+def+"h.jpg");
     setIcon(iconStd);
     setIconSize(QSize(40,60));
-    //setFixedSize(52,72);
+    setFixedSize(45,65);
     connect(this,&QPushButton::clicked, this, &Casella::supportCasellaCliccata);
 
     //creare segnale di supposto per emettere casellaCliccata con la posizione!!!
+
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 }
 
 QString Casella::getDefautImage() const {

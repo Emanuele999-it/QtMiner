@@ -21,12 +21,5 @@ int main(int argc, char *argv[])
     Controller c;
 
     return a.exec();
-/*
-    Tunnel* t= new Tunnel();
-    unique_ptr<Card>* c= new unique_ptr<Card>(t);
-
-    delete t;
-    //c->~unique_ptr();
-*/
 
 }

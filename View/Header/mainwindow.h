@@ -3,13 +3,13 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QString>
 
 #include "settingswindow.h"
 #include "tutorialwindow.h"
 #include "boardwindow.h"
+#include "lastgamewindow.h"
 
 #include <QSize>
 #include <QIcon>
@@ -31,9 +31,6 @@ public:
     void createObjVectors();
 
 private:
-
-    QStackedWidget* stackedWidget;
-
 
 /****************** Settings ************************************/
     /**
@@ -77,7 +74,7 @@ private:
      */
     QPushButton * lastGame;
 
-    //da mettere lastGame
+    LastGameWindow* LGWindow;
 
 /****************** Layout ************************************/
     /**
@@ -107,6 +104,10 @@ signals:
      */
     void GameRequest();
 
+    /**
+     * @brief LasTGameRequest: segnale per aprire la finestra dell'ultimo gioco
+     */
+    void LastGameRequest();
 
 
 /********** Rimbalzo segnale da casella al controller ****************/
@@ -130,7 +131,7 @@ signals:
      * @param a: parametro posizione
      * @param c: porzione stringa nome carta
      */
-    void UpdateCardMano(nat a, QString c);
+    void UpdateCardMano(nat a, QString c, nat i);
 
     /**
      * @brief RimbalzoCheImmagineHo: segnale di rimbalzo per
@@ -148,6 +149,11 @@ signals:
      *                              la grandezza della board
      */
     void changeBoardDimension(nat);
+
+    /**
+     * @brief ScartaCartaRimbalzo: slot per sostituzione carta
+     */
+    void ScartaCartaRimbalzo();
 
 
 /**********Logica per mossa successiva****************/
@@ -183,9 +189,14 @@ public slots:
     void OpenGameWindow(nat dim);
 
     /**
+     * @brief OpenLastGameWindow: slot per creare  lastGameWindow
+     */
+    void OpenLastGameWindow();
+
+    /**
      * @brief changeCardsFailed: cambio carte fallito
      */
-    void changeCardsFailed();
+    void changeCardsFailed(QString i);
 
 
 };

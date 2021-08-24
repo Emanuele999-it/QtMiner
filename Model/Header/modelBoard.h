@@ -12,8 +12,14 @@ class ModelBoard : public QObject{
     Q_OBJECT
 
 private:
+<<<<<<< HEAD
     nat _nMano; // grandezza della mano
     nat _nBoard; // grandezza della board
+=======
+    nat _nMano; // posizione della carta toccata dalla mano
+    nat _nBoard; // posizione della carta toccata dalla board
+    nat nCaselle;//numero caselle board
+>>>>>>> 3f2d538fd67d68648792afd7f293a68913707aef
     nat _nMosse; //numero mosse eseguite
     CVector <unique_ptr<Card>*> _handStuff ;
     CVector <unique_ptr<Card>*> _boardStuff ;
@@ -22,7 +28,7 @@ private:
      * @brief estrattoreCasuale: estrae in maniera casuale una carta
      * @return: oggetto carta
      */
-    Card* estrattoreCasuale();
+    Card* estrattoreCasuale(int i=1);
 
     /**
     * @brief getImage data posizione ritorna QString file immagine
@@ -84,9 +90,20 @@ public slots:
     void posiziona(nat posizioneMano,nat posizioneBoard);
 
     /**
+     * @brief scartaCartaMano: slot che permette di scarte una carta dalla mano per ottenerne una
+     *                         nuova estratta casualmente
+     */
+    void scartaCartaMano();
+
+    /**
      * @brief posizionaAI posiziona la carta della ia (random) e la mette dove puo'
      */
     void posizionaAI();
+
+    /**
+     * @brief saveLastGame: salvatiaggio untima partita
+     */
+    void saveLastGame();
 
 signals:
     /**
@@ -103,7 +120,7 @@ signals:
      * @brief CambiaImmagineMano: segnale che permette di aggiornare l'immagine
      *                  della carta della mano
      */
-    void CambiaImmagineMano(nat,QString);
+    void CambiaImmagineMano(nat,QString, nat);
 
     /**
 
@@ -114,7 +131,7 @@ signals:
     /**
      * @brief changeCardsfailed: emissione segnale scambio carte fallito
      */
-    void changeCardsfailed();
+    void changeCardsfailed(QString);
 
 };
 

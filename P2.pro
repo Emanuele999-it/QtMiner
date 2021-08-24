@@ -1,5 +1,4 @@
 QT += core gui
-QT += core
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,7 +23,8 @@ SOURCES += \
     View/mainwindow.cpp \
     View/tutorialwindow.cpp \
     View/settingswindow.cpp \
-    main.cpp 
+    main.cpp \ 
+    View/lastgamewindow.cpp
 
 
 HEADERS += \
@@ -44,7 +44,8 @@ HEADERS += \
     View/Header/mainwindow.h \
     View/Header/tutorialwindow.h \
     View/Header/settingswindow.h \
-    View/Header/boardwindow.h
+    View/Header/boardwindow.h \
+    View/Header/lastgamewindow.h
 
 
 # Default rules for deployment.
@@ -53,4 +54,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    resources.qrc \
+    resources1.qrc \
+    resources2.qrc \
+    resources3.qrc \
+    resources4.qrc \
+    resources5.qrc \
+    resources6.qrc

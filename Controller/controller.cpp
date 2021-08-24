@@ -15,11 +15,14 @@ Controller::Controller(QObject* parent): QObject(parent) {
     connect(MainW, &MainWindow::SettingsRequest, this, &Controller::openSettings);
     connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
     connect(MainW, &MainWindow::GameRequest, this, &Controller::openBoardWindow);
+    connect(MainW, &MainWindow::LastGameRequest, this, &Controller::openLastGameWindow);
+
     //da controllare potrebbero essere sbagliati
     connect(MainW, &MainWindow::casellaBoardSelezionata, this, &Controller::cambiaCellaBoard);
 
     connect(MainW, &MainWindow::chiusuraBoardWRimbalzo, this, &Controller::chiusuraGame);
     connect(MainW, &MainWindow::changeBoardDimension, this, &Controller::cambioDimensioniBoard);
+    connect(MainW, &MainWindow::ScartaCartaRimbalzo, this, &Controller::scartaCartaDallaMano);
 
     MainW->show();
     //MainW->createObjVectors();
@@ -52,7 +55,12 @@ void Controller::openBoardWindow(){
     emit MainW->OpenGameWindow(boardDimension);
 }
 
+void Controller::openLastGameWindow(){
+    emit MainW->OpenLastGameWindow();
+}
+
 void Controller::chiusuraGame(){
+    emit modelBoard->saveLastGame();
     delete modelBoard;
 }
 
@@ -64,3 +72,6 @@ void Controller::cambioDimensioniBoard(nat i){
     boardDimension=i;
 }
 
+void Controller::scartaCartaDallaMano(){
+    modelBoard->scartaCartaMano();
+}

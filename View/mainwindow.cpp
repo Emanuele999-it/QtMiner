@@ -1,5 +1,6 @@
 ﻿#include "Header/mainwindow.h"
 #include <QHBoxLayout>
+#include <QErrorMessage>
 
 #include <QDebug>
 
@@ -28,8 +29,6 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     Vl->addLayout(Hl1);
     Vl->addLayout(Hl2);
 
-    stackedWidget = new QStackedWidget(this);
-
     Hl1->addWidget(settings);
     Hl1->setAlignment(Qt::AlignRight | Qt::AlignTop);
 
@@ -41,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
     connect(settings,&QPushButton::clicked, this, &MainWindow::SettingsRequest);
     connect(tutorial,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
     connect(startGame,&QPushButton::clicked, this, &MainWindow::GameRequest);
+    connect(lastGame,&QPushButton::clicked, this, &MainWindow::LastGameRequest);
 }
 
 
@@ -58,6 +58,7 @@ void MainWindow::OpenTutorialWindow(){
 }
 
 void MainWindow::OpenGameWindow(nat dim){
+    startGame->setDisabled(true);
     boardWindoW = new BoardWindow(dim);
 
     connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
@@ -68,18 +69,35 @@ void MainWindow::OpenGameWindow(nat dim){
     connect(boardWindoW, &BoardWindow::cheImmagineHo, this, &MainWindow::RimbalzoCheImmagineHo);
     connect(boardWindoW, &BoardWindow::chiusuraBoardW, this, &MainWindow::closeGameBoard);
     connect(boardWindoW, &BoardWindow::scambiaScarte, this, &MainWindow::rimbalzoScambioCarteMB);
+    connect(boardWindoW, &BoardWindow::scartaCarta, this, &MainWindow::ScartaCartaRimbalzo);
     //Roba AI
     connect(boardWindoW, &BoardWindow::mossaAI, this, &MainWindow::rimbalzoMossaAI);
     connect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
 
     boardWindoW->addElVectors();
+    hide();
+
+    boardWindoW->show();
+
+}
+
+void MainWindow::OpenLastGameWindow(){
+    LGWindow = new LastGameWindow();
+    LGWindow->saveLastGame();
+    LGWindow->destroyed();
+
 }
 
 void MainWindow::closeGameBoard(){
+    //se this non è qdialog
+    startGame->setDisabled(false);
+    show();
     delete boardWindoW;
     emit chiusuraBoardWRimbalzo();
 }
 
-void MainWindow::changeCardsFailed(){
+void MainWindow::changeCardsFailed(QString i){
+    QErrorMessage* error= new QErrorMessage();
+    error->showMessage(i);
     boardWindoW->disableButton();
 }

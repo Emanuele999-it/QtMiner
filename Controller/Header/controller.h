@@ -49,6 +49,11 @@ public slots:
      */
     void openBoardWindow();
 
+    /**
+     * @brief openLastGameWindow: permette di creare lastGameWindow
+     */
+    void openLastGameWindow();
+
 
 /******************* Casella **************************************************************/
 
@@ -67,6 +72,13 @@ public slots:
      * @brief cambia la carta in una posizione specifica nela board
      */
     //void cambiaCellaBoardAI(nat);
+
+    /**
+     * @brief scartaCartaDallaMano: permette di scambiare carta in mano con una estratta
+     *                         casualmente
+     */
+    void scartaCartaDallaMano();
+
 signals:
 
 };
