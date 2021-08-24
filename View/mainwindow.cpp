@@ -83,8 +83,7 @@ void MainWindow::OpenGameWindow(nat dim){
 
 void MainWindow::OpenLastGameWindow(){
     LGWindow = new LastGameWindow();
-    LGWindow->destroyed();
-
+    LGWindow->getLastGame();
 }
 
 void MainWindow::closeGameBoard(){
