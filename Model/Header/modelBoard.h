@@ -12,8 +12,8 @@ class ModelBoard : public QObject{
     Q_OBJECT
 
 private:
-    nat _nMano; // posizione della carta toccata dalla mano
-    nat _nBoard; // posizione della carta toccata dalla board
+    nat _nMano; // grandezza della mano
+    nat _nBoard; // grandezza della board
     nat _nMosse; //numero mosse eseguite
     CVector <unique_ptr<Card>*> _handStuff ;
     CVector <unique_ptr<Card>*> _boardStuff ;
