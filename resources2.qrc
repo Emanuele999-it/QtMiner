@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>Img/srh.jpg</file>
-        <file>Img/r.jpg</file>
-        <file>Img/╩(0).jpg</file>
+        <file>Img/blankh.jpg</file>
+        <file>Img/blank.jpg</file>
+        <file>Img/╩.jpg</file>
     </qresource>
 </RCC>

@@ -10,6 +10,7 @@
 
 #include <QDebug>
 
+#include <QErrorMessage>
 
 #include <QJsonArray>
 #include <QJsonObject>
@@ -42,7 +43,7 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
 
     if (dynamic_cast<Obstruction*>(_carta)) {
         if(dynamic_cast<Blocco*>(_carta))
-            return "╬(blocco)";
+            return "╬b";
         else
             return "crollo";
     }
@@ -54,38 +55,38 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
     else if (dynamic_cast<Tunnel*>(_carta)){
         bool *a = dynamic_cast<Tunnel*>(_carta)->getArr();
         if(a[0]==true && a[1]==true && a[2]==true && a[3]==true) {
-            return "╬(0)";
+            return "╬";
         }
         else if(a[0]==false && a[1]==true && a[2]==false && a[3]==true){
-            return "═(0)";
+            return "═";
         }
         else if(a[0]==true && a[1]==false && a[2]==true && a[3]==false){
-            return "║(0)";
+            return "║";
         }
         else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false){
-            return "╔(0)";
+            return "╔";
         }
         else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true){
-            return "╗(0)";
+            return "╗";
         }
         else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false){
-            return "╚(0)";
+            return "╚";
         }
         else if(a[0]==true && a[1]==true && a[2]==true && a[3]==false){
-            return "╠(0)";
+            return "╠";
         }
         else if(a[0]==true && a[1]==true && a[2]==false && a[3]==true){
-            return "╩(0)";
+            return "╩";
         }
         else if(a[0]==true && a[1]==false && a[2]==true && a[3]==true){
-            return "╣(0)";
+            return "╣";
         }
         else if(a[0]==true && a[1]==false && a[2]==false && a[3]==true){
-            return "╝(0)";
+            return "╝";
         }
 
         else
-            return "╦(0)";
+            return "╦";
     }
 
     else
@@ -105,10 +106,9 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 
     Card* temp = _handStuff[posizioneMano]->get()->clone();
 
-    if((dynamic_cast<Tunnel*>(temp) || dynamic_cast<Blocco*>(temp)) &&
+    if((dynamic_cast<Tunnel*>(temp) || dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco) &&
               (_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr)){
 
-        qDebug()<<"ModelBoard: prima di bug: ";
         _boardStuff[posizioneBoard] = new unique_ptr<Card>(temp);
         /*
          * Funzione controllo compatibilità carta mano->board
@@ -125,7 +125,7 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
                                       getImage(posizioneBoard, _boardStuff),0);
     }
 
-    else if((dynamic_cast<CloneCards*>(temp) || dynamic_cast<Crollo*>(temp))
+    else if((dynamic_cast<CloneCards*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::crollo))
              && (_boardStuff[posizioneBoard] != nullptr && _boardStuff[posizioneBoard]->get() != nullptr)){
 
         if(dynamic_cast<CloneCards*>(temp)){
@@ -142,7 +142,7 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
     }
 
     else{
-        if(dynamic_cast<Tunnel*>(temp) || dynamic_cast<Blocco*>(temp)){
+        if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))){
             emit changeCardsfailed("Posizione board non valida. Non è possibile posizionare una carta Percorso in una casella occupata");
         }
 
@@ -163,12 +163,12 @@ void ModelBoard::posizionaAI(){
     bool ok=false;
 
     while(size>0 && !ok){
-        generator = rand() % nCaselle + 1;
+        generator = rand() % nCaselle;
         if(_boardStuff[generator] == nullptr || _boardStuff[generator]->get() == nullptr){
             _boardStuff[generator] = new unique_ptr<Card>(estrattoreCasuale(4));
             ok = true;
+            size--;
         }
-        size--;
     }
     //ora diciamo alla view la posizione e immagine
     emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));
@@ -250,65 +250,27 @@ void ModelBoard::saveLastGame(){
     QFile file("lastgameboard.json");
     //file.open(QIODevice::ReadWrite);
     if(!file.open(QIODevice::ReadWrite)) {
-        qDebug() << "File open error";
+        QErrorMessage* err= new QErrorMessage();
+        err->showMessage("Impossibile salvare la partita");
     } else {
-        qDebug() <<"JSONTest2 File open!";
-    }
+        // Clear the original content in the file
+        file.resize(0);
 
-    // Clear the original content in the file
-    file.resize(0);
+        // Add a value using QJsonArray and write to the file
+        QJsonArray jsonArray;
 
-    // Add a value using QJsonArray and write to the file
-    QJsonArray jsonArray;
-
-    if(nCaselle == 40){
-        for(int i = 0; i < 8; i++) {
-            QJsonObject jsonObject;
-            jsonObject.insert("Riga",QJsonArray() << i << getImage(0+ i*5, _boardStuff)<< getImage(1+i*5, _boardStuff)<< getImage(2+i*5, _boardStuff)
-                              << getImage(3+i*5, _boardStuff) << getImage(4+i*5, _boardStuff));
-            jsonArray.append(jsonObject);
+        QJsonObject jsonObject;
+        for(nat n=0;n<nCaselle;n++){
+            jsonObject.insert(QString::number(n),QString(getImage(n, _boardStuff)));
         }
-    }
-    else if (nCaselle==50){
-        for(int i = 0; i < 10; i++) {
-            QJsonObject jsonObject;
-            jsonObject.insert("Riga",QJsonArray() << i << getImage(0+ i*5, _boardStuff)<< getImage(1+i*5, _boardStuff)<< getImage(2+i*5, _boardStuff)
-                              << getImage(3+i*5, _boardStuff) << getImage(4+i*5, _boardStuff));
-            jsonArray.append(jsonObject);
-        }
-    }
-    else if (nCaselle==60){
-        for(int i = 0; i < 10; i++) {
-            QJsonObject jsonObject;
-            jsonObject.insert("Riga",QJsonArray() << i << getImage(0+ i*6, _boardStuff)<< getImage(1+i*6, _boardStuff)<< getImage(2+i*6, _boardStuff)
-                              << getImage(3+i*6, _boardStuff) << getImage(4+i*6, _boardStuff)<< getImage(5+i*6, _boardStuff));
-            jsonArray.append(jsonObject);
-        }
-    }
-    else if (nCaselle==70){
-        for(int i = 0; i < 10; i++) {
-            QJsonObject jsonObject;
-            jsonObject.insert("Riga",QJsonArray() << i << getImage(0+ i*7, _boardStuff)<< getImage(1+i*7, _boardStuff)<< getImage(2+i*7, _boardStuff)
-                              << getImage(3+i*7, _boardStuff) << getImage(4+i*7, _boardStuff) << getImage(5+i*7, _boardStuff) << getImage(6+i*7, _boardStuff));
-            jsonArray.append(jsonObject);
-        }
-    }
-    else{
-        for(int i = 0; i < 10; i++) {
-            QJsonObject jsonObject;
-            jsonObject.insert("Riga",QJsonArray() << i << getImage(0+ i*8, _boardStuff)<< getImage(1+i*8, _boardStuff)<< getImage(2+i*8, _boardStuff)
-                              << getImage(3+i*8, _boardStuff)  << getImage(4+i*8, _boardStuff) << getImage(5+i*8, _boardStuff) << getImage(6+i*8, _boardStuff) << getImage(7+i*8, _boardStuff));
-            jsonArray.append(jsonObject);
-        }
-    }
-
-      QJsonDocument jsonDoc;
-      jsonDoc.setArray(jsonArray);
-      file.write(jsonDoc.toJson());
-      file.close();
-      qDebug() << "Write to file";
+        jsonArray.append(jsonObject);
 
 
+        QJsonDocument jsonDoc;
+        jsonDoc.setArray(jsonArray);
+        file.write(jsonDoc.toJson());
+        file.close();
+    }
 }
 
 }

@@ -7,6 +7,10 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTextStream>
+#include <QJsonValue>
+#include <QJsonDocument>
+#include <QByteArray>
+#include <QJsonObject>
 
 
 class LastGameWindow: public QDialog{
@@ -23,11 +27,6 @@ signals:
 
 
 public slots:
-    /**
-     * @brief setGame: salvatggio su file dell'ultimo gioco
-     */
-    void saveLastGame();
-
     /**
      * @brief getLastGame: caricamento e visualizzazione dell'ultima partita
      */
