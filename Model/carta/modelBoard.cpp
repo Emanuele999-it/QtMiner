@@ -102,9 +102,44 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
     return _boardStuff[posizione]->get();
 }
 
-bool ModelBoard::path(nat cartaPrecedente, QVector<nat> posizioni) const{
-    nat Radice= nCaselle-((nCaselle/10)/2+1);
+
+bool ModelBoard::path(nat cartaPrecedente, QVector<nat> posizioni, QVector<nat> controllate, nat posizioneAttuale) const{
+    if(posizioneAttuale<0 || posizioneAttuale>nCaselle || (cartaPrecedente%(nCaselle/10-1) == 0 && posizioneAttuale == cartaPrecedente-1) || (cartaPrecedente%(nCaselle/10) == (nCaselle/10-1) && posizioneAttuale == cartaPrecedente+1)){
+        return false;
+    }
+    controllate.push_front(posizioneAttuale);
+
+if(_boardStuff[posizioneAttuale]==nullptr){
+        posizioni.push_front(posizioneAttuale);
+        return false;
+}else{
+    Tunnel* t= dynamic_cast<Tunnel*>(_boardStuff[posizioneAttuale]->get()->clone());
+    if(!controllate.contains(posizioneAttuale-(nCaselle/10)))//NORD e da nord vedere se ho lo sbocco carta corretto
+        path(posizioneAttuale,posizioni,controllate,posizioneAttuale-(nCaselle/10)) && t != nullptr && *(t->getArr()) == true;
+
+    if(!controllate.contains(posizioneAttuale+1))//EST
+        path(posizioneAttuale,posizioni,controllate,posizioneAttuale+1) && t != nullptr && *(t->getArr()+1) == true;
+
+
+    if(!controllate.contains(posizioneAttuale+(nCaselle/10)))//SUD
+        path(posizioneAttuale,posizioni,controllate,posizioneAttuale+(nCaselle/10)) && t != nullptr && *(t->getArr()+2) == true;
+
+    if(!controllate.contains(posizioneAttuale-1))//OVEST
+        path(posizioneAttuale,posizioni,controllate,posizioneAttuale-1) && t != nullptr && *(t->getArr()+3) == true;
+
+}
+
     return true;
+    /*
+    path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
+    path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
+    path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
+    path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
+    if(posizioni.empty())
+        return false;
+    else
+        return true;
+    */
 }
 
 void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
@@ -118,8 +153,8 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 
     if((dynamic_cast<Tunnel*>(temp) || dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco) &&
               (_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr)){
-        QVector<nat> posizioni;
-        if(posizioneBoard == nCaselle-((nCaselle/10)/2+1) || path(((nCaselle/10)/2+1),posizioni)){
+        QVector<nat> posizioni, controllate;
+        if(posizioneBoard == nCaselle-((nCaselle/10)/2+1) || path(((nCaselle/10)/2+1),posizioni,controllate,((nCaselle/10)/2+1))){
             //Logica percorso da mettere
             _boardStuff[posizioneBoard] = new unique_ptr<Card>(temp);
             /*

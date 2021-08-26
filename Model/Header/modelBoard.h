@@ -37,7 +37,7 @@ private:
      * @param pos essenzialmente _nBoard
      * @return
      */
-    bool path(nat CartaPrecedente, QVector <nat> posizioni) const;
+    bool path(nat CartaPrecedente, QVector <nat> posizioni, QVector <nat> controllate, nat posizioneCorrente) const;
 
 public:
     ModelBoard(nat nMano,nat nBoard);
