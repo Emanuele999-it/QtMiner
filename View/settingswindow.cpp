@@ -30,7 +30,7 @@ SettingsWindow::SettingsWindow(unsigned int i)
     slider->setTickPosition(QSlider::TicksAbove);
     slider->setRange(40,44);
     slider->setValue((i-40)/10+40);
-
+    //correggere
 
     vLayout->addLayout(hLayout);
     hLayout->addWidget(new QLabel("Dimensioni Board: "));

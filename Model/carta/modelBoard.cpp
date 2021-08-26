@@ -9,6 +9,7 @@
 #include <cstdlib>
 
 #include <QDebug>
+#include <QVector>
 
 #include <QErrorMessage>
 
@@ -101,30 +102,45 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
     return _boardStuff[posizione]->get();
 }
 
+bool ModelBoard::path(nat cartaPrecedente, QVector<nat> posizioni) const{
+    nat Radice= nCaselle-((nCaselle/10)/2+1);
+    return true;
+}
+
 void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 //modificare comportmento in caso ci sia carta crollo/blocco
 
     Card* temp = _handStuff[posizioneMano]->get()->clone();
 
+    /**
+      *Controlla se la carta è tunnel o se è obstrucion controlla se nella posizione esiste una carta, inoltre controlla se è start oppure se legale
+      */
+
     if((dynamic_cast<Tunnel*>(temp) || dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco) &&
               (_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr)){
+        QVector<nat> posizioni;
+        if(posizioneBoard == nCaselle-((nCaselle/10)/2+1) || path(((nCaselle/10)/2+1),posizioni)){
+            //Logica percorso da mettere
+            _boardStuff[posizioneBoard] = new unique_ptr<Card>(temp);
+            /*
+             * Funzione controllo compatibilità carta mano->board
+             *
+            */
+            _handStuff[posizioneMano]->~unique_ptr();
+            _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
 
-        _boardStuff[posizioneBoard] = new unique_ptr<Card>(temp);
-        /*
-         * Funzione controllo compatibilità carta mano->board
-         *
-        */
-        _handStuff[posizioneMano]->~unique_ptr();
-        _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
 
-
-        //segnale aggiornamento view
-        //invio segnale a view nuova carta
-        emit CambiaPosizioneManoBoard(posizioneMano, posizioneBoard,
-                                      getImage(posizioneMano, _handStuff),
-                                      getImage(posizioneBoard, _boardStuff),0);
+            //segnale aggiornamento view
+            //invio segnale a view nuova carta
+            emit CambiaPosizioneManoBoard(posizioneMano, posizioneBoard,
+                                          getImage(posizioneMano, _handStuff),
+                                          getImage(posizioneBoard, _boardStuff),0);
+        }
+        else
+            emit changeCardsfailed("Posizione non valida, non start o non legale");
     }
 
+    //Controlla se la cella clonecards è su una cella non vuota
     else if((dynamic_cast<CloneCards*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::crollo))
              && (_boardStuff[posizioneBoard] != nullptr && _boardStuff[posizioneBoard]->get() != nullptr)){
 
@@ -141,6 +157,7 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
         }
     }
 
+    //Errori
     else{
         if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))){
             emit changeCardsfailed("Posizione board non valida. Non è possibile posizionare una carta Percorso in una casella occupata");
@@ -253,10 +270,10 @@ void ModelBoard::saveLastGame(){
         QErrorMessage* err= new QErrorMessage();
         err->showMessage("Impossibile salvare la partita");
     } else {
-        // Clear the original content in the file
+        // Pulisci il contenuto precedente (Se esiste)
         file.resize(0);
 
-        // Add a value using QJsonArray and write to the file
+        // Usiamo un valore Json per scrivere nel file
         QJsonArray jsonArray;
 
         QJsonObject jsonObject;

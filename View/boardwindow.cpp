@@ -36,6 +36,7 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), mano(fal
     Hh->addWidget(mosse);
 
     b->addelVec(celle);
+    b->setStart(celle);
 
     m->addelVec(7);
 

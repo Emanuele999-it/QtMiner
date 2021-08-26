@@ -65,6 +65,10 @@ public:
      */
     void addElGrid(nat celle);
 
+    /**
+     * @brief setStart rende la casella di partenza gialla
+     */
+    void setStart(nat nCelle);
 public slots:
     /**
      * @brief selectCardBoard: slot che permette di salvare la posizione della carta cliccata

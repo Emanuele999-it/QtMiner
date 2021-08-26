@@ -12,7 +12,7 @@ class ModelBoard : public QObject{
     Q_OBJECT
 
 private:
-    nat _nBoard; // grandezza della board
+    nat _nBoard; // posizione Board
     nat _nMano; // posizione della carta toccata dalla mano
     nat nCaselle;//numero caselle board
     nat _nMosse; //numero mosse eseguite
@@ -30,9 +30,14 @@ private:
     * @param i
     * @return
     */
-   QString getImage(nat i, CVector<unique_ptr<Card>*> v) const;
+    QString getImage(nat i, CVector<unique_ptr<Card>*> v) const;
 
-
+    /**
+     * @brief path calcola se il path è corretto
+     * @param pos essenzialmente _nBoard
+     * @return
+     */
+    bool path(nat CartaPrecedente, QVector <nat> posizioni) const;
 
 public:
     ModelBoard(nat nMano,nat nBoard);

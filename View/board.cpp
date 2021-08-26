@@ -71,8 +71,12 @@ void Board::addElGrid(nat celle){
             grid->addWidget(vettoreCaselleBoard[counter],counter/(celle/10),counter%(celle/10),1,1);
         }
     }
+
 }
 
+void Board::setStart(nat celle){
+    vettoreCaselleBoard[celle-((celle/10)/2+1)]->setStyleSheet("QPushButton {background-color: yellow;}");
+}
 
 Mano::Mano(const nat &i) : Board(i){}
 
