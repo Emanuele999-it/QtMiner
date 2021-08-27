@@ -55,8 +55,8 @@ void ModelBoard::posiziona(){
 
     Card* temp = _handStuff[_nMano]->get()->clone();
 
-    if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco)) &&
-              (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr))){
+    if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))) &&
+              (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr)){
 
         _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
         /*

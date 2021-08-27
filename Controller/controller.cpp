@@ -8,7 +8,7 @@ Controller::Controller(QObject* parent): QObject(parent) {
     // qui in modelBoard possiamo mettere la grandezza della board che si preferisce
     // e lo si può fare con una variabile data dall'utente dalle impostazioni
 
-    boardDimension=50;
+    boardDimension=40;
     MainW = new MainWindow();
 
 
