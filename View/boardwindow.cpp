@@ -1,10 +1,17 @@
 #include "View/Header/boardwindow.h"
+#include <QRect>
+#include <QDesktopWidget>
 
 #include <QDebug>
 
-BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), mano(false), board(false)
+BoardWindow::BoardWindow(nat num) : celle(num), mano(false), board(false)
 {
-    setWindowTitle(tr("Qtminer"));
+    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    int x = (screenGeometry.width()-width()) / 2;
+    int y = (screenGeometry.height()-height()) / 2;
+    move(x, y);
+
+    setWindowTitle ("QtMiner - Giochiamo!");
     resize(750, 720);
 
     b = new view::Board(celle);

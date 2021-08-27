@@ -1,11 +1,18 @@
 ﻿#include "Header/mainwindow.h"
 #include <QHBoxLayout>
 #include <QErrorMessage>
+#include <QRect>
+#include <QDesktopWidget>
 
 #include <QDebug>
 
 
 MainWindow::MainWindow(QWidget *parent): QWidget(parent){
+
+    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    int x = (screenGeometry.width()-width()) / 2;
+    int y = (screenGeometry.height()-height()) / 2;
+    move(x, y);
 
     //settaggio proprietà finestra
     setWindowTitle ("QtMiner");
@@ -83,7 +90,13 @@ void MainWindow::OpenGameWindow(nat dim){
 
 void MainWindow::OpenLastGameWindow(){
     LGWindow = new LastGameWindow();
-    LGWindow->getLastGame();
+    connect(LGWindow, &LastGameWindow::chiusuraLastGame, this, &MainWindow::closeLastGame);
+    hide();
+}
+
+void MainWindow::closeLastGame(){
+    show();
+    delete LGWindow;
 }
 
 void MainWindow::closeGameBoard(){

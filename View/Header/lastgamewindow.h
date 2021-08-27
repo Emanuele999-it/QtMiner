@@ -11,6 +11,7 @@
 #include <QJsonDocument>
 #include <QByteArray>
 #include <QJsonObject>
+#include <QCloseEvent>
 
 
 class LastGameWindow: public QDialog{
@@ -19,18 +20,24 @@ private:
     QGridLayout *grid;
     QLabel *ultimaP;
 
+    /**
+     * @brief closeEvent: evento chiusura finestra
+     * @param event
+     */
+    void closeEvent(QCloseEvent *event);
+
 public:
 
-    LastGameWindow(QDialog *parent = nullptr);
+    LastGameWindow();
 
 signals:
-
+    /**
+     * @brief chiusuraLastGame: segnale chiusura finestra
+     */
+    void chiusuraLastGame();
 
 public slots:
-    /**
-     * @brief getLastGame: caricamento e visualizzazione dell'ultima partita
-     */
-    void getLastGame();
+
 
 };
 

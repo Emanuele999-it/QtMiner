@@ -1,8 +1,10 @@
 ﻿#include "Header/tutorialwindow.h"
 
 
-Tutorialwindow::Tutorialwindow(QWidget*parent): QDialog(parent)
+Tutorialwindow::Tutorialwindow()
 {
+
+    setWindowTitle ("QtMiner - Tutorial");
 
     setMinimumSize(350,300);
     setMaximumSize(1280,960);

@@ -33,7 +33,7 @@ signals:
     //void Deleting();
 
 public:
-    Tutorialwindow(QWidget *parent=nullptr);
+    Tutorialwindow();
 
     void readfile() const ;
 

@@ -171,6 +171,11 @@ private slots:
      */
     void closeGameBoard();
 
+    /**
+     * @brief closeLastGame: slot chiusura finestra ultima partita
+     */
+    void closeLastGame();
+
 
 public slots:
     /**

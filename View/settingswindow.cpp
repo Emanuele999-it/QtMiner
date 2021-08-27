@@ -11,6 +11,8 @@
 SettingsWindow::SettingsWindow(unsigned int i)
 {
 
+    setWindowTitle ("QtMiner - Impostazioni");
+
     valore=i;
     setMinimumSize(250,150);
 
