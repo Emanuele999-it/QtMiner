@@ -39,58 +39,7 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
     if(v[i] == nullptr || v[i]->get() == nullptr)
         return "blank";
 
-    Card* _carta = v[i]->get()->clone();
-
-    if (dynamic_cast<Obstruction*>(_carta)) {
-        if(dynamic_cast<Blocco*>(_carta))
-            return "╬b";
-        else
-            return "crollo";
-    }
-
-    else if (dynamic_cast<CloneCards*>(_carta)){
-            return "cloning";
-    }
-
-    else if (dynamic_cast<Tunnel*>(_carta)){
-        bool *a = dynamic_cast<Tunnel*>(_carta)->getArr();
-        if(a[0]==true && a[1]==true && a[2]==true && a[3]==true) {
-            return "╬";
-        }
-        else if(a[0]==false && a[1]==true && a[2]==false && a[3]==true){
-            return "═";
-        }
-        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==false){
-            return "║";
-        }
-        else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false){
-            return "╔";
-        }
-        else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true){
-            return "╗";
-        }
-        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false){
-            return "╚";
-        }
-        else if(a[0]==true && a[1]==true && a[2]==true && a[3]==false){
-            return "╠";
-        }
-        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==true){
-            return "╩";
-        }
-        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==true){
-            return "╣";
-        }
-        else if(a[0]==true && a[1]==false && a[2]==false && a[3]==true){
-            return "╝";
-        }
-
-        else
-            return "╦";
-    }
-
-    else
-        return "sr";
+    return QString::fromStdString(v[i]->get()->getName());
 }
 
 Card* ModelBoard::getCardMano(nat posizione) const{
@@ -106,8 +55,8 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 
     Card* temp = _handStuff[posizioneMano]->get()->clone();
 
-    if((dynamic_cast<Tunnel*>(temp) || dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco) &&
-              (_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr)){
+    if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco) &&
+              (_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr))){
 
         _boardStuff[posizioneBoard] = new unique_ptr<Card>(temp);
         /*

@@ -8,3 +8,7 @@ CloneCards* CloneCards::clone() const {
 }
 
 CloneCards::CloneCards(const CloneCards& c){}
+
+std::string CloneCards::getName() const {
+    return "cloning";
+}

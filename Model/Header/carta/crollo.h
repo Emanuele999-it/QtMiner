@@ -43,6 +43,12 @@ public:
      * @return : ritorna un riferimento a Crollo
      */
     Crollo& operator =(const Crollo& c);
+
+    /**
+     * @brief getName: funzione che ritorna il nome dell'oggetto
+     * @return
+     */
+    std::string getName() const;
 };
 
 #endif // CROLLO_H

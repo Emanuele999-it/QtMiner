@@ -47,6 +47,12 @@ public:
      * @return : ritorna un riferimento a Blocco
      */
     Blocco& operator =(const Blocco& b);
+
+    /**
+     * @brief getName: funzione che ritorna il nome dell'oggetto
+     * @return
+     */
+    std::string getName() const;
 };
 
 #endif // BLOCCO_H

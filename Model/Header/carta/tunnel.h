@@ -54,6 +54,12 @@ public:
      */
     bool* getArr();
 
+
+    /**
+     * @brief getName: funzione che ritorna il nome dell'oggetto
+     * @return
+     */
+    std::string getName() const;
 };
 
 #endif // TUNNEL_H

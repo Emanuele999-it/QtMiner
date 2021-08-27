@@ -1,7 +1,7 @@
 ﻿#include "Model/Header/carta/crollo.h"
 
 
-Crollo::Crollo() :type(ObstructionType::crollo){}
+Crollo::Crollo() : type(ObstructionType::crollo) {}
 
 Crollo* Crollo::clone() const{
     return new Crollo(*this);
@@ -19,3 +19,7 @@ Crollo& Crollo::operator =(const Crollo& c){
 }
 
 Crollo::~Crollo(){}
+
+std::string Crollo::getName() const {
+    return "crollo";
+}

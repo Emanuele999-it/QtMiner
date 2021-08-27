@@ -2,6 +2,7 @@
 #define CARD_H
 
 #include <QObject>
+#include <iostream>
 
 //testing
 
@@ -50,6 +51,13 @@ public:
      * @brief setUsage: modifica che permette di indicare se la carta si può o meno usare
      */
     virtual void setUsage(bool);
+
+    /**
+     * @brief getName: funzione che ritorna il nome dell'oggetto
+     * @return
+     */
+    virtual std::string getName() const=0;
+
 };
 
 #endif // CARD_H
