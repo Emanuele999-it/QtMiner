@@ -50,43 +50,43 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
     return _boardStuff[posizione]->get();
 }
 
-void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
+void ModelBoard::posiziona(){
 //modificare comportmento in caso ci sia carta crollo/blocco
 
-    Card* temp = _handStuff[posizioneMano]->get()->clone();
+    Card* temp = _handStuff[_nMano]->get()->clone();
 
-    if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco) &&
-              (_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr))){
+    if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco)) &&
+              (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr))){
 
-        _boardStuff[posizioneBoard] = new unique_ptr<Card>(temp);
+        _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
         /*
          * Funzione controllo compatibilità carta mano->board
          *
         */
-        _handStuff[posizioneMano]->~unique_ptr();
-        _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
+        _handStuff[_nMano]->~unique_ptr();
+        _handStuff[_nMano] = new unique_ptr<Card>(estrattoreCasuale());
 
 
         //segnale aggiornamento view
         //invio segnale a view nuova carta
-        emit CambiaPosizioneManoBoard(posizioneMano, posizioneBoard,
-                                      getImage(posizioneMano, _handStuff),
-                                      getImage(posizioneBoard, _boardStuff),0);
+        emit CambiaPosizioneManoBoard(_nMano, _nBoard,
+                                      getImage(_nMano, _handStuff),
+                                      getImage(_nBoard, _boardStuff),0);
     }
 
     else if((dynamic_cast<CloneCards*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::crollo))
-             && (_boardStuff[posizioneBoard] != nullptr && _boardStuff[posizioneBoard]->get() != nullptr)){
+             && (_boardStuff[_nBoard] != nullptr && _boardStuff[_nBoard]->get() != nullptr)){
 
         if(dynamic_cast<CloneCards*>(temp)){
-            _handStuff[posizioneMano]->~unique_ptr();
-            _handStuff[posizioneMano] = new unique_ptr<Card>(_boardStuff[posizioneBoard]->get()->clone());
-            emit CambiaPosizioneManoBoard(posizioneMano,0,getImage(posizioneMano, _handStuff),"",1);
+            _handStuff[_nMano]->~unique_ptr();
+            _handStuff[_nMano] = new unique_ptr<Card>(_boardStuff[_nBoard]->get()->clone());
+            emit CambiaPosizioneManoBoard(_nMano,0,getImage(_nMano, _handStuff),"",1);
         }
         //la carta utilizzata è un crollo
         else{
-            _boardStuff[posizioneBoard]->~unique_ptr();
-            _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
-            emit CambiaPosizioneManoBoard(posizioneMano,posizioneBoard,getImage(posizioneMano, _handStuff),"",2);
+            _boardStuff[_nBoard]->~unique_ptr();
+            _handStuff[_nMano] = new unique_ptr<Card>(estrattoreCasuale());
+            emit CambiaPosizioneManoBoard(_nMano,_nBoard,getImage(_nMano, _handStuff),"",2);
         }
     }
 

@@ -78,11 +78,8 @@ public slots:
     /**
      * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
      * posizioneMano
-     * @param posizioneMano
-     * @param posizioneBoard
-     * @return
      */
-    void posiziona(nat posizioneMano,nat posizioneBoard);
+    void posiziona();
 
     /**
      * @brief scartaCartaMano: slot che permette di scarte una carta dalla mano per ottenerne una

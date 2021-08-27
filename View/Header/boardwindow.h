@@ -121,7 +121,7 @@ signals:
     /**
      * @brief scambiaScarte: funzione che permette di scambiare le carte da mano a board
      */
-    void scambiaScarte(nat, nat);
+    void scambiaScarte();
 
     /**
      * @brief cheImmagineHo: segnale per chiedere al model il tipo di carta

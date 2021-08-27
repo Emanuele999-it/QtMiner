@@ -142,7 +142,7 @@ signals:
      * @brief rimbalzoScambioCarteMB: segnale che permette di far arrivare il segnale di scambio carte
      *                                mano->board al controller
      */
-    void rimbalzoScambioCarteMB(nat, nat);
+    void rimbalzoScambioCarteMB();
 
     /**
      * @brief changeBoardDimension: segnale di rimbalzo verso il controller per modificare

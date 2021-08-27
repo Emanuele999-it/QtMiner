@@ -143,7 +143,7 @@ void BoardWindow::addElVectors(){
 
 void BoardWindow::controlloCarteDaScambiare(){
     //controllo che posizione non sia una cella di arrivo
-    emit scambiaScarte(m->getPosizione(),b->getPosizione());
+    emit scambiaScarte();
 }
 
 void BoardWindow::avviaMossaAI(){
