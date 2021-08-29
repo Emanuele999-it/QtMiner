@@ -3,15 +3,17 @@
 #include <QErrorMessage>
 #include <QRect>
 #include <QDesktopWidget>
+#include <QFormLayout>
 
 #include <QDebug>
 
 
-MainWindow::MainWindow(QWidget *parent): QWidget(parent){
+
+MainWindow::MainWindow(){
 
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    int x = (screenGeometry.width()-width()) / 2;
-    int y = (screenGeometry.height()-height()) / 2;
+    int x = (screenGeometry.width()- width()) / 2;
+    int y = (screenGeometry.height()- height()) / 2;
     move(x, y);
 
     //settaggio proprietà finestra
@@ -33,11 +35,24 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 
     QHBoxLayout *Hl1=new QHBoxLayout();
     QHBoxLayout *Hl2=new QHBoxLayout();
+    QHBoxLayout *Hname=new QHBoxLayout();
     Vl->addLayout(Hl1);
+    Vl->addLayout(Hname);
     Vl->addLayout(Hl2);
 
     Hl1->addWidget(settings);
     Hl1->setAlignment(Qt::AlignRight | Qt::AlignTop);
+
+    QFormLayout* formLayout= new QFormLayout();
+    formLayout->setRowWrapPolicy(QFormLayout::DontWrapRows);
+    formLayout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
+    formLayout->setFormAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    formLayout->setLabelAlignment(Qt::AlignLeft);
+
+    lineE = new QLineEdit("Nome");
+
+    Hname->addLayout(formLayout);
+    formLayout->addRow("Inserisci il tuo nome", lineE);
 
     Hl2->addWidget(tutorial);
     Hl2->addWidget(startGame);
@@ -46,10 +61,13 @@ MainWindow::MainWindow(QWidget *parent): QWidget(parent){
 
     connect(settings,&QPushButton::clicked, this, &MainWindow::SettingsRequest);
     connect(tutorial,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
-    connect(startGame,&QPushButton::clicked, this, &MainWindow::GameRequest);
+    connect(startGame,&QPushButton::clicked, this, &MainWindow::GameRequestSlot);
     connect(lastGame,&QPushButton::clicked, this, &MainWindow::LastGameRequest);
 }
 
+void MainWindow::GameRequestSlot(){
+    emit GameRequest(lineE->displayText());
+}
 
 void MainWindow::OpenSettingsWindow(nat i){
     //hide();
@@ -64,9 +82,9 @@ void MainWindow::OpenTutorialWindow(){
     tWindow->exec();
 }
 
-void MainWindow::OpenGameWindow(nat dim){
+void MainWindow::OpenGameWindow(nat dim, QString n){
     startGame->setDisabled(true);
-    boardWindoW = new BoardWindow(dim);
+    boardWindoW = new BoardWindow(dim, n);
 
     connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
 

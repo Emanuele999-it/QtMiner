@@ -4,14 +4,14 @@
 
 #include <QDebug>
 
-BoardWindow::BoardWindow(nat num) : celle(num), mano(false), board(false)
+BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(false)
 {
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     int x = (screenGeometry.width()-width()) / 2;
     int y = (screenGeometry.height()-height()) / 2;
     move(x, y);
 
-    setWindowTitle ("QtMiner - Giochiamo!");
+    setWindowTitle ("QtMiner - Giochiamo "+ n+ "!!!");
     resize(750, 720);
 
     b = new view::Board(celle);
@@ -35,12 +35,14 @@ BoardWindow::BoardWindow(nat num) : celle(num), mano(false), board(false)
 
     QHBoxLayout *Hh=new QHBoxLayout();
     Vlayout->addLayout(Hh);
+    Hh->addItem(new QSpacerItem(1,0,QSizePolicy::Maximum));
     Hh->addWidget(m);
     v = new QVBoxLayout();
     Hh->addLayout(v);
     v->addWidget(scambioMB);
     v->addWidget(scarta);
     Hh->addWidget(mosse);
+    Hh->addItem(new QSpacerItem(1,0,QSizePolicy::Maximum));
 
     b->addelVec(celle);
 

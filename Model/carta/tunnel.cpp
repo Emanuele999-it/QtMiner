@@ -67,7 +67,6 @@ std::string Tunnel::getName() const {
     else if(arr[0]==true && arr[1]==false && arr[2]==false && arr[3]==true){
         return "╝";
     }
-
     else
         return "╦";
 }

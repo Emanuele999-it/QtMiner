@@ -11,6 +11,7 @@
 #include "boardwindow.h"
 #include "lastgamewindow.h"
 
+#include <QLineEdit>
 #include <QSize>
 #include <QIcon>
 
@@ -22,13 +23,15 @@ public:
      * @brief MainWindow: costruttore default
      * @param parent: parent di MainWindow
      */
-    MainWindow(QWidget *parent=nullptr);
+    MainWindow();
 
     /**
      * @brief creteObjVectors: funzione che permette di chiamare addElVEctors
      *                        di boardwindow
      */
     void createObjVectors();
+
+    QLineEdit* lineE;
 
 private:
 
@@ -102,7 +105,7 @@ signals:
      * @brief GameRequest: segnale per aprire finestra gioco,
      *                  caturato dal controller
      */
-    void GameRequest();
+    void GameRequest(QString);
 
     /**
      * @brief LasTGameRequest: segnale per aprire la finestra dell'ultimo gioco
@@ -176,6 +179,11 @@ private slots:
      */
     void closeLastGame();
 
+    /**
+     * @brief GameRequestSlot: slot per inviare la richiesta di giocare passando
+     */
+    void GameRequestSlot();
+
 
 public slots:
     /**
@@ -191,7 +199,7 @@ public slots:
     /**
      * @brief OpenGameRequest: slot per creare boardwindow
      */
-    void OpenGameWindow(nat dim);
+    void OpenGameWindow(nat dim, QString n);
 
     /**
      * @brief OpenLastGameWindow: slot per creare  lastGameWindow
