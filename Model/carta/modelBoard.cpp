@@ -56,35 +56,63 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
     return _boardStuff[posizione]->get();
 }
 
-void ModelBoard::path(nat cartaPrecedente, QVector<nat> posizioni, QVector<nat> controllate, nat posizioneAttuale) const{
-    if(posizioneAttuale<0 || posizioneAttuale>nCaselle || (cartaPrecedente%(nCaselle/10-1) == 0 && posizioneAttuale == cartaPrecedente-1) || (cartaPrecedente%(nCaselle/10) == (nCaselle/10-1) && posizioneAttuale == cartaPrecedente+1)){
+void ModelBoard::path(nat cartaPrecedente, QVector<nat> &posizioni, QVector<nat> &controllate, nat posizioneAttuale) const{
+    if(posizioneAttuale<0 || posizioneAttuale>nCaselle || ((cartaPrecedente%(nCaselle/10) == 0 && posizioneAttuale == cartaPrecedente-1)) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1) && posizioneAttuale == cartaPrecedente+1))){
+        qDebug()<<"Posizione Fuori board";
         return;
     }
+    qDebug()<<"Controllo fatto, pos legale";
     controllate.push_front(posizioneAttuale);
-
-    if(_boardStuff[posizioneAttuale]==nullptr){
+    qDebug()<<cartaPrecedente<< " " <<posizioneAttuale;
+    qDebug()<<"Aggiunto a controllate";
+    if(_boardStuff[posizioneAttuale]->get()==nullptr && posizioneAttuale!=cartaPrecedente){//Secondo controllo è per il primo caso (Root == CartaPrecedente)
         posizioni.push_front(posizioneAttuale);
+        qDebug()<<"Aggiunto a pos legali";
+
+        qDebug()<<posizioni.length()<<" posizioni possibili";
+        qDebug()<<controllate.length()<<" posizioni contollate";
+        return;
     }
-
     else{
-        Tunnel* t= dynamic_cast<Tunnel*>(_boardStuff[posizioneAttuale]->get()->clone());
 
+
+        Card* t1= _handStuff[_nMano]->get()->clone();
+
+        if(!cartaPrecedente==posizioneAttuale)
+            Card* t1= _boardStuff[posizioneAttuale]->get()->clone();
+
+        Tunnel* t = dynamic_cast<Tunnel*>(t1);
+
+        for(int i=0;i<4 ;i++){
+            qDebug()<< *(t->getArr()+i);
+        }
         //NORD
-        if(t != nullptr && *(t->getArr()))
+        if(t != nullptr && *(t->getArr())){
+            qDebug()<<"Pre:NORD";
+            qDebug()<<*(t->getArr());
             path(posizioneAttuale,posizioni,controllate,posizioneAttuale-(nCaselle/10));
+        }
 
         //EST
-        if(!controllate.contains(posizioneAttuale+1) && (t != nullptr && *(t->getArr()+1)))
+        if(t != nullptr && *(t->getArr()+1)){
+            qDebug()<<"Pre:EST";
+            qDebug()<<*(t->getArr()+1);
             path(posizioneAttuale,posizioni,controllate,posizioneAttuale+1);
+        }
 
         //SUD
-        if(t != nullptr && *(t->getArr()+2))
+        if(t != nullptr && *(t->getArr()+2)){
+            qDebug()<<"Pre:SUD";
+            qDebug()<<*(t->getArr()+2);
             path(posizioneAttuale,posizioni,controllate,posizioneAttuale+(nCaselle/10));
+        }
 
         //OVEST
-        if(!controllate.contains(posizioneAttuale-1) && (t != nullptr && *(t->getArr()+3)))
+        if(t != nullptr && *(t->getArr()+3)){
+            qDebug()<<"Pre:OVEST";
+            qDebug()<<*(t->getArr()+3);
             path(posizioneAttuale,posizioni,controllate,posizioneAttuale-1);
-
+        }
     }
     /*
     path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
@@ -110,39 +138,46 @@ void ModelBoard::posiziona(){
 
     if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))) &&
             (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr)){
-        qDebug()<<"nBoard: "<<_nBoard<<" nMano: "<<_nMano<<" operazione: "<<nCaselle -((nCaselle/10)/2+1);
-        qDebug()<<"Modelboard: per ora ok";
+
+
+        qDebug()<<"nBoard: "<<_nBoard<<" nMano: "<<_nMano;
 
         QVector<nat> posizioni, controllate;
 
-        if(_nBoard == nCaselle -((nCaselle/10)/2+1)){
-            qDebug()<<"Modelboard: entarato nel primo if";
+        path(nCaselle-((nCaselle/10)/2+1),posizioni,controllate,nCaselle-((nCaselle/10)/2+1));
 
-            path(((nCaselle/10)/2+1),posizioni,controllate,((nCaselle/10)/2+1));
-            qDebug()<<"Modelboard: concluso path";
+        qDebug()<<posizioni.length()<<" posizioni possibili corpo";
+        qDebug()<<"******************************";
+        for(auto i= posizioni.begin(); i<posizioni.end();++i){
+           qDebug()<<*i;
+        }
+        qDebug()<<"******************************";
 
-            if(!posizioni.empty()){
-                qDebug()<<"Modelboard: no celle disponibili";
-                _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
+
+        if((_nBoard == (nCaselle-(nCaselle/10)/2-1)) || posizioni.contains(_nBoard) ){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
+
+            _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
                 /*
              * Funzione controllo compatibilità carta mano->board
              *
              */
-                _handStuff[_nMano]->~unique_ptr();
-                _handStuff[_nMano] = new unique_ptr<Card>(estrattoreCasuale());
+            _handStuff[_nMano]->~unique_ptr();
+            _handStuff[_nMano] = new unique_ptr<Card>(estrattoreCasuale());
 
+            posizioni.clear();
+            controllate.clear();
 
-                //segnale aggiornamento view
-                //invio segnale a view nuova carta
-                emit CambiaPosizioneManoBoard(_nMano, _nBoard,
+            //segnale aggiornamento view
+            //invio segnale a view nuova carta
+            emit CambiaPosizioneManoBoard(_nMano, _nBoard,
                                               getImage(_nMano, _handStuff),
                                           getImage(_nBoard, _boardStuff),0);
-            }
         }
-            else{
-                qDebug()<<"Modelboard: errore";
-                emit changeCardsfailed("Posizione non valida. Non è possibile posizionare una carta Percorso non collegata");
-            }
+
+        else{
+            qDebug()<<"Modelboard: errore";
+            emit changeCardsfailed("Posizione non valida. Non è possibile posizionare una carta Percorso non collegata");
+        }
     }
 
     //Controlla se la cella clonecards è su una cella non vuota

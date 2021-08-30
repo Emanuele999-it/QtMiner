@@ -37,7 +37,7 @@ private:
      * @param pos essenzialmente _nBoard
      * @return
      */
-    void path(nat CartaPrecedente, QVector <nat> posizioni, QVector <nat> controllate, nat posizioneCorrente) const;
+    void path(nat CartaPrecedente, QVector <nat> &posizioni, QVector <nat> &controllate, nat posizioneCorrente) const;
 
 public:
    /**
