@@ -35,7 +35,15 @@ private:
 
 
 public:
+   /**
+    * costruttore
+    */
     ModelBoard(nat nMano,nat nBoard);
+
+    /**
+     * distruttore
+     */
+    ~ModelBoard() override;
 
     /**
      * @brief addCardtoVectors: metodo per inserire gli elementi nei vettori

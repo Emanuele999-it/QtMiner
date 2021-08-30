@@ -34,7 +34,15 @@ protected:
     virtual void leaveEvent(QEvent *event);
 
 public:
+    /**
+    * costruttore
+    */
     Casella(nat p=0, QString s="blank", QPushButton*pushbutton = new QPushButton());
+
+    /**
+    * distruttore
+    */
+    ~Casella() override;
 
     /**
      * @brief cambiaImmagine: funzione che permette di cambiare immagine alla casella

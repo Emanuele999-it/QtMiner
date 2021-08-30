@@ -1,5 +1,15 @@
 ﻿#include "Header/tutorialwindow.h"
 
+
+Tutorialwindow::~Tutorialwindow(){
+    delete e;
+    delete l;
+    delete avanti;
+    delete indietro;
+    delete menu;
+    delete text;
+}
+
 Tutorialwindow::Tutorialwindow()
 {
 

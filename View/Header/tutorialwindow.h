@@ -33,7 +33,15 @@ signals:
     //void Deleting();
 
 public:
+    /**
+    *costruttore
+    */
     Tutorialwindow();
+
+    /**
+    *distruttore
+    */
+    ~Tutorialwindow() override;
 
     void readfile() const ;
 

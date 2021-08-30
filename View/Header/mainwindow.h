@@ -26,14 +26,18 @@ public:
     MainWindow();
 
     /**
+     * distruttore
+     */
+    ~MainWindow() override;
+
+    /**
      * @brief creteObjVectors: funzione che permette di chiamare addElVEctors
      *                        di boardwindow
      */
     void createObjVectors();
 
-    QLineEdit* lineE;
-
 private:
+    QLineEdit* lineE;
 
 /****************** Settings ************************************/
     /**

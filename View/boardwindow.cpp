@@ -1,8 +1,19 @@
 #include "View/Header/boardwindow.h"
 #include <QRect>
 #include <QDesktopWidget>
+#include <QErrorMessage>
 
 #include <QDebug>
+
+BoardWindow::~BoardWindow(){
+    delete b;
+    delete m;
+    delete mosse;
+    delete v;
+    delete scambioMB;
+    delete scarta;
+}
+
 
 BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(false)
 {
@@ -158,3 +169,8 @@ void BoardWindow::aggiornamentoBoardAI(nat posAI, QString imgAI){
     b->addCardBoard(posAI,imgAI);
 }
 
+void BoardWindow::CardError(QString i){
+    QErrorMessage* error= new QErrorMessage(this);
+    error->showMessage(i);
+    error->exec();
+}

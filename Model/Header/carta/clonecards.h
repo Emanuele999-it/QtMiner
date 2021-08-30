@@ -8,8 +8,15 @@ class CloneCards : public Card
 private:
 
 public:
-
+    /**
+     * @brief CloneCards: costruttore
+     */
     CloneCards();
+
+    /**
+     * @brief ~CloneCards: distruttore
+     */
+    ~CloneCards() override;
 
     /**
      * @brief clone: metodo che clona la carta CloneCards

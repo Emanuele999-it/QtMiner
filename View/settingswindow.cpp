@@ -7,6 +7,13 @@
 
 #include <QDebug>
 
+SettingsWindow::~SettingsWindow(){
+    delete vLayout;
+    delete hLayout;
+    delete slider;
+    delete lcd;
+    delete confirm;
+}
 
 SettingsWindow::SettingsWindow(unsigned int i)
 {

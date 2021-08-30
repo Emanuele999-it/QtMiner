@@ -7,7 +7,19 @@
 
 #include <QDebug>
 
-
+MainWindow::~MainWindow(){
+    delete lineE;
+    delete settings;
+    delete settWindow;
+    delete tutorial;
+    delete tWindow;
+    delete startGame;
+    delete boardWindoW;
+    delete lastGame;
+    delete LGWindow;
+    delete Vl;
+    delete lineE;
+}
 
 MainWindow::MainWindow(){
 
@@ -66,7 +78,14 @@ MainWindow::MainWindow(){
 }
 
 void MainWindow::GameRequestSlot(){
-    emit GameRequest(lineE->displayText());
+    if(lineE->displayText() == "Nome"){
+        QErrorMessage mb(this);
+        mb.showMessage("E' necessario cambiare il nome");
+        mb.exec();
+    }
+    else{
+        emit GameRequest(lineE->displayText());
+    }
 }
 
 void MainWindow::OpenSettingsWindow(nat i){
@@ -126,7 +145,6 @@ void MainWindow::closeGameBoard(){
 }
 
 void MainWindow::changeCardsFailed(QString i){
-    QErrorMessage* error= new QErrorMessage();
-    error->showMessage(i);
     boardWindoW->disableButton();
+    emit boardWindoW->CardError(i);
 }

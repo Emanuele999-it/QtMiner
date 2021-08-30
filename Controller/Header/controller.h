@@ -24,7 +24,15 @@ private:
     QString name;
 
 public:
+    /**
+    * costruttore
+    */
     Controller(QObject* parent= nullptr);
+
+    /**
+    * distruttore
+    */
+    ~Controller() override;
 
 public slots:
 

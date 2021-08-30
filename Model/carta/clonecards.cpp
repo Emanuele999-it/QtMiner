@@ -1,5 +1,6 @@
 ﻿#include "Model/Header/carta/clonecards.h"
 
+CloneCards::~CloneCards(){}
 
 CloneCards::CloneCards(){}
 
@@ -12,3 +13,5 @@ CloneCards::CloneCards(const CloneCards& c){}
 std::string CloneCards::getName() const {
     return "cloning";
 }
+
+

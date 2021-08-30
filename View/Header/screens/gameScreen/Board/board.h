@@ -35,7 +35,15 @@ private:
     QSpacerItem *spaceR;
 
 public:
+    /**
+    * costruttore
+    */
     Board(const nat&);
+
+    /**
+    * distruttore
+    */
+    ~Board() override;
 
     /**
      * @brief getCasella: funzione che restituisce la casella in una determinata posizione

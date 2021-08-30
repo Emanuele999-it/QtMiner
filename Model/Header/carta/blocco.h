@@ -39,7 +39,7 @@ public:
     /**
      * @brief ~Blocco: distruttore
      */
-    ~Blocco();
+    ~Blocco() override;
 
     /**
      * @brief operator = :operatore di assegnazione, usa metodo clone

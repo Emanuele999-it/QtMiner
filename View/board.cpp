@@ -5,6 +5,9 @@
 
 namespace view {
 
+Board::~Board(){
+}
+
 Board::Board(const nat &i): posizioneBoard(0){
     QVector<Casella*> vettoreCaselleBoard(i);
     grid= new QGridLayout();

@@ -4,7 +4,10 @@
 #include <QPixmap>
 #include <vector>
 
-
+LastGameWindow::~LastGameWindow(){
+    delete grid;
+    delete ultimaP;
+}
 
 LastGameWindow::LastGameWindow(){
     setWindowTitle ("QtMiner - Ultima partita");

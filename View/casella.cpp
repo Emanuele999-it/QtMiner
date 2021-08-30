@@ -13,12 +13,8 @@
 
 namespace view {
 
-/*
- * cosa voglio: casella invia segnale con la propria posizione
- *              che verrà ricevuto da board, che a sua volta
- *              interrogherà modelBoard per ottenere l'immagine che infine verrà
- *              assegnata a casella
-*/
+Casella::~Casella(){}
+
 Casella::Casella(nat p, QString s, QPushButton*pushbutton):QPushButton(pushbutton), pos(p){
 
     def=s;

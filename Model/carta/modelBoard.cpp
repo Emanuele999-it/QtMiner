@@ -19,6 +19,11 @@
 
 namespace model{
 
+ModelBoard::~ModelBoard(){
+    _handStuff.~CVector();
+    _boardStuff.~CVector();
+}
+
 ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), nCaselle(nBoard),
     _handStuff(CVector<unique_ptr<Card>*>(0)),
     _boardStuff(CVector<unique_ptr<Card>*>(0)){}

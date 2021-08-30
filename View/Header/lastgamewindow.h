@@ -27,8 +27,15 @@ private:
     void closeEvent(QCloseEvent *event);
 
 public:
-
+    /**
+    * costruttore
+    */
     LastGameWindow();
+
+    /**
+    * distruttore
+    */
+    ~LastGameWindow() override;
 
 signals:
     /**
