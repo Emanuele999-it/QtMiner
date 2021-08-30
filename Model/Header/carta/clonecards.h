@@ -5,9 +5,18 @@
 
 class CloneCards : public Card
 {
-public:
+private:
 
+public:
+    /**
+     * @brief CloneCards: costruttore
+     */
     CloneCards();
+
+    /**
+     * @brief ~CloneCards: distruttore
+     */
+    ~CloneCards() override;
 
     /**
      * @brief clone: metodo che clona la carta CloneCards
@@ -20,6 +29,12 @@ public:
      * @param c
      */
     CloneCards(const CloneCards& c);
+
+    /**
+     * @brief getName: funzione che ritorna il nome dell'oggetto
+     * @return
+     */
+    std::string getName() const;
 };
 
 #endif // CLONECARDS_H

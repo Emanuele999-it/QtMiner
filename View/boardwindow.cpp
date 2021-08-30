@@ -1,10 +1,28 @@
 #include "View/Header/boardwindow.h"
+#include <QRect>
+#include <QDesktopWidget>
+#include <QErrorMessage>
 
 #include <QDebug>
 
-BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), mano(false), board(false)
+BoardWindow::~BoardWindow(){
+    delete b;
+    delete m;
+    delete mosse;
+    delete v;
+    delete scambioMB;
+    delete scarta;
+}
+
+
+BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(false)
 {
-    setWindowTitle(tr("Qtminer"));
+    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    int x = (screenGeometry.width()-width()) / 2;
+    int y = (screenGeometry.height()-height()) / 2;
+    move(x, y);
+
+    setWindowTitle ("QtMiner - Giochiamo "+ n+ "!!!");
     resize(750, 720);
 
     b = new view::Board(celle);
@@ -28,12 +46,14 @@ BoardWindow::BoardWindow(nat num, QWidget *p) : QWidget(p), celle(num), mano(fal
 
     QHBoxLayout *Hh=new QHBoxLayout();
     Vlayout->addLayout(Hh);
+    Hh->addItem(new QSpacerItem(1,0,QSizePolicy::Maximum));
     Hh->addWidget(m);
     v = new QVBoxLayout();
     Hh->addLayout(v);
     v->addWidget(scambioMB);
     v->addWidget(scarta);
     Hh->addWidget(mosse);
+    Hh->addItem(new QSpacerItem(1,0,QSizePolicy::Maximum));
 
     b->addelVec(celle);
     b->setStart(celle);
@@ -137,7 +157,7 @@ void BoardWindow::addElVectors(){
 
 void BoardWindow::controlloCarteDaScambiare(){
     //controllo che posizione non sia una cella di arrivo
-    emit scambiaScarte(m->getPosizione(),b->getPosizione());
+    emit scambiaScarte();
 }
 
 void BoardWindow::avviaMossaAI(){
@@ -150,3 +170,8 @@ void BoardWindow::aggiornamentoBoardAI(nat posAI, QString imgAI){
     b->addCardBoard(posAI,imgAI);
 }
 
+void BoardWindow::CardError(QString i){
+    QErrorMessage* error= new QErrorMessage(this);
+    error->showMessage(i);
+    error->exec();
+}

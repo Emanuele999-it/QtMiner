@@ -4,8 +4,13 @@
 #include <QPixmap>
 #include <vector>
 
-LastGameWindow::LastGameWindow(QDialog *parent): QDialog(parent){
-    hide();
+LastGameWindow::~LastGameWindow(){
+    delete grid;
+    delete ultimaP;
+}
+
+LastGameWindow::LastGameWindow(){
+    setWindowTitle ("QtMiner - Ultima partita");
     QVBoxLayout * vl= new QVBoxLayout(this);
     ultimaP = new QLabel("Ecco i risultati dell'ultima partita: ");
     grid = new QGridLayout();
@@ -13,10 +18,6 @@ LastGameWindow::LastGameWindow(QDialog *parent): QDialog(parent){
     vl->addWidget(ultimaP);
     vl->addLayout(grid);
 
-}
-
-void LastGameWindow::getLastGame(){
-    show();
     std::vector<QString> vec;
     //salvare numero di celle
     //array con i vari caratteri
@@ -74,4 +75,11 @@ void LastGameWindow::getLastGame(){
             grid->addWidget(l,counter/8,counter%8);
         counter++;
     }
+    show();
 }
+
+void LastGameWindow::closeEvent(QCloseEvent *event){
+    Q_UNUSED(event)
+    emit chiusuraLastGame();
+}
+

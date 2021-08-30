@@ -3,12 +3,17 @@
 
 #include <QDebug>
 
+Controller::~Controller(){
+    delete MainW;
+    delete modelBoard;
+}
+
 Controller::Controller(QObject* parent): QObject(parent) {
 
     // qui in modelBoard possiamo mettere la grandezza della board che si preferisce
     // e lo si può fare con una variabile data dall'utente dalle impostazioni
 
-    boardDimension=40;
+    boardDimension=50;
     MainW = new MainWindow();
 
 
@@ -49,10 +54,11 @@ void Controller::openTutorial(){
     emit MainW->OpenTutorialWindow();
 }
 
-void Controller::openBoardWindow(){
+void Controller::openBoardWindow(QString n){
+    name = n;
     buildAndConnectModelView();
     modelBoard->addCardtoVectors();
-    emit MainW->OpenGameWindow(boardDimension);
+    emit MainW->OpenGameWindow(boardDimension,n);
 }
 
 void Controller::openLastGameWindow(){

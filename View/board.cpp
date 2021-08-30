@@ -5,11 +5,13 @@
 
 namespace view {
 
+Board::~Board(){
+}
+
 Board::Board(const nat &i): posizioneBoard(0){
     QVector<Casella*> vettoreCaselleBoard(i);
     grid= new QGridLayout();
     QHBoxLayout* h= new QHBoxLayout(this);
-    //h->set
     spaceR=new QSpacerItem(1,0,QSizePolicy::Minimum);
     spaceL=new QSpacerItem(1,0,QSizePolicy::Minimum);
 

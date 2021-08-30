@@ -37,10 +37,18 @@ private:
      * @param pos essenzialmente _nBoard
      * @return
      */
-    bool path(nat CartaPrecedente, QVector <nat> posizioni, QVector <nat> controllate, nat posizioneCorrente) const;
+    void path(nat CartaPrecedente, QVector <nat> posizioni, QVector <nat> controllate, nat posizioneCorrente) const;
 
 public:
+   /**
+    * costruttore
+    */
     ModelBoard(nat nMano,nat nBoard);
+
+    /**
+     * distruttore
+     */
+    ~ModelBoard() override;
 
     /**
      * @brief addCardtoVectors: metodo per inserire gli elementi nei vettori
@@ -83,11 +91,8 @@ public slots:
     /**
      * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
      * posizioneMano
-     * @param posizioneMano
-     * @param posizioneBoard
-     * @return
      */
-    void posiziona(nat posizioneMano,nat posizioneBoard);
+    void posiziona();
 
     /**
      * @brief scartaCartaMano: slot che permette di scarte una carta dalla mano per ottenerne una

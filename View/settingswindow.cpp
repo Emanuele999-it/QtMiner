@@ -7,9 +7,18 @@
 
 #include <QDebug>
 
+SettingsWindow::~SettingsWindow(){
+    delete vLayout;
+    delete hLayout;
+    delete slider;
+    delete lcd;
+    delete confirm;
+}
 
 SettingsWindow::SettingsWindow(unsigned int i)
 {
+
+    setWindowTitle ("QtMiner - Impostazioni");
 
     valore=i;
     setMinimumSize(250,150);
@@ -28,9 +37,10 @@ SettingsWindow::SettingsWindow(unsigned int i)
     slider->setPageStep(1);
     slider->setTickInterval(1);
     slider->setTickPosition(QSlider::TicksAbove);
-    slider->setRange(40,44);
-    slider->setValue((i-40)/10+40);
-    //correggere
+    slider->setRange(50,52);
+    slider->setValue((i-50)/20+50);
+
+
 
     vLayout->addLayout(hLayout);
     hLayout->addWidget(new QLabel("Dimensioni Board: "));
@@ -46,9 +56,9 @@ SettingsWindow::SettingsWindow(unsigned int i)
 }
 
 void SettingsWindow::setDisplayNumber(int i){
-    int t=(i-40)*10;
-    valore=t+40;
-    lcd->display(t+40);
+    int t=(i-50)*20;
+    valore=t+50;
+    lcd->display(t+50);
     slider->setValue(i);
 }
 

@@ -1,8 +1,19 @@
 ﻿#include "Header/tutorialwindow.h"
 
 
-Tutorialwindow::Tutorialwindow(QWidget*parent): QDialog(parent)
+Tutorialwindow::~Tutorialwindow(){
+    delete e;
+    delete l;
+    delete avanti;
+    delete indietro;
+    delete menu;
+    delete text;
+}
+
+Tutorialwindow::Tutorialwindow()
 {
+
+    setWindowTitle ("QtMiner - Tutorial");
 
     setMinimumSize(350,300);
     setMaximumSize(1280,960);
