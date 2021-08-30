@@ -21,9 +21,18 @@ private:
 
     void buildAndConnectModelView();
 
+    QString name;
 
 public:
+    /**
+    * costruttore
+    */
     Controller(QObject* parent= nullptr);
+
+    /**
+    * distruttore
+    */
+    ~Controller() override;
 
 public slots:
 
@@ -47,7 +56,7 @@ public slots:
     /**
      * @brief openBoardWindow: permette di aprire finestra gioco
      */
-    void openBoardWindow();
+    void openBoardWindow(QString);
 
     /**
      * @brief openLastGameWindow: permette di creare lastGameWindow

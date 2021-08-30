@@ -19,3 +19,7 @@ Blocco& Blocco::operator =(const Blocco& b){
 }
 
 Blocco::~Blocco(){}
+
+std::string Blocco::getName() const {
+    return "╬b";
+}

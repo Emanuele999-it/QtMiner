@@ -47,7 +47,15 @@ signals:
 
 
 public:
+    /**
+    *costruttore
+    */
     SettingsWindow(unsigned int i);
+
+    /**
+    *distruttore
+    */
+    ~SettingsWindow() override;
 };
 
 #endif // MAINSETTINGSWINDOW_H

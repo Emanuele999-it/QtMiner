@@ -24,7 +24,15 @@ class BoardWindow : public QWidget{
 
     Q_OBJECT
 public:
-    BoardWindow(nat num=40, QWidget *p = nullptr);
+    /**
+    * costruttore
+    */
+    BoardWindow(nat num, QString n);
+
+    /**
+    * distruttore
+    */
+    ~BoardWindow() override;
 
     /**
      * @brief addElVectors: permette di aggiungere gli elementi ai
@@ -33,7 +41,6 @@ public:
     void addElVectors();
 
 private:
-    QLabel *label(const QString &text);
     view::Board *b;
     view::Mano *m;
     QLCDNumber *mosse;
@@ -97,6 +104,11 @@ public slots:
      */
     void disableButton();
 
+    /**
+     * @brief CardError: messaggio di errore nel caso si sbagli il posizionamento delle carte
+     * @param i: stringa di errore
+     */
+    void CardError(QString i);
 
 private slots:
     /**
@@ -121,7 +133,7 @@ signals:
     /**
      * @brief scambiaScarte: funzione che permette di scambiare le carte da mano a board
      */
-    void scambiaScarte(nat, nat);
+    void scambiaScarte();
 
     /**
      * @brief cheImmagineHo: segnale per chiedere al model il tipo di carta

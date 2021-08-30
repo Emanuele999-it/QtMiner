@@ -20,6 +20,11 @@
 
 namespace model{
 
+ModelBoard::~ModelBoard(){
+    _handStuff.~CVector();
+    _boardStuff.~CVector();
+}
+
 ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), nCaselle(nBoard),
     _handStuff(CVector<unique_ptr<Card>*>(0)),
     _boardStuff(CVector<unique_ptr<Card>*>(0)){}
@@ -40,58 +45,7 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
     if(v[i] == nullptr || v[i]->get() == nullptr)
         return "blank";
 
-    Card* _carta = v[i]->get()->clone();
-
-    if (dynamic_cast<Obstruction*>(_carta)) {
-        if(dynamic_cast<Blocco*>(_carta))
-            return "╬b";
-        else
-            return "crollo";
-    }
-
-    else if (dynamic_cast<CloneCards*>(_carta)){
-            return "cloning";
-    }
-
-    else if (dynamic_cast<Tunnel*>(_carta)){
-        bool *a = dynamic_cast<Tunnel*>(_carta)->getArr();
-        if(a[0]==true && a[1]==true && a[2]==true && a[3]==true) {
-            return "╬";
-        }
-        else if(a[0]==false && a[1]==true && a[2]==false && a[3]==true){
-            return "═";
-        }
-        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==false){
-            return "║";
-        }
-        else if(a[0]==false && a[1]==true && a[2]==true && a[3]==false){
-            return "╔";
-        }
-        else if(a[0]==false && a[1]==false && a[2]==true && a[3]==true){
-            return "╗";
-        }
-        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==false){
-            return "╚";
-        }
-        else if(a[0]==true && a[1]==true && a[2]==true && a[3]==false){
-            return "╠";
-        }
-        else if(a[0]==true && a[1]==true && a[2]==false && a[3]==true){
-            return "╩";
-        }
-        else if(a[0]==true && a[1]==false && a[2]==true && a[3]==true){
-            return "╣";
-        }
-        else if(a[0]==true && a[1]==false && a[2]==false && a[3]==true){
-            return "╝";
-        }
-
-        else
-            return "╦";
-    }
-
-    else
-        return "sr";
+    return QString::fromStdString(v[i]->get()->getName());
 }
 
 Card* ModelBoard::getCardMano(nat posizione) const{
@@ -102,34 +56,36 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
     return _boardStuff[posizione]->get();
 }
 
-
-bool ModelBoard::path(nat cartaPrecedente, QVector<nat> posizioni, QVector<nat> controllate, nat posizioneAttuale) const{
+void ModelBoard::path(nat cartaPrecedente, QVector<nat> posizioni, QVector<nat> controllate, nat posizioneAttuale) const{
     if(posizioneAttuale<0 || posizioneAttuale>nCaselle || (cartaPrecedente%(nCaselle/10-1) == 0 && posizioneAttuale == cartaPrecedente-1) || (cartaPrecedente%(nCaselle/10) == (nCaselle/10-1) && posizioneAttuale == cartaPrecedente+1)){
-        return false;
+        return;
     }
     controllate.push_front(posizioneAttuale);
 
-if(_boardStuff[posizioneAttuale]==nullptr){
+    if(_boardStuff[posizioneAttuale]==nullptr){
         posizioni.push_front(posizioneAttuale);
-        return false;
-}else{
-    Tunnel* t= dynamic_cast<Tunnel*>(_boardStuff[posizioneAttuale]->get()->clone());
-    if(!controllate.contains(posizioneAttuale-(nCaselle/10)))//NORD e da nord vedere se ho lo sbocco carta corretto
-        path(posizioneAttuale,posizioni,controllate,posizioneAttuale-(nCaselle/10)) && t != nullptr && *(t->getArr()) == true;
+    }
 
-    if(!controllate.contains(posizioneAttuale+1))//EST
-        path(posizioneAttuale,posizioni,controllate,posizioneAttuale+1) && t != nullptr && *(t->getArr()+1) == true;
+    else{
+        Tunnel* t= dynamic_cast<Tunnel*>(_boardStuff[posizioneAttuale]->get()->clone());
 
+        //NORD
+        if(t != nullptr && *(t->getArr()))
+            path(posizioneAttuale,posizioni,controllate,posizioneAttuale-(nCaselle/10));
 
-    if(!controllate.contains(posizioneAttuale+(nCaselle/10)))//SUD
-        path(posizioneAttuale,posizioni,controllate,posizioneAttuale+(nCaselle/10)) && t != nullptr && *(t->getArr()+2) == true;
+        //EST
+        if(!controllate.contains(posizioneAttuale+1) && (t != nullptr && *(t->getArr()+1)))
+            path(posizioneAttuale,posizioni,controllate,posizioneAttuale+1);
 
-    if(!controllate.contains(posizioneAttuale-1))//OVEST
-        path(posizioneAttuale,posizioni,controllate,posizioneAttuale-1) && t != nullptr && *(t->getArr()+3) == true;
+        //SUD
+        if(t != nullptr && *(t->getArr()+2))
+            path(posizioneAttuale,posizioni,controllate,posizioneAttuale+(nCaselle/10));
 
-}
+        //OVEST
+        if(!controllate.contains(posizioneAttuale-1) && (t != nullptr && *(t->getArr()+3)))
+            path(posizioneAttuale,posizioni,controllate,posizioneAttuale-1);
 
-    return true;
+    }
     /*
     path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
     path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
@@ -142,53 +98,67 @@ if(_boardStuff[posizioneAttuale]==nullptr){
     */
 }
 
-void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
+
+void ModelBoard::posiziona(){
 //modificare comportmento in caso ci sia carta crollo/blocco
 
-    Card* temp = _handStuff[posizioneMano]->get()->clone();
+    Card* temp = _handStuff[_nMano]->get()->clone();
 
     /**
       *Controlla se la carta è tunnel o se è obstrucion controlla se nella posizione esiste una carta, inoltre controlla se è start oppure se legale
       */
 
-    if((dynamic_cast<Tunnel*>(temp) || dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco) &&
-              (_boardStuff[posizioneBoard] == nullptr || _boardStuff[posizioneBoard]->get() == nullptr)){
+    if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))) &&
+            (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr)){
+        qDebug()<<"nBoard: "<<_nBoard<<" nMano: "<<_nMano<<" operazione: "<<nCaselle -((nCaselle/10)/2+1);
+        qDebug()<<"Modelboard: per ora ok";
+
         QVector<nat> posizioni, controllate;
-        if(posizioneBoard == nCaselle-((nCaselle/10)/2+1) || path(((nCaselle/10)/2+1),posizioni,controllate,((nCaselle/10)/2+1))){
-            //Logica percorso da mettere
-            _boardStuff[posizioneBoard] = new unique_ptr<Card>(temp);
-            /*
+
+        if(_nBoard == nCaselle -((nCaselle/10)/2+1)){
+            qDebug()<<"Modelboard: entarato nel primo if";
+
+            path(((nCaselle/10)/2+1),posizioni,controllate,((nCaselle/10)/2+1));
+            qDebug()<<"Modelboard: concluso path";
+
+            if(!posizioni.empty()){
+                qDebug()<<"Modelboard: no celle disponibili";
+                _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
+                /*
              * Funzione controllo compatibilità carta mano->board
              *
-            */
-            _handStuff[posizioneMano]->~unique_ptr();
-            _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
+             */
+                _handStuff[_nMano]->~unique_ptr();
+                _handStuff[_nMano] = new unique_ptr<Card>(estrattoreCasuale());
 
 
-            //segnale aggiornamento view
-            //invio segnale a view nuova carta
-            emit CambiaPosizioneManoBoard(posizioneMano, posizioneBoard,
-                                          getImage(posizioneMano, _handStuff),
-                                          getImage(posizioneBoard, _boardStuff),0);
+                //segnale aggiornamento view
+                //invio segnale a view nuova carta
+                emit CambiaPosizioneManoBoard(_nMano, _nBoard,
+                                              getImage(_nMano, _handStuff),
+                                          getImage(_nBoard, _boardStuff),0);
+            }
         }
-        else
-            emit changeCardsfailed("Posizione non valida, non start o non legale");
+            else{
+                qDebug()<<"Modelboard: errore";
+                emit changeCardsfailed("Posizione non valida. Non è possibile posizionare una carta Percorso non collegata");
+            }
     }
 
     //Controlla se la cella clonecards è su una cella non vuota
     else if((dynamic_cast<CloneCards*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::crollo))
-             && (_boardStuff[posizioneBoard] != nullptr && _boardStuff[posizioneBoard]->get() != nullptr)){
+            && (_boardStuff[_nBoard] != nullptr && _boardStuff[_nBoard]->get() != nullptr)){
 
         if(dynamic_cast<CloneCards*>(temp)){
-            _handStuff[posizioneMano]->~unique_ptr();
-            _handStuff[posizioneMano] = new unique_ptr<Card>(_boardStuff[posizioneBoard]->get()->clone());
-            emit CambiaPosizioneManoBoard(posizioneMano,0,getImage(posizioneMano, _handStuff),"",1);
+            _handStuff[_nMano]->~unique_ptr();
+            _handStuff[_nMano] = new unique_ptr<Card>(_boardStuff[_nBoard]->get()->clone());
+            emit CambiaPosizioneManoBoard(_nMano,0,getImage(_nMano, _handStuff),"",1);
         }
         //la carta utilizzata è un crollo
         else{
-            _boardStuff[posizioneBoard]->~unique_ptr();
-            _handStuff[posizioneMano] = new unique_ptr<Card>(estrattoreCasuale());
-            emit CambiaPosizioneManoBoard(posizioneMano,posizioneBoard,getImage(posizioneMano, _handStuff),"",2);
+            _boardStuff[_nBoard]->~unique_ptr();
+            _handStuff[_nMano] = new unique_ptr<Card>(estrattoreCasuale());
+            emit CambiaPosizioneManoBoard(_nMano,_nBoard,getImage(_nMano, _handStuff),"",2);
         }
     }
 
@@ -208,7 +178,7 @@ void ModelBoard::posiziona(nat posizioneMano, nat posizioneBoard){
 }
 
 
-void ModelBoard::posizionaAI(){
+void ModelBoard::posizionaAI() {
     nat size =_boardStuff.get_size();
     //Qui metto un rand, ma è da rivedere da dove si PARTE a fare algo di conseguenza
     nat generator;

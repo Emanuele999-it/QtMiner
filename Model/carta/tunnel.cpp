@@ -1,7 +1,7 @@
 ﻿#include "Model/Header/carta/tunnel.h"
 
 
-Tunnel::Tunnel(bool North, bool East, bool South, bool West): Card(), arr(new bool[4]) {
+Tunnel::Tunnel(bool North, bool East, bool South, bool West): Card(), arr(new bool[4]){
     arr[0]=North;
     arr[1]=East;
     arr[2]=South;
@@ -36,3 +36,37 @@ bool* Tunnel::getArr(){
     return arr;
 }
 
+std::string Tunnel::getName() const {
+    if(arr[0]==true && arr[1]==true && arr[2]==true && arr[3]==true) {
+        return "╬";
+    }
+    else if(arr[0]==false && arr[1]==true && arr[2]==false && arr[3]==true){
+        return "═";
+    }
+    else if(arr[0]==true && arr[1]==false && arr[2]==true && arr[3]==false){
+        return "║";
+    }
+    else if(arr[0]==false && arr[1]==true && arr[2]==true && arr[3]==false){
+        return "╔";
+    }
+    else if(arr[0]==false && arr[1]==false && arr[2]==true && arr[3]==true){
+        return "╗";
+    }
+    else if(arr[0]==true && arr[1]==true && arr[2]==false && arr[3]==false){
+        return "╚";
+    }
+    else if(arr[0]==true && arr[1]==true && arr[2]==true && arr[3]==false){
+        return "╠";
+    }
+    else if(arr[0]==true && arr[1]==true && arr[2]==false && arr[3]==true){
+        return "╩";
+    }
+    else if(arr[0]==true && arr[1]==false && arr[2]==true && arr[3]==true){
+        return "╣";
+    }
+    else if(arr[0]==true && arr[1]==false && arr[2]==false && arr[3]==true){
+        return "╝";
+    }
+    else
+        return "╦";
+}
