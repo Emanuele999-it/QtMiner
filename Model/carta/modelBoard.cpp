@@ -57,73 +57,59 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
 }
 
 void ModelBoard::path(nat cartaPrecedente, QVector<nat> &posizioni, QVector<nat> &controllate, nat posizioneAttuale) const{
-    if(posizioneAttuale<0 || posizioneAttuale>nCaselle || ((cartaPrecedente%(nCaselle/10) == 0 && posizioneAttuale == cartaPrecedente-1)) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1) && posizioneAttuale == cartaPrecedente+1))){
-        qDebug()<<"Posizione Fuori board";
+    if((posizioneAttuale == 0) || posizioneAttuale>nCaselle || (cartaPrecedente%(nCaselle/10) == 0 && posizioneAttuale == cartaPrecedente-1) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1) && posizioneAttuale == cartaPrecedente+1))){
+        qDebug()<<"Posizione Fuori board"<< cartaPrecedente%(nCaselle/10)<< posizioneAttuale<< cartaPrecedente-1;
         return;
     }
-    qDebug()<<"Controllo fatto, pos legale";
-    controllate.push_front(posizioneAttuale);
-    qDebug()<<cartaPrecedente<< " " <<posizioneAttuale;
-    qDebug()<<"Aggiunto a controllate";
-    if(_boardStuff[posizioneAttuale]->get()==nullptr && posizioneAttuale!=cartaPrecedente){//Secondo controllo è per il primo caso (Root == CartaPrecedente)
-        posizioni.push_front(posizioneAttuale);
-        qDebug()<<"Aggiunto a pos legali";
 
-        qDebug()<<posizioni.length()<<" posizioni possibili";
-        qDebug()<<controllate.length()<<" posizioni contollate";
+    //Caso Base: la posizione che staimo controllando è vuota:
+    if(_boardStuff[posizioneAttuale]->get()==nullptr){
+        posizioni.push_back(posizioneAttuale);
         return;
     }
+
     else{
+        //Nel caso sia il primo ciclo prendiamo in considerazione la cella in posizioneAttuale
+        Tunnel* t = dynamic_cast<Tunnel*>(_boardStuff[posizioneAttuale]->get()->clone());
 
-
-        Card* t1= _handStuff[_nMano]->get()->clone();
-
-        if(!cartaPrecedente==posizioneAttuale)
-            Card* t1= _boardStuff[posizioneAttuale]->get()->clone();
-
-        Tunnel* t = dynamic_cast<Tunnel*>(t1);
-
-        for(int i=0;i<4 ;i++){
+        for(int i=0;i<4 && t;i++){
             qDebug()<< *(t->getArr()+i);
         }
-        //NORD
-        if(t != nullptr && *(t->getArr())){
-            qDebug()<<"Pre:NORD";
-            qDebug()<<*(t->getArr());
-            path(posizioneAttuale,posizioni,controllate,posizioneAttuale-(nCaselle/10));
-        }
 
-        //EST
-        if(t != nullptr && *(t->getArr()+1)){
-            qDebug()<<"Pre:EST";
-            qDebug()<<*(t->getArr()+1);
-            path(posizioneAttuale,posizioni,controllate,posizioneAttuale+1);
-        }
+        if(t!=nullptr){
+            //se la posizione che si sta per controllare è già stata controllata esci
+            if(controllate.contains(posizioneAttuale))
+                return;
 
-        //SUD
-        if(t != nullptr && *(t->getArr()+2)){
-            qDebug()<<"Pre:SUD";
-            qDebug()<<*(t->getArr()+2);
-            path(posizioneAttuale,posizioni,controllate,posizioneAttuale+(nCaselle/10));
-        }
+            controllate.push_back(posizioneAttuale);
 
-        //OVEST
-        if(t != nullptr && *(t->getArr()+3)){
-            qDebug()<<"Pre:OVEST";
-            qDebug()<<*(t->getArr()+3);
-            path(posizioneAttuale,posizioni,controllate,posizioneAttuale-1);
+            //NORD
+            if(*(t->getArr())){
+                qDebug()<<"Pre:NORD";
+                path(posizioneAttuale,posizioni,controllate,posizioneAttuale-(nCaselle/10));
+            }
+
+            //EST
+            if(*(t->getArr()+1)){
+                qDebug()<<"Pre:EST";
+                path(posizioneAttuale,posizioni,controllate,posizioneAttuale+1);
+            }
+
+            //SUD
+            if(*(t->getArr()+2)){
+                qDebug()<<"Pre:SUD";
+                path(posizioneAttuale,posizioni,controllate,posizioneAttuale+(nCaselle/10));
+            }
+
+            //OVEST
+            if(*(t->getArr()+3)){
+                qDebug()<<"Pre:OVEST";
+                path(posizioneAttuale,posizioni,controllate,posizioneAttuale-1);
+            }
         }
+        //se non è un tipo tunnel ma blocco non si fa nulla
+
     }
-    /*
-    path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
-    path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
-    path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
-    path(posizioneBard,posizioni,contollate,posizioneBoard-(nCaselle/10));
-    if(posizioni.empty())
-        return false;
-    else
-        return true;
-    */
 }
 
 
@@ -140,13 +126,10 @@ void ModelBoard::posiziona(){
             (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr)){
 
 
-        qDebug()<<"nBoard: "<<_nBoard<<" nMano: "<<_nMano;
-
         QVector<nat> posizioni, controllate;
 
         path(nCaselle-((nCaselle/10)/2+1),posizioni,controllate,nCaselle-((nCaselle/10)/2+1));
 
-        qDebug()<<posizioni.length()<<" posizioni possibili corpo";
         qDebug()<<"******************************";
         for(auto i= posizioni.begin(); i<posizioni.end();++i){
            qDebug()<<*i;
@@ -154,7 +137,7 @@ void ModelBoard::posiziona(){
         qDebug()<<"******************************";
 
 
-        if((_nBoard == (nCaselle-(nCaselle/10)/2-1)) || posizioni.contains(_nBoard) ){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
+        if(posizioni.contains(_nBoard)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
 
             _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
                 /*
