@@ -7,12 +7,12 @@ class Tunnel : public Card
 {
 
 private:
-public:
     /**
      * @brief arr: array che indica le direzioni del percorso della carta
      */
     bool* arr;
 
+public:
     /**
      * @brief copia: metodo che permette di copiare array
      */

@@ -57,7 +57,7 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
 }
 
 void ModelBoard::path(nat cartaPrecedente, QVector<nat> &posizioni, QVector<nat> &controllate, nat posizioneAttuale) const{
-    if((posizioneAttuale == 0) || posizioneAttuale>nCaselle || (cartaPrecedente%(nCaselle/10) == 0 && posizioneAttuale == cartaPrecedente-1) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1) && posizioneAttuale == cartaPrecedente+1))){
+    if((posizioneAttuale <= 0) || posizioneAttuale>nCaselle || (cartaPrecedente%(nCaselle/10) == 0 && posizioneAttuale == cartaPrecedente-1) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1) && posizioneAttuale == cartaPrecedente+1))){
         qDebug()<<"Posizione Fuori board"<< cartaPrecedente%(nCaselle/10)<< posizioneAttuale<< cartaPrecedente-1;
         return;
     }
@@ -112,6 +112,68 @@ void ModelBoard::path(nat cartaPrecedente, QVector<nat> &posizioni, QVector<nat>
     }
 }
 
+double ModelBoard::checkAround(nat posizione, Card *carta){
+    if(dynamic_cast<Blocco*>(carta))
+        return true;
+
+    //controllo nord
+    if(posizione - (nCaselle/10) <= 0){//se >0 carta a nord è fuori dalla griglia -> non controllare
+        if(_boardStuff[posizione-(nCaselle/10)]->get() != nullptr){
+            //se carta blocco va bene
+            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-(nCaselle/10)]->get()->clone());
+            if(c){
+                if(((*(c->getArr()+2)) && *(dynamic_cast<Tunnel*>(carta)->getArr()))
+                        || (!(*(c->getArr()+2)) && !(*(dynamic_cast<Tunnel*>(carta)->getArr())))){//devo controllare il sud della casella sovrastante
+                }
+                else
+                    return false;
+            }
+        }
+    }
+    //controllo est
+    if((posizione+1)%((nCaselle/10-1)) > (posizione)%((nCaselle/10-1))){//se false significhe che si è andati a capo della riga -> non controllare
+        if(_boardStuff[posizione+1]->get() != nullptr){
+            //se carta blocco va bene
+            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+1]->get()->clone());
+            if(c){
+                if(((*(c->getArr() + 3)) && *(dynamic_cast<Tunnel*>(carta)->getArr()+1))
+                        || (!(*(c->getArr() + 3)) && !(*(dynamic_cast<Tunnel*>(carta)->getArr()+1)))){//devo controllare l'ovest della casella di destra
+                }
+                else
+                    return false;
+            }
+        }
+    }
+    //controllo sud
+    if(posizione + (nCaselle/10) < nCaselle){// se >nCaselle significa che si sta uscendo dalla griglia -> non controllare
+        if(_boardStuff[posizione+(nCaselle/10)]->get() != nullptr){
+            //se carta blocco va bene
+            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+(nCaselle/10)]->get()->clone());
+            if(c){
+                if(((*(c->getArr())) && *(dynamic_cast<Tunnel*>(carta)->getArr()+2))
+                        || (!(*(c->getArr())) && !(*(dynamic_cast<Tunnel*>(carta)->getArr()+2)))){//devo controllare il nord della casella sottostante
+                }
+                else
+                    return false;
+            }
+        }
+    }
+    //controllo ovest
+    if((posizione-1)%((nCaselle/10)-1) < (posizione)%((nCaselle/10)-1)){//se true significa che si è andati sulla riga precedente -> non controllare
+        if(_boardStuff[posizione-1]->get() != nullptr){
+            //se carta blocco va bene
+            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-1]->get()->clone());
+            if(c){
+                if(((*(c->getArr()+1)) && *(dynamic_cast<Tunnel*>(carta)->getArr()+3))
+                        || (!(*(c->getArr()+1)) && !(*(dynamic_cast<Tunnel*>(carta)->getArr()+3)))){//devo controllare l'ovest della casella di destra
+                }
+                else
+                    return false;
+            }
+        }
+    }
+    return true;
+}
 
 void ModelBoard::posiziona(){
 //modificare comportmento in caso ci sia carta crollo/blocco
@@ -137,7 +199,9 @@ void ModelBoard::posiziona(){
         qDebug()<<"******************************";
 
 
-        if(posizioni.contains(_nBoard)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
+
+        if((posizioni.contains(_nBoard) || ((dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))))
+                                                                    && checkAround(_nBoard,temp)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
 
             _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
                 /*
@@ -159,7 +223,7 @@ void ModelBoard::posiziona(){
 
         else{
             qDebug()<<"Modelboard: errore";
-            emit changeCardsfailed("Posizione non valida. Non è possibile posizionare una carta Percorso non collegata");
+            emit changeCardsfailed("Posizione non valida. Non è possibile posizionare una carta Percorso non collegata a quelle adiacenti");
         }
     }
 

@@ -39,6 +39,12 @@ private:
      */
     void path(nat CartaPrecedente, QVector <nat> &posizioni, QVector <nat> &controllate, nat posizioneCorrente) const;
 
+    /**
+     * @brief checkAround: funzione che permette di controllare se la carta scelta per essere posizionata in una determinata
+     *                     posizione disponibile rispetta il percorso non andando a collegarsi a carte non collegabili
+     */
+    double checkAround(nat posizione, Card* carta);
+
 public:
    /**
     * costruttore
