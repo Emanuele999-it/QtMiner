@@ -52,7 +52,7 @@ public:
      * @brief getArr: metodo che restituisce l'array di bool
      * @return
      */
-    bool* getArr();
+    bool* getArr() const;
 
 
     /**

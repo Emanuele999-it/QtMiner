@@ -62,17 +62,15 @@ LastGameWindow::LastGameWindow(){
     counter=0;
 
     for(auto it = vec.begin(); it!=vec.end();++it){
-        QImage* inputImg = new QImage("Img/"+(*it)+".jpg");
+        QImage* inputImg = new QImage(":/Img/"+(*it)+".jpg");
         QLabel* l  = new QLabel("");
         l->setPixmap(QPixmap::fromImage(*inputImg).scaled(50,75));
-        if(vec.size()== 40 || vec.size()== 50)
+        if(vec.size()== 50)
             grid->addWidget(l,counter/5,counter%5);
-        else if(vec.size()== 60)
-            grid->addWidget(l,counter/6,counter%6);
         else if(vec.size()== 70)
             grid->addWidget(l,counter/7,counter%7);
         else
-            grid->addWidget(l,counter/8,counter%8);
+            grid->addWidget(l,counter/9,counter%9);
         counter++;
     }
     show();
