@@ -17,8 +17,8 @@
 class LastGameWindow: public QDialog{
     Q_OBJECT
 private:
-    QGridLayout *grid;
-    QLabel *ultimaP;
+    QGridLayout *grid=nullptr;
+    QLabel *ultimaP=nullptr;
 
     /**
      * @brief closeEvent: evento chiusura finestra

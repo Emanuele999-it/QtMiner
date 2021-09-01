@@ -37,7 +37,7 @@ private:
      * @param pos essenzialmente _nBoard
      * @return
      */
-    void path(nat CartaPrecedente, QVector <nat> &posizioni, QVector <nat> &controllate, nat posizioneCorrente) const;
+    void path(int CartaPrecedente, QVector <nat> &posizioni, QVector <nat> &controllate, int posizioneCorrente) const;
 
     /**
      * @brief checkAround: funzione che permette di controllare se la carta scelta per essere posizionata in una determinata

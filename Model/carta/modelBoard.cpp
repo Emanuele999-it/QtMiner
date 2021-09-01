@@ -56,8 +56,8 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
     return _boardStuff[posizione]->get();
 }
 
-void ModelBoard::path(nat cartaPrecedente, QVector<nat> &posizioni, QVector<nat> &controllate, nat posizioneAttuale) const{
-    if((posizioneAttuale <= 0) || posizioneAttuale>nCaselle || (cartaPrecedente%(nCaselle/10) == 0 && posizioneAttuale == cartaPrecedente-1) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1) && posizioneAttuale == cartaPrecedente+1))){
+void ModelBoard::path(int cartaPrecedente, QVector<nat> &posizioni, QVector<nat> &controllate, int posizioneAttuale) const{
+    if((posizioneAttuale < 0) || posizioneAttuale>nCaselle || ((cartaPrecedente%(nCaselle/10) == 0) && (posizioneAttuale == cartaPrecedente-1)) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1)) && (posizioneAttuale == cartaPrecedente+1))){
         qDebug()<<"Posizione Fuori board"<< cartaPrecedente%(nCaselle/10)<< posizioneAttuale<< cartaPrecedente-1;
         return;
     }
@@ -117,8 +117,8 @@ double ModelBoard::checkAround(nat posizione, Card *carta){
         return true;
 
     //controllo nord
-    if(posizione - (nCaselle/10) > 0){//se <0 carta a nord è fuori dalla griglia -> non controllare
-        if(_boardStuff[posizione-(nCaselle/10)]->get() != nullptr){
+    if((posizione/(nCaselle/10)) != 0){//se true carta a nord è fuori dalla griglia -> non controllare
+        if((_boardStuff[posizione-(nCaselle/10)] != nullptr) && (_boardStuff[posizione-(nCaselle/10)]->get() != nullptr)){
             //se carta blocco va bene
             Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-(nCaselle/10)]->get()->clone());
             if(c){
@@ -131,7 +131,7 @@ double ModelBoard::checkAround(nat posizione, Card *carta){
     }
     //controllo est
     if((posizione+1)%((nCaselle/10)) > (posizione)%((nCaselle/10))){//se false significhe che si è andati a capo della riga -> non controllare
-        if(_boardStuff[posizione+1]->get() != nullptr){
+        if(_boardStuff[posizione+1] != nullptr && _boardStuff[posizione+1]->get() != nullptr){
             //se carta blocco va bene
             Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+1]->get()->clone());
             if(c){
@@ -144,7 +144,7 @@ double ModelBoard::checkAround(nat posizione, Card *carta){
     }
     //controllo sud
     if(posizione + (nCaselle/10) < nCaselle){// se >nCaselle significa che si sta uscendo dalla griglia -> non controllare
-        if(_boardStuff[posizione+(nCaselle/10)]->get() != nullptr){
+        if(_boardStuff[posizione+(nCaselle/10)] != nullptr && _boardStuff[posizione+(nCaselle/10)]->get() != nullptr){
             //se carta blocco va bene
             Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+(nCaselle/10)]->get()->clone());
             if(c){
@@ -157,7 +157,7 @@ double ModelBoard::checkAround(nat posizione, Card *carta){
     }
     //controllo ovest
     if((posizione-1)%((nCaselle/10)) < (posizione)%((nCaselle/10))){//se true significa che si è andati sulla riga precedente -> non controllare
-        if(_boardStuff[posizione-1]->get() != nullptr){
+        if(_boardStuff[posizione-1] != nullptr && _boardStuff[posizione-1]->get() != nullptr){
             //se carta blocco va bene
             Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-1]->get()->clone());
             if(c){
@@ -286,19 +286,21 @@ void ModelBoard::posizionaAI() {
     //Qui metto un rand, ma è da rivedere da dove si PARTE a fare algo di conseguenza
     nat generator=0;
     bool ok=false;
-    bool error=false;
+    bool ammissibile=false;//non si può posizionare carta in alcuna posizione disponibile
 
     QVector<nat> posizioni, controllate;
     path(nCaselle-((nCaselle/10)/2+1),posizioni,controllate,nCaselle-((nCaselle/10)/2+1));
 
     //controllo se esiste almeno una carta ammissibile per ogni posizione
-    for(nat n=0; n<posizioni.size() && !error ;n++)
-        error = !(controlloAmmissibilita(posizioni[n]));
+    for(int n=0; n< posizioni.size() && !ammissibile ;n++)
+        if(!ammissibile && (controlloAmmissibilita(posizioni[n])))
+            ammissibile=true;
 
-    while(!error && (!posizioni.empty()) && size>0 && !ok){
+
+    while(ammissibile && (!posizioni.empty()) && size>0 && !ok){
         generator = posizioni[rand() % posizioni.size()];
         qDebug()<<"posizioni.size()= "<<posizioni.size()<<" generator: "<<generator;
-        if(_boardStuff[generator] == nullptr || _boardStuff[generator]->get() == nullptr){
+        if(_boardStuff[generator]->get() == nullptr){
             Card* temp = estrattoreCasuale(4);
             if(checkAround(generator,temp)){
                 _boardStuff[generator] = new unique_ptr<Card>(temp);
@@ -311,10 +313,11 @@ void ModelBoard::posizionaAI() {
     controllate.clear();
 
     //ora diciamo alla view la posizione e immagine
-    if(!error && ok)
+    if(ammissibile && ok)
         emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));
     else    //segnale vittoria giocatore
         qDebug()<<"L'AI non può mettere carte, hai vinto";
+
 }
 
 
@@ -407,7 +410,6 @@ void ModelBoard::saveLastGame(){
             jsonObject.insert(QString::number(n),QString(getImage(n, _boardStuff)));
         }
         jsonArray.append(jsonObject);
-
 
         QJsonDocument jsonDoc;
         jsonDoc.setArray(jsonArray);

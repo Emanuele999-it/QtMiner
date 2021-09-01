@@ -28,11 +28,11 @@ private:
     /**
      * @brief spaceL: spazio a sinistra della griglia
      */
-    QSpacerItem *spaceL;
+    QSpacerItem *spaceL=nullptr;
     /**
      * @brief spaceR: spazio a destra della griglia
      */
-    QSpacerItem *spaceR;
+    QSpacerItem *spaceR=nullptr;
 
 public:
     /**

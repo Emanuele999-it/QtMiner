@@ -133,13 +133,14 @@ void MainWindow::OpenLastGameWindow(){
 void MainWindow::closeLastGame(){
     show();
     delete LGWindow;
+    LGWindow=nullptr;
 }
 
 void MainWindow::closeGameBoard(){
-    //se this non è qdialog
     startGame->setDisabled(false);
     show();
     delete boardWindoW;
+    boardWindoW=nullptr;
     emit chiusuraBoardWRimbalzo();
 }
 

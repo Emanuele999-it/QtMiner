@@ -12,7 +12,7 @@ private:
     /**
      * @brief ptr: puntatore all'oggetto
      */
-    T* ptr;
+    T* ptr=nullptr;
 
     void swap(T*);
 

@@ -17,12 +17,12 @@ class SettingsWindow: public QDialog
     Q_OBJECT
 
 private:
-    QVBoxLayout *vLayout;
-    QHBoxLayout *hLayout;
+    QVBoxLayout *vLayout=nullptr;
+    QHBoxLayout *hLayout=nullptr;
 
-    QSlider* slider;
-    QLCDNumber* lcd;
-    QPushButton* confirm;
+    QSlider* slider=nullptr;
+    QLCDNumber* lcd=nullptr;
+    QPushButton* confirm=nullptr;
 
     int valore;
 

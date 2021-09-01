@@ -10,7 +10,7 @@ private:
     /**
      * @brief arr: array che indica le direzioni del percorso della carta
      */
-    bool* arr;
+    bool* arr=nullptr;
 
 public:
     /**

@@ -16,13 +16,13 @@ class Tutorialwindow : public QDialog
 {
     Q_OBJECT
 private:
-    QTextEdit *e;
-    QVBoxLayout *l;
+    QTextEdit *e = nullptr;
+    QVBoxLayout *l=nullptr;
 
-    QPushButton *avanti;
-    QPushButton *indietro;
-    QPushButton *menu;
-    QLabel *text;
+    QPushButton *avanti=nullptr;
+    QPushButton *indietro=nullptr;
+    QPushButton *menu=nullptr;
+    QLabel *text=nullptr;
 
     int page;
     int TotLine;
