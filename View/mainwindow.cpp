@@ -20,6 +20,126 @@ MainWindow::~MainWindow(){
     if(Vl) delete Vl;
 }
 
+MainWindow::MainWindow(const MainWindow &m){
+    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    int x = (screenGeometry.width()- width()) / 2;
+    int y = (screenGeometry.height()- height()) / 2;
+    move(x, y);
+
+    //settaggio proprietà finestra
+    setWindowTitle ("QtMiner");
+    setMinimumSize(350,300);
+
+    //creazione bottoni impostazioni / inizio gioco
+    startGame = new QPushButton(tr("Inizia a giocare!"), this);
+    tutorial = new QPushButton(tr("Tutorial"), this);
+    lastGame = new QPushButton(tr("Ultima partita"), this);
+
+    settings = new QPushButton(this);
+    settings->setIcon(QIcon(":/Img/settings.png"));
+    settings->setIconSize(QSize(40, 40));
+    settings->setFixedSize(48,48);
+
+    // set layout visualizzazione
+    Vl= new QVBoxLayout(this);
+
+    QHBoxLayout *Hl1=new QHBoxLayout();
+    QHBoxLayout *Hl2=new QHBoxLayout();
+    QHBoxLayout *Hname=new QHBoxLayout();
+    Vl->addLayout(Hl1);
+    Vl->addLayout(Hname);
+    Vl->addLayout(Hl2);
+
+    Hl1->addWidget(settings);
+    Hl1->setAlignment(Qt::AlignRight | Qt::AlignTop);
+
+    QFormLayout* formLayout= new QFormLayout();
+    formLayout->setRowWrapPolicy(QFormLayout::DontWrapRows);
+    formLayout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
+    formLayout->setFormAlignment(Qt::AlignHCenter | Qt::AlignTop);
+    formLayout->setLabelAlignment(Qt::AlignLeft);
+
+    lineE = m.lineE;
+
+    Hname->addLayout(formLayout);
+    formLayout->addRow("Inserisci il tuo nome", lineE);
+
+    Hl2->addWidget(tutorial);
+    Hl2->addWidget(startGame);
+    Hl2->addWidget(lastGame);
+    Hl2->setAlignment(Qt::AlignCenter);
+
+    connect(settings,&QPushButton::clicked, this, &MainWindow::SettingsRequest);
+    connect(tutorial,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
+    connect(startGame,&QPushButton::clicked, this, &MainWindow::GameRequestSlot);
+    connect(lastGame,&QPushButton::clicked, this, &MainWindow::LastGameRequest);
+}
+
+MainWindow& MainWindow::operator =(const MainWindow& m){
+    if(this != &m){
+        delete lineE;
+        delete settings;
+        delete tutorial;
+        delete startGame;
+        delete lastGame;
+        delete Vl;
+
+        QRect screenGeometry = QApplication::desktop()->screenGeometry();
+        int x = (screenGeometry.width()- width()) / 2;
+        int y = (screenGeometry.height()- height()) / 2;
+        move(x, y);
+
+        //settaggio proprietà finestra
+        setWindowTitle ("QtMiner");
+        setMinimumSize(350,300);
+
+        //creazione bottoni impostazioni / inizio gioco
+        startGame = new QPushButton(tr("Inizia a giocare!"), this);
+        tutorial = new QPushButton(tr("Tutorial"), this);
+        lastGame = new QPushButton(tr("Ultima partita"), this);
+
+        settings = new QPushButton(this);
+        settings->setIcon(QIcon(":/Img/settings.png"));
+        settings->setIconSize(QSize(40, 40));
+        settings->setFixedSize(48,48);
+
+        // set layout visualizzazione
+        Vl= new QVBoxLayout(this);
+
+        QHBoxLayout *Hl1=new QHBoxLayout();
+        QHBoxLayout *Hl2=new QHBoxLayout();
+        QHBoxLayout *Hname=new QHBoxLayout();
+        Vl->addLayout(Hl1);
+        Vl->addLayout(Hname);
+        Vl->addLayout(Hl2);
+
+        Hl1->addWidget(settings);
+        Hl1->setAlignment(Qt::AlignRight | Qt::AlignTop);
+
+        QFormLayout* formLayout= new QFormLayout();
+        formLayout->setRowWrapPolicy(QFormLayout::DontWrapRows);
+        formLayout->setFieldGrowthPolicy(QFormLayout::FieldsStayAtSizeHint);
+        formLayout->setFormAlignment(Qt::AlignHCenter | Qt::AlignTop);
+        formLayout->setLabelAlignment(Qt::AlignLeft);
+
+        lineE = m.lineE;
+
+        Hname->addLayout(formLayout);
+        formLayout->addRow("Inserisci il tuo nome", lineE);
+
+        Hl2->addWidget(tutorial);
+        Hl2->addWidget(startGame);
+        Hl2->addWidget(lastGame);
+        Hl2->setAlignment(Qt::AlignCenter);
+
+        connect(settings,&QPushButton::clicked, this, &MainWindow::SettingsRequest);
+        connect(tutorial,&QPushButton::clicked, this, &MainWindow::TutorialRequest);
+        connect(startGame,&QPushButton::clicked, this, &MainWindow::GameRequestSlot);
+        connect(lastGame,&QPushButton::clicked, this, &MainWindow::LastGameRequest);
+    }
+    return *this;
+}
+
 MainWindow::MainWindow(){
 
     QRect screenGeometry = QApplication::desktop()->screenGeometry();

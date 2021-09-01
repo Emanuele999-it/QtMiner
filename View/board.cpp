@@ -8,6 +8,31 @@ namespace view {
 Board::~Board(){
 }
 
+Board::Board(const Board &b): posizioneBoard(b.posizioneBoard),
+vettoreCaselleBoard(b.vettoreCaselleBoard), spaceL(b.spaceL), spaceR(b.spaceR),
+  grid(b.grid) {
+
+    QHBoxLayout* h= new QHBoxLayout(this);
+    h->addItem(spaceL);
+    h->addLayout(grid);
+    h->addItem(spaceR);
+}
+
+Board& Board::operator =(const Board& b){
+    if(this != &b){
+        posizioneBoard=b.posizioneBoard;
+        QVector<Casella*> vettoreCaselleBoard(b.vettoreCaselleBoard);
+        grid= new QGridLayout();
+        QHBoxLayout* h= new QHBoxLayout(this);
+        spaceR=new QSpacerItem(1,0,QSizePolicy::Minimum);
+        spaceL=new QSpacerItem(1,0,QSizePolicy::Minimum);
+        h->addItem(spaceL);
+        h->addLayout(grid);
+        h->addItem(spaceR);
+    }
+    return *this;
+}
+
 Board::Board(const nat &i): posizioneBoard(0){
     QVector<Casella*> vettoreCaselleBoard(i);
     grid= new QGridLayout();

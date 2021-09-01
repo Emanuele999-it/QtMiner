@@ -26,6 +26,16 @@ public:
     MainWindow();
 
     /**
+     * costruttore di copia
+     */
+    MainWindow(const MainWindow& m);
+
+    /**
+     * operatore di assegnazione
+     */
+    MainWindow& operator= (const MainWindow& m);
+
+    /**
      * distruttore
      */
     ~MainWindow() override;

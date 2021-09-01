@@ -10,6 +10,115 @@ Tutorialwindow::~Tutorialwindow(){
     if(text) delete text;
 }
 
+Tutorialwindow::Tutorialwindow(const Tutorialwindow &t){
+    setWindowTitle ("QtMiner - Tutorial");
+
+    setMinimumSize(350,300);
+    setMaximumSize(1280,960);
+
+    l= new QVBoxLayout(this);
+    QHBoxLayout *h = new QHBoxLayout();
+
+    text = t.text;
+    l->addWidget(text);
+    l->addLayout(h);
+
+    indietro = t.indietro;
+    avanti = t.avanti;
+    menu = t.menu;
+
+    h->addWidget(indietro);
+    h->addWidget(avanti);
+    h->addWidget(menu);
+
+    TotLine=0;
+    QFile file(":/readme2.txt");
+    QString line="";
+    if (file.open(QIODevice::ReadOnly)){
+        QTextStream stream(&file);
+        line.append(stream.readLine());
+        page=0;
+        text->setText(line);
+        QString mock;
+        while(! stream.atEnd()){
+            mock=stream.readLine();
+            TotLine+=1;
+        }
+    }
+    else{
+        close();
+    }
+    file.close();
+
+    h->addWidget(indietro);
+    h->addWidget(avanti);
+    h->addWidget(menu);
+
+    connect(menu,&QPushButton::clicked,this,&Tutorialwindow::CloseWindow);
+    connect(avanti,&QPushButton::clicked,this,&Tutorialwindow::ContinueTutorial);
+    connect(indietro,&QPushButton::clicked,this,&Tutorialwindow::GoBackTutorial);
+    indietro->setDisabled(true);
+}
+
+Tutorialwindow& Tutorialwindow::operator=(const Tutorialwindow& t){
+    if(this != &t){
+        delete e;
+        delete avanti;
+        delete indietro;
+        delete menu;
+        delete text;
+
+        setWindowTitle ("QtMiner - Tutorial");
+
+        setMinimumSize(350,300);
+        setMaximumSize(1280,960);
+
+        l= new QVBoxLayout(this);
+        QHBoxLayout *h = new QHBoxLayout();
+
+        text = t.text;
+        l->addWidget(text);
+        l->addLayout(h);
+
+        indietro = t.indietro;
+        avanti = t.avanti;
+        menu = t.menu;
+
+        h->addWidget(indietro);
+        h->addWidget(avanti);
+        h->addWidget(menu);
+
+        TotLine=0;
+        QFile file(":/readme2.txt");
+        QString line="";
+        if (file.open(QIODevice::ReadOnly)){
+            QTextStream stream(&file);
+            line.append(stream.readLine());
+            page=0;
+            text->setText(line);
+            QString mock;
+            while(! stream.atEnd()){
+                mock=stream.readLine();
+                TotLine+=1;
+            }
+        }
+        else{
+            close();
+        }
+        file.close();
+
+        h->addWidget(indietro);
+        h->addWidget(avanti);
+        h->addWidget(menu);
+
+        connect(menu,&QPushButton::clicked,this,&Tutorialwindow::CloseWindow);
+        connect(avanti,&QPushButton::clicked,this,&Tutorialwindow::ContinueTutorial);
+        connect(indietro,&QPushButton::clicked,this,&Tutorialwindow::GoBackTutorial);
+        indietro->setDisabled(true);
+    }
+    return *this;
+}
+
 Tutorialwindow::Tutorialwindow()
 {
 
@@ -52,11 +161,9 @@ Tutorialwindow::Tutorialwindow()
     }
     file.close();
 
-
     h->addWidget(indietro);
     h->addWidget(avanti);
     h->addWidget(menu);
-
 
     connect(menu,&QPushButton::clicked,this,&Tutorialwindow::CloseWindow);
     connect(avanti,&QPushButton::clicked,this,&Tutorialwindow::ContinueTutorial);

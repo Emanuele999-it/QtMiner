@@ -39,6 +39,16 @@ public:
     Tutorialwindow();
 
     /**
+    * costruttore di copia
+    */
+    Tutorialwindow(const Tutorialwindow& t);
+
+    /**
+    * operatore di assegnazione
+    */
+    Tutorialwindow& operator=(const Tutorialwindow& t);
+
+    /**
     *distruttore
     */
     ~Tutorialwindow() override;

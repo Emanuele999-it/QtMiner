@@ -25,6 +25,29 @@ ModelBoard::~ModelBoard(){
     _boardStuff.~CVector();
 }
 
+ModelBoard::ModelBoard(const ModelBoard &m): _nMano(m._nMano), nCaselle(m.nCaselle),
+    _handStuff(m._handStuff),
+    _boardStuff(m._boardStuff){}
+
+ModelBoard& ModelBoard::operator=(const ModelBoard& m){
+    if(this!=&m){
+        _handStuff.~CVector();
+        _boardStuff.~CVector();
+
+        _nMano=m._nMano;
+        nCaselle=m.nCaselle;
+
+        for(auto it=m._boardStuff.begin(); it != m._boardStuff.end(); ++it){
+            _boardStuff.push_back(*it);
+        }
+
+        for(auto it=m._handStuff.begin(); it != m._handStuff.end(); ++it){
+            _handStuff.push_back(*it);
+        }
+    }
+    return *this;
+}
+
 ModelBoard::ModelBoard(nat nMano, nat nBoard): _nMano(nMano), nCaselle(nBoard),
     _handStuff(CVector<unique_ptr<Card>*>(0)),
     _boardStuff(CVector<unique_ptr<Card>*>(0)){}

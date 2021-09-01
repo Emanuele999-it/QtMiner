@@ -30,6 +30,16 @@ public:
     Controller(QObject* parent= nullptr);
 
     /**
+    * costruttore
+    */
+    Controller(const Controller& c);
+
+    /**
+    * operatore di assegnazione
+    */
+    Controller& operator=(const Controller& c);
+
+    /**
     * distruttore
     */
     ~Controller() override;

@@ -30,6 +30,16 @@ public:
     BoardWindow(nat num, QString n);
 
     /**
+    * costruttore di copia
+    */
+    BoardWindow(const BoardWindow& Board);
+
+    /**
+     * operator = operatore di assegnazione
+     */
+    BoardWindow& operator=(const BoardWindow& Board);
+
+    /**
     * distruttore
     */
     ~BoardWindow() override;

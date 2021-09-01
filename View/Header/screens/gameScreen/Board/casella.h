@@ -40,6 +40,16 @@ public:
     Casella(nat p=0, QString s="blank", QPushButton*pushbutton = new QPushButton());
 
     /**
+    * costruttore di copia
+    */
+    Casella(const Casella& c);
+
+    /**
+    * operatore di assegnazione
+    */
+    Casella& operator=(const Casella& c);
+
+    /**
     * distruttore
     */
     ~Casella() override;

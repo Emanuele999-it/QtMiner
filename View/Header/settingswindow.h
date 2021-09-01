@@ -53,6 +53,16 @@ public:
     SettingsWindow(unsigned int i);
 
     /**
+    * costruttore di copia
+    */
+    SettingsWindow(const SettingsWindow& s);
+
+    /**
+    * operatore di assegnazione
+    */
+    SettingsWindow& operator=(const SettingsWindow& s);
+
+    /**
     *distruttore
     */
     ~SettingsWindow() override;

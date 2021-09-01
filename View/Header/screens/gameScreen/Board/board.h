@@ -34,11 +34,26 @@ private:
      */
     QSpacerItem *spaceR=nullptr;
 
+    /**
+     * @brief grid: griglia di caselle
+     */
+    QGridLayout* grid=nullptr;
+
 public:
     /**
     * costruttore
     */
     Board(const nat&);
+
+    /**
+    * costruttore di copia
+    */
+    Board(const Board& b);
+
+    /**
+     * operator = operatore di assegnazione
+     */
+    Board& operator=(const Board& b);
 
     /**
     * distruttore
@@ -61,11 +76,6 @@ public:
      * @brief addelVec: funzione che permette di istanziare aggiungere elementi al vettore
      */
     void addelVec(nat celle);
-
-    /**
-     * @brief grid: griglia di caselle
-     */
-    QGridLayout* grid;
 
     /**
      * @brief addElGrid: metodo che permette di inserire le caselle nella griglia

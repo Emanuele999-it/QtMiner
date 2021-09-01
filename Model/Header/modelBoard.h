@@ -59,6 +59,16 @@ public:
     ModelBoard(nat nMano,nat nBoard);
 
     /**
+     * costruttore di copia
+     */
+    ModelBoard(const ModelBoard& m);
+
+    /**
+     * operatore di assegnazione
+     */
+    ModelBoard& operator=(const ModelBoard& b);
+
+    /**
      * distruttore
      */
     ~ModelBoard() override;

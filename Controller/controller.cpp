@@ -8,10 +8,48 @@ Controller::~Controller(){
     if(modelBoard) delete modelBoard;
 }
 
-Controller::Controller(QObject* parent): QObject(parent) {
+Controller& Controller::operator=(const Controller &c){
+    if(this != &c){
+        delete MainW;
+        delete modelBoard;
 
-    // qui in modelBoard possiamo mettere la grandezza della board che si preferisce
-    // e lo si può fare con una variabile data dall'utente dalle impostazioni
+        boardDimension=c.boardDimension;
+        MainW=c.MainW;
+
+        connect(MainW, &MainWindow::SettingsRequest, this, &Controller::openSettings);
+        connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
+        connect(MainW, &MainWindow::GameRequest, this, &Controller::openBoardWindow);
+        connect(MainW, &MainWindow::LastGameRequest, this, &Controller::openLastGameWindow);
+        connect(MainW, &MainWindow::casellaBoardSelezionata, this, &Controller::cambiaCellaBoard);
+        connect(MainW, &MainWindow::chiusuraBoardWRimbalzo, this, &Controller::chiusuraGame);
+        connect(MainW, &MainWindow::changeBoardDimension, this, &Controller::cambioDimensioniBoard);
+        connect(MainW, &MainWindow::ScartaCartaRimbalzo, this, &Controller::scartaCartaDallaMano);
+        MainW->show();
+    }
+    return *this;
+}
+
+Controller::Controller(const Controller& c){
+    boardDimension=c.boardDimension;
+    MainW = c.MainW;
+
+    connect(MainW, &MainWindow::SettingsRequest, this, &Controller::openSettings);
+    connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
+    connect(MainW, &MainWindow::GameRequest, this, &Controller::openBoardWindow);
+    connect(MainW, &MainWindow::LastGameRequest, this, &Controller::openLastGameWindow);
+
+    //da controllare potrebbero essere sbagliati
+    connect(MainW, &MainWindow::casellaBoardSelezionata, this, &Controller::cambiaCellaBoard);
+
+    connect(MainW, &MainWindow::chiusuraBoardWRimbalzo, this, &Controller::chiusuraGame);
+    connect(MainW, &MainWindow::changeBoardDimension, this, &Controller::cambioDimensioniBoard);
+    connect(MainW, &MainWindow::ScartaCartaRimbalzo, this, &Controller::scartaCartaDallaMano);
+
+    MainW->show();
+}
+
+
+Controller::Controller(QObject* parent): QObject(parent) {
 
     boardDimension=50;
     MainW = new MainWindow();

@@ -33,6 +33,16 @@ public:
     LastGameWindow();
 
     /**
+    * costruttore di copia
+    */
+    LastGameWindow(const LastGameWindow& l);
+
+    /**
+    * operatore di assegnazione
+    */
+    LastGameWindow& operator= (const LastGameWindow& l);
+
+    /**
     * distruttore
     */
     ~LastGameWindow() override;
