@@ -4,8 +4,8 @@
 #include <QDebug>
 
 Controller::~Controller(){
-    delete MainW;
-    delete modelBoard;
+    if(MainW) delete MainW;
+    if(modelBoard) delete modelBoard;
 }
 
 Controller::Controller(QObject* parent): QObject(parent) {
@@ -68,6 +68,7 @@ void Controller::openLastGameWindow(){
 void Controller::chiusuraGame(){
     emit modelBoard->saveLastGame();
     delete modelBoard;
+    modelBoard=nullptr;
 }
 
 void Controller::cambiaCellaBoard(nat x, nat y){

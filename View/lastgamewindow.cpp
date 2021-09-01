@@ -5,8 +5,8 @@
 #include <vector>
 
 LastGameWindow::~LastGameWindow(){
-    delete grid;
-    delete ultimaP;
+    if(grid) delete grid;
+    if(ultimaP) delete ultimaP;
 }
 
 LastGameWindow::LastGameWindow(){

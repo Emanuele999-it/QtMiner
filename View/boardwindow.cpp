@@ -6,12 +6,12 @@
 #include <QDebug>
 
 BoardWindow::~BoardWindow(){
-    delete b;
-    delete m;
-    delete mosse;
-    delete v;
-    delete scambioMB;
-    delete scarta;
+    if(b) delete b;
+    if(m) delete m;
+    if(mosse) delete mosse;
+    if(v) delete v;
+    if(scambioMB) delete scambioMB;
+    if(scarta) delete scarta;
 }
 
 

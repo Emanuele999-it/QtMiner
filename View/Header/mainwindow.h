@@ -37,29 +37,29 @@ public:
     void createObjVectors();
 
 private:
-    QLineEdit* lineE;
+    QLineEdit* lineE = nullptr;
 
 /****************** Settings ************************************/
     /**
      * @brief Settings: bottone impostazioni
      */
-    QPushButton* settings;
+    QPushButton* settings = nullptr;
 
     /**
      * @brief settWindow: finestra impostazioni
      */
-    SettingsWindow *settWindow;
+    SettingsWindow *settWindow = nullptr;
 
 /****************** Tutorial ************************************/
     /**
      * @brief tutorial: bottone finestra tutorial
      */
-    QPushButton * tutorial;
+    QPushButton * tutorial = nullptr;
 
     /**
      * @brief tWindow: finestra tutorial
      */
-    Tutorialwindow *tWindow;
+    Tutorialwindow *tWindow = nullptr;
 
 
 /****************** Game ************************************/
@@ -67,27 +67,27 @@ private:
     /**
      * @brief startGame: bottone inizio gioco
      */
-    QPushButton* startGame;
+    QPushButton* startGame = nullptr;
 
     /**
      * @brief boardWindoW: finestra gioco
      */
-    BoardWindow* boardWindoW;
+    BoardWindow* boardWindoW = nullptr;
 
 
 /****************** Last Game ************************************/
     /**
      * @brief lastGame: bottone finestra lastGame
      */
-    QPushButton * lastGame;
+    QPushButton * lastGame = nullptr;
 
-    LastGameWindow* LGWindow;
+    LastGameWindow* LGWindow = nullptr;
 
 /****************** Layout ************************************/
     /**
      * @brief Vl: layout principale finestra
      */
-    QVBoxLayout *Vl;
+    QVBoxLayout *Vl = nullptr;
 
 
 signals:

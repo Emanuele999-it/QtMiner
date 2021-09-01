@@ -41,11 +41,11 @@ public:
     void addElVectors();
 
 private:
-    view::Board *b;
-    view::Mano *m;
-    QLCDNumber *mosse;
+    view::Board *b=nullptr;
+    view::Mano *m=nullptr;
+    QLCDNumber *mosse=nullptr;
     nat celle;
-    QVBoxLayout *v;
+    QVBoxLayout *v=nullptr;
     bool mano;
     bool board;
 
@@ -55,8 +55,8 @@ private:
      * @param event
      */
     void closeEvent(QCloseEvent *event);
-    QPushButton *scambioMB;
-    QPushButton *scarta;
+    QPushButton *scambioMB=nullptr;
+    QPushButton *scarta=nullptr;
 
 public slots:
     /**

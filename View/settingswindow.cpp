@@ -8,11 +8,11 @@
 #include <QDebug>
 
 SettingsWindow::~SettingsWindow(){
-    delete vLayout;
-    delete hLayout;
-    delete slider;
-    delete lcd;
-    delete confirm;
+    if(vLayout) delete vLayout;
+    if(hLayout) delete hLayout;
+    if(slider) delete slider;
+    if(lcd) delete lcd;
+    if(confirm) delete confirm;
 }
 
 SettingsWindow::SettingsWindow(unsigned int i)

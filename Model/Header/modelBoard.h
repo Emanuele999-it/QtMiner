@@ -45,6 +45,13 @@ private:
      */
     double checkAround(nat posizione, Card* carta);
 
+    /**
+     * @brief controlloAmmissibilita: funzione che permette di dire se esiste almeno una carta compatibile con una posizione data
+     * @param posizione
+     * @return
+     */
+    double controlloAmmissibilita(nat posizione);
+
 public:
    /**
     * costruttore

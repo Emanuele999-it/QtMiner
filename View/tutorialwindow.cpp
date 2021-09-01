@@ -2,12 +2,12 @@
 
 
 Tutorialwindow::~Tutorialwindow(){
-    delete e;
-    delete l;
-    delete avanti;
-    delete indietro;
-    delete menu;
-    delete text;
+    if(e) delete e;
+    if(l) delete l;
+    if(avanti) delete avanti;
+    if(indietro) delete indietro;
+    if(menu) delete menu;
+    if(text) delete text;
 }
 
 Tutorialwindow::Tutorialwindow()

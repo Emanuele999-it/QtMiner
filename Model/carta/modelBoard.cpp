@@ -117,13 +117,12 @@ double ModelBoard::checkAround(nat posizione, Card *carta){
         return true;
 
     //controllo nord
-    if(posizione - (nCaselle/10) <= 0){//se >0 carta a nord è fuori dalla griglia -> non controllare
+    if(posizione - (nCaselle/10) > 0){//se <0 carta a nord è fuori dalla griglia -> non controllare
         if(_boardStuff[posizione-(nCaselle/10)]->get() != nullptr){
             //se carta blocco va bene
             Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-(nCaselle/10)]->get()->clone());
             if(c){
-                if(((*(c->getArr()+2)) && *(dynamic_cast<Tunnel*>(carta)->getArr()))
-                        || (!(*(c->getArr()+2)) && !(*(dynamic_cast<Tunnel*>(carta)->getArr())))){//devo controllare il sud della casella sovrastante
+                if(((*(c->getArr()+2)) == *(dynamic_cast<Tunnel*>(carta)->getArr()))){//devo controllare il sud della casella sovrastante
                 }
                 else
                     return false;
@@ -131,13 +130,12 @@ double ModelBoard::checkAround(nat posizione, Card *carta){
         }
     }
     //controllo est
-    if((posizione+1)%((nCaselle/10-1)) > (posizione)%((nCaselle/10-1))){//se false significhe che si è andati a capo della riga -> non controllare
+    if((posizione+1)%((nCaselle/10)) > (posizione)%((nCaselle/10))){//se false significhe che si è andati a capo della riga -> non controllare
         if(_boardStuff[posizione+1]->get() != nullptr){
             //se carta blocco va bene
             Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+1]->get()->clone());
             if(c){
-                if(((*(c->getArr() + 3)) && *(dynamic_cast<Tunnel*>(carta)->getArr()+1))
-                        || (!(*(c->getArr() + 3)) && !(*(dynamic_cast<Tunnel*>(carta)->getArr()+1)))){//devo controllare l'ovest della casella di destra
+                if(((*(c->getArr()+3)) == *((dynamic_cast<Tunnel*>(carta)->getArr())+1))){//devo controllare l'ovest della casella di destra
                 }
                 else
                     return false;
@@ -150,8 +148,7 @@ double ModelBoard::checkAround(nat posizione, Card *carta){
             //se carta blocco va bene
             Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+(nCaselle/10)]->get()->clone());
             if(c){
-                if(((*(c->getArr())) && *(dynamic_cast<Tunnel*>(carta)->getArr()+2))
-                        || (!(*(c->getArr())) && !(*(dynamic_cast<Tunnel*>(carta)->getArr()+2)))){//devo controllare il nord della casella sottostante
+                if(((*(c->getArr())) == *((dynamic_cast<Tunnel*>(carta)->getArr())+2))){//devo controllare il nord della casella sottostante
                 }
                 else
                     return false;
@@ -159,13 +156,12 @@ double ModelBoard::checkAround(nat posizione, Card *carta){
         }
     }
     //controllo ovest
-    if((posizione-1)%((nCaselle/10)-1) < (posizione)%((nCaselle/10)-1)){//se true significa che si è andati sulla riga precedente -> non controllare
+    if((posizione-1)%((nCaselle/10)) < (posizione)%((nCaselle/10))){//se true significa che si è andati sulla riga precedente -> non controllare
         if(_boardStuff[posizione-1]->get() != nullptr){
             //se carta blocco va bene
             Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-1]->get()->clone());
             if(c){
-                if(((*(c->getArr()+1)) && *(dynamic_cast<Tunnel*>(carta)->getArr()+3))
-                        || (!(*(c->getArr()+1)) && !(*(dynamic_cast<Tunnel*>(carta)->getArr()+3)))){//devo controllare l'ovest della casella di destra
+                if(((*(c->getArr()+1)) == *((dynamic_cast<Tunnel*>(carta)->getArr())+3))){//devo controllare l'ovest della casella di destra
                 }
                 else
                     return false;
@@ -259,23 +255,66 @@ void ModelBoard::posiziona(){
     }
 }
 
+double ModelBoard::controlloAmmissibilita(nat posizione){
+    //per ciascun tipo di carta controllo se è ammesso l'inserimento in posizione
+    if(checkAround(posizione,new Tunnel(true,true,true,true)) ||
+       checkAround(posizione, new Tunnel(false,true,false,true)) ||
+       checkAround(posizione, new Tunnel(true,false,true,false)) ||
+       checkAround(posizione, new Tunnel(false,true,true,false)) ||
+       checkAround(posizione, new Tunnel(false,false,true,true)) ||
+       checkAround(posizione,new Tunnel(true,true,false,true)) ||
+       checkAround(posizione,new Tunnel(true,false,true,true)) ||
+       checkAround(posizione,new Tunnel(true,false,false,true)) ||
+       checkAround(posizione,new Tunnel(true,true,false,false)) ||
+       checkAround(posizione,new Tunnel(true,true,true,false)) ||
+       checkAround(posizione,new Tunnel(false,true,true,true))){
+       return true;
+    }
+    else
+        return false;
+}
+
 
 void ModelBoard::posizionaAI() {
-    nat size =_boardStuff.get_size();
-    //Qui metto un rand, ma è da rivedere da dove si PARTE a fare algo di conseguenza
-    nat generator;
-    bool ok=false;
-
-    while(size>0 && !ok){
-        generator = rand() % nCaselle;
-        if(_boardStuff[generator] == nullptr || _boardStuff[generator]->get() == nullptr){
-            _boardStuff[generator] = new unique_ptr<Card>(estrattoreCasuale(4));
-            ok = true;
-            size--;
+    nat size=0;
+    for(nat it=0; it<nCaselle;it++){
+        if(!(_boardStuff[it] != nullptr && (_boardStuff[it])->get() != nullptr)){
+            size++;
         }
     }
+
+    //Qui metto un rand, ma è da rivedere da dove si PARTE a fare algo di conseguenza
+    nat generator=0;
+    bool ok=false;
+    bool error=false;
+
+    QVector<nat> posizioni, controllate;
+    path(nCaselle-((nCaselle/10)/2+1),posizioni,controllate,nCaselle-((nCaselle/10)/2+1));
+
+    //controllo se esiste almeno una carta ammissibile per ogni posizione
+    for(nat n=0; n<posizioni.size() && !error ;n++)
+        error = !(controlloAmmissibilita(posizioni[n]));
+
+    while(!error && (!posizioni.empty()) && size>0 && !ok){
+        generator = posizioni[rand() % posizioni.size()];
+        qDebug()<<"posizioni.size()= "<<posizioni.size()<<" generator: "<<generator;
+        if(_boardStuff[generator] == nullptr || _boardStuff[generator]->get() == nullptr){
+            Card* temp = estrattoreCasuale(4);
+            if(checkAround(generator,temp)){
+                _boardStuff[generator] = new unique_ptr<Card>(temp);
+                ok = true;
+            }
+        }
+    }
+
+    posizioni.clear();
+    controllate.clear();
+
     //ora diciamo alla view la posizione e immagine
-    emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));
+    if(!error && ok)
+        emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));
+    else    //segnale vittoria giocatore
+        qDebug()<<"L'AI non può mettere carte, hai vinto";
 }
 
 

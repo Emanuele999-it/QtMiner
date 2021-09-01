@@ -15,7 +15,7 @@ private:
     MainWindow* MainW;
 
 
-    model::ModelBoard* modelBoard;
+    model::ModelBoard* modelBoard=nullptr;
 
     nat boardDimension;
 

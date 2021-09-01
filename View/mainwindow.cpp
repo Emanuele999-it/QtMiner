@@ -8,17 +8,16 @@
 #include <QDebug>
 
 MainWindow::~MainWindow(){
-    delete lineE;
-    delete settings;
-    delete settWindow;
-    delete tutorial;
-    delete tWindow;
-    delete startGame;
-    delete boardWindoW;
-    delete lastGame;
-    delete LGWindow;
-    delete Vl;
-    delete lineE;
+    if(lineE) delete lineE;
+    if(settings) delete settings;
+    if(settWindow) delete settWindow;
+    if(tutorial) delete tutorial;
+    if(tWindow) delete tWindow;
+    if(startGame) delete startGame;
+    if(boardWindoW) delete boardWindoW;
+    if(lastGame) delete lastGame;
+    if(LGWindow) delete LGWindow;
+    if(Vl) delete Vl;
 }
 
 MainWindow::MainWindow(){
