@@ -28,8 +28,6 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
     val = file.readAll();
     file.close();
 
-
-
     //rimozione caratteri inutili
     val.remove("\"");
     val.remove(":");

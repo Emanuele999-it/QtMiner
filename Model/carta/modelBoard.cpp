@@ -37,13 +37,8 @@ ModelBoard& ModelBoard::operator=(const ModelBoard& m){
         _nMano=m._nMano;
         nCaselle=m.nCaselle;
 
-        for(auto it=m._boardStuff.begin(); it != m._boardStuff.end(); ++it){
-            _boardStuff.push_back(*it);
-        }
-
-        for(auto it=m._handStuff.begin(); it != m._handStuff.end(); ++it){
-            _handStuff.push_back(*it);
-        }
+        CVector<unique_ptr<Card>*> _handStuff(m._handStuff) ;
+        CVector<unique_ptr<Card>*> _boardStuff(m._boardStuff) ;
     }
     return *this;
 }
