@@ -80,7 +80,7 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
 }
 
 void ModelBoard::path(int cartaPrecedente, QVector<nat> &posizioni, QVector<nat> &controllate, int posizioneAttuale) const{
-    if((posizioneAttuale < 0) || posizioneAttuale>nCaselle || ((cartaPrecedente%(nCaselle/10) == 0) && (posizioneAttuale == cartaPrecedente-1)) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1)) && (posizioneAttuale == cartaPrecedente+1))){
+    if((posizioneAttuale < 0) || posizioneAttuale>=nCaselle || ((cartaPrecedente%(nCaselle/10) == 0) && (posizioneAttuale == cartaPrecedente-1)) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1)) && (posizioneAttuale == cartaPrecedente+1))){
         qDebug()<<"Posizione Fuori board"<< cartaPrecedente%(nCaselle/10)<< posizioneAttuale<< cartaPrecedente-1;
         return;
     }
@@ -338,9 +338,10 @@ void ModelBoard::posizionaAI() {
     //ora diciamo alla view la posizione e immagine
     if(ammissibile && ok)
         emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));
-    else    //segnale vittoria giocatore
+    else{    //segnale vittoria giocatore
+        emit userWin("Nome");
         qDebug()<<"L'AI non può mettere carte, hai vinto";
-
+    }
 }
 
 
