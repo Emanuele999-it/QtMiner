@@ -28,6 +28,8 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
     val = file.readAll();
     file.close();
 
+
+
     //rimozione caratteri inutili
     val.remove("\"");
     val.remove(":");
@@ -176,12 +178,17 @@ LastGameWindow::LastGameWindow(){
     val.remove(0,6);
 
     bool nonUltimo = true;
-    int counter=0;
+    int counter=1;
 
     while(nonUltimo){
         int index = val.indexOf(QString::number(counter)+" ");
-        QString get = val.mid(index, val.indexOf("\n "));
-        val.remove(index,(val.indexOf("\n ") - index));
+        qDebug()<<"val: "<<val;
+
+        QString get = val.mid(index, val.indexOf("\n"));
+
+        val.remove(0,(val.indexOf("\n") +1));
+        qDebug()<<"val: "<<val;
+
 
         // questo perché quando mid non trova alcun valore ritorna -1
         if(get == val.mid(val.indexOf(QString::number(-1)+" "), val.indexOf("\n")))
@@ -198,6 +205,7 @@ LastGameWindow::LastGameWindow(){
 
     counter=0;
 
+    qDebug()<<"vec.size(): "<<vec.size();
     for(auto it = vec.begin(); it!=vec.end();++it){
         QImage* inputImg = new QImage(":/Img/"+(*it)+".jpg");
         QLabel* l  = new QLabel("");
@@ -210,6 +218,7 @@ LastGameWindow::LastGameWindow(){
             grid->addWidget(l,counter/9,counter%9);
         counter++;
     }
+    qDebug()<<"val: "<<val;
     show();
 }
 

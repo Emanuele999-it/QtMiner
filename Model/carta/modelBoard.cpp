@@ -65,10 +65,11 @@ void ModelBoard::addCardtoVectors() {
 
 QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
 
-    if(v[i] == nullptr || v[i]->get() == nullptr)
+    if(v[i] == nullptr || v[i]->get() == nullptr){
         return "blank";
-
-    return QString::fromStdString(v[i]->get()->getName());
+    }
+    else
+        return QString::fromStdString(v[i]->get()->getName());
 }
 
 Card* ModelBoard::getCardMano(nat posizione) const{
@@ -80,13 +81,13 @@ Card* ModelBoard::getCardBoard(nat posizione) const{
 }
 
 void ModelBoard::path(int cartaPrecedente, QVector<nat> &posizioni, QVector<nat> &controllate, int posizioneAttuale) const{
-    if((posizioneAttuale < 0) || posizioneAttuale>nCaselle || ((cartaPrecedente%(nCaselle/10) == 0) && (posizioneAttuale == cartaPrecedente-1)) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1)) && (posizioneAttuale == cartaPrecedente+1))){
+    if((posizioneAttuale < 0) || posizioneAttuale>=nCaselle || ((cartaPrecedente%(nCaselle/10) == 0) && (posizioneAttuale == cartaPrecedente-1)) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1)) && (posizioneAttuale == cartaPrecedente+1))){
         qDebug()<<"Posizione Fuori board"<< cartaPrecedente%(nCaselle/10)<< posizioneAttuale<< cartaPrecedente-1;
         return;
     }
 
     //Caso Base: la posizione che staimo controllando è vuota:
-    if(_boardStuff[posizioneAttuale]->get()==nullptr){
+    if(_boardStuff[posizioneAttuale]== nullptr || _boardStuff[posizioneAttuale]->get()==nullptr){
         posizioni.push_back(posizioneAttuale);
         return;
     }
