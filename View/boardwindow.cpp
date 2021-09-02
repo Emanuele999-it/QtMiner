@@ -58,6 +58,7 @@ BoardWindow::BoardWindow(const BoardWindow &Board){
 
     b->addelVec(celle);
     b->setStart(celle);
+    b->setWin(celle);
 
     m->addelVec(7);
 
@@ -127,6 +128,7 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
 
         b->addelVec(celle);
         b->setStart(celle);
+        b->setWin(celle);
 
         m->addelVec(7);
 
@@ -189,6 +191,7 @@ BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(fa
 
     b->addelVec(celle);
     b->setStart(celle);
+    b->setWin(celle);
 
     m->addelVec(7);
 

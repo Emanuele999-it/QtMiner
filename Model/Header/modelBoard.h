@@ -161,6 +161,12 @@ signals:
      */
     void changeCardsfailed(QString);
 
+    /**
+     * @brief userWin quando la IA non ha piu mosse l'user vince, oppure quando l'user non ha piu mosse e l'IA vince
+     *        QStrinf: Se vince AI "AI" e se vince nome dato "Nome"
+     */
+    void userWin(QString);
+
 };
 
 }
