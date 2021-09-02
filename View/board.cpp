@@ -106,8 +106,8 @@ void Board::setStart(nat celle){
 }
 
 void Board::setWin(nat celle){
-    vettoreCaselleBoard[0]->setStyleSheet("QPushButton {background-color: blue;}");
-    vettoreCaselleBoard[celle/10-1]->setStyleSheet("QPushButton {background-color: blue;}");
+    vettoreCaselleBoard[1]->setStyleSheet("QPushButton {background-color: blue;}");
+    vettoreCaselleBoard[celle/10-2]->setStyleSheet("QPushButton {background-color: blue;}");
 }
 
 Mano::Mano(const nat &i) : Board(i){}
