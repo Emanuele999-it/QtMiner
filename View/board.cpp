@@ -87,11 +87,6 @@ void Board::addElGrid(nat celle){
         }
     }
 
-    else if(celle==40){
-        for(nat counter=0; counter<celle; counter++){
-            grid->addWidget(vettoreCaselleBoard[counter],(counter/(celle/10+1)),(counter%(celle/10+1))+1,1,1);
-        }
-    }
 
     else{
         for(nat counter=0; counter<celle; counter++){
