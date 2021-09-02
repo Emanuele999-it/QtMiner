@@ -218,8 +218,6 @@ void ModelBoard::posiziona(){
         }
         qDebug()<<"******************************";
 
-
-
         if((posizioni.contains(_nBoard) || ((dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))))
                                                                     && checkAround(_nBoard,temp)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
 
@@ -333,9 +331,6 @@ void ModelBoard::posizionaAI() {
         }
     }
 
-    posizioni.clear();
-    controllate.clear();
-
     //ora diciamo alla view la posizione e immagine
     if(ammissibile && ok)
         emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));
@@ -343,6 +338,45 @@ void ModelBoard::posizionaAI() {
         emit userWin("Nome");
         qDebug()<<"L'AI non può mettere carte, hai vinto";
     }
+
+    posizioni.clear();
+    controllate.clear();
+
+    path(nCaselle-((nCaselle/10)/2+1),posizioni,controllate,nCaselle-((nCaselle/10)/2+1));
+    qDebug()<<"//////////////////////";
+    for(auto i= posizioni.begin(); i<posizioni.end();++i){
+       qDebug()<<*i;
+    }
+    qDebug()<<"/////////////////////////////";
+    //Dopo averla messa il player ne mette un'altra
+    bool playerammissibile=false;//non si può posizionare carta in alcuna posizione disponibile
+    ok = false;
+
+    //controllo se esiste almeno una carta ammissibile per ogni posizione
+    for(int n=0; n< posizioni.size() && !playerammissibile ;++n)
+        if(!ammissibile && (controlloAmmissibilita(posizioni[n])))
+            ammissibile=true;
+
+    for(auto i=posizioni.begin();!ok && !playerammissibile && i<posizioni.end();++i){
+        for(auto x=_handStuff.begin();!ok && x!=_handStuff.end();++x){
+            if(dynamic_cast<CloneCards*>((*x)->get()->clone()) || dynamic_cast<Crollo*>((*x)->get()->clone()))
+            {}
+            else if(checkAround(*i,(*x)->get()->clone()))
+                ok = true;
+        }
+    }
+
+    //ora diciamo alla view la posizione e immagine
+    if(!playerammissibile && !ok){
+        emit userWin("AI");
+        qDebug()<<"Non puoi piu metter carte, l'AI ha vinto";
+    }
+
+    posizioni.clear();
+    controllate.clear();
+
+
+
 }
 
 
