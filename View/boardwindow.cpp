@@ -22,7 +22,9 @@ BoardWindow::BoardWindow(const BoardWindow &Board){
     setScreenGeometry();
 
     setWindowTitle ("QtMiner - Giochiamo!!!");
-    resize(750, 720);
+    setFixedSize(750, 720);
+    setWindowFlag(Qt::Dialog);
+    setMaximumSize(900,850);
 
     b = Board.b;
     m = Board.m;
@@ -88,7 +90,9 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
         setScreenGeometry();
 
         setWindowTitle ("QtMiner - Giochiamo!!!");
-        resize(750, 720);
+        setFixedSize(750, 720);
+        setWindowFlag(Qt::Dialog);
+        setMaximumSize(900,850);
 
         b = Board.b;
         m = Board.m;
@@ -143,9 +147,11 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
 
 BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(false)
 {
-    setWindowTitle ("QtMiner - Giochiamo "+n+"!!!");
-    resize(750, 720);
+    setScreenGeometry();
 
+    setWindowTitle ("QtMiner - Giochiamo "+n+"!!!");
+    setFixedSize(750, 720);
+    setWindowFlag(Qt::Dialog);
     setMaximumSize(900,850);
 
     b = new view::Board(celle);

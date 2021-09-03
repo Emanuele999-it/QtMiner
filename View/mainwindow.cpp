@@ -21,6 +21,9 @@ MainWindow::~MainWindow(){
 }
 
 MainWindow::MainWindow(const MainWindow &m){
+
+    setWindowFlag(Qt::Dialog);
+
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     int x = (screenGeometry.width()- width()) / 2;
     int y = (screenGeometry.height()- height()) / 2;
@@ -85,6 +88,8 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
         delete lastGame;
         delete Vl;
 
+        setWindowFlag(Qt::Dialog);
+
         QRect screenGeometry = QApplication::desktop()->screenGeometry();
         int x = (screenGeometry.width()- width()) / 2;
         int y = (screenGeometry.height()- height()) / 2;
@@ -143,6 +148,8 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
 }
 
 MainWindow::MainWindow(){
+
+    setWindowFlag(Qt::Dialog);
 
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     int x = (screenGeometry.width()- width()) / 2;
