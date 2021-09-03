@@ -19,10 +19,7 @@ BoardWindow::BoardWindow(const BoardWindow &Board){
     mano=Board.mano;
     board=Board.board;
 
-    QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    int x = (screenGeometry.width()-width()) / 2;
-    int y = (screenGeometry.height()-height()) / 2;
-    move(x, y);
+    setScreenGeometry();
 
     setWindowTitle ("QtMiner - Giochiamo!!!");
     resize(750, 720);
@@ -88,10 +85,7 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
         mano=Board.mano;
         board=Board.board;
 
-        QRect screenGeometry = QApplication::desktop()->screenGeometry();
-        int x = (screenGeometry.width()-width()) / 2;
-        int y = (screenGeometry.height()-height()) / 2;
-        move(x, y);
+        setScreenGeometry();
 
         setWindowTitle ("QtMiner - Giochiamo!!!");
         resize(750, 720);
@@ -149,11 +143,6 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
 
 BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(false)
 {
-    QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    int x = (screenGeometry.width()-width()) / 2;
-    int y = (screenGeometry.height()-height()) / 2;
-    move(x, y);
-
     setWindowTitle ("QtMiner - Giochiamo "+n+"!!!");
     resize(750, 720);
 
@@ -170,26 +159,24 @@ BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(fa
     scarta->setDisabled(true);
 
     mosse = new QLCDNumber();
+    mosse->setMaximumSize(200,200);
     //mosse->setSegmentStyle(QLCDNumber::Filled);
 
     //LAYOUT
     QVBoxLayout *Vlayout = new QVBoxLayout(this);
-    QHBoxLayout *h = new QHBoxLayout();
 
-    Vlayout->addLayout(h);
-
-    h->addWidget(b);
+    Vlayout->addWidget(b);
 
     QHBoxLayout *Hh=new QHBoxLayout();
     Vlayout->addLayout(Hh);
-    Hh->addItem(new QSpacerItem(100,0,QSizePolicy::Maximum));
+    Hh->addItem(new QSpacerItem(150,0,QSizePolicy::Maximum));
     Hh->addWidget(m);
     v = new QVBoxLayout();
     Hh->addLayout(v);
     v->addWidget(scambioMB);
     v->addWidget(scarta);
     Hh->addWidget(mosse);
-    Hh->addItem(new QSpacerItem(100,0,QSizePolicy::Maximum));
+    Hh->addItem(new QSpacerItem(125,0,QSizePolicy::Maximum));
 
     b->addelVec(celle);
     b->setStart(celle);
@@ -310,4 +297,11 @@ void BoardWindow::CardError(QString i){
     QErrorMessage* error= new QErrorMessage(this);
     error->showMessage(i);
     error->exec();
+}
+
+void BoardWindow::setScreenGeometry(){
+    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    int x = (screenGeometry.width()-width()) / 2;
+    int y = (screenGeometry.height()-height()) / 2;
+    move(x, y);
 }
