@@ -215,7 +215,7 @@ void ModelBoard::posiziona(){
 
         if((posizioni.contains(_nBoard) || ((dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))))
                                                                     && checkAround(_nBoard,temp)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
-
+            qDebug() << "Qui entra se mossa valida";
             _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
                 /*
              * Funzione controllo compatibilità carta mano->board
@@ -253,6 +253,8 @@ void ModelBoard::posiziona(){
     else if((dynamic_cast<CloneCards*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::crollo))
             && (_boardStuff[_nBoard] != nullptr && _boardStuff[_nBoard]->get() != nullptr)){
 
+        qDebug() << "Qui entra se clone o crollo";
+
         if(dynamic_cast<CloneCards*>(temp)){
             _handStuff[_nMano]->~unique_ptr();
             _handStuff[_nMano] = new unique_ptr<Card>(_boardStuff[_nBoard]->get()->clone());
@@ -268,6 +270,7 @@ void ModelBoard::posiziona(){
 
     //Errori
     else{
+        qDebug() << "Qui entra se mossa non valida";
         if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))){
             emit changeCardsfailed("Posizione board non valida. Non è possibile posizionare una carta Percorso in una casella occupata");
         }
@@ -345,17 +348,22 @@ void ModelBoard::posizionaAI() {
         qDebug()<<"L'AI ha trovato il tesoro!";
         emit userWin("AI");
         emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));//qui mettere cella con pepita
+        return;
     }
+
     //ora diciamo alla view la posizione e immagine
-    else if(ammissibile && ok)
+    if(ammissibile && ok)
         emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));
     else{    //segnale vittoria giocatore
         emit userWin("Nome");
         qDebug()<<"L'AI non può mettere carte, hai vinto";
+        return;
     }
 
     posizioni.clear();
     controllate.clear();
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     path(nCaselle-((nCaselle/10)/2+1),posizioni,controllate,nCaselle-((nCaselle/10)/2+1));
     qDebug()<<"//////////////////////";
@@ -364,27 +372,40 @@ void ModelBoard::posizionaAI() {
     }
     qDebug()<<"/////////////////////////////";
     //Dopo averla messa il player ne mette un'altra
-    bool playerammissibile=false;//non si può posizionare carta in alcuna posizione disponibile
+    ammissibile = false;
     ok = false;
 
     //controllo se esiste almeno una carta ammissibile per ogni posizione
-    for(int n=0; n< posizioni.size() && !playerammissibile ;++n)
-        if(!ammissibile && (controlloAmmissibilita(posizioni[n])))
+    for(int n=0;  n< posizioni.size() && !ammissibile ;++n){
+            qDebug() << "entra";
+        if(!ammissibile && (controlloAmmissibilita(posizioni[n])))//data posizione prova le celle per vedere se la carta si puo mettere
+            qDebug() << "ammissibile Vero";
             ammissibile=true;
+    }
 
-    for(auto i=posizioni.begin();!ok && !playerammissibile && i<posizioni.end();++i){
-        for(auto x=_handStuff.begin();!ok && x!=_handStuff.end();++x){
-            if(dynamic_cast<CloneCards*>((*x)->get()->clone()) || dynamic_cast<Crollo*>((*x)->get()->clone()))
-            {}
-            else if(checkAround(*i,(*x)->get()->clone()))
+    //Si vede se l'user puo mettere UNA carta
+
+    for(auto i=posizioni.begin();i<posizioni.end() && ammissibile && !ok;++i){
+            qDebug() << "entra2";
+        for(auto x=_handStuff.begin();!ok && x!=_handStuff.end();++x){ //Vede tutta la mano
+            if(dynamic_cast<CloneCards*>((*x)->get()) || dynamic_cast<Crollo*>((*x)->get()))
+            {qDebug() << "Boh eeeee"<<*i;}
+            else if(checkAround(*i,(*x)->get()->clone())){//controlliamo se possiamo mettere una carta
                 ok = true;
+                qDebug() << "potrebbe essere" <<*i;
+            }else{
+                qDebug() << "nothing";
+            }
         }
     }
 
     //ora diciamo alla view la posizione e immagine
-    if(!playerammissibile && !ok){
+    if(ammissibile && !ok){
         emit userWin("AI");
         qDebug()<<"Non puoi piu metter carte, l'AI ha vinto";
+        return;
+        posizioni.clear();
+        controllate.clear();
     }
 
     posizioni.clear();
