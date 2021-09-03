@@ -39,10 +39,7 @@ MainWindow::MainWindow(const MainWindow &m){
     tutorial = new QPushButton(tr("Tutorial"), this);
     lastGame = new QPushButton(tr("Ultima partita"), this);
 
-    settings = new QPushButton(this);
-    settings->setIcon(QIcon(":/Img/settings.png"));
-    settings->setIconSize(QSize(40, 40));
-    settings->setFixedSize(48,48);
+    settings = new SettingsButton();
 
     // set layout visualizzazione
     Vl= new QVBoxLayout(this);
@@ -105,10 +102,7 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
         tutorial = new QPushButton(tr("Tutorial"), this);
         lastGame = new QPushButton(tr("Ultima partita"), this);
 
-        settings = new QPushButton(this);
-        settings->setIcon(QIcon(":/Img/settings.png"));
-        settings->setIconSize(QSize(40, 40));
-        settings->setFixedSize(48,48);
+        settings = new SettingsButton();
 
         // set layout visualizzazione
         Vl= new QVBoxLayout(this);
@@ -166,10 +160,7 @@ MainWindow::MainWindow(){
     tutorial = new QPushButton(tr("Tutorial"), this);
     lastGame = new QPushButton(tr("Ultima partita"), this);
 
-    settings = new QPushButton(this);
-    settings->setIcon(QIcon(":/Img/settings.png"));
-    settings->setIconSize(QSize(40, 40));
-    settings->setFixedSize(48,48);
+    settings = new SettingsButton();
 
     // set layout visualizzazione
     Vl= new QVBoxLayout(this);
