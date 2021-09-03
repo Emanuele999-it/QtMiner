@@ -131,7 +131,7 @@ void ModelBoard::path(int cartaPrecedente, QVector<nat> &posizioni, QVector<nat>
     }
 }
 
-double ModelBoard::checkAround(nat posizione, Card *carta){
+double ModelBoard::checkAround(nat posizione, Card *carta) const{
     if(dynamic_cast<Blocco*>(carta))
         return true;
 
@@ -284,7 +284,7 @@ void ModelBoard::posiziona(){
     }
 }
 
-double ModelBoard::controlloAmmissibilita(nat posizione){
+double ModelBoard::controlloAmmissibilita(nat posizione) const{
     //per ciascun tipo di carta controllo se è ammesso l'inserimento in posizione
     if(checkAround(posizione,new Tunnel(true,true,true,true)) ||
        checkAround(posizione, new Tunnel(false,true,false,true)) ||
@@ -375,7 +375,7 @@ void ModelBoard::posizionaAI() {
     ammissibile = false;
     ok = false;
 
-    //controllo se esiste almeno una carta ammissibile per ogni posizione
+    //controllo se esiste almeno una carta ammissibile per almeno una posizione
     for(int n=0;  n< posizioni.size() && !ammissibile ;++n){
             qDebug() << "entra";
         if(!ammissibile && (controlloAmmissibilita(posizioni[n])))//data posizione prova le celle per vedere se la carta si puo mettere
@@ -384,23 +384,34 @@ void ModelBoard::posizionaAI() {
     }
 
     //Si vede se l'user puo mettere UNA carta
-
     for(auto i=posizioni.begin();i<posizioni.end() && ammissibile && !ok;++i){
             qDebug() << "entra2";
-        for(auto x=_handStuff.begin();!ok && x!=_handStuff.end();++x){ //Vede tutta la mano
+            /*
+             * mancava il controllo ((*x)->get()) perché handstuff.end() considera tutte le celle della mano in
+             * cui esiste un unique_ptr, non quelle in cui esiste la carta.
+             * Siccome il vettore inizializza da 0 quando si fa il push_back delle carte si ridimensiona:
+             * 1) 0 elementi
+             * 2) 1 elemento
+             * 3) 2 elementi
+             * 4) 4 elementi
+             * 5) 8 elementi -> le carte nella mano sono 7 quindi facendo il get() sull'8a da seg.fault
+             *
+            */
+        for(auto x=_handStuff.begin(); !ok && (x!=_handStuff.end()) && ((*x)->get());++x){ //Vede tutta la mano
+            qDebug()<<"La size di boardstuff è: "<<size;
+            qDebug()<<"print card: "<<QString::fromStdString((*x)->get()->getName());
             if(dynamic_cast<CloneCards*>((*x)->get()) || dynamic_cast<Crollo*>((*x)->get()))
             {qDebug() << "Boh eeeee"<<*i;}
-            else if(checkAround(*i,(*x)->get()->clone())){//controlliamo se possiamo mettere una carta
+            else if(checkAround(*i,(*x)->get())){//controlliamo se possiamo mettere la carta (*x)->get()
                 ok = true;
                 qDebug() << "potrebbe essere" <<*i;
-            }else{
-                qDebug() << "nothing";
             }
+            //altrimenti significa che la carta presa in considerazione non va bene -> continua a cercare
         }
     }
 
     //ora diciamo alla view la posizione e immagine
-    if(ammissibile && !ok){
+    if((ammissibile && !ok) || !ammissibile){
         emit userWin("AI");
         qDebug()<<"Non puoi piu metter carte, l'AI ha vinto";
         return;
