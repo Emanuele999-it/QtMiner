@@ -200,8 +200,7 @@ void ModelBoard::posiziona(){
       */
 
     if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))) &&
-            (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr) &&
-            (_nBoard != nCaselle-(nCaselle/10-2) && dynamic_cast<Blocco*>(temp) || (_nBoard == nCaselle-(nCaselle/10-2) && !dynamic_cast<Blocco*>(temp)))){
+            (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr)){
 
         QVector<nat> posizioni, controllate;
 
@@ -212,8 +211,11 @@ void ModelBoard::posiziona(){
            qDebug()<<*i;
         }
         qDebug()<<"******************************";
-
-        if((posizioni.contains(_nBoard) || ((dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))))
+        if((_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<Obstruction*>(temp))? dynamic_cast<Obstruction*>(temp)->getName()=="╬b" : false)){
+            qDebug() << "Qui entra se mossa non valida";
+            emit changeCardsfailed("Non si puo mettere un blocco allo start!");
+        }
+        else if((posizioni.contains(_nBoard) || ((dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))))
                                                                     && checkAround(_nBoard,temp)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
             qDebug() << "Qui entra se mossa valida";
             _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
@@ -271,7 +273,7 @@ void ModelBoard::posiziona(){
     //Errori
     else{
         qDebug() << "Qui entra se mossa non valida";
-        if(_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco)){
+        if(_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<Blocco*>(temp)->getType() == ObstructionType::blocco)){
                qDebug()<<"Modelboard: errore";
                emit changeCardsfailed("Non è possibile posizionare un blocco nella cella di partenza!");
         }
