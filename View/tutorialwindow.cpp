@@ -125,7 +125,7 @@ Tutorialwindow::Tutorialwindow()
     setWindowTitle ("QtMiner - Tutorial");
 
     setMinimumSize(350,300);
-    setMaximumSize(1280,960);
+    setMaximumSize(700,500);
 
     l= new QVBoxLayout(this);
     QHBoxLayout *h = new QHBoxLayout();

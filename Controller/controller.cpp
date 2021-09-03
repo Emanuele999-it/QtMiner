@@ -54,7 +54,6 @@ Controller::Controller(QObject* parent): QObject(parent) {
     boardDimension=50;
     MainW = new MainWindow();
 
-
     connect(MainW, &MainWindow::SettingsRequest, this, &Controller::openSettings);
     connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
     connect(MainW, &MainWindow::GameRequest, this, &Controller::openBoardWindow);

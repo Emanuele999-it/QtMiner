@@ -19,13 +19,12 @@ BoardWindow::BoardWindow(const BoardWindow &Board){
     mano=Board.mano;
     board=Board.board;
 
-    QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    int x = (screenGeometry.width()-width()) / 2;
-    int y = (screenGeometry.height()-height()) / 2;
-    move(x, y);
+    setScreenGeometry();
 
     setWindowTitle ("QtMiner - Giochiamo!!!");
-    resize(750, 720);
+    setFixedSize(750, 720);
+    setWindowFlag(Qt::Dialog);
+    setMaximumSize(900,850);
 
     b = Board.b;
     m = Board.m;
@@ -89,13 +88,12 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
         mano=Board.mano;
         board=Board.board;
 
-        QRect screenGeometry = QApplication::desktop()->screenGeometry();
-        int x = (screenGeometry.width()-width()) / 2;
-        int y = (screenGeometry.height()-height()) / 2;
-        move(x, y);
+        setScreenGeometry();
 
         setWindowTitle ("QtMiner - Giochiamo!!!");
-        resize(750, 720);
+        setFixedSize(750, 720);
+        setWindowFlag(Qt::Dialog);
+        setMaximumSize(900,850);
 
         b = Board.b;
         m = Board.m;
@@ -151,43 +149,42 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
 
 BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(false)
 {
-    QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    int x = (screenGeometry.width()-width()) / 2;
-    int y = (screenGeometry.height()-height()) / 2;
-    move(x, y);
+    setScreenGeometry();
 
-    setWindowTitle ("QtMiner - Giochiamo!!!");
-    resize(750, 720);
+    setWindowTitle ("QtMiner - Giochiamo "+n+"!!!");
+    setFixedSize(750, 720);
+    setWindowFlag(Qt::Dialog);
+    setMaximumSize(900,850);
 
     b = new view::Board(celle);
     m = new view::Mano(7);
 
     scambioMB = new QPushButton("Posiziona");
+    scambioMB->setMaximumSize(200,50);
     scarta = new QPushButton ("Scarta");
+    scarta->setMaximumSize(200,50);
     scambioMB->setDisabled(true);
     scarta->setDisabled(true);
 
     mosse = new QLCDNumber();
+    mosse->setMaximumSize(200,200);
     //mosse->setSegmentStyle(QLCDNumber::Filled);
 
     //LAYOUT
     QVBoxLayout *Vlayout = new QVBoxLayout(this);
-    QHBoxLayout *h = new QHBoxLayout();
 
-    Vlayout->addLayout(h);
-
-    h->addWidget(b);
+    Vlayout->addWidget(b);
 
     QHBoxLayout *Hh=new QHBoxLayout();
     Vlayout->addLayout(Hh);
-    Hh->addItem(new QSpacerItem(1,0,QSizePolicy::Maximum));
+    Hh->addItem(new QSpacerItem(150,0,QSizePolicy::Maximum));
     Hh->addWidget(m);
     v = new QVBoxLayout();
     Hh->addLayout(v);
     v->addWidget(scambioMB);
     v->addWidget(scarta);
     Hh->addWidget(mosse);
-    Hh->addItem(new QSpacerItem(1,0,QSizePolicy::Maximum));
+    Hh->addItem(new QSpacerItem(125,0,QSizePolicy::Maximum));
 
     b->addelVec(celle);
     b->setStart(celle);
@@ -309,4 +306,11 @@ void BoardWindow::CardError(QString i){
     QErrorMessage* error= new QErrorMessage(this);
     error->showMessage(i);
     error->exec();
+}
+
+void BoardWindow::setScreenGeometry(){
+    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    int x = (screenGeometry.width()-width()) / 2;
+    int y = (screenGeometry.height()-height()) / 2;
+    move(x, y);
 }

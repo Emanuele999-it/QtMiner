@@ -8,11 +8,14 @@ namespace view {
 Board::~Board(){
 }
 
-Board::Board(const Board &b): posizioneBoard(b.posizioneBoard),
-vettoreCaselleBoard(b.vettoreCaselleBoard), spaceL(b.spaceL), spaceR(b.spaceR),
-  grid(b.grid) {
+Board::Board(const Board &b){
 
+    posizioneBoard=b.posizioneBoard;
+    QVector<Casella*> vettoreCaselleBoard(b.vettoreCaselleBoard);
+    grid= new QGridLayout();
     QHBoxLayout* h= new QHBoxLayout(this);
+    spaceR=new QSpacerItem(1,0,QSizePolicy::Minimum);
+    spaceL=new QSpacerItem(1,0,QSizePolicy::Minimum);
     h->addItem(spaceL);
     h->addLayout(grid);
     h->addItem(spaceR);
@@ -84,12 +87,6 @@ void Board::addElGrid(nat celle){
     if(celle == 7){
         for(nat counter=0; counter<celle; counter++){
             grid->addWidget(vettoreCaselleBoard[counter],1,counter,1,1);
-        }
-    }
-
-    else if(celle==40){
-        for(nat counter=0; counter<celle; counter++){
-            grid->addWidget(vettoreCaselleBoard[counter],(counter/(celle/10+1)),(counter%(celle/10+1))+1,1,1);
         }
     }
 

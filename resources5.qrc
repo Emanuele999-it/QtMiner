@@ -3,5 +3,8 @@
         <file>Img/║.jpg</file>
         <file>Img/╗.jpg</file>
         <file>Img/╚.jpg</file>
+	<file>Img/║h.jpg</file>
+        <file>Img/╗h.jpg</file>
+        <file>Img/╚h.jpg</file>
     </qresource>
 </RCC>

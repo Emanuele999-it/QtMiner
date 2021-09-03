@@ -194,6 +194,11 @@ private slots:
     void closeLastGame();
 
     /**
+     * @brief closeSettings: slot chiusura finestra impostazioni
+     */
+    void closeSettings();
+
+    /**
      * @brief GameRequestSlot: slot per inviare la richiesta di giocare passando
      */
     void GameRequestSlot();

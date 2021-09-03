@@ -68,6 +68,11 @@ private:
     QPushButton *scambioMB=nullptr;
     QPushButton *scarta=nullptr;
 
+    /**
+     * @brief setScreenGeometry: metodo per centrare la finestra nelle schermo
+     */
+    void setScreenGeometry();
+
 public slots:
     /**
      * @brief aggiornamentoView: aggiornamento view in seguito al posizionamento di una carta

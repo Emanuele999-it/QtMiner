@@ -21,6 +21,9 @@ MainWindow::~MainWindow(){
 }
 
 MainWindow::MainWindow(const MainWindow &m){
+
+    setWindowFlag(Qt::Dialog);
+
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     int x = (screenGeometry.width()- width()) / 2;
     int y = (screenGeometry.height()- height()) / 2;
@@ -29,6 +32,7 @@ MainWindow::MainWindow(const MainWindow &m){
     //settaggio proprietà finestra
     setWindowTitle ("QtMiner");
     setMinimumSize(350,300);
+    setMaximumSize(600,500);
 
     //creazione bottoni impostazioni / inizio gioco
     startGame = new QPushButton(tr("Inizia a giocare!"), this);
@@ -84,6 +88,8 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
         delete lastGame;
         delete Vl;
 
+        setWindowFlag(Qt::Dialog);
+
         QRect screenGeometry = QApplication::desktop()->screenGeometry();
         int x = (screenGeometry.width()- width()) / 2;
         int y = (screenGeometry.height()- height()) / 2;
@@ -92,6 +98,7 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
         //settaggio proprietà finestra
         setWindowTitle ("QtMiner");
         setMinimumSize(350,300);
+        setMaximumSize(600,500);
 
         //creazione bottoni impostazioni / inizio gioco
         startGame = new QPushButton(tr("Inizia a giocare!"), this);
@@ -142,6 +149,8 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
 
 MainWindow::MainWindow(){
 
+    setWindowFlag(Qt::Dialog);
+
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     int x = (screenGeometry.width()- width()) / 2;
     int y = (screenGeometry.height()- height()) / 2;
@@ -150,6 +159,7 @@ MainWindow::MainWindow(){
     //settaggio proprietà finestra
     setWindowTitle ("QtMiner");
     setMinimumSize(350,300);
+    setMaximumSize(450,370);
 
     //creazione bottoni impostazioni / inizio gioco
     startGame = new QPushButton(tr("Inizia a giocare!"), this);
@@ -180,7 +190,7 @@ MainWindow::MainWindow(){
     formLayout->setFormAlignment(Qt::AlignHCenter | Qt::AlignTop);
     formLayout->setLabelAlignment(Qt::AlignLeft);
 
-    lineE = new QLineEdit("Nome");
+    lineE = new QLineEdit("");
 
     Hname->addLayout(formLayout);
     formLayout->addRow("Inserisci il tuo nome", lineE);
@@ -197,20 +207,14 @@ MainWindow::MainWindow(){
 }
 
 void MainWindow::GameRequestSlot(){
-    if(lineE->displayText() == "Nome"){
-        QErrorMessage mb(this);
-        mb.showMessage("E' necessario cambiare il nome");
-        mb.exec();
-    }
-    else{
-        emit GameRequest(lineE->displayText());
-    }
+    emit GameRequest(lineE->displayText());
 }
 
 void MainWindow::OpenSettingsWindow(nat i){
-    //hide();
+    hide();
     settWindow = new SettingsWindow(i);
     connect(settWindow, &SettingsWindow::newBoardDimension, this, &MainWindow::changeBoardDimension);
+    connect(settWindow, &SettingsWindow::closeSett, this , &MainWindow::closeSettings);
     settWindow->exec();
 }
 
@@ -254,6 +258,12 @@ void MainWindow::closeLastGame(){
     show();
     delete LGWindow;
     LGWindow=nullptr;
+}
+
+void MainWindow::closeSettings(){
+    show();
+    delete settWindow;
+    settWindow=nullptr;
 }
 
 void MainWindow::closeGameBoard(){
