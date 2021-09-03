@@ -200,8 +200,8 @@ void ModelBoard::posiziona(){
       */
 
     if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))) &&
-            (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr)){
-
+            (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr) &&
+            (_nBoard != nCaselle-(nCaselle/10-2) && dynamic_cast<Blocco*>(temp) || (_nBoard == nCaselle-(nCaselle/10-2) && !dynamic_cast<Blocco*>(temp)))){
 
         QVector<nat> posizioni, controllate;
 
@@ -228,6 +228,7 @@ void ModelBoard::posiziona(){
             controllate.clear();
 
             //segnale aggiornamento view
+
             //invio segnale a view nuova carta
             if(_nBoard ==1 || _nBoard == nCaselle/10-2){
                 emit CambiaPosizioneManoBoard(_nMano, _nBoard,
@@ -242,7 +243,6 @@ void ModelBoard::posiziona(){
                                           getImage(_nBoard, _boardStuff),0);
             }
         }
-
         else{
             qDebug()<<"Modelboard: errore";
             emit changeCardsfailed("Posizione non valida. Non è possibile posizionare una carta Percorso non collegata a quelle adiacenti");
@@ -271,7 +271,11 @@ void ModelBoard::posiziona(){
     //Errori
     else{
         qDebug() << "Qui entra se mossa non valida";
-        if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))){
+        if(_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco)){
+               qDebug()<<"Modelboard: errore";
+               emit changeCardsfailed("Non è possibile posizionare un blocco nella cella di partenza!");
+        }
+        else if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))){
             emit changeCardsfailed("Posizione board non valida. Non è possibile posizionare una carta Percorso in una casella occupata");
         }
 
