@@ -26,6 +26,12 @@ private:
 
     int valore;
 
+    /**
+     * @brief closeEvent: evento chiusura finestra
+     * @param event
+     */
+    void closeEvent(QCloseEvent *event);
+
 public slots:
     /**
      * @brief setDisplayNumber: l'invio del numero di caselle scelte per la partita
@@ -44,7 +50,10 @@ signals:
      */
     void newBoardDimension(unsigned int);
 
-
+    /**
+     * @brief closeSett: segnale chiusura impostazioni
+     */
+    void closeSett();
 
 public:
     /**

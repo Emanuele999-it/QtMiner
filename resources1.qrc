@@ -2,7 +2,8 @@
     <qresource prefix="/">
         <file>readme2.txt</file>
         <file>Img/settings.png</file>
-        <file>Img/blank.jpg</file>
+	<file>Img/settingsh.png</file>	
         <file>Img/╔.jpg</file>
+	<file>Img/╔h.jpg</file>
     </qresource>
 </RCC>

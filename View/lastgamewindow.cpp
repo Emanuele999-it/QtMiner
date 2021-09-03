@@ -10,6 +10,7 @@ LastGameWindow::~LastGameWindow(){
 }
 
 LastGameWindow::LastGameWindow(const LastGameWindow& l){
+    setMaximumSize(275,500);
     setWindowTitle ("QtMiner - Ultima partita");
     QVBoxLayout * vl= new QVBoxLayout(this);
     ultimaP = l.ultimaP;
@@ -80,6 +81,7 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
     if(this != &l){
         delete ultimaP;
 
+        setMaximumSize(275,500);
         setWindowTitle ("QtMiner - Ultima partita");
         QVBoxLayout * vl= new QVBoxLayout(this);
         ultimaP = l.ultimaP;
@@ -147,6 +149,9 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
 }
 
 LastGameWindow::LastGameWindow(){
+
+    setMaximumSize(275,500);
+
     setWindowTitle ("QtMiner - Ultima partita");
         QVBoxLayout * vl= new QVBoxLayout(this);
         ultimaP = new QLabel("Ecco i risultati dell'ultima partita: ");
