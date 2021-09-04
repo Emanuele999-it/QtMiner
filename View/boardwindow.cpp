@@ -29,6 +29,7 @@ BoardWindow::BoardWindow(const BoardWindow &Board){
     b = Board.b;
     m = Board.m;
 
+    nome=Board.nome;
     scambioMB = Board.scambioMB;
     scarta = Board.scarta;
     scambioMB->setDisabled(true);
@@ -84,6 +85,7 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
         delete scambioMB;
         delete scarta;
 
+        nome=Board.nome;
         celle=Board.celle;
         mano=Board.mano;
         board=Board.board;
@@ -150,8 +152,9 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
 BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(false)
 {
     setScreenGeometry();
+    nome=n;
 
-    setWindowTitle ("QtMiner - Giochiamo!!!");
+    setWindowTitle ("QtMiner - Giochiamo "+nome+"!!!");
     setFixedSize(720, 800);
     setWindowFlag(Qt::Dialog);
     setMaximumSize(800,950);

@@ -95,6 +95,7 @@ void Controller::openBoardWindow(QString n){
     name = n;
     buildAndConnectModelView();
     modelBoard->addCardtoVectors();
+    modelBoard->saveName(n);
     emit MainW->OpenGameWindow(boardDimension,n);
 }
 
@@ -119,3 +120,5 @@ void Controller::cambioDimensioniBoard(nat i){
 void Controller::scartaCartaDallaMano(){
     modelBoard->scartaCartaMano();
 }
+
+
