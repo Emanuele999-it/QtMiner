@@ -43,14 +43,14 @@ private:
      * @brief checkAround: funzione che permette di controllare se la carta scelta per essere posizionata in una determinata
      *                     posizione disponibile rispetta il percorso non andando a collegarsi a carte non collegabili
      */
-    double checkAround(nat posizione, Card* carta);
+    double checkAround(nat posizione, Card* carta) const ;
 
     /**
      * @brief controlloAmmissibilita: funzione che permette di dire se esiste almeno una carta compatibile con una posizione data
      * @param posizione
      * @return
      */
-    double controlloAmmissibilita(nat posizione);
+    double controlloAmmissibilita(nat posizione) const ;
 
 public:
    /**
@@ -160,6 +160,12 @@ signals:
      * @brief changeCardsfailed: emissione segnale scambio carte fallito
      */
     void changeCardsfailed(QString);
+
+    /**
+     * @brief userWin quando la IA non ha piu mosse l'user vince, oppure quando l'user non ha piu mosse e l'IA vince
+     *        QStrinf: Se vince AI "AI" e se vince nome dato "Nome"
+     */
+    void userWin(QString);
 
 };
 

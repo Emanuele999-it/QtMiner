@@ -131,7 +131,7 @@ void ModelBoard::path(int cartaPrecedente, QVector<nat> &posizioni, QVector<nat>
     }
 }
 
-double ModelBoard::checkAround(nat posizione, Card *carta){
+double ModelBoard::checkAround(nat posizione, Card *carta) const{
     if(dynamic_cast<Blocco*>(carta))
         return true;
 
@@ -213,11 +213,9 @@ void ModelBoard::posiziona(){
         }
         qDebug()<<"******************************";
 
-
-
         if((posizioni.contains(_nBoard) || ((dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))))
                                                                     && checkAround(_nBoard,temp)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
-
+            qDebug() << "Qui entra se mossa valida";
             _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
                 /*
              * Funzione controllo compatibilità carta mano->board
@@ -231,20 +229,31 @@ void ModelBoard::posiziona(){
 
             //segnale aggiornamento view
             //invio segnale a view nuova carta
-            emit CambiaPosizioneManoBoard(_nMano, _nBoard,
+            if(_nBoard ==1 || _nBoard == nCaselle/10-2){
+                emit CambiaPosizioneManoBoard(_nMano, _nBoard,
+                                              getImage(_nMano, _handStuff),
+                                          getImage(_nBoard, _boardStuff),0);//mettere carta con pepita e interompere il gioco
+                emit userWin("Nome");
+                qDebug()<<"Hai trovato il tesoro";
+            }
+            else{
+                emit CambiaPosizioneManoBoard(_nMano, _nBoard,
                                               getImage(_nMano, _handStuff),
                                           getImage(_nBoard, _boardStuff),0);
+            }
         }
 
         else{
             qDebug()<<"Modelboard: errore";
             emit changeCardsfailed("Posizione non valida. Non è possibile posizionare una carta Percorso non collegata a quelle adiacenti");
         }
-    }
 
+    }
     //Controlla se la cella clonecards è su una cella non vuota
     else if((dynamic_cast<CloneCards*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::crollo))
             && (_boardStuff[_nBoard] != nullptr && _boardStuff[_nBoard]->get() != nullptr)){
+
+        qDebug() << "Qui entra se clone o crollo";
 
         if(dynamic_cast<CloneCards*>(temp)){
             _handStuff[_nMano]->~unique_ptr();
@@ -261,6 +270,7 @@ void ModelBoard::posiziona(){
 
     //Errori
     else{
+        qDebug() << "Qui entra se mossa non valida";
         if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))){
             emit changeCardsfailed("Posizione board non valida. Non è possibile posizionare una carta Percorso in una casella occupata");
         }
@@ -274,7 +284,7 @@ void ModelBoard::posiziona(){
     }
 }
 
-double ModelBoard::controlloAmmissibilita(nat posizione){
+double ModelBoard::controlloAmmissibilita(nat posizione) const{
     //per ciascun tipo di carta controllo se è ammesso l'inserimento in posizione
     if(checkAround(posizione,new Tunnel(true,true,true,true)) ||
        checkAround(posizione, new Tunnel(false,true,false,true)) ||
@@ -304,6 +314,7 @@ void ModelBoard::posizionaAI() {
 
     //Qui metto un rand, ma è da rivedere da dove si PARTE a fare algo di conseguenza
     nat generator=0;
+    bool win=false;
     bool ok=false;
     bool ammissibile=false;//non si può posizionare carta in alcuna posizione disponibile
 
@@ -316,26 +327,102 @@ void ModelBoard::posizionaAI() {
             ammissibile=true;
 
 
-    while(ammissibile && (!posizioni.empty()) && size>0 && !ok){
+    while(ammissibile && (!posizioni.empty()) && size>0 && !ok && !win){
         generator = posizioni[rand() % posizioni.size()];
         qDebug()<<"posizioni.size()= "<<posizioni.size()<<" generator: "<<generator;
         if(_boardStuff[generator]->get() == nullptr){
             Card* temp = estrattoreCasuale(4);
             if(checkAround(generator,temp)){
+                qDebug() << "lllllllllllll";
+                qDebug() << generator;
+                qDebug() << "lllllllllllll";
+                if(generator==1 || generator == nCaselle/10-2)
+                    win = true;
                 _boardStuff[generator] = new unique_ptr<Card>(temp);
                 ok = true;
             }
         }
     }
 
-    posizioni.clear();
-    controllate.clear();
+    if (win){
+        qDebug()<<"L'AI ha trovato il tesoro!";
+        emit userWin("AI");
+        emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));//qui mettere cella con pepita
+        return;
+    }
 
     //ora diciamo alla view la posizione e immagine
     if(ammissibile && ok)
         emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));
-    else    //segnale vittoria giocatore
+    else{    //segnale vittoria giocatore
+        emit userWin("Nome");
         qDebug()<<"L'AI non può mettere carte, hai vinto";
+        return;
+    }
+
+    posizioni.clear();
+    controllate.clear();
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    path(nCaselle-((nCaselle/10)/2+1),posizioni,controllate,nCaselle-((nCaselle/10)/2+1));
+    qDebug()<<"//////////////////////";
+    for(auto i= posizioni.begin(); i<posizioni.end();++i){
+       qDebug()<<*i;
+    }
+    qDebug()<<"/////////////////////////////";
+    //Dopo averla messa il player ne mette un'altra
+    ammissibile = false;
+    ok = false;
+
+    //controllo se esiste almeno una carta ammissibile per almeno una posizione
+    for(int n=0;  n< posizioni.size() && !ammissibile ;++n){
+            qDebug() << "entra";
+        if(!ammissibile && (controlloAmmissibilita(posizioni[n])))//data posizione prova le celle per vedere se la carta si puo mettere
+            qDebug() << "ammissibile Vero";
+            ammissibile=true;
+    }
+
+    //Si vede se l'user puo mettere UNA carta
+    for(auto i=posizioni.begin();i<posizioni.end() && ammissibile && !ok;++i){
+            qDebug() << "entra2";
+            /*
+             * mancava il controllo ((*x)->get()) perché handstuff.end() considera tutte le celle della mano in
+             * cui esiste un unique_ptr, non quelle in cui esiste la carta.
+             * Siccome il vettore inizializza da 0 quando si fa il push_back delle carte si ridimensiona:
+             * 1) 0 elementi
+             * 2) 1 elemento
+             * 3) 2 elementi
+             * 4) 4 elementi
+             * 5) 8 elementi -> le carte nella mano sono 7 quindi facendo il get() sull'8a da seg.fault
+             *
+            */
+        for(auto x=_handStuff.begin(); !ok && (x!=_handStuff.end()) && ((*x)->get());++x){ //Vede tutta la mano
+            qDebug()<<"La size di boardstuff è: "<<size;
+            qDebug()<<"print card: "<<QString::fromStdString((*x)->get()->getName());
+            if(dynamic_cast<CloneCards*>((*x)->get()) || dynamic_cast<Crollo*>((*x)->get()))
+            {qDebug() << "Boh eeeee"<<*i;}
+            else if(checkAround(*i,(*x)->get())){//controlliamo se possiamo mettere la carta (*x)->get()
+                ok = true;
+                qDebug() << "potrebbe essere" <<*i;
+            }
+            //altrimenti significa che la carta presa in considerazione non va bene -> continua a cercare
+        }
+    }
+
+    //ora diciamo alla view la posizione e immagine
+    if((ammissibile && !ok) || !ammissibile){
+        emit userWin("AI");
+        qDebug()<<"Non puoi piu metter carte, l'AI ha vinto";
+        return;
+        posizioni.clear();
+        controllate.clear();
+    }
+
+    posizioni.clear();
+    controllate.clear();
+
+
 
 }
 

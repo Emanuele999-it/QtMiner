@@ -70,7 +70,7 @@ void Casella::cambiaImmagine(QString i){
     onHover=QIcon(":/Img/"+i+"h.jpg");
     setIcon(iconStd);
 
-    setIconSize(QSize(40,50));
+    setIconSize(QSize(40,60));
 }
 
 void Casella::supportCasellaCliccata(){
