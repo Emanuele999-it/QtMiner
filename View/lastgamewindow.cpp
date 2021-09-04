@@ -42,14 +42,27 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
     int index = val.indexOf("-1 ");
     if(index){
         QString get = val.mid(index, val.indexOf("\n "));
+        val.remove(index-1,(val.indexOf("\n ")));
+        qDebug()<<val;
         //val.remove(get);
-        get.remove("Winner");
         get.remove("-1");
         get.remove(" ");
-        if(get != "\n"){
-            vincitore->setText("Il vincitore della scorsa partita è: "+(get));
+        get.remove("\n");
+        if(!get.contains("Winner")){
+            vincitore->setText("Il vincitore è: "+(get));
         }
-        val.remove(index,val.indexOf("\n "));
+        else{
+            QString temp=get;
+            qDebug()<<"teeeeeeeeeeeeeeemp"<<temp;
+            temp.remove("Winner");
+            if(temp == ""){
+                vincitore->setText("Il vincitore è l'utente ");
+            }
+            else
+            {
+                vincitore->setText("Il vincitore è: "+(temp));
+            }
+        }
     }
 
     index=0;
@@ -127,16 +140,28 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
         int index = val.indexOf("-1 ");
         if(index){
             QString get = val.mid(index, val.indexOf("\n "));
+            val.remove(index-1,(val.indexOf("\n ")));
+            qDebug()<<val;
             //val.remove(get);
-            get.remove("Winner");
             get.remove("-1");
             get.remove(" ");
-            if(get != "\n"){
-                vincitore->setText("Il vincitore della scorsa partita è: "+(get));
+            get.remove("\n");
+            if(!get.contains("Winner")){
+                vincitore->setText("Il vincitore è: "+(get));
             }
-            val.remove(index,val.indexOf("\n "));
+            else{
+                QString temp=get;
+                qDebug()<<"teeeeeeeeeeeeeeemp"<<temp;
+                temp.remove("Winner");
+                if(temp == ""){
+                    vincitore->setText("Il vincitore è l'utente ");
+                }
+                else
+                {
+                    vincitore->setText("Il vincitore è: "+(temp));
+                }
+            }
         }
-
         index=0;
         bool nonUltimo = true;
         int counter=0;
