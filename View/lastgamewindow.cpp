@@ -43,7 +43,6 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
     if(index){
         QString get = val.mid(index, val.indexOf("\n "));
         val.remove(index-1,(val.indexOf("\n ")));
-        qDebug()<<val;
         //val.remove(get);
         get.remove("-1");
         get.remove(" ");
@@ -51,7 +50,6 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
         if(!get.contains("Winner")){}
         else{
             QString temp=get;
-            qDebug()<<"teeeeeeeeeeeeeeemp"<<temp;
             temp.remove("Winner");
             if(temp == ""){
                 vincitore->setText("Il vincitore è l'utente ");
@@ -139,7 +137,6 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
         if(index){
             QString get = val.mid(index, val.indexOf("\n "));
             val.remove(index-1,(val.indexOf("\n ")));
-            qDebug()<<val;
             //val.remove(get);
             get.remove("-1");
             get.remove(" ");
@@ -147,7 +144,6 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
             if(!get.contains("Winner")){}
             else{
                 QString temp=get;
-                qDebug()<<"teeeeeeeeeeeeeeemp"<<temp;
                 temp.remove("Winner");
                 if(temp == ""){
                     vincitore->setText("Il vincitore è l'utente ");
@@ -231,21 +227,16 @@ LastGameWindow::LastGameWindow(){
         val.remove("}");
         val.remove(0,6);
 
-        qDebug()<<val;
-
         int index = val.indexOf("-1 ");
         if(index){
             QString get = val.mid(index, val.indexOf("\n "));
             val.remove(index-1,(val.indexOf("\n ")));
-            qDebug()<<val;
-            //val.remove(get);
             get.remove("-1");
             get.remove(" ");
             get.remove("\n");
             if(!get.contains("Winner")){}
             else{
                 QString temp=get;
-                qDebug()<<"teeeeeeeeeeeeeeemp"<<temp;
                 temp.remove("Winner");
                 if(temp == ""){
                     vincitore->setText("Il vincitore è l'utente ");

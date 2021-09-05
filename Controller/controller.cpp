@@ -106,7 +106,6 @@ void Controller::openLastGameWindow(){
 void Controller::chiusuraGame(){
     emit modelBoard->saveLastGame();
     delete modelBoard;
-    modelBoard=nullptr;
 }
 
 void Controller::cambiaCellaBoard(nat x, nat y){
