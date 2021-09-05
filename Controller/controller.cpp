@@ -105,8 +105,16 @@ void Controller::openLastGameWindow(){
 
 void Controller::chiusuraGame(){
     emit modelBoard->saveLastGame();
+    disconnect(modelBoard, &model::ModelBoard::CambiaPosizioneManoBoard, MainW, &MainWindow::UpdateViewfromModel);
+    disconnect(MainW, &MainWindow::rimbalzoScambioCarteMB, modelBoard, &model::ModelBoard::posiziona);
+    disconnect(MainW, &MainWindow::RimbalzoCheImmagineHo, modelBoard, &model::ModelBoard::getHandImage);
+    disconnect(modelBoard, &model::ModelBoard::CambiaImmagineMano, MainW, &MainWindow::UpdateCardMano);
+
+    disconnect(modelBoard, &model::ModelBoard::changeCardsfailed, MainW, &MainWindow::changeCardsFailed);
+    disconnect(MainW, &MainWindow::rimbalzoMossaAI, modelBoard, &model::ModelBoard::posizionaAI);
+    disconnect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);
     delete modelBoard;
-    //modelBoard=nullptr;
+    // modelBoard=nullptr;
 }
 
 void Controller::cambiaCellaBoard(nat x, nat y){

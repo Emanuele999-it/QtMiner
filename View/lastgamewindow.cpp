@@ -234,7 +234,9 @@ LastGameWindow::LastGameWindow(){
             get.remove("-1");
             get.remove(" ");
             get.remove("\n");
-            if(!get.contains("Winner")){}
+            if(!get.contains("Winner")){
+                vincitore->setText("Il vincitore è: "+(get));
+            }
             else{
                 QString temp=get;
                 temp.remove("Winner");
