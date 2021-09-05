@@ -206,7 +206,6 @@ void ModelBoard::posiziona(){
     if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))) &&
             (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr)){
 
-
         QVector<nat> posizioni, controllate;
 
         path(nCaselle-((nCaselle/10)/2+1),posizioni,controllate,nCaselle-((nCaselle/10)/2+1));
@@ -216,8 +215,11 @@ void ModelBoard::posiziona(){
            qDebug()<<*i;
         }
         qDebug()<<"******************************";
-
-        if((posizioni.contains(_nBoard) || ((dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))))
+        if((_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<Obstruction*>(temp))? dynamic_cast<Obstruction*>(temp)->getName()=="╬b" : false)){
+            qDebug() << "Qui entra se mossa non valida";
+            emit changeCardsfailed("Non si puo mettere un blocco allo start!");
+        }
+        else if((posizioni.contains(_nBoard) || ((dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))))
                                                                     && checkAround(_nBoard,temp)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
             qDebug() << "Qui entra se mossa valida";
             _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
@@ -232,6 +234,7 @@ void ModelBoard::posiziona(){
             controllate.clear();
 
             //segnale aggiornamento view
+
             //invio segnale a view nuova carta
             if(_nBoard ==1 || _nBoard == nCaselle/10-2){
                 emit CambiaPosizioneManoBoard(_nMano, _nBoard,
@@ -248,7 +251,6 @@ void ModelBoard::posiziona(){
                                           getImage(_nBoard, _boardStuff),0);
             }
         }
-
         else{
             qDebug()<<"Modelboard: errore";
             emit changeCardsfailed("Posizione non valida. Non è possibile posizionare una carta Percorso non collegata a quelle adiacenti");
@@ -277,7 +279,11 @@ void ModelBoard::posiziona(){
     //Errori
     else{
         qDebug() << "Qui entra se mossa non valida";
-        if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))){
+        if(_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<Blocco*>(temp)->getType() == ObstructionType::blocco)){
+               qDebug()<<"Modelboard: errore";
+               emit changeCardsfailed("Non è possibile posizionare un blocco nella cella di partenza!");
+        }
+        else if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))){
             emit changeCardsfailed("Posizione board non valida. Non è possibile posizionare una carta Percorso in una casella occupata");
         }
 
