@@ -240,14 +240,10 @@ void ModelBoard::posiziona(){
                 win == true;
                 emit CambiaPosizioneManoBoard(_nMano, _nBoard,
                                               getImage(_nMano, _handStuff),
-<<<<<<< HEAD
                                           "gold",0);//mettere carta con pepita e interompere il gioco
-                emit userWin("Nome");
-=======
-                                          getImage(_nBoard, _boardStuff),0);//mettere carta con pepita e interompere il gioco
                 Winner="Winner"+nome;
                 emit userWin(Winner);
->>>>>>> ab3d8976b18c18e783e345ab3b6777b58eb9e40d
+
                 qDebug()<<"Hai trovato il tesoro";
                 return;
             }
