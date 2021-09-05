@@ -58,6 +58,7 @@ private:
     QVBoxLayout *v=nullptr;
     bool mano;
     bool board;
+    QString nome;
 
 
     /**

@@ -39,10 +39,7 @@ MainWindow::MainWindow(const MainWindow &m){
     tutorial = new QPushButton(tr("Tutorial"), this);
     lastGame = new QPushButton(tr("Ultima partita"), this);
 
-    settings = new QPushButton(this);
-    settings->setIcon(QIcon(":/Img/settings.png"));
-    settings->setIconSize(QSize(40, 40));
-    settings->setFixedSize(48,48);
+    settings = new SettingsButton();
 
     // set layout visualizzazione
     Vl= new QVBoxLayout(this);
@@ -105,10 +102,7 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
         tutorial = new QPushButton(tr("Tutorial"), this);
         lastGame = new QPushButton(tr("Ultima partita"), this);
 
-        settings = new QPushButton(this);
-        settings->setIcon(QIcon(":/Img/settings.png"));
-        settings->setIconSize(QSize(40, 40));
-        settings->setFixedSize(48,48);
+        settings = new SettingsButton();
 
         // set layout visualizzazione
         Vl= new QVBoxLayout(this);
@@ -166,10 +160,7 @@ MainWindow::MainWindow(){
     tutorial = new QPushButton(tr("Tutorial"), this);
     lastGame = new QPushButton(tr("Ultima partita"), this);
 
-    settings = new QPushButton(this);
-    settings->setIcon(QIcon(":/Img/settings.png"));
-    settings->setIconSize(QSize(40, 40));
-    settings->setFixedSize(48,48);
+    settings = new SettingsButton();
 
     // set layout visualizzazione
     Vl= new QVBoxLayout(this);
@@ -256,12 +247,15 @@ void MainWindow::OpenLastGameWindow(){
 
 void MainWindow::closeLastGame(){
     show();
+    disconnect(LGWindow, &LastGameWindow::chiusuraLastGame, this, &MainWindow::closeLastGame);
     delete LGWindow;
     LGWindow=nullptr;
 }
 
 void MainWindow::closeSettings(){
     show();
+    disconnect(settWindow, &SettingsWindow::newBoardDimension, this, &MainWindow::changeBoardDimension);
+    disconnect(settWindow, &SettingsWindow::closeSett, this , &MainWindow::closeSettings);
     delete settWindow;
     settWindow=nullptr;
 }
@@ -269,6 +263,16 @@ void MainWindow::closeSettings(){
 void MainWindow::closeGameBoard(){
     startGame->setDisabled(false);
     show();
+    disconnect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
+    disconnect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
+    disconnect(this, &MainWindow::UpdateCardMano, boardWindoW, &BoardWindow::aggiornamentoCartaMano);
+    disconnect(boardWindoW, &BoardWindow::cheImmagineHo, this, &MainWindow::RimbalzoCheImmagineHo);
+    disconnect(boardWindoW, &BoardWindow::chiusuraBoardW, this, &MainWindow::closeGameBoard);
+    disconnect(boardWindoW, &BoardWindow::scambiaScarte, this, &MainWindow::rimbalzoScambioCarteMB);
+    disconnect(boardWindoW, &BoardWindow::scartaCarta, this, &MainWindow::ScartaCartaRimbalzo);
+    disconnect(boardWindoW, &BoardWindow::mossaAI, this, &MainWindow::rimbalzoMossaAI);
+    disconnect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
+
     delete boardWindoW;
     boardWindoW=nullptr;
     emit chiusuraBoardWRimbalzo();

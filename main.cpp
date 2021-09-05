@@ -5,7 +5,7 @@
 #include "Entities/Header/cvector.h"
 #include "Entities/Header/unique_ptr.h"
 #include "Controller/Header/controller.h"
-
+#include <QApplication>
 #include <cstdlib>
 
 //test

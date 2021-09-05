@@ -18,6 +18,8 @@ private:
     nat _nMosse; //numero mosse eseguite
     CVector <unique_ptr<Card>*> _handStuff ;
     CVector <unique_ptr<Card>*> _boardStuff ;
+    QString nome;
+    QString Winner;
 
     /**
      * @brief estrattoreCasuale: estrae in maniera casuale una carta
@@ -51,6 +53,7 @@ private:
      * @return
      */
     double controlloAmmissibilita(nat posizione) const ;
+
 
 public:
    /**
@@ -133,7 +136,13 @@ public slots:
      */
     void saveLastGame();
 
+    /**
+     * @brief saveName: slot per salvare il nome del giocatore
+     */
+    void saveName(QString);
+
 signals:
+
     /**
      * @brief CambiaPosizioneManoBoard: segnale per aggoirnare view
      *              il primo puntatore serve per mettere la carta nella board

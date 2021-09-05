@@ -19,6 +19,7 @@ class LastGameWindow: public QDialog{
 private:
     QGridLayout *grid=nullptr;
     QLabel *ultimaP=nullptr;
+    QLabel *vincitore=nullptr;
 
     /**
      * @brief closeEvent: evento chiusura finestra

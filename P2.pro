@@ -24,7 +24,8 @@ SOURCES += \
     View/tutorialwindow.cpp \
     View/settingswindow.cpp \
     main.cpp \ 
-    View/lastgamewindow.cpp
+    View/lastgamewindow.cpp \
+    View/settingsbutton.cpp
 
 
 HEADERS += \
@@ -45,7 +46,8 @@ HEADERS += \
     View/Header/tutorialwindow.h \
     View/Header/settingswindow.h \
     View/Header/boardwindow.h \
-    View/Header/lastgamewindow.h
+    View/Header/lastgamewindow.h \
+    View/Header/settingsbutton.h
 
 
 # Default rules for deployment.

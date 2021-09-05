@@ -98,8 +98,8 @@ public slots:
      */
     void scartaCartaDallaMano();
 
-signals:
 
+signals:
 };
 
 #endif // CONTROLLER_H

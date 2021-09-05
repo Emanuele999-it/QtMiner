@@ -15,6 +15,8 @@
 #include <QSize>
 #include <QIcon>
 
+#include "View/Header/settingsbutton.h"
+
 class MainWindow: public QWidget
 {
     Q_OBJECT
@@ -53,7 +55,7 @@ private:
     /**
      * @brief Settings: bottone impostazioni
      */
-    QPushButton* settings = nullptr;
+    SettingsButton* settings = nullptr;
 
     /**
      * @brief settWindow: finestra impostazioni
