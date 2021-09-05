@@ -192,7 +192,7 @@ double ModelBoard::checkAround(nat posizione, Card *carta) const{
 
 void ModelBoard::posiziona(){
 //modificare comportmento in caso ci sia carta crollo/blocco
-
+    bool win = false;
     Card* temp = _handStuff[_nMano]->get()->clone();
 
     /**
@@ -233,9 +233,10 @@ void ModelBoard::posiziona(){
 
             //invio segnale a view nuova carta
             if(_nBoard ==1 || _nBoard == nCaselle/10-2){
+                win == true;
                 emit CambiaPosizioneManoBoard(_nMano, _nBoard,
                                               getImage(_nMano, _handStuff),
-                                          getImage(_nBoard, _boardStuff),0);//mettere carta con pepita e interompere il gioco
+                                          "gold",0);//mettere carta con pepita e interompere il gioco
                 emit userWin("Nome");
                 qDebug()<<"Hai trovato il tesoro";
             }
@@ -273,7 +274,7 @@ void ModelBoard::posiziona(){
     //Errori
     else{
         qDebug() << "Qui entra se mossa non valida";
-        if(_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<Blocco*>(temp)->getType() == ObstructionType::blocco)){
+        if(_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<Blocco*>(temp) && dynamic_cast<Blocco*>(temp)->getType() == ObstructionType::blocco)){
                qDebug()<<"Modelboard: errore";
                emit changeCardsfailed("Non è possibile posizionare un blocco nella cella di partenza!");
         }
@@ -284,7 +285,6 @@ void ModelBoard::posiziona(){
         else if(dynamic_cast<CloneCards*>(temp)){
             emit changeCardsfailed("Posizione board non valida. Non è possibile clonare una casella vuota");
         }
-
         else
             emit changeCardsfailed("Posizione board non valida. Non è possibile demolire una casella vuota");
     }
@@ -353,7 +353,7 @@ void ModelBoard::posizionaAI() {
     if (win){
         qDebug()<<"L'AI ha trovato il tesoro!";
         emit userWin("AI");
-        emit cambiaCellaBoardAI(generator,getImage(generator,_boardStuff));//qui mettere cella con pepita
+        emit cambiaCellaBoardAI(generator,QString("gold"));//qui mettere cella con pepita
         return;
     }
 
@@ -519,7 +519,8 @@ void ModelBoard::saveLastGame(){
 
         QJsonObject jsonObject;
         for(nat n=0;n<nCaselle;n++){
-            jsonObject.insert(QString::number(n),QString(getImage(n, _boardStuff)));
+            qDebug() << "nBoard stampata" << _nBoard << "Tipo di carta" << getImage(n, _boardStuff);
+            jsonObject.insert(QString::number(n),(((n == 1  || n == (nCaselle/10-2)) && _boardStuff[n]->get()!= nullptr)? QString("gold"): QString(getImage(n, _boardStuff)) ));
         }
         jsonArray.append(jsonObject);
 
