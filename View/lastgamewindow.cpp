@@ -48,9 +48,7 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
         get.remove("-1");
         get.remove(" ");
         get.remove("\n");
-        if(!get.contains("Winner")){
-            vincitore->setText("Il vincitore è: "+(get));
-        }
+        if(!get.contains("Winner")){}
         else{
             QString temp=get;
             qDebug()<<"teeeeeeeeeeeeeeemp"<<temp;
@@ -146,9 +144,7 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
             get.remove("-1");
             get.remove(" ");
             get.remove("\n");
-            if(!get.contains("Winner")){
-                vincitore->setText("Il vincitore è: "+(get));
-            }
+            if(!get.contains("Winner")){}
             else{
                 QString temp=get;
                 qDebug()<<"teeeeeeeeeeeeeeemp"<<temp;
@@ -246,9 +242,7 @@ LastGameWindow::LastGameWindow(){
             get.remove("-1");
             get.remove(" ");
             get.remove("\n");
-            if(!get.contains("Winner")){
-                vincitore->setText("Il vincitore è: "+(get));
-            }
+            if(!get.contains("Winner")){}
             else{
                 QString temp=get;
                 qDebug()<<"teeeeeeeeeeeeeeemp"<<temp;
