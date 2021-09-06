@@ -86,6 +86,8 @@ void Controller::buildAndConnectModelView(){
     connect(modelBoard, &model::ModelBoard::userWin, MainW, &MainWindow::apriVittoria);
     connect(winBoard, &WinWindow::newgamesignal, modelBoard, &model::ModelBoard::getInfoNewGame);//chiede
     connect(modelBoard, &model::ModelBoard::infoNewGame, MainW, &MainWindow::newBoardWin);
+    connect(winBoard, &WinWindow::NewMenuRequest, this, &Controller::chiusuraGame);
+    connect(winBoard, &WinWindow::NewCheckRequestSignal, MainW, &MainWindow::OpenLastGameWindow);
 }
 
 void Controller::openSettings() {

@@ -55,19 +55,21 @@ public:
     *distruttore
     */
     ~WinWindow() override;
-
-
+signals:
+    /**
+     * @brief NewMenuRequest: si chiude la finestra e si riapre mainWindow
+     */
+    void NewMenuRequest();
+    /**
+     * @brief NewMenuRequest: si chiude la finestra e si riapre mainWindow
+     */
+    void NewCheckRequestSignal();
 private slots:
 
     /**
      * @brief NewCheckRequest: mandero' un segnale a boardWindow per il controllo del terreno
      */
     void NewCheckRequest();
-
-    /**
-     * @brief NewMenuRequest: si chiude la finestra e si riapre mainWindow
-     */
-    void NewMenuRequest();
 
     /**
      * @brief CloseWindow: chiusura finestra

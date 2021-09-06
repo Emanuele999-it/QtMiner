@@ -76,13 +76,8 @@ void WinWindow::NewBoardRequest(){
  * @brief NewCheckRequest: mandero' un segnale a boardWindow per il controllo del terreno
  */
 void WinWindow::NewCheckRequest(){
-    //emit MainWindow::OpenGameWindow;
+    close();
+    emit NewCheckRequest();
 }
 
-/**
- * @brief NewMenuRequest: si chiude la finestra e si riapre mainWindow
- */
-void WinWindow::NewMenuRequest(){
-    hide();
-    //emit MainWindow::show();
-}
+
