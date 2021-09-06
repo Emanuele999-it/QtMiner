@@ -252,7 +252,7 @@ void ModelBoard::posiziona(){
         }
         else{
             qDebug()<<"Modelboard: errore";
-            emit changeCardsfailed("Posizione non valida. Non è possibile posizionare una carta Percorso non collegata a quelle adiacenti");
+            emit changeCardsfailed("Non è possibile posizionare una carta Percorso non collegata a quelle adiacenti");
         }
 
     }
@@ -283,14 +283,14 @@ void ModelBoard::posiziona(){
                emit changeCardsfailed("Non è possibile posizionare un blocco nella cella di partenza!");
         }
         else if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))){
-            emit changeCardsfailed("Posizione board non valida. Non è possibile posizionare una carta Percorso in una casella occupata");
+            emit changeCardsfailed("Non è possibile posizionare una carta Percorso in una casella occupata");
         }
 
         else if(dynamic_cast<CloneCards*>(temp)){
-            emit changeCardsfailed("Posizione board non valida. Non è possibile clonare una casella vuota");
+            emit changeCardsfailed("Non è possibile clonare una casella vuota");
         }
         else
-            emit changeCardsfailed("Posizione board non valida. Non è possibile demolire una casella vuota");
+            emit changeCardsfailed("Non è possibile demolire una casella vuota");
     }
 }
 
@@ -529,7 +529,7 @@ void ModelBoard::saveLastGame(){
 
         QJsonObject jsonObject;
         for(nat n=0;n<nCaselle;n++){
-            qDebug() << "nBoard stampata" << _nBoard << "Tipo di carta" << getImage(n, _boardStuff);
+            qDebug() << "nBoard stampata" << n << "Tipo di carta" << getImage(n, _boardStuff);
             jsonObject.insert(QString::number(n),(((n == 1  || n == (nCaselle/10-2)) && _boardStuff[n]->get()!= nullptr)? QString("gold"): QString(getImage(n, _boardStuff)) ));
         }
         jsonObject.insert(QString::number(-1),Winner);

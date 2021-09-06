@@ -4,7 +4,7 @@
 #include <QRect>
 #include <QDesktopWidget>
 #include <QFormLayout>
-
+#include <QPoint>
 #include <QDebug>
 
 MainWindow::~MainWindow(){
@@ -25,9 +25,10 @@ MainWindow::MainWindow(const MainWindow &m){
     setWindowFlag(Qt::Dialog);
 
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    int x = (screenGeometry.width()- width()) / 2;
-    int y = (screenGeometry.height()- height()) / 2;
-    move(x, y);
+    screenGeometry.moveCenter(QPoint(((screenGeometry.width()- width()) / 2),((screenGeometry.height()- height()) / 2)));
+//    int x = (screenGeometry.width()- width()) / 2;
+//    int y = (screenGeometry.height()- height()) / 2;
+//    move(x, y);
 
     //settaggio proprietà finestra
     setWindowTitle ("QtMiner");
@@ -210,8 +211,9 @@ void MainWindow::OpenSettingsWindow(nat i){
 }
 
 void MainWindow::OpenTutorialWindow(){
-
+    hide();
     tWindow = new Tutorialwindow();
+    connect(tWindow, &Tutorialwindow::closeTut , this, &MainWindow::closeTutorial);
     tWindow->exec();
 }
 
@@ -258,6 +260,13 @@ void MainWindow::closeSettings(){
     disconnect(settWindow, &SettingsWindow::closeSett, this , &MainWindow::closeSettings);
     delete settWindow;
     settWindow=nullptr;
+}
+
+void MainWindow::closeTutorial(){
+    show();
+    disconnect(tWindow, &Tutorialwindow::closeTut , this, &MainWindow::closeTutorial);
+    delete tWindow;
+    tWindow=nullptr;
 }
 
 void MainWindow::closeGameBoard(){

@@ -313,7 +313,6 @@ void BoardWindow::CardError(QString i){
 
 void BoardWindow::setScreenGeometry(){
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    int x = (screenGeometry.width()-width()) / 2;
-    int y = (screenGeometry.height()-height()) / 2;
-    move(x, y);
+    screenGeometry.moveCenter(QPoint(((screenGeometry.width()- width()) / 2),((screenGeometry.height()- height()) / 2)));
+
 }

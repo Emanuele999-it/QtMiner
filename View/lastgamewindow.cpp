@@ -194,7 +194,6 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
 }
 
 LastGameWindow::LastGameWindow(){
-
     setMaximumSize(275,500);
 
     setWindowTitle ("QtMiner - Ultima partita");

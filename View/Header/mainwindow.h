@@ -201,6 +201,11 @@ private slots:
     void closeSettings();
 
     /**
+     * @brief closeTutorial: slot chiusura finestra tutorial
+     */
+    void closeTutorial();
+
+    /**
      * @brief GameRequestSlot: slot per inviare la richiesta di giocare passando
      */
     void GameRequestSlot();

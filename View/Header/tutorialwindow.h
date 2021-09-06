@@ -11,26 +11,37 @@
 #include <QTextStream>
 #include <QFileDialog>
 #include <QTextStream>
+#include <QPixmap>
+#include <QImage>
 
 class Tutorialwindow : public QDialog
 {
     Q_OBJECT
 private:
-    QTextEdit *e = nullptr;
     QVBoxLayout *l=nullptr;
 
     QPushButton *avanti=nullptr;
     QPushButton *indietro=nullptr;
     QPushButton *menu=nullptr;
     QLabel *text=nullptr;
+    QLabel *icon=nullptr;
 
     int page;
     int TotLine;
 
     void displayTxt(int page);
 
+    /**
+     * @brief closeEvent: evento chiusura finestra
+     * @param event
+     */
+    void closeEvent(QCloseEvent *event);
+
 signals:
-    //void Deleting();
+    /**
+     * @brief closeTut: seganle chiusura finestra tutorial
+     */
+    void closeTut();
 
 public:
     /**
