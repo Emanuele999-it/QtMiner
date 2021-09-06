@@ -98,7 +98,6 @@ public slots:
      */
     void scartaCartaDallaMano();
 
-
 signals:
 };
 
