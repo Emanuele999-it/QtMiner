@@ -81,6 +81,8 @@ void Controller::buildAndConnectModelView(){
     connect(modelBoard, &model::ModelBoard::changeCardsfailed, MainW, &MainWindow::changeCardsFailed);
     connect(MainW, &MainWindow::rimbalzoMossaAI, modelBoard, &model::ModelBoard::posizionaAI);
     connect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);
+
+    connect(modelBoard, &model::ModelBoard::userWin, MainW, &MainWindow::apriVittoria);
 }
 
 void Controller::openSettings() {

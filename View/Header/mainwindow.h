@@ -10,6 +10,7 @@
 #include "tutorialwindow.h"
 #include "boardwindow.h"
 #include "lastgamewindow.h"
+#include "View/Header/winwindow.h"
 
 #include <QLineEdit>
 #include <QSize>
@@ -101,6 +102,12 @@ private:
      */
     QVBoxLayout *Vl = nullptr;
 
+/********** Win *******/
+    /**
+     * @brief tWindow: finestra tutorial
+     */
+    WinWindow *openwinWindow = nullptr;
+
 
 signals:
     void chiusuraBoardWRimbalzo();
@@ -183,6 +190,13 @@ signals:
 
     void updateBoardAI(nat, QString);
 
+/*******Logica vittoria********/
+
+    /**
+     * @brief apriVittoria manda segnale e vincitore (AI o Umano)
+     */
+    void apriVittoria(QString);
+
 
 private slots:
     /**
@@ -237,6 +251,11 @@ public slots:
      */
     void changeCardsFailed(QString i);
 
+    /**
+     * @brief openWinWindow: apri la vittoria con string AI o User
+     * @param i
+     */
+    void openWinWindow(QString);
 
 };
 

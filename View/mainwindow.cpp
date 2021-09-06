@@ -233,7 +233,8 @@ void MainWindow::OpenGameWindow(nat dim, QString n){
     //Roba AI
     connect(boardWindoW, &BoardWindow::mossaAI, this, &MainWindow::rimbalzoMossaAI);
     connect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
-
+    //Roba Vittoria
+    connect(this, &MainWindow::apriVittoria, this, &MainWindow::openWinWindow);
     boardWindoW->addElVectors();
     hide();
 
@@ -290,4 +291,9 @@ void MainWindow::closeGameBoard(){
 void MainWindow::changeCardsFailed(QString i){
     boardWindoW->disableButton();
     emit boardWindoW->CardError(i);
+}
+
+void MainWindow::openWinWindow(QString i){
+    openwinWindow = new WinWindow(i);
+    openwinWindow->exec();
 }
