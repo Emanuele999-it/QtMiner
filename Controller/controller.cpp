@@ -114,7 +114,7 @@ void Controller::chiusuraGame(){
     disconnect(MainW, &MainWindow::rimbalzoMossaAI, modelBoard, &model::ModelBoard::posizionaAI);
     disconnect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);
     delete modelBoard;
-    // modelBoard=nullptr;
+    modelBoard=nullptr;
 }
 
 void Controller::cambiaCellaBoard(nat x, nat y){

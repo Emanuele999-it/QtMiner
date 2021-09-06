@@ -20,10 +20,7 @@
 
 namespace model{
 
-ModelBoard::~ModelBoard(){
-    _handStuff.~CVector();
-    _boardStuff.~CVector();
-}
+ModelBoard::~ModelBoard(){}
 
 ModelBoard::ModelBoard(const ModelBoard &m): _nMano(m._nMano), nCaselle(m.nCaselle),
     _handStuff(m._handStuff),
