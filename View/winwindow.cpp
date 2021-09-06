@@ -66,6 +66,7 @@ WinWindow::WinWindow(QString i){
 /**
  * @brief NewBoardRequest: mandero' una segnale a mainwindow per una nuova board
  */
+
 void WinWindow::NewBoardRequest(){
     hide();
     emit newgamesignal();

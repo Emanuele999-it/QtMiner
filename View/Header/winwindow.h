@@ -34,10 +34,7 @@ signals:
      * @brief newgame manda segnale a mainwindow
      */
     void newgamesignal();
-    /**
-     * @brief NewBoardRequest: mandero' una segnale a mainwindow per una nuova board
-     */
-    void NewBoardRequest();
+
 public:
     /**
     *costruttore
@@ -76,7 +73,10 @@ private slots:
      * @brief CloseWindow: chiusura finestra
      */
     //void CloseWindow();
-
+    /**
+     * @brief NewBoardRequest: mandero' una segnale a mainwindow per una nuova board
+     */
+    void NewBoardRequest();
 
 };
 

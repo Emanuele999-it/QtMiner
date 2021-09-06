@@ -84,7 +84,7 @@ void Controller::buildAndConnectModelView(){
     connect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);
 
     connect(modelBoard, &model::ModelBoard::userWin, MainW, &MainWindow::apriVittoria);
-    connect(winBoard, &WinWindow::NewBoardRequest, modelBoard, &model::ModelBoard::getInfoNewGame);//chiede
+    connect(winBoard, &WinWindow::newgamesignal, modelBoard, &model::ModelBoard::getInfoNewGame);//chiede
     connect(modelBoard, &model::ModelBoard::infoNewGame, MainW, &MainWindow::newBoardWin);
 }
 
@@ -96,7 +96,7 @@ void Controller::openTutorial(){
     emit MainW->OpenTutorialWindow();
 }
 
-void Controller::openBoardWindow(QString n=0){
+void Controller::openBoardWindow(QString n){
     name = n;
     buildAndConnectModelView();
     modelBoard->addCardtoVectors();

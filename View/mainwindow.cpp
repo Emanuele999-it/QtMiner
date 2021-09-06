@@ -234,6 +234,7 @@ void MainWindow::OpenGameWindow(nat dim, QString n){
     //Roba Vittoria
     connect(this, &MainWindow::apriVittoria, this, &MainWindow::openWinWindow);
 
+    boardWindoW->addElVectors();
     hide();
 
     boardWindoW->show();

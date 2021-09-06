@@ -144,7 +144,7 @@ public slots:
     /**
      * @brief getInfoNewGame mi serve per creare una nouva board con le caratteristiche vecchie
      */
- //   void getInfoNewGame();
+   void getInfoNewGame();
 
 
 signals:
