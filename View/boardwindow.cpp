@@ -317,3 +317,4 @@ void BoardWindow::setScreenGeometry(){
     int y = (screenGeometry.height()-height()) / 2;
     move(x, y);
 }
+

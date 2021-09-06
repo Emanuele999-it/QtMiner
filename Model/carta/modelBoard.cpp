@@ -549,4 +549,10 @@ void ModelBoard::saveName(QString n){
     nome=n;
 }
 
+
+void ModelBoard::getInfoNewGame(){
+    emit infoNewGame(nCaselle,nome);
+}
+
+
 }

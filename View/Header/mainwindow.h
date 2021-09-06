@@ -106,7 +106,7 @@ private:
     /**
      * @brief tWindow: finestra tutorial
      */
-    WinWindow *openwinWindow = nullptr;
+   WinWindow *openwinWindow = nullptr;
 
 
 signals:
@@ -195,7 +195,7 @@ signals:
     /**
      * @brief apriVittoria manda segnale e vincitore (AI o Umano)
      */
-    void apriVittoria(QString);
+  void apriVittoria(QString);
 
 
 private slots:
@@ -250,7 +250,12 @@ public slots:
      * @brief openWinWindow: apri la vittoria con string AI o User
      * @param i
      */
-    void openWinWindow(QString);
+ //   void openWinWindow(QString);
+
+    /**
+     * @brief newBoardWin questo è il caso in cui si ripete la partita ma con win
+     */
+  //  void newBoardWin(nat, QString);
 
 };
 

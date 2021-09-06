@@ -110,7 +110,7 @@ public slots:
      */
     void aggiornamentoBoardAI(nat posAI, QString CartaAI);
 
-    /*
+    /**
      * @brief activateButton:slot per l'attivazione del bottone scambio
      */
     void activateButton(nat);
@@ -125,6 +125,7 @@ public slots:
      * @param i: stringa di errore
      */
     void CardError(QString i);
+
 
 private slots:
     /**
@@ -167,6 +168,7 @@ signals:
      *                     casualmente
      */
     void scartaCarta();
+
 
 };
 

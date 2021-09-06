@@ -21,13 +21,15 @@ WinWindow::WinWindow(QString i){
     newgame = new QPushButton(tr("Nuovo gioco"), this);
     checkboard = new QPushButton(tr("Riguarda board"), this);
     menu = new QPushButton(tr("Torna al menu"), this);
-    image = new QImage(QString("Img/gold.jpg"), 0);// controllare uso di QImage
+    QImage* Img = new QImage(":/Img/gold.jpg");
+    QLabel* l  = new QLabel("");
+    l->setPixmap(QPixmap::fromImage(*Img).scaled(100,150));
 
     // set layout visualizzazione
     Vl= new QVBoxLayout(this);
 
     //proviamo un layout simile al mainwindow, ma con l'immmagine gold al posto delle impostazioni
-    QHBoxLayout *Hl1=new QHBoxLayout();
+    QGridLayout *Hl1=new QGridLayout();
     QHBoxLayout *Hl2=new QHBoxLayout();
     QHBoxLayout *Hinfo=new QHBoxLayout();
 
@@ -38,13 +40,13 @@ WinWindow::WinWindow(QString i){
 
     //aggiungiamo i widget ai box
     //Hl1->addWidget(image);
-    Hl1->setAlignment(Qt::AlignTop);// lo voglio grande, vedere misure
+    Hl1->setAlignment(Qt::AlignTop | Qt::AlignCenter);// lo voglio grande, vedere misure
+    Hl1->addWidget(l);
 
     //forma layout, immmutata da mainwindow
     QLabel* text = new QLabel();
-    text -> setText("Vittoria");
-    text->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    text->setAlignment(Qt::AlignLeft);
+    text -> setText("Ha vinto "+i);
+    text->setAlignment(Qt::AlignHCenter);
 
     //Scrivo info
     Hinfo->addWidget(text);
@@ -57,6 +59,7 @@ WinWindow::WinWindow(QString i){
     connect(newgame,&QPushButton::clicked, this, &WinWindow::NewBoardRequest);
     connect(checkboard,&QPushButton::clicked, this, &WinWindow::NewCheckRequest);
     connect(menu,&QPushButton::clicked, this, &WinWindow::NewMenuRequest);
+
 }
 
 
@@ -64,7 +67,8 @@ WinWindow::WinWindow(QString i){
  * @brief NewBoardRequest: mandero' una segnale a mainwindow per una nuova board
  */
 void WinWindow::NewBoardRequest(){
-    //emit MainWindow::OpenGameWindow;
+    hide();
+    emit newgamesignal();
 }
 
 /**

@@ -6,6 +6,7 @@
 Controller::~Controller(){
     if(MainW) delete MainW;
     if(modelBoard) delete modelBoard;
+    //if(winBoard) delete winBoard;
 }
 
 Controller& Controller::operator=(const Controller &c){
@@ -83,6 +84,8 @@ void Controller::buildAndConnectModelView(){
     connect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);
 
     connect(modelBoard, &model::ModelBoard::userWin, MainW, &MainWindow::apriVittoria);
+    connect(winBoard, &WinWindow::NewBoardRequest, modelBoard, &model::ModelBoard::getInfoNewGame);//chiede
+    connect(modelBoard, &model::ModelBoard::infoNewGame, MainW, &MainWindow::newBoardWin);
 }
 
 void Controller::openSettings() {
@@ -93,7 +96,7 @@ void Controller::openTutorial(){
     emit MainW->OpenTutorialWindow();
 }
 
-void Controller::openBoardWindow(QString n){
+void Controller::openBoardWindow(QString n=0){
     name = n;
     buildAndConnectModelView();
     modelBoard->addCardtoVectors();

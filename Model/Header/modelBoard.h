@@ -141,6 +141,12 @@ public slots:
      */
     void saveName(QString);
 
+    /**
+     * @brief getInfoNewGame mi serve per creare una nouva board con le caratteristiche vecchie
+     */
+ //   void getInfoNewGame();
+
+
 signals:
 
     /**
@@ -175,7 +181,12 @@ signals:
      *        QStrinf: Se vince AI "AI" e se vince nome dato "Nome"
      */
     void userWin(QString);
-
+    /**
+     * @brief infoNewGame per creare nuovo game identico
+     * @param dim
+     * @param n
+     */
+    void infoNewGame(nat dim, QString n);
 };
 
 }
