@@ -1,9 +1,5 @@
 #include "Header/lastgamewindow.h"
 
-#include <QDebug>
-#include <QPixmap>
-#include <vector>
-
 LastGameWindow::~LastGameWindow(){
     if(grid) delete grid;
     if(ultimaP) delete ultimaP;

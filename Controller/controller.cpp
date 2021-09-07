@@ -1,7 +1,5 @@
-﻿
-#include "Header/controller.h"
+﻿#include "Header/controller.h"
 
-#include <QDebug>
 
 Controller::~Controller(){
     if(MainW) delete MainW;

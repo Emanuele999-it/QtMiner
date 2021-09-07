@@ -12,7 +12,8 @@
 #include <QByteArray>
 #include <QJsonObject>
 #include <QCloseEvent>
-
+#include <QPixmap>
+#include <vector>
 
 class LastGameWindow: public QDialog{
     Q_OBJECT

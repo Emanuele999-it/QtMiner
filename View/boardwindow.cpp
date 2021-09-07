@@ -1,9 +1,6 @@
 #include "View/Header/boardwindow.h"
-#include <QRect>
-#include <QDesktopWidget>
-#include <QErrorMessage>
 
-#include <QDebug>
+
 
 BoardWindow::~BoardWindow(){
     if(b) delete b;
@@ -314,5 +311,17 @@ void BoardWindow::CardError(QString i){
 void BoardWindow::setScreenGeometry(){
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     screenGeometry.moveCenter(QPoint(((screenGeometry.width()- width()) / 2),((screenGeometry.height()- height()) / 2)));
+}
 
+void BoardWindow::GameOver(){
+    disconnect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
+    disconnect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::cellaSelezionata);
+    disconnect(b, &view::Board::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
+    disconnect(m, &view::Mano::numCasellaCliccataBoard, this, &BoardWindow::activateButton);
+    disconnect(scambioMB, &QPushButton::clicked, this ,&BoardWindow::controlloCarteDaScambiare );
+    disconnect(scambioMB, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
+    disconnect(scambioMB, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
+    disconnect(scarta, &QPushButton::clicked, this, &BoardWindow::scartaCarta);
+    disconnect(scarta, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
+    disconnect(scarta, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
 }

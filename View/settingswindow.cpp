@@ -1,12 +1,5 @@
 ﻿#include "Header/settingswindow.h"
 
-//test
-#include <QFile>
-#include <QMessageBox>
-#include <QTextStream>
-
-#include <QDebug>
-
 SettingsWindow::~SettingsWindow(){
     if(vLayout) delete vLayout;
     if(slider) delete slider;

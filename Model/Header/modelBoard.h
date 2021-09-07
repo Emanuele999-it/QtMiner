@@ -3,6 +3,19 @@
 #include "Entities/Header/cvector.h"
 #include "Entities/Header/unique_ptr.h"
 #include "Model/Header/carta/card.h"
+#include "Model/Header/carta/blocco.h"
+#include "Model/Header/carta/crollo.h"
+#include "Model/Header/carta/obstruction.h"
+#include "Model/Header/carta/tunnel.h"
+
+#include "Model/Header/carta/clonecards.h"
+#include <QMessageBox>
+#include <cstdlib>
+#include <QVector>
+#include <QErrorMessage>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 #include <QCloseEvent>
 

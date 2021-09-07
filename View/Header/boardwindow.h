@@ -15,7 +15,9 @@
 #include <QLCDNumber>
 #include "View/Header/screens/gameScreen/Board/casella.h"
 #include <QSpacerItem>
-
+#include <QRect>
+#include <QDesktopWidget>
+#include <QErrorMessage>
 #include <QDialog>
 
 #include <QCloseEvent>
@@ -125,6 +127,11 @@ public slots:
      * @param i: stringa di errore
      */
     void CardError(QString i);
+
+    /**
+     * @brief GameOver: disconnessione bottoni in seguito alla fine della partita
+     */
+    void GameOver();
 
 private slots:
     /**

@@ -1,6 +1,5 @@
 ﻿#include "Header/winwindow.h"
 
-
 WinWindow::~WinWindow(){
     if(newgame) delete newgame;
     if(checkboard) delete checkboard;

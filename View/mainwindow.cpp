@@ -1,11 +1,5 @@
 ﻿#include "Header/mainwindow.h"
-#include <QHBoxLayout>
-#include <QErrorMessage>
-#include <QRect>
-#include <QDesktopWidget>
-#include <QFormLayout>
-#include <QPoint>
-#include <QDebug>
+
 
 MainWindow::~MainWindow(){
     if(lineE) delete lineE;
@@ -26,9 +20,6 @@ MainWindow::MainWindow(const MainWindow &m){
 
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     screenGeometry.moveCenter(QPoint(((screenGeometry.width()- width()) / 2),((screenGeometry.height()- height()) / 2)));
-//    int x = (screenGeometry.width()- width()) / 2;
-//    int y = (screenGeometry.height()- height()) / 2;
-//    move(x, y);
 
     //settaggio proprietà finestra
     setWindowTitle ("QtMiner");
@@ -294,6 +285,7 @@ void MainWindow::changeCardsFailed(QString i){
 }
 
 void MainWindow::openWinWindow(QString i){
+    boardWindoW->GameOver();
     openwinWindow = new WinWindow(i);
     openwinWindow->exec();
 }

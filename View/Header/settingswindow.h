@@ -11,6 +11,10 @@
 #include <QLabel>
 #include <QString>
 #include <QPushButton>
+#include <QFile>
+#include <QMessageBox>
+#include <QTextStream>
+
 
 class SettingsWindow: public QDialog
 {

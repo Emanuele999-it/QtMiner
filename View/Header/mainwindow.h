@@ -1,22 +1,26 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QWidget>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QString>
-
 #include "settingswindow.h"
 #include "tutorialwindow.h"
 #include "boardwindow.h"
 #include "lastgamewindow.h"
 #include "View/Header/winwindow.h"
+#include "View/Header/settingsbutton.h"
 
 #include <QLineEdit>
 #include <QSize>
 #include <QIcon>
-
-#include "View/Header/settingsbutton.h"
+#include <QHBoxLayout>
+#include <QErrorMessage>
+#include <QRect>
+#include <QDesktopWidget>
+#include <QFormLayout>
+#include <QPoint>
+#include <QWidget>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QString>
 
 class MainWindow: public QWidget
 {
