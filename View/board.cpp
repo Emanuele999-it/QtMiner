@@ -1,7 +1,5 @@
 ﻿#include "View/Header/screens/gameScreen/Board/board.h"
 
-#include <QGraphicsScene>
-
 namespace view {
 
 Board::~Board(){

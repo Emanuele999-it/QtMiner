@@ -1,14 +1,10 @@
 ﻿#include <QApplication>
-//#include "Controller/Header/initialScreenController.h"
-//#include "View/Header/boardwindow.h"
 
 #include "Entities/Header/cvector.h"
 #include "Entities/Header/unique_ptr.h"
 #include "Controller/Header/controller.h"
 #include <QApplication>
 #include <cstdlib>
-
-//test
 
 
 

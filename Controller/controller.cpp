@@ -36,10 +36,7 @@ Controller::Controller(const Controller& c){
     connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
     connect(MainW, &MainWindow::GameRequest, this, &Controller::openBoardWindow);
     connect(MainW, &MainWindow::LastGameRequest, this, &Controller::openLastGameWindow);
-
-    //da controllare potrebbero essere sbagliati
     connect(MainW, &MainWindow::casellaBoardSelezionata, this, &Controller::cambiaCellaBoard);
-
     connect(MainW, &MainWindow::chiusuraBoardWRimbalzo, this, &Controller::chiusuraGame);
     connect(MainW, &MainWindow::changeBoardDimension, this, &Controller::cambioDimensioniBoard);
     connect(MainW, &MainWindow::ScartaCartaRimbalzo, this, &Controller::scartaCartaDallaMano);
@@ -57,30 +54,23 @@ Controller::Controller(QObject* parent): QObject(parent) {
     connect(MainW, &MainWindow::TutorialRequest, this, &Controller::openTutorial);
     connect(MainW, &MainWindow::GameRequest, this, &Controller::openBoardWindow);
     connect(MainW, &MainWindow::LastGameRequest, this, &Controller::openLastGameWindow);
-
-    //da controllare potrebbero essere sbagliati
     connect(MainW, &MainWindow::casellaBoardSelezionata, this, &Controller::cambiaCellaBoard);
-
     connect(MainW, &MainWindow::chiusuraBoardWRimbalzo, this, &Controller::chiusuraGame);
     connect(MainW, &MainWindow::changeBoardDimension, this, &Controller::cambioDimensioniBoard);
     connect(MainW, &MainWindow::ScartaCartaRimbalzo, this, &Controller::scartaCartaDallaMano);
 
     MainW->show();
-    //MainW->createObjVectors();
 }
 
 void Controller::buildAndConnectModelView(){
     modelBoard = new model::ModelBoard(7,boardDimension);
-    //connessione tra model e view (aggiornamento carta)
     connect(modelBoard, &model::ModelBoard::CambiaPosizioneManoBoard, MainW, &MainWindow::UpdateViewfromModel);
     connect(MainW, &MainWindow::rimbalzoScambioCarteMB, modelBoard, &model::ModelBoard::posiziona);
     connect(MainW, &MainWindow::RimbalzoCheImmagineHo, modelBoard, &model::ModelBoard::getHandImage);
     connect(modelBoard, &model::ModelBoard::CambiaImmagineMano, MainW, &MainWindow::UpdateCardMano);
-
     connect(modelBoard, &model::ModelBoard::changeCardsfailed, MainW, &MainWindow::changeCardsFailed);
     connect(MainW, &MainWindow::rimbalzoMossaAI, modelBoard, &model::ModelBoard::posizionaAI);
     connect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);
-
     connect(modelBoard, &model::ModelBoard::userWin, MainW, &MainWindow::openWinWindow);
 }
 
@@ -110,7 +100,6 @@ void Controller::chiusuraGame(){
     disconnect(MainW, &MainWindow::rimbalzoScambioCarteMB, modelBoard, &model::ModelBoard::posiziona);
     disconnect(MainW, &MainWindow::RimbalzoCheImmagineHo, modelBoard, &model::ModelBoard::getHandImage);
     disconnect(modelBoard, &model::ModelBoard::CambiaImmagineMano, MainW, &MainWindow::UpdateCardMano);
-
     disconnect(modelBoard, &model::ModelBoard::changeCardsfailed, MainW, &MainWindow::changeCardsFailed);
     disconnect(MainW, &MainWindow::rimbalzoMossaAI, modelBoard, &model::ModelBoard::posizionaAI);
     disconnect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);

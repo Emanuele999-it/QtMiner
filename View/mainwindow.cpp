@@ -1,6 +1,5 @@
 ﻿#include "Header/mainwindow.h"
 
-
 MainWindow::~MainWindow(){
     if(lineE) delete lineE;
     if(settings) delete settings;
@@ -21,19 +20,16 @@ MainWindow::MainWindow(const MainWindow &m){
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     screenGeometry.moveCenter(QPoint(((screenGeometry.width()- width()) / 2),((screenGeometry.height()- height()) / 2)));
 
-    //settaggio proprietà finestra
     setWindowTitle ("QtMiner");
     setMinimumSize(350,300);
     setMaximumSize(600,500);
 
-    //creazione bottoni impostazioni / inizio gioco
     startGame = new QPushButton(tr("Inizia a giocare!"), this);
     tutorial = new QPushButton(tr("Tutorial"), this);
     lastGame = new QPushButton(tr("Ultima partita"), this);
 
     settings = new SettingsButton();
 
-    // set layout visualizzazione
     Vl= new QVBoxLayout(this);
 
     QHBoxLayout *Hl1=new QHBoxLayout();
@@ -84,19 +80,16 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
         int y = (screenGeometry.height()- height()) / 2;
         move(x, y);
 
-        //settaggio proprietà finestra
         setWindowTitle ("QtMiner");
         setMinimumSize(350,300);
         setMaximumSize(600,500);
 
-        //creazione bottoni impostazioni / inizio gioco
         startGame = new QPushButton(tr("Inizia a giocare!"), this);
         tutorial = new QPushButton(tr("Tutorial"), this);
         lastGame = new QPushButton(tr("Ultima partita"), this);
 
         settings = new SettingsButton();
 
-        // set layout visualizzazione
         Vl= new QVBoxLayout(this);
 
         QHBoxLayout *Hl1=new QHBoxLayout();
@@ -142,19 +135,16 @@ MainWindow::MainWindow(){
     int y = (screenGeometry.height()- height()) / 2;
     move(x, y);
 
-    //settaggio proprietà finestra
     setWindowTitle ("QtMiner");
     setMinimumSize(350,300);
     setMaximumSize(450,370);
 
-    //creazione bottoni impostazioni / inizio gioco
     startGame = new QPushButton(tr("Inizia a giocare!"), this);
     tutorial = new QPushButton(tr("Tutorial"), this);
     lastGame = new QPushButton(tr("Ultima partita"), this);
 
     settings = new SettingsButton();
 
-    // set layout visualizzazione
     Vl= new QVBoxLayout(this);
 
     QHBoxLayout *Hl1=new QHBoxLayout();
@@ -213,22 +203,18 @@ void MainWindow::OpenGameWindow(nat dim, QString n){
     startGame->setDisabled(true);
     boardWindoW = new BoardWindow(dim, n);
 
-    connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
-
     connect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
     connect(this, &MainWindow::UpdateCardMano, boardWindoW, &BoardWindow::aggiornamentoCartaMano);
+    connect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
 
+    connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
     connect(boardWindoW, &BoardWindow::cheImmagineHo, this, &MainWindow::RimbalzoCheImmagineHo);
     connect(boardWindoW, &BoardWindow::chiusuraBoardW, this, &MainWindow::closeGameBoard);
     connect(boardWindoW, &BoardWindow::scambiaScarte, this, &MainWindow::rimbalzoScambioCarteMB);
     connect(boardWindoW, &BoardWindow::scartaCarta, this, &MainWindow::ScartaCartaRimbalzo);
-    //Roba AI
     connect(boardWindoW, &BoardWindow::mossaAI, this, &MainWindow::rimbalzoMossaAI);
-    connect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
 
     boardWindoW->addElVectors();
-
-
     boardWindoW->show();
 
 }
@@ -287,10 +273,10 @@ void MainWindow::changeCardsFailed(QString i){
 void MainWindow::openWinWindow(QString i){
     boardWindoW->GameOver();
     openwinWindow = new WinWindow(i);
-    connect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::closeGameBoard);//Chiude Board
-    connect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::GameRequestSlot);//Nuova Board
-    connect(openwinWindow,&WinWindow::chiusuraWinWindow, this, &MainWindow::closeWinWindow);//Chiusura con x (Ok)
-    connect(openwinWindow,&WinWindow::NewMenuRequest, this, &MainWindow::closeWinWindow);//Torna al menu(chiudi board & winwindow)
+    connect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::closeGameBoard);
+    connect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::GameRequestSlot);
+    connect(openwinWindow,&WinWindow::chiusuraWinWindow, this, &MainWindow::closeWinWindow);
+    connect(openwinWindow,&WinWindow::NewMenuRequest, this, &MainWindow::closeWinWindow);
     openwinWindow->exec();
 }
 

@@ -7,7 +7,6 @@
 #include "Model/Header/carta/crollo.h"
 #include "Model/Header/carta/obstruction.h"
 #include "Model/Header/carta/tunnel.h"
-
 #include "Model/Header/carta/clonecards.h"
 #include <QMessageBox>
 #include <cstdlib>

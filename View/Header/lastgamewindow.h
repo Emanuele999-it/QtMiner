@@ -7,10 +7,6 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTextStream>
-#include <QJsonValue>
-#include <QJsonDocument>
-#include <QByteArray>
-#include <QJsonObject>
 #include <QCloseEvent>
 #include <QPixmap>
 #include <vector>

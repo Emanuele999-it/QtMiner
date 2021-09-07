@@ -1,12 +1,12 @@
 #ifndef CASELLA_H_
 #define CASELLA_H_
 
-#include <QGraphicsItem>
-#include "Entities/Header/unique_ptr.h"
-#include "Entities/Header/cvector.h"
-#include "Model/Header/carta/card.h"
 #include <QPushButton>
+#include <QIcon>
+#include <QString>
+
 using std::vector;
+using nat = unsigned int;
 
 namespace view {
 

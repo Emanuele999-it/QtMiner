@@ -2,24 +2,16 @@
 #define BOARDWINDOW_H
 
 #include <QApplication>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QMainWindow>
 #include <QLabel>
 #include <QLCDNumber>
 #include "View/Header/screens/gameScreen/Board/board.h"
-#include "View/Header/boardwindow.h"
 #include <QVBoxLayout>
-#include <QLabel>
 #include <QWidget>
-#include <QLCDNumber>
-#include "View/Header/screens/gameScreen/Board/casella.h"
 #include <QSpacerItem>
 #include <QRect>
 #include <QDesktopWidget>
 #include <QErrorMessage>
 #include <QDialog>
-
 #include <QCloseEvent>
 
 class BoardWindow : public QWidget{

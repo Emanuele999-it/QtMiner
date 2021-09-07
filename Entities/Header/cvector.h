@@ -2,8 +2,6 @@
 #define CVECTOR_H
 
 #include <iostream>
-//testing
-#include <QDebug>
 
 using nat = unsigned int;
 

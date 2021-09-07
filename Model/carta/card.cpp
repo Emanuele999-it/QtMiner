@@ -9,10 +9,4 @@ Card::~Card(){}
 void Card::setUsage(bool tORf){
     canBeUsed=tORf;
 }
-/*
-Card* Card::clone() const{
-    return new Card(*this);
-}
 
-Card::Card(const Card& c): canBeUsed(c.canBeUsed){}
-*/

@@ -15,8 +15,6 @@
 #include <QTextStream>
 
 
-//#include "View/Header/mainwindow.h"
-
 class WinWindow : public QDialog
 {
     Q_OBJECT

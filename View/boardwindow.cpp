@@ -1,7 +1,5 @@
 #include "View/Header/boardwindow.h"
 
-
-
 BoardWindow::~BoardWindow(){
     if(b) delete b;
     if(m) delete m;
@@ -34,7 +32,6 @@ BoardWindow::BoardWindow(const BoardWindow &Board){
 
     mosse = Board.mosse;
 
-    //LAYOUT
     QVBoxLayout *Vlayout = new QVBoxLayout(this);
     QHBoxLayout *h = new QHBoxLayout();
 
@@ -104,7 +101,6 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
 
         mosse = Board.mosse;
 
-        //LAYOUT
         QVBoxLayout *Vlayout = new QVBoxLayout(this);
         QHBoxLayout *h = new QHBoxLayout();
 
@@ -168,9 +164,7 @@ BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(fa
 
     mosse = new QLCDNumber();
     mosse->setMaximumSize(200,200);
-    //mosse->setSegmentStyle(QLCDNumber::Filled);
 
-    //LAYOUT
     QVBoxLayout *Vlayout = new QVBoxLayout(this);
 
     Vlayout->addWidget(b);
@@ -287,12 +281,10 @@ void BoardWindow::addElVectors(){
 }
 
 void BoardWindow::controlloCarteDaScambiare(){
-    //controllo che posizione non sia una cella di arrivo
     emit scambiaScarte();
 }
 
 void BoardWindow::avviaMossaAI(){
-    //controllo che posizione non sia una cella di arrivo
     mosse->display((mosse->value())+1);
     emit mossaAI();
 }

@@ -4,10 +4,6 @@
 #include <QObject>
 #include <iostream>
 
-//testing
-
-#include <QDebug>
-
 class Card : public QObject{
     Q_OBJECT
 

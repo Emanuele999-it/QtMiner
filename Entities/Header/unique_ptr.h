@@ -1,10 +1,6 @@
 ﻿#ifndef UNIQUE_PTR_H
 #define UNIQUE_PTR_H
 
-#include <ostream>
-
-//testing
-#include <QDebug>
 
 template <class T>
 class unique_ptr{

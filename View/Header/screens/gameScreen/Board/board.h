@@ -2,8 +2,6 @@
 #define BOARD
 
 #include <QGraphicsItem>
-#include <vector>
-
 #include "Model/Header/modelBoard.h"
 #include "View/Header/screens/gameScreen/Board/casella.h"
 #include <QGridLayout>

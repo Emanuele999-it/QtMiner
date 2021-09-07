@@ -16,8 +16,6 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
     vl->addLayout(grid);
 
     std::vector<QString> vec;
-    //salvare numero di celle
-    //array con i vari caratteri
     QString val;
     QFile file;
     file.setFileName("lastgameboard.json");
@@ -25,7 +23,6 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
     val = file.readAll();
     file.close();
 
-    //rimozione caratteri inutili
     val.remove("\"");
     val.remove(":");
     val.remove(",");
@@ -39,7 +36,6 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
     if(index){
         QString get = val.mid(index, val.indexOf("\n "));
         val.remove(index-1,(val.indexOf("\n ")));
-        //val.remove(get);
         get.remove("-1");
         get.remove(" ");
         get.remove("\n");
@@ -110,8 +106,6 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
         vl->addLayout(grid);
 
         std::vector<QString> vec;
-        //salvare numero di celle
-        //array con i vari caratteri
         QString val;
         QFile file;
         file.setFileName("lastgameboard.json");
@@ -119,7 +113,6 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
         val = file.readAll();
         file.close();
 
-        //rimozione caratteri inutili
         val.remove("\"");
         val.remove(":");
         val.remove(",");
@@ -133,7 +126,6 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
         if(index){
             QString get = val.mid(index, val.indexOf("\n "));
             val.remove(index-1,(val.indexOf("\n ")));
-            //val.remove(get);
             get.remove("-1");
             get.remove(" ");
             get.remove("\n");
@@ -203,8 +195,6 @@ LastGameWindow::LastGameWindow(){
         vl->addLayout(grid);
 
         std::vector<QString> vec;
-        //salvare numero di celle
-        //array con i vari caratteri
         QString val;
         QFile file;
         file.setFileName("lastgameboard.json");
@@ -212,7 +202,6 @@ LastGameWindow::LastGameWindow(){
         val = file.readAll();
         file.close();
 
-        //rimozione caratteri inutili
         val.remove("\"");
         val.remove(":");
         val.remove(",");
