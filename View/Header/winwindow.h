@@ -27,6 +27,7 @@ private:
     QPushButton *menu=nullptr;
     QLabel *text=nullptr;
     QPushButton *image=nullptr;
+    QString nome;
     QVBoxLayout *Vl = nullptr;
 
 signals:
@@ -45,12 +46,12 @@ public:
     /**
     * costruttore di copia
     */
-    //WinWindow(const Tutorialwindow& t);
+    WinWindow(const WinWindow& t);
 
     /**
     * operatore di assegnazione
     */
-    //WinWindow& operator=(const Tutorialwindow& t);
+    WinWindow& operator=(const WinWindow& t);
 
     /**
     *distruttore

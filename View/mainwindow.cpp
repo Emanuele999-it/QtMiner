@@ -209,6 +209,7 @@ void MainWindow::OpenTutorialWindow(){
 }
 
 void MainWindow::OpenGameWindow(nat dim, QString n){
+    hide();
     startGame->setDisabled(true);
     boardWindoW = new BoardWindow(dim, n);
 
@@ -226,7 +227,7 @@ void MainWindow::OpenGameWindow(nat dim, QString n){
     connect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
 
     boardWindoW->addElVectors();
-    hide();
+
 
     boardWindoW->show();
 
