@@ -269,13 +269,12 @@ void BoardWindow::closeEvent(QCloseEvent *event){
 }
 
 void BoardWindow::aggiornamentoCartaMano(nat a, QString c, nat i){
+    m->addCardBoard(a,c);
     if(i==1){
         disableButton();
         //Turno avversario:
         avviaMossaAI();
     }
-    m->addCardBoard(a,c);
-
 }
 
 void BoardWindow::addElVectors(){

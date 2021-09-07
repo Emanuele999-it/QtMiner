@@ -60,6 +60,7 @@ private:
      */
     double checkAround(nat posizione, const Card* carta) const ;
 
+
     /**
      * @brief controlloAmmissibilita: funzione che permette di dire se esiste almeno una carta compatibile con una posizione data
      * @param posizione
