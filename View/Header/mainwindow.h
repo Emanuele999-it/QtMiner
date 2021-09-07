@@ -219,6 +219,10 @@ private slots:
      */
     void GameRequestSlot();
 
+    /**
+     * @brief closeWinWindow: close the win window
+     */
+    void closeWinWindow();
 
 public slots:
     /**
@@ -251,11 +255,6 @@ public slots:
      * @param i
      */
     void openWinWindow(QString);
-
-    /**
-     * @brief newBoardWin questo è il caso in cui si ripete la partita ma con win
-     */
-    void newBoardWin(nat, QString);
 
 };
 

@@ -6,7 +6,7 @@
 Controller::~Controller(){
     if(MainW) delete MainW;
     if(modelBoard) delete modelBoard;
-    //if(winBoard) delete winBoard;
+    if(winBoard) delete winBoard;
 }
 
 Controller& Controller::operator=(const Controller &c){
@@ -83,11 +83,7 @@ void Controller::buildAndConnectModelView(){
     connect(MainW, &MainWindow::rimbalzoMossaAI, modelBoard, &model::ModelBoard::posizionaAI);
     connect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);
 
-    connect(modelBoard, &model::ModelBoard::userWin, MainW, &MainWindow::apriVittoria);
-    connect(winBoard, &WinWindow::newgamesignal, modelBoard, &model::ModelBoard::getInfoNewGame);//chiede
-    connect(modelBoard, &model::ModelBoard::infoNewGame, MainW, &MainWindow::newBoardWin);
-    connect(winBoard, &WinWindow::NewMenuRequest, this, &Controller::chiusuraGame);
-    connect(winBoard, &WinWindow::NewCheckRequestSignal, MainW, &MainWindow::OpenLastGameWindow);
+    connect(modelBoard, &model::ModelBoard::userWin, MainW, &MainWindow::openWinWindow);
 }
 
 void Controller::openSettings() {
@@ -121,7 +117,7 @@ void Controller::chiusuraGame(){
     disconnect(MainW, &MainWindow::rimbalzoMossaAI, modelBoard, &model::ModelBoard::posizionaAI);
     disconnect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);
     delete modelBoard;
-    // modelBoard=nullptr;
+    modelBoard=nullptr;
 }
 
 void Controller::cambiaCellaBoard(nat x, nat y){

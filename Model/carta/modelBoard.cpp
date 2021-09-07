@@ -363,8 +363,8 @@ void ModelBoard::posizionaAI() {
         if (win){
             qDebug()<<"L'AI ha trovato il tesoro!";
             Winner="CPU";
-            emit userWin(Winner);
             emit cambiaCellaBoardAI(generator,QString("gold"));//qui mettere cella con pepita
+            emit userWin(Winner);
             return;
         }
 
@@ -548,11 +548,5 @@ void ModelBoard::saveLastGame(){
 void ModelBoard::saveName(QString n){
     nome=n;
 }
-
-
-void ModelBoard::getInfoNewGame(){
-    emit infoNewGame(nCaselle,nome);
-}
-
 
 }

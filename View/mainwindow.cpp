@@ -231,8 +231,6 @@ void MainWindow::OpenGameWindow(nat dim, QString n){
     //Roba AI
     connect(boardWindoW, &BoardWindow::mossaAI, this, &MainWindow::rimbalzoMossaAI);
     connect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
-    //Roba Vittoria
-    connect(this, &MainWindow::apriVittoria, this, &MainWindow::openWinWindow);
 
     boardWindoW->addElVectors();
     hide();
@@ -287,11 +285,20 @@ void MainWindow::changeCardsFailed(QString i){
 
 void MainWindow::openWinWindow(QString i){
     openwinWindow = new WinWindow(i);
+    connect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::closeGameBoard);//Chiude Board
+    connect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::GameRequestSlot);//Nuova Board
+    connect(openwinWindow,&WinWindow::chiusuraWinWindow, this, &MainWindow::closeWinWindow);//Chiusura con x (Ok)
+    connect(openwinWindow,&WinWindow::NewMenuRequest, this, &MainWindow::closeWinWindow);//Torna al menu(chiudi board & winwindow)
     openwinWindow->exec();
 }
 
-void MainWindow::newBoardWin(nat i, QString name){
-    closeGameBoard();
-
-    OpenGameWindow(i,name);
+void MainWindow::closeWinWindow(){
+    disconnect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::closeGameBoard);
+    disconnect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::GameRequestSlot);
+    disconnect(openwinWindow,&WinWindow::chiusuraWinWindow, this, &MainWindow::closeWinWindow);
+    disconnect(openwinWindow,&WinWindow::NewMenuRequest, this, &MainWindow::closeWinWindow);
+    delete openwinWindow;
+    openwinWindow=nullptr;
+    emit closeGameBoard();
 }
+

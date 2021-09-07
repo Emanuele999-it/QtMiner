@@ -35,6 +35,7 @@ signals:
      */
     void newgamesignal();
 
+
 public:
     /**
     *costruttore
@@ -55,6 +56,8 @@ public:
     *distruttore
     */
     ~WinWindow() override;
+
+
 signals:
     /**
      * @brief NewMenuRequest: si chiude la finestra e si riapre mainWindow
@@ -64,6 +67,11 @@ signals:
      * @brief NewMenuRequest: si chiude la finestra e si riapre mainWindow
      */
     void NewCheckRequestSignal();
+
+    /**
+     * @brief chiusuraWinWindow: si torna alla mainwindow
+     */
+    void chiusuraWinWindow();
 private slots:
 
     /**
