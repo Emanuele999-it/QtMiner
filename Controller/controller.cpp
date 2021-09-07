@@ -4,6 +4,7 @@
 Controller::~Controller(){
     if(MainW) delete MainW;
     if(modelBoard) delete modelBoard;
+    if(winBoard) delete winBoard;
 }
 
 Controller& Controller::operator=(const Controller &c){
@@ -80,7 +81,7 @@ void Controller::buildAndConnectModelView(){
     connect(MainW, &MainWindow::rimbalzoMossaAI, modelBoard, &model::ModelBoard::posizionaAI);
     connect(modelBoard, &model::ModelBoard::cambiaCellaBoardAI, MainW, &MainWindow::updateBoardAI);
 
-    connect(modelBoard, &model::ModelBoard::userWin, MainW, &MainWindow::apriVittoria);
+    connect(modelBoard, &model::ModelBoard::userWin, MainW, &MainWindow::openWinWindow);
 }
 
 void Controller::openSettings() {

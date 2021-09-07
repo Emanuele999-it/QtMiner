@@ -11,22 +11,23 @@ WinWindow::~WinWindow(){
 WinWindow::WinWindow(QString i){
 
     setWindowFlag(Qt::Dialog);
-
     //settaggio proprietà finestra, come mainwindow per consistency
-    setWindowTitle ("hai vinto "+i);
+    setWindowTitle("QtMiner - Vincitore");
     setMinimumSize(350,300);
     setMaximumSize(600,500);
 
     newgame = new QPushButton(tr("Nuovo gioco"), this);
     checkboard = new QPushButton(tr("Riguarda board"), this);
     menu = new QPushButton(tr("Torna al menu"), this);
-    image = new QImage(QString("Img/gold.jpg"), 0);// controllare uso di QImage
+    QImage* Img = new QImage(":/Img/gold.jpg");
+    QLabel* l  = new QLabel("");
+    l->setPixmap(QPixmap::fromImage(*Img).scaled(100,150));
 
     // set layout visualizzazione
     Vl= new QVBoxLayout(this);
 
     //proviamo un layout simile al mainwindow, ma con l'immmagine gold al posto delle impostazioni
-    QHBoxLayout *Hl1=new QHBoxLayout();
+    QGridLayout *Hl1=new QGridLayout();
     QHBoxLayout *Hl2=new QHBoxLayout();
     QHBoxLayout *Hinfo=new QHBoxLayout();
 
@@ -37,13 +38,27 @@ WinWindow::WinWindow(QString i){
 
     //aggiungiamo i widget ai box
     //Hl1->addWidget(image);
-    Hl1->setAlignment(Qt::AlignTop);// lo voglio grande, vedere misure
+    Hl1->setAlignment(Qt::AlignTop | Qt::AlignCenter);// lo voglio grande, vedere misure
+    Hl1->addWidget(l);
 
     //forma layout, immmutata da mainwindow
     QLabel* text = new QLabel();
-    text -> setText("Vittoria");
-    text->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-    text->setAlignment(Qt::AlignLeft);
+    if(!i.contains("Winner")){
+        text -> setText("Il vincitore è la "+(i));
+    }
+    else{
+        QString temp=i;
+        temp.remove("Winner");
+        if(temp == ""){
+            text -> setText("Il vincitore è l'utente ");
+        }
+        else
+        {
+            text -> setText("Il vincitore è: "+(temp));
+        }
+    }
+    //text -> setText("Ha vinto "+ (temp==""?(i=="Winner"?"Utente":i):temp));
+    text->setAlignment(Qt::AlignHCenter);
 
     //Scrivo info
     Hinfo->addWidget(text);
@@ -54,29 +69,27 @@ WinWindow::WinWindow(QString i){
     Hl2->setAlignment(Qt::AlignCenter);
 
     connect(newgame,&QPushButton::clicked, this, &WinWindow::NewBoardRequest);
-    connect(checkboard,&QPushButton::clicked, this, &WinWindow::NewCheckRequest);
-    connect(menu,&QPushButton::clicked, this, &WinWindow::NewMenuRequest);
+    connect(checkboard,&QPushButton::clicked, this, &WinWindow::NewCheckRequest);//Chiudere Win
+    connect(menu,&QPushButton::clicked, this, &WinWindow::chiusuraWinWindow);//Chiudere Win & Board
+    //La "x" e "torna al menu" devono fare la stessa cosa
 }
 
 
 /**
  * @brief NewBoardRequest: mandero' una segnale a mainwindow per una nuova board
  */
+
 void WinWindow::NewBoardRequest(){
-    //emit MainWindow::OpenGameWindow;
+    hide();
+    emit newgamesignal();
+    close();
 }
 
 /**
  * @brief NewCheckRequest: mandero' un segnale a boardWindow per il controllo del terreno
  */
 void WinWindow::NewCheckRequest(){
-    //emit MainWindow::OpenGameWindow;
+    close();
 }
 
-/**
- * @brief NewMenuRequest: si chiude la finestra e si riapre mainWindow
- */
-void WinWindow::NewMenuRequest(){
-    hide();
-    //emit MainWindow::show();
-}
+

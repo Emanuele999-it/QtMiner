@@ -4,6 +4,7 @@
 #include <QObject>
 #include "../../View/Header/mainwindow.h"
 #include "../../Model/Header/modelBoard.h"
+#include "../../View/Header/winwindow.h"
 
 class Controller : public QObject {
     Q_OBJECT
@@ -16,6 +17,8 @@ private:
 
 
     model::ModelBoard* modelBoard=nullptr;
+
+    WinWindow* winBoard = nullptr;
 
     nat boardDimension;
 

@@ -154,6 +154,7 @@ public slots:
      */
     void saveName(QString);
 
+
 signals:
 
     /**
@@ -188,7 +189,6 @@ signals:
      *        QStrinf: Se vince AI "AI" e se vince nome dato "Nome"
      */
     void userWin(QString);
-
 };
 
 }

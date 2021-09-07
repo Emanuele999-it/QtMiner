@@ -110,7 +110,7 @@ private:
     /**
      * @brief tWindow: finestra tutorial
      */
-    WinWindow *openwinWindow = nullptr;
+   WinWindow *openwinWindow = nullptr;
 
 
 signals:
@@ -199,7 +199,7 @@ signals:
     /**
      * @brief apriVittoria manda segnale e vincitore (AI o Umano)
      */
-    void apriVittoria(QString);
+  void apriVittoria(QString);
 
 
 private slots:
@@ -228,6 +228,10 @@ private slots:
      */
     void GameRequestSlot();
 
+    /**
+     * @brief closeWinWindow: close the win window
+     */
+    void closeWinWindow();
 
 public slots:
     /**

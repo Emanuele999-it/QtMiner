@@ -325,3 +325,4 @@ void BoardWindow::GameOver(){
     disconnect(scarta, &QPushButton::clicked, b, &view::Board::removeStylesheetButton);
     disconnect(scarta, &QPushButton::clicked, m, &view::Mano::removeStylesheetButton);
 }
+

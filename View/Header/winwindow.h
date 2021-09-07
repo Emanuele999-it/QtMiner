@@ -14,6 +14,9 @@
 #include <QFileDialog>
 #include <QTextStream>
 
+
+//#include "View/Header/mainwindow.h"
+
 class WinWindow : public QDialog
 {
     Q_OBJECT
@@ -23,10 +26,15 @@ private:
     QPushButton *checkboard=nullptr;
     QPushButton *menu=nullptr;
     QLabel *text=nullptr;
-    QImage *image=nullptr;
+    QPushButton *image=nullptr;
     QVBoxLayout *Vl = nullptr;
 
 signals:
+    /**
+     * @brief newgame manda segnale a mainwindow
+     */
+    void newgamesignal();
+
 
 public:
     /**
@@ -50,11 +58,21 @@ public:
     ~WinWindow() override;
 
 
-private slots:
+signals:
     /**
-     * @brief NewBoardRequest: mandero' una segnale a mainwindow per una nuova board
+     * @brief NewMenuRequest: si chiude la finestra e si riapre mainWindow
      */
-    void NewBoardRequest();
+    void NewMenuRequest();
+    /**
+     * @brief NewMenuRequest: si chiude la finestra e si riapre mainWindow
+     */
+    void NewCheckRequestSignal();
+
+    /**
+     * @brief chiusuraWinWindow: si torna alla mainwindow
+     */
+    void chiusuraWinWindow();
+private slots:
 
     /**
      * @brief NewCheckRequest: mandero' un segnale a boardWindow per il controllo del terreno
@@ -62,15 +80,13 @@ private slots:
     void NewCheckRequest();
 
     /**
-     * @brief NewMenuRequest: si chiude la finestra e si riapre mainWindow
-     */
-    void NewMenuRequest();
-
-    /**
      * @brief CloseWindow: chiusura finestra
      */
     //void CloseWindow();
-
+    /**
+     * @brief NewBoardRequest: mandero' una segnale a mainwindow per una nuova board
+     */
+    void NewBoardRequest();
 
 };
 

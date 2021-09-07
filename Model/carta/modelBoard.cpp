@@ -312,8 +312,8 @@ void ModelBoard::posizionaAI() {
 
         if (win){
             Winner="CPU";
-            emit userWin(Winner);
             emit cambiaCellaBoardAI(generator,QString("gold"));//qui mettere cella con pepita
+            emit userWin(Winner);
             return;
         }
 
