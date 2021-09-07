@@ -43,11 +43,11 @@ void ModelBoard::addCardtoVectors() {
 
 QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
 
-    if(v[i] == nullptr || v[i]->get() == nullptr){
+    if(v[i] == nullptr || v[i]->get_const() == nullptr){
         return "blank";
     }
     else
-        return QString::fromStdString(v[i]->get()->getName());
+        return QString::fromStdString(v[i]->get_const()->getName());
 }
 
 Card* ModelBoard::getCardMano(nat posizione) const{
@@ -64,14 +64,14 @@ void ModelBoard::path(int cartaPrecedente, QVector<nat> &posizioni, QVector<nat>
     }
 
     //Caso Base: la posizione che staimo controllando è vuota:
-    if(_boardStuff[posizioneAttuale]== nullptr || _boardStuff[posizioneAttuale]->get()==nullptr){
+    if(_boardStuff[posizioneAttuale]== nullptr || _boardStuff[posizioneAttuale]->get_const()==nullptr){
         posizioni.push_back(posizioneAttuale);
         return;
     }
 
     else{
         //Nel caso sia il primo ciclo prendiamo in considerazione la cella in posizioneAttuale
-        Tunnel* t = dynamic_cast<Tunnel*>(_boardStuff[posizioneAttuale]->get()->clone());
+        Tunnel* t = dynamic_cast<Tunnel*>(_boardStuff[posizioneAttuale]->get_const()->clone());
 
         if(t!=nullptr){
             //se la posizione che si sta per controllare è già stata controllata esci
@@ -111,9 +111,9 @@ double ModelBoard::checkAround(nat posizione, Card *carta) const{
 
     //controllo nord
     if((posizione/(nCaselle/10)) != 0){//se true carta a nord è fuori dalla griglia -> non controllare
-        if((_boardStuff[posizione-(nCaselle/10)] != nullptr) && (_boardStuff[posizione-(nCaselle/10)]->get() != nullptr)){
+        if((_boardStuff[posizione-(nCaselle/10)] != nullptr) && (_boardStuff[posizione-(nCaselle/10)]->get_const() != nullptr)){
             //se carta blocco va bene
-            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-(nCaselle/10)]->get()->clone());
+            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-(nCaselle/10)]->get_const()->clone());
             if(c){
                 if(((*(c->getArr()+2)) == *(dynamic_cast<Tunnel*>(carta)->getArr()))){//devo controllare il sud della casella sovrastante
                 }
@@ -124,9 +124,9 @@ double ModelBoard::checkAround(nat posizione, Card *carta) const{
     }
     //controllo est
     if((posizione+1)%((nCaselle/10)) > (posizione)%((nCaselle/10))){//se false significhe che si è andati a capo della riga -> non controllare
-        if(_boardStuff[posizione+1] != nullptr && _boardStuff[posizione+1]->get() != nullptr){
+        if(_boardStuff[posizione+1] != nullptr && _boardStuff[posizione+1]->get_const() != nullptr){
             //se carta blocco va bene
-            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+1]->get()->clone());
+            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+1]->get_const()->clone());
             if(c){
                 if(((*(c->getArr()+3)) == *((dynamic_cast<Tunnel*>(carta)->getArr())+1))){//devo controllare l'ovest della casella di destra
                 }
@@ -137,9 +137,9 @@ double ModelBoard::checkAround(nat posizione, Card *carta) const{
     }
     //controllo sud
     if(posizione + (nCaselle/10) < nCaselle){// se >nCaselle significa che si sta uscendo dalla griglia -> non controllare
-        if(_boardStuff[posizione+(nCaselle/10)] != nullptr && _boardStuff[posizione+(nCaselle/10)]->get() != nullptr){
+        if(_boardStuff[posizione+(nCaselle/10)] != nullptr && _boardStuff[posizione+(nCaselle/10)]->get_const() != nullptr){
             //se carta blocco va bene
-            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+(nCaselle/10)]->get()->clone());
+            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+(nCaselle/10)]->get_const()->clone());
             if(c){
                 if(((*(c->getArr())) == *((dynamic_cast<Tunnel*>(carta)->getArr())+2))){//devo controllare il nord della casella sottostante
                 }
@@ -150,9 +150,9 @@ double ModelBoard::checkAround(nat posizione, Card *carta) const{
     }
     //controllo ovest
     if((posizione-1)%((nCaselle/10)) < (posizione)%((nCaselle/10))){//se true significa che si è andati sulla riga precedente -> non controllare
-        if(_boardStuff[posizione-1] != nullptr && _boardStuff[posizione-1]->get() != nullptr){
+        if(_boardStuff[posizione-1] != nullptr && _boardStuff[posizione-1]->get_const() != nullptr){
             //se carta blocco va bene
-            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-1]->get()->clone());
+            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-1]->get_const()->clone());
             if(c){
                 if(((*(c->getArr()+1)) == *((dynamic_cast<Tunnel*>(carta)->getArr())+3))){//devo controllare l'ovest della casella di destra
                 }
@@ -167,14 +167,14 @@ double ModelBoard::checkAround(nat posizione, Card *carta) const{
 void ModelBoard::posiziona(){
 //modificare comportmento in caso ci sia carta crollo/blocco
     bool win = false;
-    Card* temp = _handStuff[_nMano]->get()->clone();
+    Card* temp = _handStuff[_nMano]->get_const()->clone();
 
     /**
       *Controlla se la carta è tunnel o se è obstrucion controlla se nella posizione esiste una carta, inoltre controlla se è start oppure se legale
       */
 
     if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))) &&
-            (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get() == nullptr)){
+            (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get_const() == nullptr)){
 
         QVector<nat> posizioni, controllate;
 
@@ -220,11 +220,11 @@ void ModelBoard::posiziona(){
     }
     //Controlla se la cella clonecards è su una cella non vuota
     else if((dynamic_cast<CloneCards*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::crollo))
-            && (_boardStuff[_nBoard] != nullptr && _boardStuff[_nBoard]->get() != nullptr)){
+            && (_boardStuff[_nBoard] != nullptr && _boardStuff[_nBoard]->get_const() != nullptr)){
 
         if(dynamic_cast<CloneCards*>(temp)){
             _handStuff[_nMano]->~unique_ptr();
-            _handStuff[_nMano] = new unique_ptr<Card>(_boardStuff[_nBoard]->get()->clone());
+            _handStuff[_nMano] = new unique_ptr<Card>(_boardStuff[_nBoard]->get_const()->clone());
             emit CambiaPosizioneManoBoard(_nMano,0,getImage(_nMano, _handStuff),"",1);
         }
         //la carta utilizzata è un crollo
@@ -277,7 +277,7 @@ void ModelBoard::posizionaAI() {
     if(Winner==""){
         nat size=0;
         for(nat it=0; it<nCaselle;it++){
-            if(!(_boardStuff[it] != nullptr && (_boardStuff[it])->get() != nullptr)){
+            if(!(_boardStuff[it] != nullptr && (_boardStuff[it])->get_const() != nullptr)){
                 size++;
             }
         }
@@ -298,7 +298,7 @@ void ModelBoard::posizionaAI() {
 
         while(ammissibile && (!posizioni.empty()) && size>0 && !ok && !win){
             generator = posizioni[rand() % posizioni.size()];
-            if(_boardStuff[generator]->get() == nullptr){
+            if(_boardStuff[generator]->get_const() == nullptr){
                 Card* temp = estrattoreCasuale(4);
                 if(checkAround(generator,temp)){
                     if(generator==1 || generator == nCaselle/10-2)
@@ -344,10 +344,10 @@ void ModelBoard::posizionaAI() {
 
         //Si vede se l'user puo mettere UNA carta
         for(auto i=posizioni.begin();i<posizioni.end() && ammissibile && !ok;++i){
-            for(auto x=_handStuff.begin(); !ok && (x!=_handStuff.end()) && ((*x)->get());++x){ //Vede tutta la mano
-                if(dynamic_cast<CloneCards*>((*x)->get()) || dynamic_cast<Crollo*>((*x)->get())){}
+            for(auto x=_handStuff.begin(); !ok && (x!=_handStuff.end()) && ((*x)->get_const());++x){ //Vede tutta la mano
+                if(dynamic_cast<CloneCards*>((*x)->get_const()) || dynamic_cast<Crollo*>((*x)->get_const())){}
                 //controlliamo se possiamo mettere la carta (*x)->get()
-                else if(checkAround(*i,(*x)->get())){
+                else if(checkAround(*i,(*x)->get_const())){
                     ok = true;
                 }
                 //altrimenti significa che la carta presa in considerazione non va bene -> continua a cercare
@@ -457,7 +457,7 @@ void ModelBoard::saveLastGame(){
 
         QJsonObject jsonObject;
         for(nat n=0;n<nCaselle;n++){
-            jsonObject.insert(QString::number(n),(((n == 1  || n == (nCaselle/10-2)) && _boardStuff[n]->get()!= nullptr)? QString("gold"): QString(getImage(n, _boardStuff)) ));
+            jsonObject.insert(QString::number(n),(((n == 1  || n == (nCaselle/10-2)) && _boardStuff[n]->get_const()!= nullptr)? QString("gold"): QString(getImage(n, _boardStuff)) ));
         }
         jsonObject.insert(QString::number(-1),Winner);
         jsonArray.append(jsonObject);

@@ -1,7 +1,5 @@
 ﻿#include "Header/tutorialwindow.h"
 
-#include <QDebug>
-
 Tutorialwindow::~Tutorialwindow(){
     if(l) delete l;
     if(avanti) delete avanti;

@@ -128,13 +128,11 @@ public slots:
      */
     void CardError(QString i);
 
-<<<<<<< HEAD
     /**
      * @brief GameOver: disconnessione bottoni in seguito alla fine della partita
      */
     void GameOver();
-=======
->>>>>>> 4a6b584e21264b21bcdc3603f850606274a4cc6c
+
 
 private slots:
     /**
