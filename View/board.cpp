@@ -2,7 +2,6 @@
 
 #include <QGraphicsScene>
 
-
 namespace view {
 
 Board::~Board(){
@@ -56,14 +55,32 @@ void Board::addelVec(nat c){
 }
 
 void Board::selectCardBoard(nat r){
+    nat g = vettoreCaselleBoard.size();
     vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
+    if(g > 8){
+        if(posizioneBoard == g-((g/10)/2+1))
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("QPushButton {background-color: yellow;}");
+        else if(posizioneBoard == g/10-2 || posizioneBoard == 1){
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("QPushButton {background-color: blue;}");
+        }else
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
+    }
     posizioneBoard=r;
     vettoreCaselleBoard[r]->setStyleSheet("QPushButton {background-color: green;}");
     emit numCasellaCliccataBoard(r);
 }
 
 void Board::removeStylesheetButton() {
+    nat g = vettoreCaselleBoard.size();
     vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
+    if(g > 8){
+        if(posizioneBoard == g-((g/10)/2+1))
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("QPushButton {background-color: yellow;}");
+        else if(posizioneBoard == g/10-2 || posizioneBoard == 1)
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("QPushButton {background-color: blue;}");
+        else
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
+    }
 }
 
 void Board::addCardBoard(nat n, QString c){
