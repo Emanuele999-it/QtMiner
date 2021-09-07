@@ -167,7 +167,7 @@ double ModelBoard::checkAround(nat posizione, const Card *carta) const{
 void ModelBoard::posiziona(){
 //modificare comportmento in caso ci sia carta crollo/blocco
     bool win = false;
-    Card* temp = _handStuff[_nMano]->get_const()->clone();
+    const Card* temp = _handStuff[_nMano]->get_const()->clone();
 
     /**
       *Controlla se la carta è tunnel o se è obstrucion controlla se nella posizione esiste una carta, inoltre controlla se è start oppure se legale
@@ -181,12 +181,11 @@ void ModelBoard::posiziona(){
         path(nCaselle-((nCaselle/10)/2+1),posizioni,controllate,nCaselle-((nCaselle/10)/2+1));
 
 
-        if((_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<const Obstruction*>(temp))? dynamic_cast<const Obstruction*>(temp)->getName()=="╬b" : false)){
+        if((_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<const Obstruction*>(temp))? dynamic_cast<const Obstruction*>(temp)->getType() == ObstructionType::blocco : false)){
             emit changeCardsfailed("Non si puo mettere un blocco allo start!");
         }
-        else if((posizioni.contains(_nBoard) || ((dynamic_cast<const Obstruction*>(temp) && (dynamic_cast<const Obstruction*>(temp)->getType() == ObstructionType::blocco))))
-                                                                    && checkAround(_nBoard,temp)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
-            _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
+        else if(posizioni.contains(_nBoard) && checkAround(_nBoard,temp)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
+            _boardStuff[_nBoard] = new unique_ptr<Card>(const_cast<Card*>(temp));
 
             _handStuff[_nMano]->~unique_ptr();
             _handStuff[_nMano] = new unique_ptr<Card>(estrattoreCasuale());
@@ -237,11 +236,11 @@ void ModelBoard::posiziona(){
 
     //Errori
     else{
-        if(_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<const Blocco*>(temp) && dynamic_cast<const Blocco*>(temp)->getType() == ObstructionType::blocco)){
+        if(_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<const Blocco*>(temp))){
                emit changeCardsfailed("Non è possibile posizionare un blocco nella cella di partenza!");
         }
         else if((dynamic_cast<const Tunnel*>(temp) || (dynamic_cast<const Obstruction*>(temp) && dynamic_cast<const Obstruction*>(temp)->getType() == ObstructionType::blocco))){
-            emit changeCardsfailed("Non è possibile posizionare una carta Percorso in una casella occupata");
+            emit changeCardsfailed("Non è possibile posizionare una carta Percorso o Blocco in una casella occupata");
         }
 
         else if(dynamic_cast<const CloneCards*>(temp)){
