@@ -71,7 +71,7 @@ void ModelBoard::path(int cartaPrecedente, QVector<nat> &posizioni, QVector<nat>
 
     else{
         //Nel caso sia il primo ciclo prendiamo in considerazione la cella in posizioneAttuale
-        Tunnel* t = dynamic_cast<Tunnel*>(_boardStuff[posizioneAttuale]->get_const()->clone());
+        const Tunnel* t = dynamic_cast<const Tunnel*>(_boardStuff[posizioneAttuale]->get_const()->clone());
 
         if(t!=nullptr){
             //se la posizione che si sta per controllare è già stata controllata esci
@@ -105,17 +105,17 @@ void ModelBoard::path(int cartaPrecedente, QVector<nat> &posizioni, QVector<nat>
     }
 }
 
-double ModelBoard::checkAround(nat posizione, Card *carta) const{
-    if(dynamic_cast<Blocco*>(carta))
+double ModelBoard::checkAround(nat posizione, const Card *carta) const{
+    if(dynamic_cast<const Blocco*>(carta))
         return true;
 
     //controllo nord
     if((posizione/(nCaselle/10)) != 0){//se true carta a nord è fuori dalla griglia -> non controllare
         if((_boardStuff[posizione-(nCaselle/10)] != nullptr) && (_boardStuff[posizione-(nCaselle/10)]->get_const() != nullptr)){
             //se carta blocco va bene
-            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-(nCaselle/10)]->get_const()->clone());
+            const Tunnel* c= dynamic_cast<const Tunnel*>(_boardStuff[posizione-(nCaselle/10)]->get_const()->clone());
             if(c){
-                if(((*(c->getArr()+2)) == *(dynamic_cast<Tunnel*>(carta)->getArr()))){//devo controllare il sud della casella sovrastante
+                if(((*(c->getArr()+2)) == *(dynamic_cast<const Tunnel*>(carta)->getArr()))){//devo controllare il sud della casella sovrastante
                 }
                 else
                     return false;
@@ -126,9 +126,9 @@ double ModelBoard::checkAround(nat posizione, Card *carta) const{
     if((posizione+1)%((nCaselle/10)) > (posizione)%((nCaselle/10))){//se false significhe che si è andati a capo della riga -> non controllare
         if(_boardStuff[posizione+1] != nullptr && _boardStuff[posizione+1]->get_const() != nullptr){
             //se carta blocco va bene
-            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+1]->get_const()->clone());
+            const Tunnel* c= dynamic_cast<const Tunnel*>(_boardStuff[posizione+1]->get_const()->clone());
             if(c){
-                if(((*(c->getArr()+3)) == *((dynamic_cast<Tunnel*>(carta)->getArr())+1))){//devo controllare l'ovest della casella di destra
+                if(((*(c->getArr()+3)) == *((dynamic_cast<const Tunnel*>(carta)->getArr())+1))){//devo controllare l'ovest della casella di destra
                 }
                 else
                     return false;
@@ -139,9 +139,9 @@ double ModelBoard::checkAround(nat posizione, Card *carta) const{
     if(posizione + (nCaselle/10) < nCaselle){// se >nCaselle significa che si sta uscendo dalla griglia -> non controllare
         if(_boardStuff[posizione+(nCaselle/10)] != nullptr && _boardStuff[posizione+(nCaselle/10)]->get_const() != nullptr){
             //se carta blocco va bene
-            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione+(nCaselle/10)]->get_const()->clone());
+            const Tunnel* c= dynamic_cast<const Tunnel*>(_boardStuff[posizione+(nCaselle/10)]->get_const()->clone());
             if(c){
-                if(((*(c->getArr())) == *((dynamic_cast<Tunnel*>(carta)->getArr())+2))){//devo controllare il nord della casella sottostante
+                if(((*(c->getArr())) == *((dynamic_cast<const Tunnel*>(carta)->getArr())+2))){//devo controllare il nord della casella sottostante
                 }
                 else
                     return false;
@@ -152,9 +152,9 @@ double ModelBoard::checkAround(nat posizione, Card *carta) const{
     if((posizione-1)%((nCaselle/10)) < (posizione)%((nCaselle/10))){//se true significa che si è andati sulla riga precedente -> non controllare
         if(_boardStuff[posizione-1] != nullptr && _boardStuff[posizione-1]->get_const() != nullptr){
             //se carta blocco va bene
-            Tunnel* c= dynamic_cast<Tunnel*>(_boardStuff[posizione-1]->get_const()->clone());
+            const Tunnel* c= dynamic_cast<const Tunnel*>(_boardStuff[posizione-1]->get_const()->clone());
             if(c){
-                if(((*(c->getArr()+1)) == *((dynamic_cast<Tunnel*>(carta)->getArr())+3))){//devo controllare l'ovest della casella di destra
+                if(((*(c->getArr()+1)) == *((dynamic_cast<const Tunnel*>(carta)->getArr())+3))){//devo controllare l'ovest della casella di destra
                 }
                 else
                     return false;
@@ -173,7 +173,7 @@ void ModelBoard::posiziona(){
       *Controlla se la carta è tunnel o se è obstrucion controlla se nella posizione esiste una carta, inoltre controlla se è start oppure se legale
       */
 
-    if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))) &&
+    if((dynamic_cast<const Tunnel*>(temp) || (dynamic_cast<const Obstruction*>(temp) && (dynamic_cast<const Obstruction*>(temp)->getType() == ObstructionType::blocco))) &&
             (_boardStuff[_nBoard] == nullptr || _boardStuff[_nBoard]->get_const() == nullptr)){
 
         QVector<nat> posizioni, controllate;
@@ -181,10 +181,10 @@ void ModelBoard::posiziona(){
         path(nCaselle-((nCaselle/10)/2+1),posizioni,controllate,nCaselle-((nCaselle/10)/2+1));
 
 
-        if((_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<Obstruction*>(temp))? dynamic_cast<Obstruction*>(temp)->getName()=="╬b" : false)){
+        if((_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<const Obstruction*>(temp))? dynamic_cast<const Obstruction*>(temp)->getName()=="╬b" : false)){
             emit changeCardsfailed("Non si puo mettere un blocco allo start!");
         }
-        else if((posizioni.contains(_nBoard) || ((dynamic_cast<Obstruction*>(temp) && (dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))))
+        else if((posizioni.contains(_nBoard) || ((dynamic_cast<const Obstruction*>(temp) && (dynamic_cast<const Obstruction*>(temp)->getType() == ObstructionType::blocco))))
                                                                     && checkAround(_nBoard,temp)){//se è la root si mette (se non gia occupata) || é una cella detro posizioni valide
             _boardStuff[_nBoard] = new unique_ptr<Card>(temp);
 
@@ -219,10 +219,10 @@ void ModelBoard::posiziona(){
 
     }
     //Controlla se la cella clonecards è su una cella non vuota
-    else if((dynamic_cast<CloneCards*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::crollo))
+    else if((dynamic_cast<const CloneCards*>(temp) || (dynamic_cast<const Obstruction*>(temp) && dynamic_cast<const Obstruction*>(temp)->getType() == ObstructionType::crollo))
             && (_boardStuff[_nBoard] != nullptr && _boardStuff[_nBoard]->get_const() != nullptr)){
 
-        if(dynamic_cast<CloneCards*>(temp)){
+        if(dynamic_cast<const CloneCards*>(temp)){
             _handStuff[_nMano]->~unique_ptr();
             _handStuff[_nMano] = new unique_ptr<Card>(_boardStuff[_nBoard]->get_const()->clone());
             emit CambiaPosizioneManoBoard(_nMano,0,getImage(_nMano, _handStuff),"",1);
@@ -237,14 +237,14 @@ void ModelBoard::posiziona(){
 
     //Errori
     else{
-        if(_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<Blocco*>(temp) && dynamic_cast<Blocco*>(temp)->getType() == ObstructionType::blocco)){
+        if(_nBoard == nCaselle-(nCaselle/10-2) && (dynamic_cast<const Blocco*>(temp) && dynamic_cast<const Blocco*>(temp)->getType() == ObstructionType::blocco)){
                emit changeCardsfailed("Non è possibile posizionare un blocco nella cella di partenza!");
         }
-        else if((dynamic_cast<Tunnel*>(temp) || (dynamic_cast<Obstruction*>(temp) && dynamic_cast<Obstruction*>(temp)->getType() == ObstructionType::blocco))){
+        else if((dynamic_cast<const Tunnel*>(temp) || (dynamic_cast<const Obstruction*>(temp) && dynamic_cast<const Obstruction*>(temp)->getType() == ObstructionType::blocco))){
             emit changeCardsfailed("Non è possibile posizionare una carta Percorso in una casella occupata");
         }
 
-        else if(dynamic_cast<CloneCards*>(temp)){
+        else if(dynamic_cast<const CloneCards*>(temp)){
             emit changeCardsfailed("Non è possibile clonare una casella vuota");
         }
         else
@@ -345,7 +345,7 @@ void ModelBoard::posizionaAI() {
         //Si vede se l'user puo mettere UNA carta
         for(auto i=posizioni.begin();i<posizioni.end() && ammissibile && !ok;++i){
             for(auto x=_handStuff.begin(); !ok && (x!=_handStuff.end()) && ((*x)->get_const());++x){ //Vede tutta la mano
-                if(dynamic_cast<CloneCards*>((*x)->get_const()) || dynamic_cast<Crollo*>((*x)->get_const())){}
+                if(dynamic_cast<const CloneCards*>((*x)->get_const()) || dynamic_cast<const Crollo*>((*x)->get_const())){}
                 //controlliamo se possiamo mettere la carta (*x)->get()
                 else if(checkAround(*i,(*x)->get_const())){
                     ok = true;

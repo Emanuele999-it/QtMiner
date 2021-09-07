@@ -58,7 +58,7 @@ private:
      * @brief checkAround: funzione che permette di controllare se la carta scelta per essere posizionata in una determinata
      *                     posizione disponibile rispetta il percorso non andando a collegarsi a carte non collegabili
      */
-    double checkAround(nat posizione, Card* carta) const ;
+    double checkAround(nat posizione, const Card* carta) const ;
 
     /**
      * @brief controlloAmmissibilita: funzione che permette di dire se esiste almeno una carta compatibile con una posizione data
