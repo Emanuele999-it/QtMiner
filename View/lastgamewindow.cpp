@@ -218,9 +218,7 @@ LastGameWindow::LastGameWindow(): grid(nullptr), ultimaP(nullptr), vincitore(nul
             get.remove("-1");
             get.remove(" ");
             get.remove("\n");
-            if(!get.contains("Winner")){
-                vincitore->setText("Il vincitore è: "+(get));
-            }
+            if(!get.contains("Winner")){}
             else{
                 QString temp=get;
                 temp.remove("Winner");
