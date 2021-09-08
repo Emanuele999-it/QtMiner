@@ -15,7 +15,7 @@ WinWindow::WinWindow(QString i): newgame(nullptr), checkboard(nullptr), menu(nul
     setMaximumSize(600,500);
 
     newgame = new QPushButton(tr("Nuovo gioco"), this);
-    checkboard = new QPushButton(tr("Riguarda board"), this);
+    checkboard = new QPushButton(tr("Guarda board"), this);
     menu = new QPushButton(tr("Torna al menu"), this);
     QImage* Img = new QImage(":/Img/gold.jpg");
     QLabel* l  = new QLabel("");
@@ -70,7 +70,7 @@ WinWindow::WinWindow(const WinWindow& t){
     setMaximumSize(600,500);
 
     newgame = new QPushButton(tr("Nuovo gioco"), this);
-    checkboard = new QPushButton(tr("Riguarda board"), this);
+    checkboard = new QPushButton(tr("Guarda board"), this);
     menu = new QPushButton(tr("Torna al menu"), this);
     QImage* Img = new QImage(":/Img/gold.jpg");
     QLabel* l  = new QLabel("");
@@ -126,7 +126,7 @@ WinWindow& WinWindow::operator=(const WinWindow& t){
         setMaximumSize(600,500);
 
         newgame = new QPushButton(tr("Nuovo gioco"), this);
-        checkboard = new QPushButton(tr("Riguarda board"), this);
+        checkboard = new QPushButton(tr("Guarda board"), this);
         menu = new QPushButton(tr("Torna al menu"), this);
         QImage* Img = new QImage(":/Img/gold.jpg");
         QLabel* l  = new QLabel("");
