@@ -2,22 +2,16 @@
 #define BOARDWINDOW_H
 
 #include <QApplication>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QMainWindow>
 #include <QLabel>
 #include <QLCDNumber>
 #include "View/Header/screens/gameScreen/Board/board.h"
-#include "View/Header/boardwindow.h"
 #include <QVBoxLayout>
-#include <QLabel>
 #include <QWidget>
-#include <QLCDNumber>
-#include "View/Header/screens/gameScreen/Board/casella.h"
 #include <QSpacerItem>
-
+#include <QRect>
+#include <QDesktopWidget>
+#include <QErrorMessage>
 #include <QDialog>
-
 #include <QCloseEvent>
 
 class BoardWindow : public QWidget{
@@ -25,17 +19,17 @@ class BoardWindow : public QWidget{
     Q_OBJECT
 public:
     /**
-    * costruttore
-    */
+     * @brief BoardWindow: costruttore
+     */
     BoardWindow(nat num, QString n);
 
     /**
-    * costruttore di copia
-    */
+     * @brief BoardWindow: costruttore di copia
+     */
     BoardWindow(const BoardWindow& Board);
 
     /**
-     * operator = operatore di assegnazione
+     * @brief operator =: operatore di assegnazione
      */
     BoardWindow& operator=(const BoardWindow& Board);
 
@@ -51,13 +45,14 @@ public:
     void addElVectors();
 
 private:
-    view::Board *b=nullptr;
-    view::Mano *m=nullptr;
-    QLCDNumber *mosse=nullptr;
+    view::Board *b;
+    view::Mano *m;
+    QLCDNumber *mosse;
     nat celle;
-    QVBoxLayout *v=nullptr;
+    QVBoxLayout *v;
     bool mano;
     bool board;
+    QString nome;
 
 
     /**
@@ -65,8 +60,13 @@ private:
      * @param event
      */
     void closeEvent(QCloseEvent *event);
-    QPushButton *scambioMB=nullptr;
-    QPushButton *scarta=nullptr;
+    QPushButton *scambioMB;
+    QPushButton *scarta;
+
+    /**
+     * @brief setScreenGeometry: metodo per centrare la finestra nelle schermo
+     */
+    void setScreenGeometry();
 
 public slots:
     /**
@@ -93,7 +93,7 @@ public slots:
     void controlloCarteDaScambiare();
 
     /**
-    * @brief avvia la mossa e triggera l'IA
+    * @brief avvia la mossa dell'IA
     */
     void avviaMossaAI();
 
@@ -104,13 +104,13 @@ public slots:
      */
     void aggiornamentoBoardAI(nat posAI, QString CartaAI);
 
-    /*
+    /**
      * @brief activateButton:slot per l'attivazione del bottone scambio
      */
     void activateButton(nat);
 
     /**
-     * @brief disableButton: slot per disabilitare bottone
+     * @brief disableButton: slot per disabilitare i bottoni
      */
     void disableButton();
 
@@ -119,6 +119,12 @@ public slots:
      * @param i: stringa di errore
      */
     void CardError(QString i);
+
+    /**
+     * @brief GameOver: disconnessione bottoni in seguito alla fine della partita
+     */
+    void GameOver();
+
 
 private slots:
     /**
@@ -134,8 +140,7 @@ signals:
     void chiusuraBoardW();
 
     /**
-     * @brief rimbalzoSegnaleCasellaSelezionataBoard: prende il segnale casellaCliccataBoard e lo
-     *                  passa alla classe gerarchicamente superiore
+     * @brief rimbalzoSegnaleCasellaSelezionataBoard:
      */
     void rimbalzoSegnaleCasellaSelezionataBoard(nat, nat);
 
@@ -161,6 +166,7 @@ signals:
      *                     casualmente
      */
     void scartaCarta();
+
 
 };
 

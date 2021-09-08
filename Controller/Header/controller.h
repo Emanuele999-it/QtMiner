@@ -4,6 +4,7 @@
 #include <QObject>
 #include "../../View/Header/mainwindow.h"
 #include "../../Model/Header/modelBoard.h"
+#include "../../View/Header/winwindow.h"
 
 class Controller : public QObject {
     Q_OBJECT
@@ -15,7 +16,9 @@ private:
     MainWindow* MainW;
 
 
-    model::ModelBoard* modelBoard=nullptr;
+    model::ModelBoard* modelBoard;
+
+    WinWindow* winBoard ;
 
     nat boardDimension;
 
@@ -25,22 +28,22 @@ private:
 
 public:
     /**
-    * costruttore
-    */
+     * @brief Controller: costruttore
+     */
     Controller(QObject* parent= nullptr);
 
     /**
-    * costruttore
-    */
+     * @brief Controller: costruttore copia
+     */
     Controller(const Controller& c);
 
     /**
-    * operatore di assegnazione
-    */
+     * @brief operator =: op. assegnazione
+     */
     Controller& operator=(const Controller& c);
 
     /**
-    * distruttore
+    * @brief distruttore
     */
     ~Controller() override;
 
@@ -88,18 +91,12 @@ public slots:
     void cambioDimensioniBoard(nat);
 
     /**
-     * @brief cambia la carta in una posizione specifica nela board
-     */
-    //void cambiaCellaBoardAI(nat);
-
-    /**
      * @brief scartaCartaDallaMano: permette di scambiare carta in mano con una estratta
-     *                         casualmente
+     *                              casualmente
      */
     void scartaCartaDallaMano();
 
 signals:
-
 };
 
 #endif // CONTROLLER_H

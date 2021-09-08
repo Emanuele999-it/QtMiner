@@ -1,8 +1,10 @@
 <RCC>
     <qresource prefix="/">
-        <file>readme2.txt</file>
+        <file>tutorial.txt</file>
         <file>Img/settings.png</file>
-        <file>Img/blank.jpg</file>
+	<file>Img/settingsh.png</file>	
         <file>Img/╔.jpg</file>
+	<file>Img/╔h.jpg</file>
+	<file>Img/gold.jpg</file>
     </qresource>
 </RCC>

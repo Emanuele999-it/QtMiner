@@ -1,0 +1,9 @@
+QtMiner è ispirato al gioco da tavolo Saboteur, ideato da Frederic Moyersoen.
+Regole Base 1: Il gioco inizia posizionando una carta nella cella evidenziata in giallo nella parte bassa della griglia; da lì l'obiettivo è quello di raggiungere per primi una delle celle evidenziate in blu posizionate in alto, oppure quello di impedire all'avversario di poter compiere la propria mossa. Solamente con uno di questi metodi si ottiene la vittoria.
+Regole Base 2: Il posizionamento delle carte deve essere coerente con il percorso che rappresentano. Ad esmpio non è possibile posizionare una carta il cui percorso parte dal basso per andare verso l'alto di fianco ad una carta il cui percorso è trasversale.
+Le carte in gioco si suddividono in carte Tunnel, carte Ostacolo e carte Clonazione.
+Carte Tunnel: Le carte Tunnel sono di 11 tipi e si differenziano tra di loro in base a quante e quali direzioni assume il tunnel che rappresentano. Un esempio è l'immagine riportata a destra, questa è una carta Tunnel che permette di andare in tutte e quattro le direzioni: nord, est, sud e ovest. <img>:/Img/╬.jpg</img>
+Carte Ostacolo: le carte ostacolo sono disponibili unicamente all'utente e si suddividono in Blocco e Crollo.
+Carta Blocco: la carta Blocco permette di posizionare una carta che impedisce la costruzione del tunnel da qualla posizione in poi. Può essere vista come un vicolo cieco.<img>:/Img/╬bh.jpg</img>
+Carta Crollo: la carta Crollo permette di eliminare una carta posizionata nella griglia. Se esisteva un percorso che iniziava dalla carta eliminata esso non è più raggiungibile. Per poterlo utilizzare nuovamente è necessario il posizionamento di una nuova carta. <img>:/Img/crollo.jpg</img>
+Carta Clonazione: anche la carta Clonazione è disponibile unicamente all'utente e permette di copiare una carta posizionata nella griglia e di porla nella mano. <img>:/Img/cloning.jpg</img>

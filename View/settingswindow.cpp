@@ -1,15 +1,7 @@
 ﻿#include "Header/settingswindow.h"
 
-//test
-#include <QFile>
-#include <QMessageBox>
-#include <QTextStream>
-
-#include <QDebug>
-
 SettingsWindow::~SettingsWindow(){
     if(vLayout) delete vLayout;
-    if(hLayout) delete hLayout;
     if(slider) delete slider;
     if(lcd) delete lcd;
     if(confirm) delete confirm;
@@ -19,6 +11,7 @@ SettingsWindow::SettingsWindow(const SettingsWindow &s){
     setWindowTitle ("QtMiner - Impostazioni");
     valore=s.valore;
     setMinimumSize(250,150);
+    setMaximumSize(350,300);
 
     confirm = s.confirm;
 
@@ -59,6 +52,7 @@ SettingsWindow& SettingsWindow::operator =(const SettingsWindow& s){
         setWindowTitle ("QtMiner - Impostazioni");
         valore=s.valore;
         setMinimumSize(250,150);
+        setMaximumSize(350,300);
 
         confirm = s.confirm;
 
@@ -92,13 +86,13 @@ SettingsWindow& SettingsWindow::operator =(const SettingsWindow& s){
     return *this;
 }
 
-SettingsWindow::SettingsWindow(unsigned int i)
-{
+SettingsWindow::SettingsWindow(unsigned int i): vLayout(nullptr), hLayout(nullptr), slider(nullptr), lcd(nullptr), confirm(nullptr){
 
     setWindowTitle ("QtMiner - Impostazioni");
 
     valore=i;
     setMinimumSize(250,150);
+    setMaximumSize(350,300);
 
     confirm = new QPushButton("conferma");
 
@@ -139,5 +133,10 @@ void SettingsWindow::setDisplayNumber(int i){
 
 void SettingsWindow::emitBoardDimension(){
     emit newBoardDimension(valore);
-    this->destroy();
+    emit closeSett();
+}
+
+void SettingsWindow::closeEvent(QCloseEvent *event){
+    Q_UNUSED(event)
+    emit closeSett();
 }

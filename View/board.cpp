@@ -1,8 +1,5 @@
 ﻿#include "View/Header/screens/gameScreen/Board/board.h"
 
-#include <QGraphicsScene>
-
-
 namespace view {
 
 Board::~Board(){
@@ -36,7 +33,8 @@ Board& Board::operator =(const Board& b){
     return *this;
 }
 
-Board::Board(const nat &i): posizioneBoard(0){
+
+Board::Board(const nat &i): posizioneBoard(0), spaceL(nullptr), spaceR(nullptr), grid(nullptr){
     QVector<Casella*> vettoreCaselleBoard(i);
     grid= new QGridLayout();
     QHBoxLayout* h= new QHBoxLayout(this);
@@ -56,14 +54,32 @@ void Board::addelVec(nat c){
 }
 
 void Board::selectCardBoard(nat r){
+    nat g = vettoreCaselleBoard.size();
     vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
+    if(g > 8){
+        if(posizioneBoard == g-((g/10)/2+1))
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("QPushButton {background-color: yellow;}");
+        else if(posizioneBoard == g/10-2 || posizioneBoard == 1){
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("QPushButton {background-color: blue;}");
+        }else
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
+    }
     posizioneBoard=r;
     vettoreCaselleBoard[r]->setStyleSheet("QPushButton {background-color: green;}");
     emit numCasellaCliccataBoard(r);
 }
 
 void Board::removeStylesheetButton() {
+    nat g = vettoreCaselleBoard.size();
     vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
+    if(g > 8){
+        if(posizioneBoard == g-((g/10)/2+1))
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("QPushButton {background-color: yellow;}");
+        else if(posizioneBoard == g/10-2 || posizioneBoard == 1)
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("QPushButton {background-color: blue;}");
+        else
+            vettoreCaselleBoard[posizioneBoard]->setStyleSheet("");
+    }
 }
 
 void Board::addCardBoard(nat n, QString c){
@@ -89,7 +105,6 @@ void Board::addElGrid(nat celle){
             grid->addWidget(vettoreCaselleBoard[counter],1,counter,1,1);
         }
     }
-
 
     else{
         for(nat counter=0; counter<celle; counter++){

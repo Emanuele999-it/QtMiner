@@ -2,8 +2,6 @@
 #define BOARD
 
 #include <QGraphicsItem>
-#include <vector>
-
 #include "Model/Header/modelBoard.h"
 #include "View/Header/screens/gameScreen/Board/casella.h"
 #include <QGridLayout>
@@ -21,37 +19,37 @@ private:
     nat posizioneBoard;
 
     /**
-     * @brief dimensione è al grandezza della board, si costruisce con QSize(Width,Height)
+     * @brief vettoreCaselleBoard: vettore contenente le caselle
      */
     QVector<Casella*> vettoreCaselleBoard;
 
     /**
      * @brief spaceL: spazio a sinistra della griglia
      */
-    QSpacerItem *spaceL=nullptr;
+    QSpacerItem *spaceL;
     /**
      * @brief spaceR: spazio a destra della griglia
      */
-    QSpacerItem *spaceR=nullptr;
+    QSpacerItem *spaceR;
 
     /**
      * @brief grid: griglia di caselle
      */
-    QGridLayout* grid=nullptr;
+    QGridLayout* grid;
 
 public:
     /**
-    * costruttore
-    */
+     * @brief Board: costruttore
+     */
     Board(const nat&);
 
     /**
-    * costruttore di copia
-    */
+     * @brief Board: costruttore di copia
+     */
     Board(const Board& b);
 
     /**
-     * operator = operatore di assegnazione
+     * @brief operator =: operatore di assegnazione
      */
     Board& operator=(const Board& b);
 
@@ -68,7 +66,6 @@ public:
     /**
      * @brief getPosizione: funzione che permette di far sapere quale posizione è stata
      *                      selezionata nella board
-     * @return
      */
     nat getPosizione() const;
 

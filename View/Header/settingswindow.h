@@ -11,20 +11,30 @@
 #include <QLabel>
 #include <QString>
 #include <QPushButton>
+#include <QFile>
+#include <QMessageBox>
+#include <QTextStream>
+
 
 class SettingsWindow: public QDialog
 {
     Q_OBJECT
 
 private:
-    QVBoxLayout *vLayout=nullptr;
-    QHBoxLayout *hLayout=nullptr;
+    QVBoxLayout *vLayout;
+    QHBoxLayout *hLayout;
 
-    QSlider* slider=nullptr;
-    QLCDNumber* lcd=nullptr;
-    QPushButton* confirm=nullptr;
+    QSlider* slider;
+    QLCDNumber* lcd;
+    QPushButton* confirm;
 
     int valore;
+
+    /**
+     * @brief closeEvent: evento chiusura finestra
+     * @param event
+     */
+    void closeEvent(QCloseEvent *event);
 
 public slots:
     /**
@@ -44,21 +54,25 @@ signals:
      */
     void newBoardDimension(unsigned int);
 
-
+    /**
+     * @brief closeSett: segnale chiusura impostazioni
+     */
+    void closeSett();
 
 public:
     /**
-    *costruttore
-    */
+     * @brief SettingsWindow: costruttore
+     * @param i
+     */
     SettingsWindow(unsigned int i);
 
     /**
-    * costruttore di copia
+     * @brief SettingsWindow: costruttore di copia
     */
     SettingsWindow(const SettingsWindow& s);
 
     /**
-    * operatore di assegnazione
+     * @brief operator =:operatore di assegnazione
     */
     SettingsWindow& operator=(const SettingsWindow& s);
 

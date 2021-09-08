@@ -7,18 +7,16 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTextStream>
-#include <QJsonValue>
-#include <QJsonDocument>
-#include <QByteArray>
-#include <QJsonObject>
 #include <QCloseEvent>
-
+#include <QPixmap>
+#include <vector>
 
 class LastGameWindow: public QDialog{
     Q_OBJECT
 private:
-    QGridLayout *grid=nullptr;
-    QLabel *ultimaP=nullptr;
+    QGridLayout *grid;
+    QLabel *ultimaP;
+    QLabel *vincitore;
 
     /**
      * @brief closeEvent: evento chiusura finestra
@@ -28,18 +26,18 @@ private:
 
 public:
     /**
-    * costruttore
-    */
+     * @brief LastGameWindow: costruttore
+     */
     LastGameWindow();
 
     /**
-    * costruttore di copia
-    */
+     * @brief LastGameWindow: costruttore di copia
+     */
     LastGameWindow(const LastGameWindow& l);
 
     /**
-    * operatore di assegnazione
-    */
+     * @brief operator =: operatore di assegnazione
+     */
     LastGameWindow& operator= (const LastGameWindow& l);
 
     /**

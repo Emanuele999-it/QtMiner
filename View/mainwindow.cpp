@@ -1,11 +1,4 @@
 ﻿#include "Header/mainwindow.h"
-#include <QHBoxLayout>
-#include <QErrorMessage>
-#include <QRect>
-#include <QDesktopWidget>
-#include <QFormLayout>
-
-#include <QDebug>
 
 MainWindow::~MainWindow(){
     if(lineE) delete lineE;
@@ -21,26 +14,34 @@ MainWindow::~MainWindow(){
 }
 
 MainWindow::MainWindow(const MainWindow &m){
-    QRect screenGeometry = QApplication::desktop()->screenGeometry();
-    int x = (screenGeometry.width()- width()) / 2;
-    int y = (screenGeometry.height()- height()) / 2;
-    move(x, y);
 
-    //settaggio proprietà finestra
+    lineE=m.lineE;
+    settings=m.settings;
+    settWindow = m.settWindow;
+    tutorial=m.tutorial;
+    tWindow = m.tWindow;
+    startGame =m.startGame;
+    boardWindoW = m.boardWindoW;
+    lastGame = m.lastGame;
+    LGWindow = m.LGWindow;
+    Vl = m.Vl;
+    openwinWindow =m.openwinWindow;
+
+    setWindowFlag(Qt::Dialog);
+
+    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    screenGeometry.moveCenter(QPoint(((screenGeometry.width()- width()) / 2),((screenGeometry.height()- height()) / 2)));
+
     setWindowTitle ("QtMiner");
     setMinimumSize(350,300);
+    setMaximumSize(600,500);
 
-    //creazione bottoni impostazioni / inizio gioco
     startGame = new QPushButton(tr("Inizia a giocare!"), this);
     tutorial = new QPushButton(tr("Tutorial"), this);
     lastGame = new QPushButton(tr("Ultima partita"), this);
 
-    settings = new QPushButton(this);
-    settings->setIcon(QIcon(":/Img/settings.png"));
-    settings->setIconSize(QSize(40, 40));
-    settings->setFixedSize(48,48);
+    settings = new SettingsButton();
 
-    // set layout visualizzazione
     Vl= new QVBoxLayout(this);
 
     QHBoxLayout *Hl1=new QHBoxLayout();
@@ -84,26 +85,35 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
         delete lastGame;
         delete Vl;
 
+        lineE=m.lineE;
+        settings=m.settings;
+        settWindow = m.settWindow;
+        tutorial=m.tutorial;
+        tWindow = m.tWindow;
+        startGame =m.startGame;
+        boardWindoW = m.boardWindoW;
+        lastGame = m.lastGame;
+        LGWindow = m.LGWindow;
+        Vl = m.Vl;
+        openwinWindow =m.openwinWindow;
+
+        setWindowFlag(Qt::Dialog);
+
         QRect screenGeometry = QApplication::desktop()->screenGeometry();
         int x = (screenGeometry.width()- width()) / 2;
         int y = (screenGeometry.height()- height()) / 2;
         move(x, y);
 
-        //settaggio proprietà finestra
         setWindowTitle ("QtMiner");
         setMinimumSize(350,300);
+        setMaximumSize(600,500);
 
-        //creazione bottoni impostazioni / inizio gioco
         startGame = new QPushButton(tr("Inizia a giocare!"), this);
         tutorial = new QPushButton(tr("Tutorial"), this);
         lastGame = new QPushButton(tr("Ultima partita"), this);
 
-        settings = new QPushButton(this);
-        settings->setIcon(QIcon(":/Img/settings.png"));
-        settings->setIconSize(QSize(40, 40));
-        settings->setFixedSize(48,48);
+        settings = new SettingsButton();
 
-        // set layout visualizzazione
         Vl= new QVBoxLayout(this);
 
         QHBoxLayout *Hl1=new QHBoxLayout();
@@ -140,28 +150,27 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
     return *this;
 }
 
-MainWindow::MainWindow(){
+MainWindow::MainWindow(): lineE(nullptr), settings(nullptr), settWindow(nullptr), tutorial(nullptr),
+                        tWindow(nullptr), startGame(nullptr), boardWindoW(nullptr), lastGame(nullptr),
+                        LGWindow(nullptr), Vl(nullptr), openwinWindow(nullptr){
+
+    setWindowFlag(Qt::Dialog);
 
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     int x = (screenGeometry.width()- width()) / 2;
     int y = (screenGeometry.height()- height()) / 2;
     move(x, y);
 
-    //settaggio proprietà finestra
     setWindowTitle ("QtMiner");
     setMinimumSize(350,300);
+    setMaximumSize(450,370);
 
-    //creazione bottoni impostazioni / inizio gioco
     startGame = new QPushButton(tr("Inizia a giocare!"), this);
     tutorial = new QPushButton(tr("Tutorial"), this);
     lastGame = new QPushButton(tr("Ultima partita"), this);
 
-    settings = new QPushButton(this);
-    settings->setIcon(QIcon(":/Img/settings.png"));
-    settings->setIconSize(QSize(40, 40));
-    settings->setFixedSize(48,48);
+    settings = new SettingsButton();
 
-    // set layout visualizzazione
     Vl= new QVBoxLayout(this);
 
     QHBoxLayout *Hl1=new QHBoxLayout();
@@ -180,7 +189,7 @@ MainWindow::MainWindow(){
     formLayout->setFormAlignment(Qt::AlignHCenter | Qt::AlignTop);
     formLayout->setLabelAlignment(Qt::AlignLeft);
 
-    lineE = new QLineEdit("Nome");
+    lineE = new QLineEdit("");
 
     Hname->addLayout(formLayout);
     formLayout->addRow("Inserisci il tuo nome", lineE);
@@ -197,49 +206,41 @@ MainWindow::MainWindow(){
 }
 
 void MainWindow::GameRequestSlot(){
-    if(lineE->displayText() == "Nome"){
-        QErrorMessage mb(this);
-        mb.showMessage("E' necessario cambiare il nome");
-        mb.exec();
-    }
-    else{
-        emit GameRequest(lineE->displayText());
-    }
+    emit GameRequest(lineE->displayText());
 }
 
 void MainWindow::OpenSettingsWindow(nat i){
-    //hide();
+    hide();
     settWindow = new SettingsWindow(i);
     connect(settWindow, &SettingsWindow::newBoardDimension, this, &MainWindow::changeBoardDimension);
+    connect(settWindow, &SettingsWindow::closeSett, this , &MainWindow::closeSettings);
     settWindow->exec();
 }
 
 void MainWindow::OpenTutorialWindow(){
-
+    hide();
     tWindow = new Tutorialwindow();
+    connect(tWindow, &Tutorialwindow::closeTut , this, &MainWindow::closeTutorial);
     tWindow->exec();
 }
 
 void MainWindow::OpenGameWindow(nat dim, QString n){
+    hide();
     startGame->setDisabled(true);
     boardWindoW = new BoardWindow(dim, n);
 
-    connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
-
     connect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
     connect(this, &MainWindow::UpdateCardMano, boardWindoW, &BoardWindow::aggiornamentoCartaMano);
+    connect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
 
+    connect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
     connect(boardWindoW, &BoardWindow::cheImmagineHo, this, &MainWindow::RimbalzoCheImmagineHo);
     connect(boardWindoW, &BoardWindow::chiusuraBoardW, this, &MainWindow::closeGameBoard);
     connect(boardWindoW, &BoardWindow::scambiaScarte, this, &MainWindow::rimbalzoScambioCarteMB);
     connect(boardWindoW, &BoardWindow::scartaCarta, this, &MainWindow::ScartaCartaRimbalzo);
-    //Roba AI
     connect(boardWindoW, &BoardWindow::mossaAI, this, &MainWindow::rimbalzoMossaAI);
-    connect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
 
     boardWindoW->addElVectors();
-    hide();
-
     boardWindoW->show();
 
 }
@@ -252,13 +253,39 @@ void MainWindow::OpenLastGameWindow(){
 
 void MainWindow::closeLastGame(){
     show();
+    disconnect(LGWindow, &LastGameWindow::chiusuraLastGame, this, &MainWindow::closeLastGame);
     delete LGWindow;
     LGWindow=nullptr;
+}
+
+void MainWindow::closeSettings(){
+    show();
+    disconnect(settWindow, &SettingsWindow::newBoardDimension, this, &MainWindow::changeBoardDimension);
+    disconnect(settWindow, &SettingsWindow::closeSett, this , &MainWindow::closeSettings);
+    delete settWindow;
+    settWindow=nullptr;
+}
+
+void MainWindow::closeTutorial(){
+    show();
+    disconnect(tWindow, &Tutorialwindow::closeTut , this, &MainWindow::closeTutorial);
+    delete tWindow;
+    tWindow=nullptr;
 }
 
 void MainWindow::closeGameBoard(){
     startGame->setDisabled(false);
     show();
+    disconnect(boardWindoW, &BoardWindow::rimbalzoSegnaleCasellaSelezionataBoard, this, &MainWindow::casellaBoardSelezionata);
+    disconnect(this, &MainWindow::UpdateViewfromModel, boardWindoW, &BoardWindow::aggiornamentoView);
+    disconnect(this, &MainWindow::UpdateCardMano, boardWindoW, &BoardWindow::aggiornamentoCartaMano);
+    disconnect(boardWindoW, &BoardWindow::cheImmagineHo, this, &MainWindow::RimbalzoCheImmagineHo);
+    disconnect(boardWindoW, &BoardWindow::chiusuraBoardW, this, &MainWindow::closeGameBoard);
+    disconnect(boardWindoW, &BoardWindow::scambiaScarte, this, &MainWindow::rimbalzoScambioCarteMB);
+    disconnect(boardWindoW, &BoardWindow::scartaCarta, this, &MainWindow::ScartaCartaRimbalzo);
+    disconnect(boardWindoW, &BoardWindow::mossaAI, this, &MainWindow::rimbalzoMossaAI);
+    disconnect(this, &MainWindow::updateBoardAI, boardWindoW, &BoardWindow::aggiornamentoBoardAI);
+
     delete boardWindoW;
     boardWindoW=nullptr;
     emit chiusuraBoardWRimbalzo();
@@ -268,3 +295,24 @@ void MainWindow::changeCardsFailed(QString i){
     boardWindoW->disableButton();
     emit boardWindoW->CardError(i);
 }
+
+void MainWindow::openWinWindow(QString i){
+    boardWindoW->GameOver();
+    openwinWindow = new WinWindow(i);
+    connect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::closeGameBoard);
+    connect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::GameRequestSlot);
+    connect(openwinWindow,&WinWindow::chiusuraWinWindow, this, &MainWindow::closeWinWindow);
+    connect(openwinWindow,&WinWindow::NewMenuRequest, this, &MainWindow::closeWinWindow);
+    openwinWindow->exec();
+}
+
+void MainWindow::closeWinWindow(){
+    disconnect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::closeGameBoard);
+    disconnect(openwinWindow,&WinWindow::newgamesignal, this, &MainWindow::GameRequestSlot);
+    disconnect(openwinWindow,&WinWindow::chiusuraWinWindow, this, &MainWindow::closeWinWindow);
+    disconnect(openwinWindow,&WinWindow::NewMenuRequest, this, &MainWindow::closeWinWindow);
+    delete openwinWindow;
+    openwinWindow=nullptr;
+    emit closeGameBoard();
+}
+

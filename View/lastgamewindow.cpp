@@ -1,15 +1,12 @@
 #include "Header/lastgamewindow.h"
 
-#include <QDebug>
-#include <QPixmap>
-#include <vector>
-
 LastGameWindow::~LastGameWindow(){
     if(grid) delete grid;
     if(ultimaP) delete ultimaP;
 }
 
 LastGameWindow::LastGameWindow(const LastGameWindow& l){
+    setMaximumSize(275,500);
     setWindowTitle ("QtMiner - Ultima partita");
     QVBoxLayout * vl= new QVBoxLayout(this);
     ultimaP = l.ultimaP;
@@ -19,8 +16,6 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
     vl->addLayout(grid);
 
     std::vector<QString> vec;
-    //salvare numero di celle
-    //array con i vari caratteri
     QString val;
     QFile file;
     file.setFileName("lastgameboard.json");
@@ -28,7 +23,6 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
     val = file.readAll();
     file.close();
 
-    //rimozione caratteri inutili
     val.remove("\"");
     val.remove(":");
     val.remove(",");
@@ -38,6 +32,28 @@ LastGameWindow::LastGameWindow(const LastGameWindow& l){
     val.remove("}");
     val.remove(0,6);
 
+    int index = val.indexOf("-1 ");
+    if(index){
+        QString get = val.mid(index, val.indexOf("\n "));
+        val.remove(index-1,(val.indexOf("\n ")));
+        get.remove("-1");
+        get.remove(" ");
+        get.remove("\n");
+        if(!get.contains("Winner")){}
+        else{
+            QString temp=get;
+            temp.remove("Winner");
+            if(temp == ""){
+                vincitore->setText("Il vincitore è l'utente ");
+            }
+            else
+            {
+                vincitore->setText("Il vincitore è: "+(temp));
+            }
+        }
+    }
+
+    index=0;
     bool nonUltimo = true;
     int counter=0;
 
@@ -80,6 +96,7 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
     if(this != &l){
         delete ultimaP;
 
+        setMaximumSize(275,500);
         setWindowTitle ("QtMiner - Ultima partita");
         QVBoxLayout * vl= new QVBoxLayout(this);
         ultimaP = l.ultimaP;
@@ -89,8 +106,6 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
         vl->addLayout(grid);
 
         std::vector<QString> vec;
-        //salvare numero di celle
-        //array con i vari caratteri
         QString val;
         QFile file;
         file.setFileName("lastgameboard.json");
@@ -98,7 +113,6 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
         val = file.readAll();
         file.close();
 
-        //rimozione caratteri inutili
         val.remove("\"");
         val.remove(":");
         val.remove(",");
@@ -108,6 +122,27 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
         val.remove("}");
         val.remove(0,6);
 
+        int index = val.indexOf("-1 ");
+        if(index){
+            QString get = val.mid(index, val.indexOf("\n "));
+            val.remove(index-1,(val.indexOf("\n ")));
+            get.remove("-1");
+            get.remove(" ");
+            get.remove("\n");
+            if(!get.contains("Winner")){}
+            else{
+                QString temp=get;
+                temp.remove("Winner");
+                if(temp == ""){
+                    vincitore->setText("Il vincitore è l'utente ");
+                }
+                else
+                {
+                    vincitore->setText("Il vincitore è: "+(temp));
+                }
+            }
+        }
+        index=0;
         bool nonUltimo = true;
         int counter=0;
 
@@ -146,18 +181,20 @@ LastGameWindow& LastGameWindow::operator=(const LastGameWindow& l){
     return *this;
 }
 
-LastGameWindow::LastGameWindow(){
+LastGameWindow::LastGameWindow(): grid(nullptr), ultimaP(nullptr), vincitore(nullptr){
+    setMaximumSize(275,500);
+
     setWindowTitle ("QtMiner - Ultima partita");
         QVBoxLayout * vl= new QVBoxLayout(this);
         ultimaP = new QLabel("Ecco i risultati dell'ultima partita: ");
+        vincitore= new QLabel();
         grid = new QGridLayout();
 
         vl->addWidget(ultimaP);
+        vl->addWidget(vincitore);
         vl->addLayout(grid);
 
         std::vector<QString> vec;
-        //salvare numero di celle
-        //array con i vari caratteri
         QString val;
         QFile file;
         file.setFileName("lastgameboard.json");
@@ -165,7 +202,6 @@ LastGameWindow::LastGameWindow(){
         val = file.readAll();
         file.close();
 
-        //rimozione caratteri inutili
         val.remove("\"");
         val.remove(":");
         val.remove(",");
@@ -175,12 +211,37 @@ LastGameWindow::LastGameWindow(){
         val.remove("}");
         val.remove(0,6);
 
+        int index = val.indexOf("-1 ");
+        if(index){
+            QString get = val.mid(index, val.indexOf("\n "));
+            val.remove(index-1,(val.indexOf("\n ")));
+            get.remove("-1");
+            get.remove(" ");
+            get.remove("\n");
+            if(!get.contains("Winner")){
+                vincitore->setText("Il vincitore è: "+(get));
+            }
+            else{
+                QString temp=get;
+                temp.remove("Winner");
+                if(temp == ""){
+                    vincitore->setText("Il vincitore è l'utente ");
+                }
+                else
+                {
+                    vincitore->setText("Il vincitore è: "+(temp));
+                }
+            }
+        }
+
+        index=0;
         bool nonUltimo = true;
         int counter=0;
 
         while(nonUltimo){
             int index = val.indexOf(" "+QString::number(counter)+" ");
             QString get = val.mid(index, val.indexOf("\n "));
+
             val.remove(index -1,(val.indexOf("\n ") - index-2));
 
             // questo perché quando mid non trova alcun valore ritorna -1
@@ -209,6 +270,7 @@ LastGameWindow::LastGameWindow(){
                 grid->addWidget(l,counter/9,counter%9);
             counter++;
         }
+
         show();
 }
 

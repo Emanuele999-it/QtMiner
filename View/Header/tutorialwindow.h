@@ -11,49 +11,59 @@
 #include <QTextStream>
 #include <QFileDialog>
 #include <QTextStream>
+#include <QPixmap>
+#include <QImage>
 
 class Tutorialwindow : public QDialog
 {
     Q_OBJECT
 private:
-    QTextEdit *e = nullptr;
-    QVBoxLayout *l=nullptr;
+    QVBoxLayout *l;
 
-    QPushButton *avanti=nullptr;
-    QPushButton *indietro=nullptr;
-    QPushButton *menu=nullptr;
-    QLabel *text=nullptr;
+    QPushButton *avanti;
+    QPushButton *indietro;
+    QPushButton *menu;
+    QLabel *text;
+    QLabel *icon;
 
     int page;
     int TotLine;
 
     void displayTxt(int page);
 
+    /**
+     * @brief closeEvent: evento chiusura finestra
+     * @param event
+     */
+    void closeEvent(QCloseEvent *event);
+
 signals:
-    //void Deleting();
+    /**
+     * @brief closeTut: seganle chiusura finestra tutorial
+     */
+    void closeTut();
 
 public:
     /**
-    *costruttore
-    */
+     * @brief Tutorialwindow: costruttore
+     */
     Tutorialwindow();
 
     /**
-    * costruttore di copia
-    */
+     * @brief Tutorialwindow: costruttore di copia
+     * @param t
+     */
     Tutorialwindow(const Tutorialwindow& t);
 
     /**
-    * operatore di assegnazione
-    */
+     * @brief operator =: operatore di assegnazione
+     */
     Tutorialwindow& operator=(const Tutorialwindow& t);
 
     /**
     *distruttore
     */
     ~Tutorialwindow() override;
-
-    void readfile() const ;
 
 private slots:
     /**

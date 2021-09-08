@@ -3,6 +3,18 @@
 #include "Entities/Header/cvector.h"
 #include "Entities/Header/unique_ptr.h"
 #include "Model/Header/carta/card.h"
+#include "Model/Header/carta/blocco.h"
+#include "Model/Header/carta/crollo.h"
+#include "Model/Header/carta/obstruction.h"
+#include "Model/Header/carta/tunnel.h"
+#include "Model/Header/carta/clonecards.h"
+#include <QMessageBox>
+#include <cstdlib>
+#include <QVector>
+#include <QErrorMessage>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 #include <QCloseEvent>
 
@@ -12,12 +24,14 @@ class ModelBoard : public QObject{
     Q_OBJECT
 
 private:
-    nat _nBoard; // posizione Board
-    nat _nMano; // posizione della carta toccata dalla mano
+    nat _nBoard; // posizione della carta toccata della Board
+    nat _nMano; // posizione della carta toccata della mano
     nat nCaselle;//numero caselle board
     nat _nMosse; //numero mosse eseguite
     CVector <unique_ptr<Card>*> _handStuff ;
     CVector <unique_ptr<Card>*> _boardStuff ;
+    QString nome;
+    QString Winner;
 
     /**
      * @brief estrattoreCasuale: estrae in maniera casuale una carta
@@ -26,16 +40,15 @@ private:
     Card* estrattoreCasuale(int i=1);
 
     /**
-    * @brief getImage data posizione ritorna QString file immagine
+    * @brief getImage data posizione ritorna la QString del nome del file dell'immagine
     * @param i
     * @return
     */
     QString getImage(nat i, CVector<unique_ptr<Card>*> v) const;
 
     /**
-     * @brief path calcola se il path è corretto
-     * @param pos essenzialmente _nBoard
-     * @return
+     * @brief path: dato il percorso di carte inizializza 2 vettori in cui inserisce le posizioni controllate in uno, nell'altro
+     *              quelle collegate con almeno una carta
      */
     void path(int CartaPrecedente, QVector <nat> &posizioni, QVector <nat> &controllate, int posizioneCorrente) const;
 
@@ -43,28 +56,28 @@ private:
      * @brief checkAround: funzione che permette di controllare se la carta scelta per essere posizionata in una determinata
      *                     posizione disponibile rispetta il percorso non andando a collegarsi a carte non collegabili
      */
-    double checkAround(nat posizione, Card* carta);
+    double checkAround(nat posizione, const Card* carta) const ;
+
 
     /**
-     * @brief controlloAmmissibilita: funzione che permette di dire se esiste almeno una carta compatibile con una posizione data
-     * @param posizione
-     * @return
+     * @brief controlloAmmissibilita: funzione che permette di dire se esiste almeno una carta compatibile con una posizione data la posizione
      */
-    double controlloAmmissibilita(nat posizione);
+    double controlloAmmissibilita(nat posizione) const ;
+
 
 public:
-   /**
-    * costruttore
-    */
+    /**
+     * @brief ModelBoard: costruttore
+     */
     ModelBoard(nat nMano,nat nBoard);
 
     /**
-     * costruttore di copia
+     * @brief ModelBoard: costruttore di copia
      */
     ModelBoard(const ModelBoard& m);
 
     /**
-     * operatore di assegnazione
+     * @brief operator =: operatore di assegnazione
      */
     ModelBoard& operator=(const ModelBoard& b);
 
@@ -78,20 +91,6 @@ public:
      */
     void addCardtoVectors();
 
-
-    /**
-     * @brief getCardBoard data la posizione restituisce la carta a scopo di informazioni
-     * @param posizione
-     */
-   Card* getCardBoard(nat posizione) const;
-
-    /**
-     * @brief getCardHand data posizione torna la carta
-     * @param posizione
-     * @return
-     */
-    Card* getCardMano(nat posizione) const;
-
     /**
      * @brief getMosse questo ci serve per le mosse
      * @return
@@ -100,7 +99,7 @@ public:
 
 public slots:
     /**
-     * @brief evidenziaCartaBoard: slot per modificare quale cella è selezionata nella board
+     * @brief evidenziaCartaBoard: slot per salvare quale cella è selezionata nella board
      */
     void evidenziaCellaBoard(nat x, nat y);
 
@@ -112,8 +111,7 @@ public slots:
     void getHandImage(nat pos);
 
     /**
-     * @brief posiziona la facciamo attivare OGNI VOLTA che si tocca la board pero' controlla se ha salvato una
-     * posizioneMano
+     * @brief posiziona: metodo che permette di compiere le azioni di sostituzione carte mano/board
      */
     void posiziona();
 
@@ -124,7 +122,7 @@ public slots:
     void scartaCartaMano();
 
     /**
-     * @brief posizionaAI posiziona la carta della ia (random) e la mette dove puo'
+     * @brief posizionaAI posiziona la carta della ia in maniera casuale e la mette dove puo'
      */
     void posizionaAI();
 
@@ -133,11 +131,18 @@ public slots:
      */
     void saveLastGame();
 
+    /**
+     * @brief saveName: slot per salvare il nome del giocatore
+     */
+    void saveName(QString);
+
+
 signals:
+
     /**
      * @brief CambiaPosizioneManoBoard: segnale per aggoirnare view
-     *              il primo puntatore serve per mettere la carta nella board
-     *              il secondo puntatore serve per mettere una nuova carta nella mano.
+     *              il primo parametro serve per mettere la carta nella board
+     *              il secondo parametro serve per mettere una nuova carta nella mano.
      *        l'ultimo parametro che passiamo serve a far capire allo slot ricevente come deve gestire
      *        i dati che gli arrivano
      */
@@ -152,7 +157,7 @@ signals:
 
     /**
 
-     * @brief cambiaCellaBoardAI
+     * @brief cambiaCellaBoardAI segnale aggiornamento view dopo la mossa dell'ai
      */
     void cambiaCellaBoardAI(nat,QString);
 
@@ -163,10 +168,8 @@ signals:
 
     /**
      * @brief userWin quando la IA non ha piu mosse l'user vince, oppure quando l'user non ha piu mosse e l'IA vince
-     *        QStrinf: Se vince AI "AI" e se vince nome dato "Nome"
      */
     void userWin(QString);
-
 };
 
 }

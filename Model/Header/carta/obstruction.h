@@ -31,7 +31,6 @@ public:
      * @param t : carta tunnel passata per riferimento
      * @return : ritorna un riferimento a Tunnel
      */
-    //Tunnel& operator =(const Tunnel& t);
 
 };
 

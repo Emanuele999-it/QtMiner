@@ -1,10 +1,6 @@
 ﻿#ifndef UNIQUE_PTR_H
 #define UNIQUE_PTR_H
 
-#include <ostream>
-
-//testing
-#include <QDebug>
 
 template <class T>
 class unique_ptr{
@@ -24,7 +20,6 @@ public:
 
     unique_ptr(T *obj=nullptr);
 
-    //explicit unique_ptr(const unique_ptr<T>&);
 
     ~unique_ptr();
 
@@ -37,13 +32,11 @@ public:
     const T& operator*() const;
     const T* operator->() const;
 
-    // if(obj)-> true se esiste, false altrimenti
     explicit operator bool() const;
 
-    //clonazione oggetto di un ptr ad un altro
     unique_ptr<T>& operator=(unique_ptr<T>& );
 
-/*----------Funzionalità----------*/
+/*----------Metodi----------*/
 
     /**
      * @brief release: pone ptr a nullptr
@@ -65,9 +58,14 @@ public:
     const T*get_const() const;
 
     /**
-     * @brief reset: rimuove oggetto punatato
+     * @brief reset: rimuove oggetto punatato e lo sostituisce con p
      */
     void reset(T*p);
+
+    /**
+     * @brief reset: rimuove oggetto punatato
+     */
+    void reset();
 };
 
 
@@ -84,7 +82,7 @@ void unique_ptr<T>::swap(T* up){
 }
 
 
-/*----------Costruttori----------*/
+/*----------Costruttore/Distruttore----------*/
 
 template<class T>
 unique_ptr<T>::unique_ptr(T* obj) : ptr(obj) {}
@@ -97,10 +95,6 @@ unique_ptr<T>::~unique_ptr(){
     }
 }
 
-/*
-template<class T>
-unique_ptr<T>::unique_ptr(const unique_ptr<T>& up): ptr(new T(*(up.ptr))){}
-*/
 
 /*----------Operator----------*/
 
@@ -133,12 +127,12 @@ unique_ptr<T>::operator bool() const{
 template<class T>
 unique_ptr<T>& unique_ptr<T>::operator=(unique_ptr<T>& up){
     if(this != &up)
-        swap_ptr(up);
+        swap(up.ptr);
     return *this;
 }
 
 
-/*----------Funzionalità----------*/
+/*----------Metodi----------*/
 
 template<class T>
 T* unique_ptr<T>::release(){
@@ -167,6 +161,12 @@ void unique_ptr<T>::reset(T *p) {
     if(ptr)
         delete ptr;
     ptr=p;
+}
+
+template<class T>
+void unique_ptr<T>::reset(){
+    if(ptr)
+        delete ptr;
 }
 
 

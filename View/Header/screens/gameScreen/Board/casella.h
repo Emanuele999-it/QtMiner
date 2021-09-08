@@ -1,12 +1,12 @@
 #ifndef CASELLA_H_
 #define CASELLA_H_
 
-#include <QGraphicsItem>
-#include "Entities/Header/unique_ptr.h"
-#include "Entities/Header/cvector.h"
-#include "Model/Header/carta/card.h"
 #include <QPushButton>
+#include <QIcon>
+#include <QString>
+
 using std::vector;
+using nat = unsigned int;
 
 namespace view {
 
@@ -35,18 +35,18 @@ protected:
 
 public:
     /**
-    * costruttore
-    */
+     * @brief Casella: costruttore
+     */
     Casella(nat p=0, QString s="blank", QPushButton*pushbutton = new QPushButton());
 
     /**
-    * costruttore di copia
-    */
+     * @brief Casella: costruttore di copia
+     */
     Casella(const Casella& c);
 
     /**
-    * operatore di assegnazione
-    */
+     * @brief operator =: operatore di assegnazione
+     */
     Casella& operator=(const Casella& c);
 
     /**
@@ -72,9 +72,6 @@ signals:
      * @param p: id casella cliccata (quindi la sua posizione)
      */
     void casellaCliccata(nat p);
-
-
-
 
 private slots:
     /**
