@@ -19,17 +19,17 @@ class BoardWindow : public QWidget{
     Q_OBJECT
 public:
     /**
-    * costruttore
-    */
+     * @brief BoardWindow: costruttore
+     */
     BoardWindow(nat num, QString n);
 
     /**
-    * costruttore di copia
-    */
+     * @brief BoardWindow: costruttore di copia
+     */
     BoardWindow(const BoardWindow& Board);
 
     /**
-     * operator = operatore di assegnazione
+     * @brief operator =: operatore di assegnazione
      */
     BoardWindow& operator=(const BoardWindow& Board);
 
@@ -45,11 +45,11 @@ public:
     void addElVectors();
 
 private:
-    view::Board *b=nullptr;
-    view::Mano *m=nullptr;
-    QLCDNumber *mosse=nullptr;
+    view::Board *b;
+    view::Mano *m;
+    QLCDNumber *mosse;
     nat celle;
-    QVBoxLayout *v=nullptr;
+    QVBoxLayout *v;
     bool mano;
     bool board;
     QString nome;
@@ -60,8 +60,8 @@ private:
      * @param event
      */
     void closeEvent(QCloseEvent *event);
-    QPushButton *scambioMB=nullptr;
-    QPushButton *scarta=nullptr;
+    QPushButton *scambioMB;
+    QPushButton *scarta;
 
     /**
      * @brief setScreenGeometry: metodo per centrare la finestra nelle schermo
@@ -93,7 +93,7 @@ public slots:
     void controlloCarteDaScambiare();
 
     /**
-    * @brief avvia la mossa e triggera l'IA
+    * @brief avvia la mossa dell'IA
     */
     void avviaMossaAI();
 
@@ -110,7 +110,7 @@ public slots:
     void activateButton(nat);
 
     /**
-     * @brief disableButton: slot per disabilitare bottone
+     * @brief disableButton: slot per disabilitare i bottoni
      */
     void disableButton();
 
@@ -140,8 +140,7 @@ signals:
     void chiusuraBoardW();
 
     /**
-     * @brief rimbalzoSegnaleCasellaSelezionataBoard: prende il segnale casellaCliccataBoard e lo
-     *                  passa alla classe gerarchicamente superiore
+     * @brief rimbalzoSegnaleCasellaSelezionataBoard:
      */
     void rimbalzoSegnaleCasellaSelezionataBoard(nat, nat);
 

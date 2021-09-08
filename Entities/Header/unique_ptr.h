@@ -20,7 +20,6 @@ public:
 
     unique_ptr(T *obj=nullptr);
 
-    //explicit unique_ptr(const unique_ptr<T>&);
 
     ~unique_ptr();
 
@@ -33,10 +32,8 @@ public:
     const T& operator*() const;
     const T* operator->() const;
 
-    // if(obj)-> true se esiste, false altrimenti
     explicit operator bool() const;
 
-    //clonazione oggetto di un ptr ad un altro
     unique_ptr<T>& operator=(unique_ptr<T>& );
 
 /*----------Metodi----------*/

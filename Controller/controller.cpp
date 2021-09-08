@@ -12,6 +12,9 @@ Controller& Controller::operator=(const Controller &c){
         delete MainW;
         delete modelBoard;
 
+        modelBoard=c.modelBoard;
+        winBoard=c.winBoard ;
+
         boardDimension=c.boardDimension;
         MainW=c.MainW;
 
@@ -29,6 +32,10 @@ Controller& Controller::operator=(const Controller &c){
 }
 
 Controller::Controller(const Controller& c){
+
+    modelBoard=c.modelBoard;
+    winBoard=c.winBoard ;
+
     boardDimension=c.boardDimension;
     MainW = c.MainW;
 
@@ -45,7 +52,7 @@ Controller::Controller(const Controller& c){
 }
 
 
-Controller::Controller(QObject* parent): QObject(parent) {
+Controller::Controller(QObject* parent): QObject(parent), MainW(nullptr),modelBoard(nullptr), winBoard(nullptr){
 
     boardDimension=50;
     MainW = new MainWindow();

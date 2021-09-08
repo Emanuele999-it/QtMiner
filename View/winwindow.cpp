@@ -5,10 +5,9 @@ WinWindow::~WinWindow(){
     if(checkboard) delete checkboard;
     if(menu) delete menu;
     if(text) delete text;
-    if(image) delete image;
 }
 
-WinWindow::WinWindow(QString i){
+WinWindow::WinWindow(QString i): newgame(nullptr), checkboard(nullptr), menu(nullptr), text(nullptr), Vl(nullptr){
     nome = i;
     setWindowFlag(Qt::Dialog);
     setWindowTitle("QtMiner - Vincitore");

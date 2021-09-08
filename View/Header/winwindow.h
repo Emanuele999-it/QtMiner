@@ -20,13 +20,12 @@ class WinWindow : public QDialog
     Q_OBJECT
 private:
 
-    QPushButton *newgame=nullptr;
-    QPushButton *checkboard=nullptr;
-    QPushButton *menu=nullptr;
-    QLabel *text=nullptr;
-    QPushButton *image=nullptr;
+    QPushButton *newgame;
+    QPushButton *checkboard;
+    QPushButton *menu;
+    QLabel *text;
     QString nome;
-    QVBoxLayout *Vl = nullptr;
+    QVBoxLayout *Vl;
 
 signals:
     /**
@@ -37,23 +36,23 @@ signals:
 
 public:
     /**
-    *costruttore
-    */
+     * @brief WinWindow: costruttore
+     */
     WinWindow(QString);
 
     /**
-    * costruttore di copia
-    */
+     * @brief WinWindow: costruttore di copia
+     */
     WinWindow(const WinWindow& t);
 
     /**
-    * operatore di assegnazione
-    */
+     * @brief operator=: operatore di assegnazione
+     */
     WinWindow& operator=(const WinWindow& t);
 
     /**
-    *distruttore
-    */
+     * distruttore
+     */
     ~WinWindow() override;
 
 
@@ -68,9 +67,10 @@ signals:
     void NewCheckRequestSignal();
 
     /**
-     * @brief chiusuraWinWindow: si torna alla mainwindow
+     * @brief chiusuraWinWindow: seganle chiusura catturato da mainWindow
      */
     void chiusuraWinWindow();
+
 private slots:
 
     /**
@@ -78,10 +78,6 @@ private slots:
      */
     void NewCheckRequest();
 
-    /**
-     * @brief CloseWindow: chiusura finestra
-     */
-    //void CloseWindow();
     /**
      * @brief NewBoardRequest: mandero' una segnale a mainwindow per una nuova board
      */

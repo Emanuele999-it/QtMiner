@@ -33,12 +33,12 @@ public:
     MainWindow();
 
     /**
-     * costruttore di copia
+     * @brief MainWindow: costruttore di copia
      */
     MainWindow(const MainWindow& m);
 
     /**
-     * operatore di assegnazione
+     * @brief operator =: operatore di assegnazione
      */
     MainWindow& operator= (const MainWindow& m);
 
@@ -54,29 +54,32 @@ public:
     void createObjVectors();
 
 private:
-    QLineEdit* lineE = nullptr;
+    /**
+     * @brief lineE: spazio inserimento nome
+     */
+    QLineEdit* lineE;
 
 /****************** Settings ************************************/
     /**
      * @brief Settings: bottone impostazioni
      */
-    SettingsButton* settings = nullptr;
+    SettingsButton* settings;
 
     /**
      * @brief settWindow: finestra impostazioni
      */
-    SettingsWindow *settWindow = nullptr;
+    SettingsWindow *settWindow ;
 
 /****************** Tutorial ************************************/
     /**
      * @brief tutorial: bottone finestra tutorial
      */
-    QPushButton * tutorial = nullptr;
+    QPushButton * tutorial;
 
     /**
      * @brief tWindow: finestra tutorial
      */
-    Tutorialwindow *tWindow = nullptr;
+    Tutorialwindow *tWindow ;
 
 
 /****************** Game ************************************/
@@ -84,33 +87,33 @@ private:
     /**
      * @brief startGame: bottone inizio gioco
      */
-    QPushButton* startGame = nullptr;
+    QPushButton* startGame;
 
     /**
      * @brief boardWindoW: finestra gioco
      */
-    BoardWindow* boardWindoW = nullptr;
+    BoardWindow* boardWindoW ;
 
 
 /****************** Last Game ************************************/
     /**
      * @brief lastGame: bottone finestra lastGame
      */
-    QPushButton * lastGame = nullptr;
+    QPushButton * lastGame ;
 
-    LastGameWindow* LGWindow = nullptr;
+    LastGameWindow* LGWindow ;
 
 /****************** Layout ************************************/
     /**
      * @brief Vl: layout principale finestra
      */
-    QVBoxLayout *Vl = nullptr;
+    QVBoxLayout *Vl ;
 
 /********** Win *******/
     /**
      * @brief tWindow: finestra tutorial
      */
-   WinWindow *openwinWindow = nullptr;
+   WinWindow *openwinWindow ;
 
 
 signals:
@@ -140,7 +143,6 @@ signals:
     void LastGameRequest();
 
 
-/********** Rimbalzo segnale da casella al controller ****************/
     /**
      * @brief casellaBoardSelezionata: passa il segnale al controller
      */
@@ -164,7 +166,7 @@ signals:
     void UpdateCardMano(nat a, QString c, nat i);
 
     /**
-     * @brief RimbalzoCheImmagineHo: segnale di rimbalzo per
+     * @brief RimbalzoCheImmagineHo: segnale di rimbalzo
      */
     void RimbalzoCheImmagineHo(nat);
 
@@ -185,8 +187,6 @@ signals:
      */
     void ScartaCartaRimbalzo();
 
-
-/**********Logica per mossa successiva****************/
     /**
      * @brief rimbalzoMossaAI
      */
@@ -194,10 +194,8 @@ signals:
 
     void updateBoardAI(nat, QString);
 
-/*******Logica vittoria********/
-
     /**
-     * @brief apriVittoria manda segnale e vincitore (AI o Umano)
+     * @brief apriVittoria manda segnale e vincitore
      */
   void apriVittoria(QString);
 
@@ -224,7 +222,7 @@ private slots:
     void closeTutorial();
 
     /**
-     * @brief GameRequestSlot: slot per inviare la richiesta di giocare passando
+     * @brief GameRequestSlot: slot per inviare la richiesta di giocare
      */
     void GameRequestSlot();
 
@@ -260,8 +258,7 @@ public slots:
     void changeCardsFailed(QString i);
 
     /**
-     * @brief openWinWindow: apri la vittoria con string AI o User
-     * @param i
+     * @brief openWinWindow: apri la vittoria
      */
     void openWinWindow(QString);
 

@@ -141,9 +141,9 @@ BoardWindow& BoardWindow::operator =(const BoardWindow& Board){
     return *this;
 }
 
+BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(false),
+                    m(nullptr), b(nullptr), v(nullptr), scarta(nullptr), scambioMB(nullptr){
 
-BoardWindow::BoardWindow(nat num, QString n) : celle(num), mano(false), board(false)
-{
     setScreenGeometry();
     nome=n;
 

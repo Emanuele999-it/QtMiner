@@ -21,12 +21,12 @@ class SettingsWindow: public QDialog
     Q_OBJECT
 
 private:
-    QVBoxLayout *vLayout=nullptr;
-    QHBoxLayout *hLayout=nullptr;
+    QVBoxLayout *vLayout;
+    QHBoxLayout *hLayout;
 
-    QSlider* slider=nullptr;
-    QLCDNumber* lcd=nullptr;
-    QPushButton* confirm=nullptr;
+    QSlider* slider;
+    QLCDNumber* lcd;
+    QPushButton* confirm;
 
     int valore;
 
@@ -61,17 +61,18 @@ signals:
 
 public:
     /**
-    *costruttore
-    */
+     * @brief SettingsWindow: costruttore
+     * @param i
+     */
     SettingsWindow(unsigned int i);
 
     /**
-    * costruttore di copia
+     * @brief SettingsWindow: costruttore di copia
     */
     SettingsWindow(const SettingsWindow& s);
 
     /**
-    * operatore di assegnazione
+     * @brief operator =:operatore di assegnazione
     */
     SettingsWindow& operator=(const SettingsWindow& s);
 

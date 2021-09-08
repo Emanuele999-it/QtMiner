@@ -33,7 +33,8 @@ Board& Board::operator =(const Board& b){
     return *this;
 }
 
-Board::Board(const nat &i): posizioneBoard(0){
+
+Board::Board(const nat &i): posizioneBoard(0), spaceL(nullptr), spaceR(nullptr), grid(nullptr){
     QVector<Casella*> vettoreCaselleBoard(i);
     grid= new QGridLayout();
     QHBoxLayout* h= new QHBoxLayout(this);

@@ -142,8 +142,7 @@ Tutorialwindow::Tutorialwindow(const Tutorialwindow &t){
 
 }
 
-Tutorialwindow::Tutorialwindow()
-{
+Tutorialwindow::Tutorialwindow(): l(nullptr), avanti(nullptr), menu(nullptr), text(nullptr), icon(nullptr){
 
     setWindowTitle ("QtMiner - Tutorial");
 

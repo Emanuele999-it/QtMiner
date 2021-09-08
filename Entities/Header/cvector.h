@@ -140,10 +140,6 @@ public:
 
     void push_back(const T &d);
 
-
-/*-----------Stampa-----------*/
-
-    void display_vector(const CVector&);
 };
 
 
@@ -395,16 +391,5 @@ inline void CVector<T>::push_back(const T& d){
     size++;
 }
 
-
-/*-----------Stampa-----------*/
-
-template <class T>
-void display_vector(CVector<T>& v)
-{
-    for (typename CVector<T>::const_iterator ptr = v.begin(); ptr != v.end(); ptr++) {
-        std::cout << *ptr << " ";
-    }
-    std::cout << '\n';
-}
 
 #endif

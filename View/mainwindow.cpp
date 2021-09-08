@@ -15,6 +15,18 @@ MainWindow::~MainWindow(){
 
 MainWindow::MainWindow(const MainWindow &m){
 
+    lineE=m.lineE;
+    settings=m.settings;
+    settWindow = m.settWindow;
+    tutorial=m.tutorial;
+    tWindow = m.tWindow;
+    startGame =m.startGame;
+    boardWindoW = m.boardWindoW;
+    lastGame = m.lastGame;
+    LGWindow = m.LGWindow;
+    Vl = m.Vl;
+    openwinWindow =m.openwinWindow;
+
     setWindowFlag(Qt::Dialog);
 
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
@@ -73,6 +85,18 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
         delete lastGame;
         delete Vl;
 
+        lineE=m.lineE;
+        settings=m.settings;
+        settWindow = m.settWindow;
+        tutorial=m.tutorial;
+        tWindow = m.tWindow;
+        startGame =m.startGame;
+        boardWindoW = m.boardWindoW;
+        lastGame = m.lastGame;
+        LGWindow = m.LGWindow;
+        Vl = m.Vl;
+        openwinWindow =m.openwinWindow;
+
         setWindowFlag(Qt::Dialog);
 
         QRect screenGeometry = QApplication::desktop()->screenGeometry();
@@ -126,7 +150,9 @@ MainWindow& MainWindow::operator =(const MainWindow& m){
     return *this;
 }
 
-MainWindow::MainWindow(){
+MainWindow::MainWindow(): lineE(nullptr), settings(nullptr), settWindow(nullptr), tutorial(nullptr),
+                        tWindow(nullptr), startGame(nullptr), boardWindoW(nullptr), lastGame(nullptr),
+                        LGWindow(nullptr), Vl(nullptr), openwinWindow(nullptr){
 
     setWindowFlag(Qt::Dialog);
 

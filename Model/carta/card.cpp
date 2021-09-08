@@ -1,12 +1,8 @@
 ﻿#include "Model/Header/carta/card.h"
 
-Card::Card(bool n) : canBeUsed(n) {}
-
-bool Card::get_canBeUsed(){return canBeUsed;}
+Card::Card(){}
 
 Card::~Card(){}
 
-void Card::setUsage(bool tORf){
-    canBeUsed=tORf;
-}
+
 

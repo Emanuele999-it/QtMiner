@@ -35,18 +35,18 @@ protected:
 
 public:
     /**
-    * costruttore
-    */
+     * @brief Casella: costruttore
+     */
     Casella(nat p=0, QString s="blank", QPushButton*pushbutton = new QPushButton());
 
     /**
-    * costruttore di copia
-    */
+     * @brief Casella: costruttore di copia
+     */
     Casella(const Casella& c);
 
     /**
-    * operatore di assegnazione
-    */
+     * @brief operator =: operatore di assegnazione
+     */
     Casella& operator=(const Casella& c);
 
     /**
@@ -72,9 +72,6 @@ signals:
      * @param p: id casella cliccata (quindi la sua posizione)
      */
     void casellaCliccata(nat p);
-
-
-
 
 private slots:
     /**

@@ -86,8 +86,7 @@ SettingsWindow& SettingsWindow::operator =(const SettingsWindow& s){
     return *this;
 }
 
-SettingsWindow::SettingsWindow(unsigned int i)
-{
+SettingsWindow::SettingsWindow(unsigned int i): vLayout(nullptr), hLayout(nullptr), slider(nullptr), lcd(nullptr), confirm(nullptr){
 
     setWindowTitle ("QtMiner - Impostazioni");
 

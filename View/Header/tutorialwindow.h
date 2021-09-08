@@ -18,13 +18,13 @@ class Tutorialwindow : public QDialog
 {
     Q_OBJECT
 private:
-    QVBoxLayout *l=nullptr;
+    QVBoxLayout *l;
 
-    QPushButton *avanti=nullptr;
-    QPushButton *indietro=nullptr;
-    QPushButton *menu=nullptr;
-    QLabel *text=nullptr;
-    QLabel *icon=nullptr;
+    QPushButton *avanti;
+    QPushButton *indietro;
+    QPushButton *menu;
+    QLabel *text;
+    QLabel *icon;
 
     int page;
     int TotLine;
@@ -45,26 +45,25 @@ signals:
 
 public:
     /**
-    *costruttore
-    */
+     * @brief Tutorialwindow: costruttore
+     */
     Tutorialwindow();
 
     /**
-    * costruttore di copia
-    */
+     * @brief Tutorialwindow: costruttore di copia
+     * @param t
+     */
     Tutorialwindow(const Tutorialwindow& t);
 
     /**
-    * operatore di assegnazione
-    */
+     * @brief operator =: operatore di assegnazione
+     */
     Tutorialwindow& operator=(const Tutorialwindow& t);
 
     /**
     *distruttore
     */
     ~Tutorialwindow() override;
-
-    void readfile() const ;
 
 private slots:
     /**

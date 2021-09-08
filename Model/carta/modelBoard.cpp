@@ -50,14 +50,6 @@ QString ModelBoard::getImage(nat i, CVector<unique_ptr<Card> *> v) const {
         return QString::fromStdString(v[i]->get_const()->getName());
 }
 
-Card* ModelBoard::getCardMano(nat posizione) const{
-    return _handStuff[posizione]->get();
-}
-
-Card* ModelBoard::getCardBoard(nat posizione) const{
-    return _boardStuff[posizione]->get();
-}
-
 void ModelBoard::path(int cartaPrecedente, QVector<nat> &posizioni, QVector<nat> &controllate, int posizioneAttuale) const{
     if((posizioneAttuale < 0) || posizioneAttuale>=nCaselle || ((cartaPrecedente%(nCaselle/10) == 0) && (posizioneAttuale == cartaPrecedente-1)) || ((cartaPrecedente%(nCaselle/10) == (nCaselle/10-1)) && (posizioneAttuale == cartaPrecedente+1))){
         return;
@@ -65,7 +57,8 @@ void ModelBoard::path(int cartaPrecedente, QVector<nat> &posizioni, QVector<nat>
 
     //Caso Base: la posizione che staimo controllando è vuota
     if(_boardStuff[posizioneAttuale]== nullptr || _boardStuff[posizioneAttuale]->get_const()==nullptr){
-        posizioni.push_back(posizioneAttuale);
+        if(!posizioni.contains(posizioneAttuale))
+            posizioni.push_back(posizioneAttuale);
         return;
     }
 
